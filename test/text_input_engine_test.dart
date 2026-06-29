@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:virtual_keyboard/virtual_keyboard.dart';
+import 'package:v_keyboard/v_keyboard.dart';
 
 TextEditingValue v(String text, {int? base, int? extent}) {
   return TextEditingValue(

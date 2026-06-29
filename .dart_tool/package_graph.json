@@ -1,10 +1,10 @@
 {
   "roots": [
-    "virtual_keyboard"
+    "v_keyboard"
   ],
   "packages": [
     {
-      "name": "virtual_keyboard",
+      "name": "v_keyboard",
       "version": "0.1.0",
       "dependencies": [
         "flutter"

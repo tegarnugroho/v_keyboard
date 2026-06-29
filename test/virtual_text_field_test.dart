@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:virtual_keyboard/virtual_keyboard.dart';
+import 'package:v_keyboard/v_keyboard.dart';
 
 Widget _wrap(Widget child) => MaterialApp(
       home: VirtualKeyboardScope(

@@ -1,4 +1,4 @@
-name: virtual_keyboard
+name: v_keyboard
 description: A fully customizable, native-feeling virtual keyboard and text input system for Flutter across mobile, desktop, and web.
 version: 0.1.0
 publish_to: 'none'

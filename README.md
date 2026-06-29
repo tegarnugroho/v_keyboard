@@ -1,4 +1,4 @@
-# virtual_keyboard
+# v_keyboard
 
 A fully customizable, **native-feeling** virtual keyboard and text-input system
 for Flutter — Android, iOS, Windows, macOS, Linux and Web.

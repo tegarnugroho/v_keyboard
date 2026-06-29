@@ -4,7 +4,7 @@
 /// Wrap your app (or a subtree) in a [VirtualKeyboardScope] and use
 /// [VirtualTextField] in place of `TextField`. The keyboard appears when a
 /// field gains focus and pushes the UI like the system keyboard.
-library virtual_keyboard;
+library v_keyboard;
 
 export 'src/config/virtual_keyboard_config.dart';
 export 'src/theme/virtual_keyboard_theme.dart';
