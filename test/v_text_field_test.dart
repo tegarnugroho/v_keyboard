@@ -20,7 +20,7 @@ void main() {
     final controller = TextEditingController();
     final focus = FocusNode();
     await tester.pumpWidget(_wrap(
-      VirtualTextField(controller: controller, focusNode: focus),
+      VTextField(controller: controller, focusNode: focus),
     ));
 
     expect(find.byType(KeyboardView), findsNothing);
@@ -38,7 +38,7 @@ void main() {
     final controller = TextEditingController();
     final focus = FocusNode();
     await tester.pumpWidget(_wrap(
-      VirtualTextField(controller: controller, focusNode: focus),
+      VTextField(controller: controller, focusNode: focus),
     ));
 
     focus.requestFocus();
@@ -59,7 +59,7 @@ void main() {
     final controller = TextEditingController(text: 'abc');
     final focus = FocusNode();
     await tester.pumpWidget(_wrap(
-      VirtualTextField(controller: controller, focusNode: focus),
+      VTextField(controller: controller, focusNode: focus),
     ));
     focus.requestFocus();
     await tester.pumpAndSettle();
@@ -75,8 +75,8 @@ void main() {
     final f2 = FocusNode();
     await tester.pumpWidget(_wrap(
       Column(children: [
-        VirtualTextField(focusNode: f1, textInputAction: TextInputAction.next),
-        VirtualTextField(focusNode: f2),
+        VTextField(focusNode: f1, textInputAction: TextInputAction.next),
+        VTextField(focusNode: f2),
       ]),
     ));
 

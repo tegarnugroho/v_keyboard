@@ -7,7 +7,7 @@ import '../models/keyboard_layout.dart';
 import '../models/keyboard_type.dart';
 
 /// An editing session: everything the controller needs to drive a single
-/// [VirtualTextField]. Created when a field gains focus and discarded when it
+/// [VTextField]. Created when a field gains focus and discarded when it
 /// loses focus.
 ///
 /// A session never holds editing state itself — the source of truth is the

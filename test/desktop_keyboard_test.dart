@@ -46,7 +46,7 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: VKeyboardScope(
           child: Scaffold(
-            body: VirtualTextField(
+            body: VTextField(
               controller: c,
               focusNode: focus,
               keyboardType: VKeyboardType.desktop,

@@ -20,15 +20,15 @@ import '../scope/v_keyboard_scope.dart';
 ///
 /// Use it exactly like a `TextField`:
 /// ```dart
-/// VirtualTextField(
+/// VTextField(
 ///   controller: controller,
 ///   focusNode: focusNode,
 ///   keyboardType: VKeyboardType.standard,
 ///   textInputAction: TextInputAction.next,
 /// )
 /// ```
-class VirtualTextField extends StatefulWidget {
-  const VirtualTextField({
+class VTextField extends StatefulWidget {
+  const VTextField({
     super.key,
     this.controller,
     this.focusNode,
@@ -90,10 +90,10 @@ class VirtualTextField extends StatefulWidget {
   final ValueChanged<TextInputAction>? onAction;
 
   @override
-  State<VirtualTextField> createState() => _VirtualTextFieldState();
+  State<VTextField> createState() => _VTextFieldState();
 }
 
-class _VirtualTextFieldState extends State<VirtualTextField> {
+class _VTextFieldState extends State<VTextField> {
   late TextEditingController _controller;
   late FocusNode _focusNode;
   bool _ownsController = false;
@@ -126,7 +126,7 @@ class _VirtualTextFieldState extends State<VirtualTextField> {
   }
 
   @override
-  void didUpdateWidget(covariant VirtualTextField old) {
+  void didUpdateWidget(covariant VTextField old) {
     super.didUpdateWidget(old);
     if (widget.controller != old.controller) {
       _controller.removeListener(_onEditingValueChanged);
@@ -199,10 +199,29 @@ class _VirtualTextFieldState extends State<VirtualTextField> {
       final session = _buildSession();
       _session = session;
       scope.controller.attach(session);
+      _scrollIntoView();
     } else if (_session != null) {
       scope.controller.detach(_session!);
       _session = null;
     }
+  }
+
+  /// Scrolls this field above the keyboard once it has animated up (the
+  /// MediaQuery view-inset is then in place), via the nearest [Scrollable].
+  void _scrollIntoView() {
+    final config = _resolveConfig();
+    if (!config.scrollFocusedIntoView) return;
+    Future.delayed(config.animationDuration + const Duration(milliseconds: 20),
+        () {
+      if (!mounted || !_focusNode.hasFocus) return;
+      Scrollable.ensureVisible(
+        context,
+        alignment: 0.5,
+        alignmentPolicy: ScrollPositionAlignmentPolicy.explicit,
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOutCubic,
+      );
+    });
   }
 
   void _onEditingValueChanged() {

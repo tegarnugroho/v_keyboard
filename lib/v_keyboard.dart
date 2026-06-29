@@ -2,7 +2,7 @@
 /// system for Flutter.
 ///
 /// Wrap your app (or a subtree) in a [VKeyboardScope] and use
-/// [VirtualTextField] in place of `TextField`. The keyboard appears when a
+/// [VTextField] in place of `TextField`. The keyboard appears when a
 /// field gains focus and pushes the UI like the system keyboard.
 library v_keyboard;
 
@@ -23,6 +23,6 @@ export 'src/desktop/keyboard_navigation.dart';
 export 'src/desktop/keyboard_shortcut_manager.dart';
 export 'src/desktop/clipboard_actions.dart';
 export 'src/scope/v_keyboard_scope.dart';
-export 'src/widgets/virtual_text_field.dart';
+export 'src/widgets/v_text_field.dart';
 export 'src/widgets/v_keyboard_shortcuts.dart';
 export 'src/widgets/keyboard_view.dart';

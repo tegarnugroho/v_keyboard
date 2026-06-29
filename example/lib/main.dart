@@ -21,7 +21,7 @@ class ExampleApp extends StatelessWidget {
         useMaterial3: true,
         brightness: Brightness.dark,
       ),
-      // One scope wraps the whole app: every VirtualTextField below it shares
+      // One scope wraps the whole app: every VTextField below it shares
       // the keyboard, focus traversal and push-up behaviour. VKeyboardShortcuts
       // adds desktop shortcuts + media/meta callbacks for the whole subtree.
       builder: (context, child) => VKeyboardScope(
@@ -159,7 +159,7 @@ class _DemoPageState extends State<DemoPage> {
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
-      child: VirtualTextField(
+      child: VTextField(
         controller: controller,
         keyboardType: type,
         textInputAction: action,
@@ -176,7 +176,7 @@ class _DemoPageState extends State<DemoPage> {
   }
 
   Widget _desktopField() {
-    return VirtualTextField(
+    return VTextField(
       controller: _desktop,
       keyboardType: VKeyboardType.desktop,
       textInputAction: TextInputAction.newline,
@@ -193,7 +193,7 @@ class _DemoPageState extends State<DemoPage> {
   Widget _multilineField() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
-      child: VirtualTextField(
+      child: VTextField(
         controller: _multiline,
         keyboardType: VKeyboardType.multiline,
         textInputAction: TextInputAction.newline,

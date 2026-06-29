@@ -3,7 +3,7 @@
 A fully customizable, **native-feeling** virtual keyboard and text-input system
 for Flutter — Android, iOS, Windows, macOS, Linux and Web.
 
-It is not just a keyboard widget: `VirtualTextField` is a drop-in replacement
+It is not just a keyboard widget: `VTextField` is a drop-in replacement
 for `TextField` that integrates with Flutter's focus system and is driven by an
 on-screen keyboard instead of the OS keyboard.
 
@@ -39,10 +39,10 @@ MaterialApp(
 );
 ```
 
-Use `VirtualTextField` like a `TextField`:
+Use `VTextField` like a `TextField`:
 
 ```dart
-VirtualTextField(
+VTextField(
   controller: controller,
   focusNode: focusNode,
   keyboardType: VKeyboardType.standard, // note: `default` is reserved
@@ -68,7 +68,7 @@ final layout = KeyboardLayout(
   },
 );
 
-VirtualTextField(
+VTextField(
   keyboardType: VKeyboardType.custom,
   customLayout: layout,
 );
@@ -122,7 +122,7 @@ width** — sections collapse as the window narrows (media → numpad → functi
 typing keys always remain.
 
 ```dart
-VirtualTextField(
+VTextField(
   keyboardType: VKeyboardType.desktop,
   maxLines: 5,
 )

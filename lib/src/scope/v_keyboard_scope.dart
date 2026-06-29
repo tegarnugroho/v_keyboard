@@ -10,7 +10,7 @@ import '../theme/v_keyboard_theme.dart';
 import '../widgets/keyboard_view.dart';
 
 /// Root of the virtual keyboard system. Wrap your app (or any subtree
-/// containing [VirtualTextField]s) in one of these.
+/// containing [VTextField]s) in one of these.
 ///
 /// It owns the [VKeyboardController], animates the keyboard in/out, and
 /// — like the system keyboard — increases `MediaQuery.viewInsets.bottom` so
@@ -44,7 +44,7 @@ class VKeyboardScope extends StatefulWidget {
   static VKeyboardController of(BuildContext context) {
     final marker = maybeOf(context);
     assert(marker != null,
-        'No VKeyboardScope found above this VirtualTextField.');
+        'No VKeyboardScope found above this VTextField.');
     return marker!.controller;
   }
 

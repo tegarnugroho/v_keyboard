@@ -7,7 +7,7 @@ import '../models/key_intents.dart';
 
 /// Registers custom keyboard shortcuts and desktop callbacks for the subtree.
 ///
-/// Place anywhere above the [VirtualTextField]s that should honour them. The
+/// Place anywhere above the [VTextField]s that should honour them. The
 /// shortcuts work for both the virtual keyboard and a hardware keyboard.
 ///
 /// ```dart

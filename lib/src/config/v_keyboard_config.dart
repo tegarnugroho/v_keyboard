@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 /// Behavioural configuration for the virtual keyboard.
 ///
 /// Applied at the [VKeyboardScope] level and overridable per
-/// [VirtualTextField].
+/// [VTextField].
 @immutable
 class VKeyboardConfig {
   const VKeyboardConfig({
@@ -18,6 +18,7 @@ class VKeyboardConfig {
     this.autoShiftFirstLetter = true,
     this.hardwareKeyboardFallback = true,
     this.numericActionKey = true,
+    this.scrollFocusedIntoView = true,
     this.longPressDeleteDelay = const Duration(milliseconds: 350),
     this.keyRepeatDelay = const Duration(milliseconds: 400),
     this.keyRepeatInterval = const Duration(milliseconds: 55),
@@ -61,6 +62,10 @@ class VKeyboardConfig {
   /// [TextInputAction] — submit, move focus, etc.
   final bool numericActionKey;
 
+  /// When a field gains focus, scroll it into view above the keyboard (via
+  /// the nearest [Scrollable]) so it isn't hidden behind the keyboard.
+  final bool scrollFocusedIntoView;
+
   /// Delay before long-press delete begins repeating.
   final Duration longPressDeleteDelay;
 
@@ -88,6 +93,7 @@ class VKeyboardConfig {
     bool? autoShiftFirstLetter,
     bool? hardwareKeyboardFallback,
     bool? numericActionKey,
+    bool? scrollFocusedIntoView,
     Duration? longPressDeleteDelay,
     Duration? keyRepeatDelay,
     Duration? keyRepeatInterval,
@@ -107,6 +113,8 @@ class VKeyboardConfig {
       hardwareKeyboardFallback:
           hardwareKeyboardFallback ?? this.hardwareKeyboardFallback,
       numericActionKey: numericActionKey ?? this.numericActionKey,
+      scrollFocusedIntoView:
+          scrollFocusedIntoView ?? this.scrollFocusedIntoView,
       longPressDeleteDelay: longPressDeleteDelay ?? this.longPressDeleteDelay,
       keyRepeatDelay: keyRepeatDelay ?? this.keyRepeatDelay,
       keyRepeatInterval: keyRepeatInterval ?? this.keyRepeatInterval,
