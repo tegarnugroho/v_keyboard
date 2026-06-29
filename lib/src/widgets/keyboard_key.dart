@@ -232,7 +232,8 @@ class _VirtualKeyState extends State<VirtualKey> {
       );
     }
 
-    final isWordKey = label.length > 1; // .com, ABC, 123, Ctrl, Esc…
+    // Word keys (.com, ABC, 123, Ctrl…) shrink; single glyphs/emoji stay big.
+    final isWordKey = label.runes.length > 1;
     return Text(
       label,
       maxLines: 1,

@@ -69,17 +69,36 @@ class BuiltinLayouts {
           KeyData.backspace(flex: 1.5),
         ],
         [
-          KeyData.switchTo('123', label: '123', flex: 1.5),
+          KeyData.switchTo('123', label: '123', flex: 1.4),
+          KeyData.switchTo('emoji', label: '☺', flex: 1.1),
           KeyData.symbol(',', flex: 1),
-          KeyData.space(),
+          KeyData.space(flex: 4),
           KeyData.symbol('.', flex: 1),
           KeyData.enter(flex: 2),
         ],
       ],
       '123': _numericSymbolPage('symbols'),
       'symbols': _symbolPage('123'),
+      'emoji': emojiPage,
     },
   );
+
+  /// A simple emoji page (one grid of common emoji + an ABC/space/⌫ bar).
+  /// Switched to via an `☺` key and back via `ABC`.
+  static final List<List<KeyData>> emojiPage = [
+    _emojis(['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '🙂']),
+    _emojis(['😉', '😍', '😘', '😗', '😜', '🤔', '🤨', '😐', '😴', '😎']),
+    _emojis(['🥳', '😭', '😡', '👍', '👎', '👏', '🙏', '💪', '🔥', '✨']),
+    _emojis(['❤️', '🧡', '💛', '💚', '💙', '💜', '🎉', '⭐', '🙌', '👀']),
+    [
+      KeyData.switchTo('abc', label: 'ABC', flex: 2),
+      KeyData.space(flex: 6),
+      KeyData.backspace(flex: 2),
+    ],
+  ];
+
+  static List<KeyData> _emojis(List<String> emojis) =>
+      emojis.map((e) => KeyData.symbol(e)).toList();
 
   static List<List<KeyData>> _numericSymbolPage(String moreTarget) => [
         _symbols('1234567890'),

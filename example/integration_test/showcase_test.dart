@@ -14,6 +14,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:v_keyboard/v_keyboard.dart';
+import 'package:v_keyboard/src/widgets/emoji_panel.dart';
 
 const _accent = Color(0xFF6366F1);
 const _outDir = '../assets/showcase';
@@ -290,6 +291,7 @@ List<_Scene> _scenes() => [
       _Scene('mobile_number', _phone, () => _mobileNumber()),
       _Scene('mobile_password', _phone, () => _mobilePassword()),
       _Scene('mobile_multiline', _phone, () => _mobileMultiline()),
+      _Scene('mobile_emoji', _phone, () => _mobileEmoji()),
 
       // ---- Desktop ----
       _Scene('desktop_keyboard', const Size(1280, 760), () => _desktopScene(),
@@ -328,6 +330,17 @@ Widget _mobilePassword() => _phoneScreen(
       dark: true,
       fields: [_field('s3cr3tPass', dark: true, label: 'Password', obscure: true)],
       keyboard: _keyboard(rows: _abc, dark: true, height: 290),
+    );
+
+Widget _mobileEmoji() => _phoneScreen(
+      dark: false,
+      fields: [_field('Nice work 🎉👏', dark: false, label: 'Message')],
+      keyboard: EmojiPanel(
+        controller: VKeyboardController(),
+        theme: _theme(false),
+        height: 300,
+        maxWidth: double.infinity,
+      ),
     );
 
 Widget _mobileMultiline() => _phoneScreen(

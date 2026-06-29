@@ -21,6 +21,10 @@ class DesktopLayouts {
 
   static const double fnRowMinWidth = 900;
 
+  /// Below this width the right cluster (Esc/F-row, nav block, arrows) is
+  /// dropped so the typing keys get full width — keeps it usable on phones.
+  static const double clusterMinWidth = 920;
+
   // Grid alignment: every row pads its main block to [_mainFlex] then renders a
   // fixed 3-column right cluster, so the cluster forms an aligned grid (Up sits
   // directly above Down, consistent gutter) regardless of each row's contents.
@@ -37,6 +41,23 @@ class DesktopLayouts {
 
   /// The rows to render for the given available content [width].
   static List<List<KeyData>> rows(double width) {
+    // Narrow (phone) → just the typing block, full width, bigger keys.
+    if (width < clusterMinWidth) {
+      return [
+        _numberMain(),
+        _tabMain(),
+        _capsMain(),
+        [..._shiftMain(), _navIcon(NavIntent.up)],
+        [
+          ..._controlMain(),
+          _navIcon(NavIntent.left),
+          _navIcon(NavIntent.down),
+          _navIcon(NavIntent.right),
+        ],
+      ];
+    }
+
+    // Wide (desktop) → full layout with the aligned right cluster grid.
     final showFn = width >= fnRowMinWidth;
     return [
       if (showFn)

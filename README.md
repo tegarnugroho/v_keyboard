@@ -21,6 +21,7 @@ on-screen keyboard instead of the OS keyboard.
     <td align="center"><img src="assets/showcase/mobile_number.png" width="220"><br><sub>PIN / Number</sub></td>
     <td align="center"><img src="assets/showcase/mobile_password.png" width="220"><br><sub>Password (dark)</sub></td>
     <td align="center"><img src="assets/showcase/mobile_multiline.png" width="220"><br><sub>Multiline</sub></td>
+    <td align="center"><img src="assets/showcase/mobile_emoji.png" width="220"><br><sub>Emoji panel</sub></td>
   </tr>
 </table>
 

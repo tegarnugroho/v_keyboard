@@ -7,6 +7,7 @@ import '../models/key_data.dart';
 import '../models/keyboard_type.dart';
 import '../responsive/keyboard_metrics.dart';
 import '../theme/v_keyboard_theme.dart';
+import '../widgets/emoji_panel.dart';
 import '../widgets/keyboard_view.dart';
 
 /// Root of the virtual keyboard system. Wrap your app (or any subtree
@@ -203,13 +204,21 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                 child: TapRegion(
                   groupId: _tapGroup,
                   child: RepaintBoundary(
-                    child: KeyboardView(
-                      controller: _controller,
-                      theme: theme,
-                      metrics: metrics,
-                      rows: rows,
-                      bottomSafeArea: bottomInset,
-                    ),
+                    child: _controller.currentPage == 'emoji'
+                        ? EmojiPanel(
+                            controller: _controller,
+                            theme: theme,
+                            height: metrics.height,
+                            maxWidth: metrics.maxWidth,
+                            bottomSafeArea: bottomInset,
+                          )
+                        : KeyboardView(
+                            controller: _controller,
+                            theme: theme,
+                            metrics: metrics,
+                            rows: rows,
+                            bottomSafeArea: bottomInset,
+                          ),
                   ),
                 ),
               ),

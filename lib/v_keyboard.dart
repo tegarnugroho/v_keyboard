@@ -14,6 +14,8 @@ export 'src/models/keyboard_type.dart';
 export 'src/models/keyboard_layout.dart';
 export 'src/layouts/builtin_layouts.dart';
 export 'src/layouts/desktop_layouts.dart';
+export 'src/layouts/emoji_data.dart';
+export 'src/emojis/emojis.dart';
 export 'src/engine/text_input_engine.dart';
 export 'src/responsive/keyboard_metrics.dart';
 export 'src/controller/keyboard_session.dart';
