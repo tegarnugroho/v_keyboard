@@ -1,11 +1,61 @@
-# v_keyboard
+<p align="center">
+  <img src="assets/showcase/hero.png" alt="v_keyboard — Native-feeling Virtual Keyboard for Flutter" width="100%">
+</p>
 
-A fully customizable, **native-feeling** virtual keyboard and text-input system
-for Flutter — Android, iOS, Windows, macOS, Linux and Web.
+<h1 align="center">v_keyboard</h1>
+
+<p align="center">
+  A fully customizable, <b>native-feeling</b> virtual keyboard and text-input
+  system for Flutter — Android · iOS · Windows · macOS · Linux · Web.
+</p>
 
 It is not just a keyboard widget: `VTextField` is a drop-in replacement
 for `TextField` that integrates with Flutter's focus system and is driven by an
 on-screen keyboard instead of the OS keyboard.
+
+## Showcase
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/showcase/mobile_standard.png" width="220"><br><sub>Standard</sub></td>
+    <td align="center"><img src="assets/showcase/mobile_number.png" width="220"><br><sub>PIN / Number</sub></td>
+    <td align="center"><img src="assets/showcase/mobile_password.png" width="220"><br><sub>Password (dark)</sub></td>
+    <td align="center"><img src="assets/showcase/mobile_multiline.png" width="220"><br><sub>Multiline</sub></td>
+  </tr>
+</table>
+
+### Desktop (Windows OSK style)
+
+<p align="center"><img src="assets/showcase/desktop_keyboard.png" alt="Desktop keyboard" width="100%"></p>
+
+### Responsive — phone · landscape · tablet · desktop
+
+<p align="center"><img src="assets/showcase/responsive.png" alt="Responsive layouts" width="100%"></p>
+
+### Light & dark themes
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/showcase/light_theme.png" width="260"><br><sub>Light</sub></td>
+    <td align="center"><img src="assets/showcase/dark_theme.png" width="260"><br><sub>Dark</sub></td>
+  </tr>
+</table>
+
+### Features
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/showcase/feature_shift.png" width="200"><br><sub>Shift</sub></td>
+    <td align="center"><img src="assets/showcase/feature_capslock.png" width="200"><br><sub>Caps Lock</sub></td>
+    <td align="center"><img src="assets/showcase/feature_symbols.png" width="200"><br><sub>Symbols</sub></td>
+    <td align="center"><img src="assets/showcase/feature_selection.png" width="200"><br><sub>Selection</sub></td>
+    <td align="center"><img src="assets/showcase/feature_focus.png" width="200"><br><sub>Focus / Next</sub></td>
+  </tr>
+</table>
+
+> Showcase images are generated from the real package widgets by
+> `example/integration_test/showcase_test.dart` —
+> `cd example && flutter test integration_test/showcase_test.dart -d windows`.
 
 ## Highlights
 
