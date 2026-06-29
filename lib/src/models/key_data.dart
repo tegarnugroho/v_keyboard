@@ -284,6 +284,14 @@ class KeyData {
   /// Whether holding the key repeats its action (chars + backspace).
   final bool repeatable;
 
+  /// Whether this is a single A–Z letter key (the only kind Caps Lock affects).
+  bool get isLetter {
+    final t = text;
+    if (kind != KeyKind.character || t == null || t.length != 1) return false;
+    final c = t.codeUnitAt(0);
+    return (c >= 0x41 && c <= 0x5A) || (c >= 0x61 && c <= 0x7A);
+  }
+
   /// Resolves the label to render for the given shift state.
   String? resolveLabel({required bool shifted}) {
     if (label != null) return label;

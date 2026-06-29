@@ -2,15 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../config/virtual_keyboard_config.dart';
+import '../config/v_keyboard_config.dart';
 import '../controller/keyboard_session.dart';
 import '../engine/text_input_engine.dart';
 import '../models/key_data.dart';
 import '../models/keyboard_layout.dart';
 import '../models/keyboard_type.dart';
-import '../scope/virtual_keyboard_scope.dart';
+import '../scope/v_keyboard_scope.dart';
 
-/// A drop-in text field driven by the [VirtualKeyboardScope] keyboard instead
+/// A drop-in text field driven by the [VKeyboardScope] keyboard instead
 /// of the OS keyboard.
 ///
 /// Internally it is a `readOnly` [TextField], so the system keyboard never
@@ -23,7 +23,7 @@ import '../scope/virtual_keyboard_scope.dart';
 /// VirtualTextField(
 ///   controller: controller,
 ///   focusNode: focusNode,
-///   keyboardType: VirtualKeyboardType.standard,
+///   keyboardType: VKeyboardType.standard,
 ///   textInputAction: TextInputAction.next,
 /// )
 /// ```
@@ -32,7 +32,7 @@ class VirtualTextField extends StatefulWidget {
     super.key,
     this.controller,
     this.focusNode,
-    this.keyboardType = VirtualKeyboardType.standard,
+    this.keyboardType = VKeyboardType.standard,
     this.textInputAction = TextInputAction.done,
     this.config,
     this.customLayout,
@@ -57,13 +57,13 @@ class VirtualTextField extends StatefulWidget {
 
   final TextEditingController? controller;
   final FocusNode? focusNode;
-  final VirtualKeyboardType keyboardType;
+  final VKeyboardType keyboardType;
   final TextInputAction textInputAction;
 
   /// Overrides the scope's config for this field.
-  final VirtualKeyboardConfig? config;
+  final VKeyboardConfig? config;
 
-  /// Required when [keyboardType] is [VirtualKeyboardType.custom].
+  /// Required when [keyboardType] is [VKeyboardType.custom].
   final KeyboardLayout? customLayout;
 
   final InputDecoration decoration;
@@ -103,13 +103,13 @@ class _VirtualTextFieldState extends State<VirtualTextField> {
   TextSelection? _lastSelection;
 
   /// Cached scope data so it can be used safely in [dispose].
-  VirtualKeyboardScopeData? _scope;
+  VKeyboardScopeData? _scope;
 
   bool get _effectiveObscure =>
-      widget.obscureText || widget.keyboardType == VirtualKeyboardType.password;
+      widget.obscureText || widget.keyboardType == VKeyboardType.password;
 
   bool get _isMultiline =>
-      widget.keyboardType == VirtualKeyboardType.multiline ||
+      widget.keyboardType == VKeyboardType.multiline ||
       widget.textInputAction == TextInputAction.newline ||
       (widget.maxLines == null) ||
       (widget.maxLines != null && widget.maxLines! > 1);
@@ -147,7 +147,7 @@ class _VirtualTextFieldState extends State<VirtualTextField> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _scope = VirtualKeyboardScope.maybeOf(context);
+    _scope = VKeyboardScope.maybeOf(context);
   }
 
   @override
@@ -166,10 +166,10 @@ class _VirtualTextFieldState extends State<VirtualTextField> {
     super.dispose();
   }
 
-  VirtualKeyboardConfig _resolveConfig() {
+  VKeyboardConfig _resolveConfig() {
     return widget.config ??
-        VirtualKeyboardScope.maybeOf(context)?.config ??
-        const VirtualKeyboardConfig();
+        VKeyboardScope.maybeOf(context)?.config ??
+        const VKeyboardConfig();
   }
 
   KeyboardSession _buildSession() {
@@ -193,7 +193,7 @@ class _VirtualTextFieldState extends State<VirtualTextField> {
   }
 
   void _onFocusChanged() {
-    final scope = VirtualKeyboardScope.maybeOf(context);
+    final scope = VKeyboardScope.maybeOf(context);
     if (scope == null) return;
     if (_focusNode.hasFocus) {
       final session = _buildSession();
@@ -249,7 +249,7 @@ class _VirtualTextFieldState extends State<VirtualTextField> {
     }
     if (key == LogicalKeyboardKey.enter ||
         key == LogicalKeyboardKey.numpadEnter) {
-      final scope = VirtualKeyboardScope.maybeOf(context);
+      final scope = VKeyboardScope.maybeOf(context);
       if (_isMultiline) {
         _controller.value = TextInputEngine.newline(_controller.value);
         widget.onChanged?.call(_controller.text);
@@ -286,7 +286,7 @@ class _VirtualTextFieldState extends State<VirtualTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final scope = VirtualKeyboardScope.maybeOf(context);
+    final scope = VKeyboardScope.maybeOf(context);
     final config = _resolveConfig();
 
     final field = TextField(

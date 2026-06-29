@@ -25,8 +25,8 @@ on-screen keyboard instead of the OS keyboard.
 - Hardware-keyboard fallback on desktop/web.
 - Per-key repaint (taps don't rebuild the whole keyboard), `RepaintBoundary`s,
   `ValueNotifier`-based pressed state.
-- Material theming via `VirtualKeyboardTheme`, behaviour via
-  `VirtualKeyboardConfig`. Semantics for screen readers.
+- Material theming via `VKeyboardTheme`, behaviour via
+  `VKeyboardConfig`. Semantics for screen readers.
 
 ## Quick start
 
@@ -34,7 +34,7 @@ Wrap your app once:
 
 ```dart
 MaterialApp(
-  builder: (context, child) => VirtualKeyboardScope(child: child!),
+  builder: (context, child) => VKeyboardScope(child: child!),
   home: MyPage(),
 );
 ```
@@ -45,14 +45,14 @@ Use `VirtualTextField` like a `TextField`:
 VirtualTextField(
   controller: controller,
   focusNode: focusNode,
-  keyboardType: VirtualKeyboardType.standard, // note: `default` is reserved
+  keyboardType: VKeyboardType.standard, // note: `default` is reserved
   textInputAction: TextInputAction.next,
   onSubmitted: (value) {},
 )
 ```
 
 > **Naming note:** Dart reserves the word `default`, so the standard
-> alphanumeric keyboard is `VirtualKeyboardType.standard`.
+> alphanumeric keyboard is `VKeyboardType.standard`.
 
 ## Custom layouts
 
@@ -69,7 +69,7 @@ final layout = KeyboardLayout(
 );
 
 VirtualTextField(
-  keyboardType: VirtualKeyboardType.custom,
+  keyboardType: VKeyboardType.custom,
   customLayout: layout,
 );
 ```
@@ -80,15 +80,15 @@ to fork the package.
 ## Configuration
 
 ```dart
-VirtualKeyboardScope(
-  config: VirtualKeyboardConfig(
+VKeyboardScope(
+  config: VKeyboardConfig(
     hideOnDone: true,
     moveFocusOnNext: true,
     closeOnOutsideTap: true,
     enableLongPressDelete: true,
     enableKeyRepeat: true,
   ),
-  theme: VirtualKeyboardTheme.fromTheme(Theme.of(context)),
+  theme: VKeyboardTheme.fromTheme(Theme.of(context)),
   child: ...,
 );
 ```
@@ -99,22 +99,22 @@ Cleanly separated, single-responsibility units:
 
 | Concern           | Type                          |
 |-------------------|-------------------------------|
-| Orchestration     | `VirtualKeyboardController`    |
+| Orchestration     | `VKeyboardController`    |
 | Per-field session | `KeyboardSession`             |
 | Pure text editing | `TextInputEngine`             |
 | Layouts/keys      | `KeyboardLayout`, `KeyData`, `BuiltinLayouts` |
 | Actions           | `KeyboardActionHandler`       |
 | Responsive sizing | `KeyboardMetrics`             |
 | Rendering         | `KeyboardView`, `KeyboardKey` |
-| Theme / config    | `VirtualKeyboardTheme`, `VirtualKeyboardConfig` |
-| Host + insets     | `VirtualKeyboardScope`        |
+| Theme / config    | `VKeyboardTheme`, `VKeyboardConfig` |
+| Host + insets     | `VKeyboardScope`        |
 
 See [`example/`](example/lib/main.dart) for a full demo of every layout, a
 custom layout, and the action callbacks.
 
 ## Desktop keyboard (Windows OSK style)
 
-`VirtualKeyboardType.desktop` renders a full physical keyboard: function row,
+`VKeyboardType.desktop` renders a full physical keyboard: function row,
 number row, full QWERTY, all modifiers (Ctrl/Alt/AltGr/Win/Menu, L+R Shift/Ctrl),
 Caps/Num/Scroll Lock, navigation cluster (arrows, Home/End, Page Up/Down,
 Insert/Delete), a numeric keypad and optional media keys. It is **responsive by
@@ -123,7 +123,7 @@ typing keys always remain.
 
 ```dart
 VirtualTextField(
-  keyboardType: VirtualKeyboardType.desktop,
+  keyboardType: VKeyboardType.desktop,
   maxLines: 5,
 )
 ```
@@ -133,10 +133,10 @@ Shift+Arrow (extend selection), Ctrl+Arrow (by word), Home/End/PageUp/PageDown,
 Ctrl+Backspace/Delete (word), built-in Ctrl+A/C/X/V clipboard, key repeat, and
 hover/pressed/locked visual feedback.
 
-Register custom shortcuts and desktop callbacks with `VirtualKeyboardShortcuts`:
+Register custom shortcuts and desktop callbacks with `VKeyboardShortcuts`:
 
 ```dart
-VirtualKeyboardShortcuts(
+VKeyboardShortcuts(
   shortcuts: {
     LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyS): save,
   },
@@ -150,7 +150,7 @@ VirtualKeyboardShortcuts(
 Desktop architecture (separate from mobile, shared controller/engine/focus):
 `KeyboardModifierController`, `KeyboardNavigation`, `KeyboardShortcutManager`,
 `ClipboardActions`, `DesktopLayouts`. Replace the whole layout (compact / gaming
-/ POS / kiosk) by passing a `customLayout` with `VirtualKeyboardType.desktop` or
+/ POS / kiosk) by passing a `customLayout` with `VKeyboardType.desktop` or
 `.custom`.
 
 ## Status

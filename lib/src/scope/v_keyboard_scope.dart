@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 
-import '../config/virtual_keyboard_config.dart';
-import '../controller/virtual_keyboard_controller.dart';
+import '../config/v_keyboard_config.dart';
+import '../controller/v_keyboard_controller.dart';
 import '../layouts/desktop_layouts.dart';
 import '../models/key_data.dart';
 import '../models/keyboard_type.dart';
 import '../responsive/keyboard_metrics.dart';
-import '../theme/virtual_keyboard_theme.dart';
+import '../theme/v_keyboard_theme.dart';
 import '../widgets/keyboard_view.dart';
 
 /// Root of the virtual keyboard system. Wrap your app (or any subtree
 /// containing [VirtualTextField]s) in one of these.
 ///
-/// It owns the [VirtualKeyboardController], animates the keyboard in/out, and
+/// It owns the [VKeyboardController], animates the keyboard in/out, and
 /// — like the system keyboard — increases `MediaQuery.viewInsets.bottom` so
 /// any `Scaffold` with `resizeToAvoidBottomInset` pushes its content up.
-class VirtualKeyboardScope extends StatefulWidget {
-  const VirtualKeyboardScope({
+class VKeyboardScope extends StatefulWidget {
+  const VKeyboardScope({
     super.key,
     required this.child,
     this.controller,
     this.theme,
-    this.config = const VirtualKeyboardConfig(),
+    this.config = const VKeyboardConfig(),
     this.floating = false,
   });
 
@@ -29,38 +29,38 @@ class VirtualKeyboardScope extends StatefulWidget {
 
   /// Optionally supply your own controller (e.g. to drive the keyboard
   /// programmatically). One is created and disposed automatically otherwise.
-  final VirtualKeyboardController? controller;
+  final VKeyboardController? controller;
 
   /// Visual theme; derived from the ambient [ThemeData] when null.
-  final VirtualKeyboardTheme? theme;
+  final VKeyboardTheme? theme;
 
   /// Default behavioural config for descendant fields.
-  final VirtualKeyboardConfig config;
+  final VKeyboardConfig config;
 
   /// When true the keyboard floats above content instead of pushing it.
   final bool floating;
 
   /// Looks up the nearest controller. Throws if there is no scope above.
-  static VirtualKeyboardController of(BuildContext context) {
+  static VKeyboardController of(BuildContext context) {
     final marker = maybeOf(context);
     assert(marker != null,
-        'No VirtualKeyboardScope found above this VirtualTextField.');
+        'No VKeyboardScope found above this VirtualTextField.');
     return marker!.controller;
   }
 
-  static VirtualKeyboardScopeData? maybeOf(BuildContext context) {
+  static VKeyboardScopeData? maybeOf(BuildContext context) {
     return context
-        .dependOnInheritedWidgetOfExactType<_VirtualKeyboardScopeMarker>()
+        .dependOnInheritedWidgetOfExactType<_VKeyboardScopeMarker>()
         ?.data;
   }
 
   @override
-  State<VirtualKeyboardScope> createState() => _VirtualKeyboardScopeState();
+  State<VKeyboardScope> createState() => _VKeyboardScopeState();
 }
 
-class _VirtualKeyboardScopeState extends State<VirtualKeyboardScope>
+class _VKeyboardScopeState extends State<VKeyboardScope>
     with SingleTickerProviderStateMixin {
-  late final VirtualKeyboardController _controller;
+  late final VKeyboardController _controller;
   late final AnimationController _anim;
   late final Animation<double> _curved;
   bool _ownsController = false;
@@ -74,7 +74,7 @@ class _VirtualKeyboardScopeState extends State<VirtualKeyboardScope>
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ?? VirtualKeyboardController(config: widget.config);
+    _controller = widget.controller ?? VKeyboardController(config: widget.config);
     _ownsController = widget.controller == null;
     _anim = AnimationController(
       vsync: this,
@@ -128,10 +128,10 @@ class _VirtualKeyboardScopeState extends State<VirtualKeyboardScope>
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    final theme = widget.theme ?? VirtualKeyboardTheme.fromTheme(Theme.of(context));
+    final theme = widget.theme ?? VKeyboardTheme.fromTheme(Theme.of(context));
 
     final isDesktopLayout =
-        _controller.session?.type == VirtualKeyboardType.desktop &&
+        _controller.session?.type == VKeyboardType.desktop &&
             _controller.session?.customLayout == null;
 
     final List<List<KeyData>>? rows;
@@ -144,17 +144,22 @@ class _VirtualKeyboardScopeState extends State<VirtualKeyboardScope>
       metrics = _desktopMetrics(mq, rows.length, contentWidth);
     } else {
       rows = _controller.currentRows;
+      final type = _controller.session?.type;
+      final compact = type == VKeyboardType.number ||
+          type == VKeyboardType.decimal ||
+          type == VKeyboardType.pin ||
+          type == VKeyboardType.phone;
       metrics = rows == null
           ? null
-          : KeyboardMetrics.resolve(mq, rows: rows.length);
+          : KeyboardMetrics.resolve(mq, rows: rows.length, compact: compact);
     }
     if (metrics != null) _lastHeight = metrics.height;
 
     final bottomInset = mq.padding.bottom; // safe area
     final fullHeight = _lastHeight + bottomInset;
 
-    return _VirtualKeyboardScopeMarker(
-      data: VirtualKeyboardScopeData(
+    return _VKeyboardScopeMarker(
+      data: VKeyboardScopeData(
         controller: _controller,
         theme: theme,
         config: widget.config,
@@ -215,29 +220,29 @@ class _VirtualKeyboardScopeState extends State<VirtualKeyboardScope>
   }
 }
 
-/// Data exposed by [VirtualKeyboardScope] to descendants.
+/// Data exposed by [VKeyboardScope] to descendants.
 @immutable
-class VirtualKeyboardScopeData {
-  const VirtualKeyboardScopeData({
+class VKeyboardScopeData {
+  const VKeyboardScopeData({
     required this.controller,
     required this.theme,
     required this.config,
     required this.tapGroup,
   });
 
-  final VirtualKeyboardController controller;
-  final VirtualKeyboardTheme theme;
-  final VirtualKeyboardConfig config;
+  final VKeyboardController controller;
+  final VKeyboardTheme theme;
+  final VKeyboardConfig config;
   final Object tapGroup;
 }
 
-class _VirtualKeyboardScopeMarker extends InheritedWidget {
-  const _VirtualKeyboardScopeMarker({required this.data, required super.child});
+class _VKeyboardScopeMarker extends InheritedWidget {
+  const _VKeyboardScopeMarker({required this.data, required super.child});
 
-  final VirtualKeyboardScopeData data;
+  final VKeyboardScopeData data;
 
   @override
-  bool updateShouldNotify(_VirtualKeyboardScopeMarker oldWidget) =>
+  bool updateShouldNotify(_VKeyboardScopeMarker oldWidget) =>
       data.controller != oldWidget.data.controller ||
       data.theme != oldWidget.data.theme ||
       data.tapGroup != oldWidget.data.tapGroup;

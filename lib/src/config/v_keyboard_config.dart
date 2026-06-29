@@ -2,11 +2,11 @@ import 'package:flutter/widgets.dart';
 
 /// Behavioural configuration for the virtual keyboard.
 ///
-/// Applied at the [VirtualKeyboardScope] level and overridable per
+/// Applied at the [VKeyboardScope] level and overridable per
 /// [VirtualTextField].
 @immutable
-class VirtualKeyboardConfig {
-  const VirtualKeyboardConfig({
+class VKeyboardConfig {
+  const VKeyboardConfig({
     this.hideOnDone = true,
     this.submitOnDone = true,
     this.moveFocusOnNext = true,
@@ -76,7 +76,7 @@ class VirtualKeyboardConfig {
   /// Show/hide animation curve.
   final Curve animationCurve;
 
-  VirtualKeyboardConfig copyWith({
+  VKeyboardConfig copyWith({
     bool? hideOnDone,
     bool? submitOnDone,
     bool? moveFocusOnNext,
@@ -94,7 +94,7 @@ class VirtualKeyboardConfig {
     Duration? animationDuration,
     Curve? animationCurve,
   }) {
-    return VirtualKeyboardConfig(
+    return VKeyboardConfig(
       hideOnDone: hideOnDone ?? this.hideOnDone,
       submitOnDone: submitOnDone ?? this.submitOnDone,
       moveFocusOnNext: moveFocusOnNext ?? this.moveFocusOnNext,

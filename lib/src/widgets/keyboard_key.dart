@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../controller/virtual_keyboard_controller.dart';
+import '../controller/v_keyboard_controller.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
-import '../theme/virtual_keyboard_theme.dart';
+import '../theme/v_keyboard_theme.dart';
 
 /// A single rendered key.
 ///
@@ -24,8 +24,8 @@ class VirtualKey extends StatefulWidget {
   });
 
   final KeyData data;
-  final VirtualKeyboardController controller;
-  final VirtualKeyboardTheme theme;
+  final VKeyboardController controller;
+  final VKeyboardTheme theme;
   final double height;
 
   @override
@@ -40,7 +40,7 @@ class _VirtualKeyState extends State<VirtualKey> {
   int _lastShiftTapMs = 0;
 
   KeyData get _data => widget.data;
-  VirtualKeyboardController get _controller => widget.controller;
+  VKeyboardController get _controller => widget.controller;
 
   @override
   void dispose() {
@@ -197,7 +197,7 @@ class _VirtualKeyState extends State<VirtualKey> {
     );
   }
 
-  Color _baseColor(VirtualKeyboardTheme theme) {
+  Color _baseColor(VKeyboardTheme theme) {
     return switch (_data.kind) {
       KeyKind.character || KeyKind.space => theme.keyColor,
       KeyKind.function => theme.functionKeyColor,
@@ -206,7 +206,7 @@ class _VirtualKeyState extends State<VirtualKey> {
     };
   }
 
-  Widget _buildContent(VirtualKeyboardTheme theme, bool engaged) {
+  Widget _buildContent(VKeyboardTheme theme, bool engaged) {
     final iconColor = engaged ? theme.accentColor : theme.iconColor;
 
     // Icon keys (shift, backspace, enter, arrows…).
@@ -215,16 +215,20 @@ class _VirtualKeyState extends State<VirtualKey> {
       return Icon(icon, color: iconColor, size: theme.textStyle.fontSize! * 1.05);
     }
 
-    final shifted = _controller.isUpperCase;
+    final shifted = _controller.isShiftedForKey(_data);
     final label = _data.resolveLabel(shifted: shifted) ?? _data.label ?? '';
 
     if (_data.subLabel != null) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(label, style: theme.textStyle),
-          Text(_data.subLabel!, style: theme.subLabelStyle),
-        ],
+      // Scale down so the two-line label always fits short keys (no overflow).
+      return FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(label, style: theme.textStyle),
+            Text(_data.subLabel!, style: theme.subLabelStyle),
+          ],
+        ),
       );
     }
 

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../controller/virtual_keyboard_controller.dart';
+import '../controller/v_keyboard_controller.dart';
 import '../models/key_data.dart';
 import '../responsive/keyboard_metrics.dart';
-import '../theme/virtual_keyboard_theme.dart';
+import '../theme/v_keyboard_theme.dart';
 import 'keyboard_key.dart';
 
 /// Renders the current keyboard page: a background, responsive key grid and a
 /// bottom safe-area inset. Centred and width-limited on large viewports.
 ///
 /// This widget rebuilds only when structural state changes (page / shift /
-/// layout) — typing does not rebuild it (see [VirtualKeyboardController]).
+/// layout) — typing does not rebuild it (see [VKeyboardController]).
 class KeyboardView extends StatelessWidget {
   const KeyboardView({
     super.key,
@@ -21,8 +21,8 @@ class KeyboardView extends StatelessWidget {
     required this.bottomSafeArea,
   });
 
-  final VirtualKeyboardController controller;
-  final VirtualKeyboardTheme theme;
+  final VKeyboardController controller;
+  final VKeyboardTheme theme;
   final KeyboardMetrics metrics;
   final List<List<KeyData>> rows;
   final double bottomSafeArea;

@@ -4,7 +4,7 @@ import 'package:v_keyboard/v_keyboard.dart';
 import 'package:v_keyboard/src/widgets/keyboard_key.dart';
 
 Widget _wrap(Widget child) => MaterialApp(
-      home: VirtualKeyboardScope(
+      home: VKeyboardScope(
         child: Scaffold(body: child),
       ),
     );

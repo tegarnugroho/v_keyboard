@@ -22,10 +22,10 @@ class ExampleApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       // One scope wraps the whole app: every VirtualTextField below it shares
-      // the keyboard, focus traversal and push-up behaviour. VirtualKeyboardShortcuts
+      // the keyboard, focus traversal and push-up behaviour. VKeyboardShortcuts
       // adds desktop shortcuts + media/meta callbacks for the whole subtree.
-      builder: (context, child) => VirtualKeyboardScope(
-        child: VirtualKeyboardShortcuts(
+      builder: (context, child) => VKeyboardScope(
+        child: VKeyboardShortcuts(
           shortcuts: {
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
                 () => debugPrint('Ctrl+S → save'),
@@ -108,23 +108,23 @@ class _DemoPageState extends State<DemoPage> {
           children: [
             _label('Last action: $_lastEvent'),
             _field('Standard (next)', _standard,
-                type: VirtualKeyboardType.standard,
+                type: VKeyboardType.standard,
                 action: TextInputAction.next),
             _field('Email (next)', _email,
-                type: VirtualKeyboardType.email,
+                type: VKeyboardType.email,
                 action: TextInputAction.next),
             _field('URL (go)', _url,
-                type: VirtualKeyboardType.url, action: TextInputAction.go),
-            _field('Number', _number, type: VirtualKeyboardType.number),
-            _field('Decimal', _decimal, type: VirtualKeyboardType.decimal),
-            _field('Phone', _phone, type: VirtualKeyboardType.phone),
+                type: VKeyboardType.url, action: TextInputAction.go),
+            _field('Number', _number, type: VKeyboardType.number),
+            _field('Decimal', _decimal, type: VKeyboardType.decimal),
+            _field('Phone', _phone, type: VKeyboardType.phone),
             _field('PIN', _pin,
-                type: VirtualKeyboardType.pin, obscure: true),
+                type: VKeyboardType.pin, obscure: true),
             _field('Password', _password,
-                type: VirtualKeyboardType.password, obscure: true),
+                type: VKeyboardType.password, obscure: true),
             _multilineField(),
             _field('Custom Greek layout', _custom,
-                type: VirtualKeyboardType.custom, custom: _greekLayout),
+                type: VKeyboardType.custom, custom: _greekLayout),
             const Divider(height: 32),
             Text('Desktop keyboard (Windows OSK style)',
                 style: Theme.of(context).textTheme.titleSmall),
@@ -152,7 +152,7 @@ class _DemoPageState extends State<DemoPage> {
   Widget _field(
     String label,
     TextEditingController controller, {
-    required VirtualKeyboardType type,
+    required VKeyboardType type,
     TextInputAction action = TextInputAction.done,
     bool obscure = false,
     KeyboardLayout? custom,
@@ -178,7 +178,7 @@ class _DemoPageState extends State<DemoPage> {
   Widget _desktopField() {
     return VirtualTextField(
       controller: _desktop,
-      keyboardType: VirtualKeyboardType.desktop,
+      keyboardType: VKeyboardType.desktop,
       textInputAction: TextInputAction.newline,
       maxLines: 4,
       minLines: 3,
@@ -195,7 +195,7 @@ class _DemoPageState extends State<DemoPage> {
       padding: const EdgeInsets.only(bottom: 14),
       child: VirtualTextField(
         controller: _multiline,
-        keyboardType: VirtualKeyboardType.multiline,
+        keyboardType: VKeyboardType.multiline,
         textInputAction: TextInputAction.newline,
         maxLines: 4,
         minLines: 3,

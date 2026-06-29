@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../desktop/clipboard_actions.dart';
@@ -10,7 +11,7 @@ import '../models/key_intents.dart';
 /// shortcuts work for both the virtual keyboard and a hardware keyboard.
 ///
 /// ```dart
-/// VirtualKeyboardShortcuts(
+/// VKeyboardShortcuts(
 ///   shortcuts: {
 ///     LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyS): save,
 ///     LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyP): print,
@@ -19,14 +20,15 @@ import '../models/key_intents.dart';
 ///   child: ...,
 /// )
 /// ```
-class VirtualKeyboardShortcuts extends InheritedWidget {
-  const VirtualKeyboardShortcuts({
+class VKeyboardShortcuts extends InheritedWidget {
+  const VKeyboardShortcuts({
     super.key,
     this.shortcuts = const {},
     this.clipboardCallbacks,
     this.onMedia,
     this.onMetaKey,
     this.onMenuKey,
+    this.onFunctionKey,
     required super.child,
   });
 
@@ -45,20 +47,27 @@ class VirtualKeyboardShortcuts extends InheritedWidget {
   /// Called when the Menu (context-menu) key is pressed.
   final VoidCallback? onMenuKey;
 
+  /// Called for any function/special key not otherwise handled (Esc, F1–F12,
+  /// PrtSc, ScrLk, Pause, Fn…). OS-level keys like Print Screen cannot be
+  /// triggered from pure Dart — hook this to implement your own behaviour
+  /// (e.g. capture a `RepaintBoundary`, or call a platform channel).
+  final ValueChanged<LogicalKeyboardKey>? onFunctionKey;
+
   KeyboardShortcutManager get manager => KeyboardShortcutManager(shortcuts);
 
   /// Reads the nearest instance without creating a dependency (safe to call
   /// from the controller outside of build).
-  static VirtualKeyboardShortcuts? read(BuildContext context) {
+  static VKeyboardShortcuts? read(BuildContext context) {
     return context
-        .getInheritedWidgetOfExactType<VirtualKeyboardShortcuts>();
+        .getInheritedWidgetOfExactType<VKeyboardShortcuts>();
   }
 
   @override
-  bool updateShouldNotify(VirtualKeyboardShortcuts oldWidget) =>
+  bool updateShouldNotify(VKeyboardShortcuts oldWidget) =>
       shortcuts != oldWidget.shortcuts ||
       clipboardCallbacks != oldWidget.clipboardCallbacks ||
       onMedia != oldWidget.onMedia ||
       onMetaKey != oldWidget.onMetaKey ||
-      onMenuKey != oldWidget.onMenuKey;
+      onMenuKey != oldWidget.onMenuKey ||
+      onFunctionKey != oldWidget.onFunctionKey;
 }

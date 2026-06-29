@@ -1,8 +1,8 @@
 /// Built-in keyboard types.
 ///
 /// Note: Dart reserves the word `default`, so the standard alphanumeric
-/// keyboard is named [VirtualKeyboardType.standard] (not `default`).
-enum VirtualKeyboardType {
+/// keyboard is named [VKeyboardType.standard] (not `default`).
+enum VKeyboardType {
   /// Full QWERTY with letters, numbers and symbols pages.
   standard,
 

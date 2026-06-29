@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 /// Visual theme for the virtual keyboard.
 ///
-/// Provide one to [VirtualKeyboardScope]; if omitted a theme is derived from
-/// the ambient [ThemeData] via [VirtualKeyboardTheme.fromTheme].
+/// Provide one to [VKeyboardScope]; if omitted a theme is derived from
+/// the ambient [ThemeData] via [VKeyboardTheme.fromTheme].
 @immutable
-class VirtualKeyboardTheme {
+class VKeyboardTheme {
   // Not const: function/modifier key colours fall back to specialKeyColor.
   // ignore: prefer_const_constructors_in_immutables
-  VirtualKeyboardTheme({
+  VKeyboardTheme({
     required this.backgroundColor,
     required this.keyColor,
     required this.pressedKeyColor,
@@ -31,10 +31,10 @@ class VirtualKeyboardTheme {
         modifierKeyColor = modifierKeyColor ?? specialKeyColor;
 
   /// Builds a theme that follows Material's color scheme.
-  factory VirtualKeyboardTheme.fromTheme(ThemeData theme) {
+  factory VKeyboardTheme.fromTheme(ThemeData theme) {
     final scheme = theme.colorScheme;
     final isDark = theme.brightness == Brightness.dark;
-    return VirtualKeyboardTheme(
+    return VKeyboardTheme(
       backgroundColor: isDark
           ? const Color(0xFF1C1C20)
           : const Color(0xFFD1D5DB),
@@ -94,7 +94,7 @@ class VirtualKeyboardTheme {
   final EdgeInsets contentPadding;
   final double keySpacing;
 
-  VirtualKeyboardTheme copyWith({
+  VKeyboardTheme copyWith({
     Color? backgroundColor,
     Color? keyColor,
     Color? pressedKeyColor,
@@ -113,7 +113,7 @@ class VirtualKeyboardTheme {
     EdgeInsets? contentPadding,
     double? keySpacing,
   }) {
-    return VirtualKeyboardTheme(
+    return VKeyboardTheme(
       backgroundColor: backgroundColor ?? this.backgroundColor,
       keyColor: keyColor ?? this.keyColor,
       pressedKeyColor: pressedKeyColor ?? this.pressedKeyColor,

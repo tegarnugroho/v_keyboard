@@ -2,16 +2,17 @@ import 'package:flutter/services.dart' hide ModifierKey;
 import 'package:flutter/widgets.dart';
 
 import '../actions/keyboard_action_handler.dart';
-import '../config/virtual_keyboard_config.dart';
+import '../config/v_keyboard_config.dart';
 import '../desktop/clipboard_actions.dart';
 import '../desktop/keyboard_modifier_controller.dart';
 import '../desktop/keyboard_navigation.dart';
 import '../desktop/keyboard_shortcut_manager.dart';
+import '../desktop/native_print_screen.dart';
 import '../engine/text_input_engine.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
 import '../models/keyboard_layout.dart';
-import '../widgets/virtual_keyboard_shortcuts.dart';
+import '../widgets/v_keyboard_shortcuts.dart';
 import 'keyboard_session.dart';
 
 /// Orchestrates the virtual keyboard for both the mobile and desktop layouts.
@@ -24,13 +25,13 @@ import 'keyboard_session.dart';
 ///
 /// Plain typing does **not** rebuild the keyboard; only structural changes
 /// (attach/detach, page switch, modifier/lock toggles) notify listeners.
-class VirtualKeyboardController extends ChangeNotifier {
-  VirtualKeyboardController({VirtualKeyboardConfig? config})
-      : _defaultConfig = config ?? const VirtualKeyboardConfig() {
+class VKeyboardController extends ChangeNotifier {
+  VKeyboardController({VKeyboardConfig? config})
+      : _defaultConfig = config ?? const VKeyboardConfig() {
     modifiers.addListener(notifyListeners);
   }
 
-  final VirtualKeyboardConfig _defaultConfig;
+  final VKeyboardConfig _defaultConfig;
 
   /// Modifier and lock state (Shift/Ctrl/Alt/AltGr/Meta, Caps/Num/Scroll Lock).
   final KeyboardModifierController modifiers = KeyboardModifierController();
@@ -45,9 +46,15 @@ class VirtualKeyboardController extends ChangeNotifier {
   /// Whether letters should currently render/insert upper case.
   bool get isUpperCase => modifiers.isUpperCase;
 
+  /// Effective shift for a specific key: Caps Lock affects only letters, while
+  /// Shift affects every character key (so the number row shows symbols on
+  /// Shift but stays digits on Caps Lock).
+  bool isShiftedForKey(KeyData key) =>
+      key.isLetter ? modifiers.isUpperCase : modifiers.shift;
+
   String get currentPage => _page;
 
-  VirtualKeyboardConfig get config => _session?.config ?? _defaultConfig;
+  VKeyboardConfig get config => _session?.config ?? _defaultConfig;
   KeyboardLayout? get layout => _session?.layout;
 
   List<List<KeyData>>? get currentRows {
@@ -144,12 +151,15 @@ class VirtualKeyboardController extends ChangeNotifier {
       case KeyKind.function:
         _handleFunction(session, key);
       case KeyKind.media:
-        if (key.media != null) _shortcuts(session)?.onMedia?.call(key.media!);
+        if (key.media != null) {
+          sendNativeKey(_mediaVk(key.media!), extended: true);
+          _shortcuts(session)?.onMedia?.call(key.media!);
+        }
     }
   }
 
   void _handleCharacter(KeyboardSession session, KeyData key) {
-    final text = key.resolveText(shifted: isUpperCase) ?? '';
+    final text = key.resolveText(shifted: isShiftedForKey(key)) ?? '';
     if (modifiers.hasCommandModifier) {
       // A command modifier (Ctrl/Alt/Meta) turns the key into a shortcut.
       _handleCharCommand(session, key, text);
@@ -232,19 +242,56 @@ class VirtualKeyboardController extends ChangeNotifier {
       return;
     }
     if (lk == LogicalKeyboardKey.meta || lk == LogicalKeyboardKey.metaLeft) {
+      sendNativeKey(_vkLWin); // opens Start on Windows
       _shortcuts(session)?.onMetaKey?.call();
       return;
     }
     if (lk == LogicalKeyboardKey.contextMenu) {
+      sendNativeKey(_vkApps);
       _shortcuts(session)?.onMenuKey?.call();
+      return;
+    }
+    // Keys with a native Windows effect (screen capture / lock toggles).
+    final vk = _nativeVkFor(lk);
+    if (vk != null) {
+      sendNativeKey(vk);
+      _shortcuts(session)?.onFunctionKey?.call(lk!);
       return;
     }
     if (key.text != null) {
       // e.g. Tab inserts a tab character.
       _insert(session, key.text!);
       modifiers.clearMomentary();
+      return;
     }
+    // Unhandled function/special key (Esc, F1–F12, PrtSc, ScrLk, Pause, Fn…).
+    // OS-level keys can't be triggered from Dart — hand off to the developer.
+    if (lk != null) _shortcuts(session)?.onFunctionKey?.call(lk);
   }
+
+  // Windows virtual-key codes for keys with a native OS effect.
+  static const int _vkLWin = 0x5B;
+  static const int _vkApps = 0x5D;
+
+  /// Windows VK for a function key with a native effect, or null.
+  int? _nativeVkFor(LogicalKeyboardKey? lk) => switch (lk) {
+        LogicalKeyboardKey.printScreen => 0x2C,
+        LogicalKeyboardKey.scrollLock => 0x91,
+        LogicalKeyboardKey.pause => 0x13,
+        LogicalKeyboardKey.numLock => 0x90,
+        _ => null,
+      };
+
+  /// Windows VK for a media intent (all extended keys).
+  int _mediaVk(MediaIntent intent) => switch (intent) {
+        MediaIntent.playPause => 0xB3,
+        MediaIntent.stop => 0xB2,
+        MediaIntent.next => 0xB0,
+        MediaIntent.previous => 0xB1,
+        MediaIntent.mute => 0xAD,
+        MediaIntent.volumeDown => 0xAE,
+        MediaIntent.volumeUp => 0xAF,
+      };
 
   /// Looks up registered shortcuts and runs the one matching the current
   /// modifiers + [trigger]. Returns whether one fired.
@@ -261,10 +308,10 @@ class VirtualKeyboardController extends ChangeNotifier {
     return false;
   }
 
-  VirtualKeyboardShortcuts? _shortcuts(KeyboardSession session) {
+  VKeyboardShortcuts? _shortcuts(KeyboardSession session) {
     final context = session.contextRef();
     if (context == null || !context.mounted) return null;
-    return VirtualKeyboardShortcuts.read(context);
+    return VKeyboardShortcuts.read(context);
   }
 
   void _insert(KeyboardSession session, String text) {

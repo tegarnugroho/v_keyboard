@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../config/virtual_keyboard_config.dart';
+import '../config/v_keyboard_config.dart';
 import '../layouts/builtin_layouts.dart';
 import '../models/keyboard_layout.dart';
 import '../models/keyboard_type.dart';
@@ -36,9 +36,9 @@ class KeyboardSession {
 
   final TextEditingController editingController;
   final FocusNode focusNode;
-  final VirtualKeyboardType type;
+  final VKeyboardType type;
   final TextInputAction textInputAction;
-  final VirtualKeyboardConfig config;
+  final VKeyboardConfig config;
   final KeyboardLayout? customLayout;
 
   /// A function returning the field's [BuildContext], used for focus traversal.
@@ -61,20 +61,20 @@ class KeyboardSession {
 
   /// Whether the enter key inserts a newline rather than submitting.
   bool get insertsNewline =>
-      type == VirtualKeyboardType.multiline ||
+      type == VKeyboardType.multiline ||
       textInputAction == TextInputAction.newline;
 
   /// Whether auto-shift should be active for this session.
   bool get allowsAutoShift =>
       config.autoShiftFirstLetter &&
-      type != VirtualKeyboardType.password &&
+      type != VKeyboardType.password &&
       _isAlphabetic;
 
   bool get _isAlphabetic => switch (type) {
-        VirtualKeyboardType.standard ||
-        VirtualKeyboardType.email ||
-        VirtualKeyboardType.url ||
-        VirtualKeyboardType.multiline =>
+        VKeyboardType.standard ||
+        VKeyboardType.email ||
+        VKeyboardType.url ||
+        VKeyboardType.multiline =>
           true,
         _ => false,
       };

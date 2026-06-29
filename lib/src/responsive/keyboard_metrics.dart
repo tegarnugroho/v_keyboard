@@ -35,7 +35,8 @@ class KeyboardMetrics {
 
   /// Computes metrics from [mq]. [rows] is the number of key rows in the
   /// current layout so key height stays sensible across layouts.
-  factory KeyboardMetrics.resolve(MediaQueryData mq, {required int rows}) {
+  factory KeyboardMetrics.resolve(MediaQueryData mq,
+      {required int rows, bool compact = false}) {
     final size = mq.size;
     final isLandscape = size.width >= size.height;
     final shortestSide = size.shortestSide;
@@ -66,11 +67,15 @@ class KeyboardMetrics {
     final rowScale = (rows / 5).clamp(0.55, 1.15);
     final height = (size.height * fraction * rowScale).clamp(minH * rowScale, maxH);
 
-    final maxWidth = switch (formFactor) {
-      DeviceFormFactor.phone => double.infinity,
-      DeviceFormFactor.tablet => isLandscape ? 760.0 : 640.0,
-      DeviceFormFactor.desktop => 720.0,
-    };
+    // Compact layouts (numeric/pin/phone) keep a narrow, centred block so the
+    // keys don't stretch huge on wide tablet/desktop windows.
+    final maxWidth = compact
+        ? 360.0
+        : switch (formFactor) {
+            DeviceFormFactor.phone => double.infinity,
+            DeviceFormFactor.tablet => isLandscape ? 760.0 : 640.0,
+            DeviceFormFactor.desktop => 720.0,
+          };
 
     final horizontalPadding = formFactor == DeviceFormFactor.phone ? 4.0 : 8.0;
     final rowSpacing = formFactor == DeviceFormFactor.phone ? 6.0 : 8.0;

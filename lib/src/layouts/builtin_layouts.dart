@@ -4,38 +4,38 @@ import '../models/keyboard_type.dart';
 import 'desktop_layouts.dart';
 
 /// Built-in keyboard layouts and the resolver that maps a
-/// [VirtualKeyboardType] to a [KeyboardLayout].
+/// [VKeyboardType] to a [KeyboardLayout].
 class BuiltinLayouts {
   const BuiltinLayouts._();
 
   /// Resolves [type] to a layout. [custom] is required (and returned) for
-  /// [VirtualKeyboardType.custom].
+  /// [VKeyboardType.custom].
   static KeyboardLayout resolve(
-    VirtualKeyboardType type, {
+    VKeyboardType type, {
     KeyboardLayout? custom,
     bool numericAction = false,
   }) {
     switch (type) {
-      case VirtualKeyboardType.standard:
-      case VirtualKeyboardType.password:
+      case VKeyboardType.standard:
+      case VKeyboardType.password:
         return qwerty;
-      case VirtualKeyboardType.email:
+      case VKeyboardType.email:
         return email;
-      case VirtualKeyboardType.url:
+      case VKeyboardType.url:
         return url;
-      case VirtualKeyboardType.multiline:
+      case VKeyboardType.multiline:
         return multiline;
-      case VirtualKeyboardType.desktop:
+      case VKeyboardType.desktop:
         return custom ?? DesktopLayouts.layout;
-      case VirtualKeyboardType.number:
+      case VKeyboardType.number:
         return _number(action: numericAction);
-      case VirtualKeyboardType.decimal:
+      case VKeyboardType.decimal:
         return _decimal(action: numericAction);
-      case VirtualKeyboardType.phone:
+      case VKeyboardType.phone:
         return _phone(action: numericAction);
-      case VirtualKeyboardType.pin:
+      case VKeyboardType.pin:
         return _pin(action: numericAction);
-      case VirtualKeyboardType.custom:
+      case VKeyboardType.custom:
         assert(custom != null, 'A custom layout must be provided.');
         return custom ?? qwerty;
     }
