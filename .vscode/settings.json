@@ -1,0 +1,7 @@
+{
+  "dart.flutterSdkPath": "C:/Dev/SDK/flutter",
+  "dart.projectSearchDepth": 5,
+  "search.exclude": {
+    "**/.dart_tool": true
+  }
+}
