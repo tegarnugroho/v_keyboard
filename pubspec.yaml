@@ -1,7 +1,16 @@
 name: v_keyboard
 description: A fully customizable, native-feeling virtual keyboard and text input system for Flutter across mobile, desktop, and web.
 version: 0.1.0
-publish_to: 'none'
+repository: https://github.com/tegarnugroho/v_keyboard
+issue_tracker: https://github.com/tegarnugroho/v_keyboard/issues
+homepage: https://github.com/tegarnugroho/v_keyboard
+
+topics:
+  - keyboard
+  - virtual-keyboard
+  - text-input
+  - emoji
+  - desktop
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -17,3 +26,21 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 
 flutter:
+
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  windows:
+  web:
+
+screenshots:
+  - description: 'Hero — native-feeling virtual keyboard for Flutter.'
+    path: assets/showcase/hero.png
+  - description: 'Standard mobile keyboard.'
+    path: assets/showcase/mobile_standard.png
+  - description: 'Emoji panel.'
+    path: assets/showcase/mobile_emoji.png
+  - description: 'Desktop (Windows OSK style) keyboard.'
+    path: assets/showcase/desktop_keyboard.png

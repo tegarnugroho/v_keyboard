@@ -1,0 +1,12 @@
+# Keep the published archive lean — these aren't needed by consumers.
+build/
+.dart_tool/
+example/build/
+example/.dart_tool/
+example/android/
+example/ios/
+example/windows/
+example/linux/
+example/macos/
+example/integration_test/
+.vscode/
