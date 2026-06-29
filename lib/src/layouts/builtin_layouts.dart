@@ -12,6 +12,7 @@ class BuiltinLayouts {
   static KeyboardLayout resolve(
     VirtualKeyboardType type, {
     KeyboardLayout? custom,
+    bool numericAction = false,
   }) {
     switch (type) {
       case VirtualKeyboardType.standard:
@@ -24,18 +25,28 @@ class BuiltinLayouts {
       case VirtualKeyboardType.multiline:
         return multiline;
       case VirtualKeyboardType.number:
-        return number;
+        return _number(action: numericAction);
       case VirtualKeyboardType.decimal:
-        return decimal;
+        return _decimal(action: numericAction);
       case VirtualKeyboardType.phone:
-        return phone;
+        return _phone(action: numericAction);
       case VirtualKeyboardType.pin:
-        return pin;
+        return _pin(action: numericAction);
       case VirtualKeyboardType.custom:
         assert(custom != null, 'A custom layout must be provided.');
         return custom ?? qwerty;
     }
   }
+
+  /// The action/enter key when enabled, otherwise a spacer — used to fill an
+  /// empty slot in a numeric pad.
+  static KeyData _actionOrSpacer(bool action, {double flex = 1}) =>
+      action ? KeyData.enter(flex: flex) : KeyData.spacer(flex: flex);
+
+  /// Full-width action/enter row, appended only when the pad has no empty slot
+  /// to host the key (e.g. the decimal pad).
+  static List<List<KeyData>> _actionRow(bool action) =>
+      action ? [[KeyData.enter(flex: 1)]] : const [];
 
   // ---- Alphabetic (QWERTY) with 123 and symbols pages -----------------------
 
@@ -185,78 +196,83 @@ class BuiltinLayouts {
 
   // ---- Number ---------------------------------------------------------------
 
-  static final KeyboardLayout number = KeyboardLayout(
-    id: 'number',
-    initialPage: 'num',
-    pages: {
-      'num': [
-        _symbols('123'),
-        _symbols('456'),
-        _symbols('789'),
-        [KeyData.spacer(), KeyData.symbol('0'), KeyData.backspace()],
-      ],
-    },
-  );
+  static KeyboardLayout _number({bool action = false}) => KeyboardLayout(
+        id: 'number',
+        initialPage: 'num',
+        pages: {
+          'num': [
+            _symbols('123'),
+            _symbols('456'),
+            _symbols('789'),
+            // Enter fills the empty bottom-left slot.
+            [_actionOrSpacer(action), KeyData.symbol('0'), KeyData.backspace()],
+          ],
+        },
+      );
 
   // ---- Decimal --------------------------------------------------------------
 
-  static final KeyboardLayout decimal = KeyboardLayout(
-    id: 'decimal',
-    initialPage: 'num',
-    pages: {
-      'num': [
-        _symbols('123'),
-        _symbols('456'),
-        _symbols('789'),
-        [KeyData.symbol('.'), KeyData.symbol('0'), KeyData.backspace()],
-      ],
-    },
-  );
+  static KeyboardLayout _decimal({bool action = false}) => KeyboardLayout(
+        id: 'decimal',
+        initialPage: 'num',
+        pages: {
+          'num': [
+            _symbols('123'),
+            _symbols('456'),
+            _symbols('789'),
+            // No empty slot ('.' takes the left) → append a full-width row.
+            [KeyData.symbol('.'), KeyData.symbol('0'), KeyData.backspace()],
+            ..._actionRow(action),
+          ],
+        },
+      );
 
   // ---- Phone ----------------------------------------------------------------
 
-  static final KeyboardLayout phone = KeyboardLayout(
-    id: 'phone',
-    initialPage: 'num',
-    pages: {
-      'num': [
-        [
-          KeyData.charWithHint('1', ' '),
-          KeyData.charWithHint('2', 'ABC'),
-          KeyData.charWithHint('3', 'DEF'),
-        ],
-        [
-          KeyData.charWithHint('4', 'GHI'),
-          KeyData.charWithHint('5', 'JKL'),
-          KeyData.charWithHint('6', 'MNO'),
-        ],
-        [
-          KeyData.charWithHint('7', 'PQRS'),
-          KeyData.charWithHint('8', 'TUV'),
-          KeyData.charWithHint('9', 'WXYZ'),
-        ],
-        [
-          KeyData.symbol('*'),
-          KeyData.charWithHint('0', '+'),
-          KeyData.symbol('#'),
-        ],
-        [KeyData.spacer(), KeyData.backspace(flex: 1)],
-      ],
-    },
-  );
+  static KeyboardLayout _phone({bool action = false}) => KeyboardLayout(
+        id: 'phone',
+        initialPage: 'num',
+        pages: {
+          'num': [
+            [
+              KeyData.charWithHint('1', ' '),
+              KeyData.charWithHint('2', 'ABC'),
+              KeyData.charWithHint('3', 'DEF'),
+            ],
+            [
+              KeyData.charWithHint('4', 'GHI'),
+              KeyData.charWithHint('5', 'JKL'),
+              KeyData.charWithHint('6', 'MNO'),
+            ],
+            [
+              KeyData.charWithHint('7', 'PQRS'),
+              KeyData.charWithHint('8', 'TUV'),
+              KeyData.charWithHint('9', 'WXYZ'),
+            ],
+            [
+              KeyData.symbol('*'),
+              KeyData.charWithHint('0', '+'),
+              KeyData.symbol('#'),
+            ],
+            // Enter fills the empty bottom-left slot.
+            [_actionOrSpacer(action), KeyData.backspace(flex: 1)],
+          ],
+        },
+      );
 
   // ---- PIN ------------------------------------------------------------------
 
-  static final KeyboardLayout pin = KeyboardLayout(
-    id: 'pin',
-    initialPage: 'num',
-    pages: {
-      'num': [
-        _symbols('123'),
-        _symbols('456'),
-        _symbols('789'),
-        [KeyData.spacer(), KeyData.symbol('0'), KeyData.backspace()],
-      ],
-    },
-  );
+  static KeyboardLayout _pin({bool action = false}) => KeyboardLayout(
+        id: 'pin',
+        initialPage: 'num',
+        pages: {
+          'num': [
+            _symbols('123'),
+            _symbols('456'),
+            _symbols('789'),
+            // Enter fills the empty bottom-left slot.
+            [_actionOrSpacer(action), KeyData.symbol('0'), KeyData.backspace()],
+          ],
+        },
+      );
 }

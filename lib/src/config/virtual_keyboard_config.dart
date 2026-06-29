@@ -17,6 +17,7 @@ class VirtualKeyboardConfig {
     this.enableKeyRepeat = true,
     this.autoShiftFirstLetter = true,
     this.hardwareKeyboardFallback = true,
+    this.numericActionKey = true,
     this.longPressDeleteDelay = const Duration(milliseconds: 350),
     this.keyRepeatDelay = const Duration(milliseconds: 400),
     this.keyRepeatInterval = const Duration(milliseconds: 55),
@@ -55,6 +56,11 @@ class VirtualKeyboardConfig {
   /// On desktop, also accept input from a physical keyboard while focused.
   final bool hardwareKeyboardFallback;
 
+  /// Add an action/enter key (a "Done"-style bar) to numeric pads
+  /// (number/decimal/pin/phone). The key performs the field's
+  /// [TextInputAction] — submit, move focus, etc.
+  final bool numericActionKey;
+
   /// Delay before long-press delete begins repeating.
   final Duration longPressDeleteDelay;
 
@@ -81,6 +87,7 @@ class VirtualKeyboardConfig {
     bool? enableKeyRepeat,
     bool? autoShiftFirstLetter,
     bool? hardwareKeyboardFallback,
+    bool? numericActionKey,
     Duration? longPressDeleteDelay,
     Duration? keyRepeatDelay,
     Duration? keyRepeatInterval,
@@ -99,6 +106,7 @@ class VirtualKeyboardConfig {
       autoShiftFirstLetter: autoShiftFirstLetter ?? this.autoShiftFirstLetter,
       hardwareKeyboardFallback:
           hardwareKeyboardFallback ?? this.hardwareKeyboardFallback,
+      numericActionKey: numericActionKey ?? this.numericActionKey,
       longPressDeleteDelay: longPressDeleteDelay ?? this.longPressDeleteDelay,
       keyRepeatDelay: keyRepeatDelay ?? this.keyRepeatDelay,
       keyRepeatInterval: keyRepeatInterval ?? this.keyRepeatInterval,

@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 /// Semantic kind of a keyboard key. Drives how the controller reacts to a tap.
 enum KeyKind {
@@ -157,10 +157,7 @@ class KeyData {
   }
 }
 
-// Private icon constants so callers don't need to import material.
-const IconData _kBackspace =
-    IconData(0xe157, fontFamily: 'MaterialIcons', matchTextDirection: true);
-const IconData _kShift =
-    IconData(0xe5d8, fontFamily: 'MaterialIcons'); // arrow_upward
-const IconData _kEnter =
-    IconData(0xe31b, fontFamily: 'MaterialIcons'); // keyboard_return
+// Real Material Icons glyphs.
+const IconData _kBackspace = Icons.backspace_outlined;
+const IconData _kShift = Icons.keyboard_capslock;
+const IconData _kEnter = Icons.keyboard_return;

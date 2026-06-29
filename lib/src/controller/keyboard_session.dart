@@ -53,8 +53,11 @@ class KeyboardSession {
   final bool obscureText;
 
   /// The resolved layout for this session.
-  late final KeyboardLayout layout =
-      BuiltinLayouts.resolve(type, custom: customLayout);
+  late final KeyboardLayout layout = BuiltinLayouts.resolve(
+    type,
+    custom: customLayout,
+    numericAction: config.numericActionKey,
+  );
 
   /// Whether the enter key inserts a newline rather than submitting.
   bool get insertsNewline =>
