@@ -45,10 +45,12 @@ class KeyboardView extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                for (final key in rows[i])
-                  KeyboardKey(
-                    key: ValueKey('vk_${key.kind}_${key.text ?? key.label ?? key.switchTarget}'),
-                    data: key,
+                for (var j = 0; j < rows[i].length; j++)
+                  VirtualKey(
+                    // Row+column index guarantees uniqueness (a desktop row can
+                    // hold several otherwise-identical keys, e.g. two Shifts).
+                    key: ValueKey('vk_${i}_$j'),
+                    data: rows[i][j],
                     controller: controller,
                     theme: theme,
                     height: rowHeight,

@@ -30,6 +30,11 @@ enum VirtualKeyboardType {
   /// QWERTY where the action key inserts a newline.
   multiline,
 
+  /// A full physical-style desktop keyboard (Windows OSK-like): function row,
+  /// number row, full QWERTY, modifiers, navigation cluster, numeric keypad and
+  /// optional media keys. Responsive — sections collapse on narrow windows.
+  desktop,
+
   /// A developer-supplied custom layout.
   custom,
 }

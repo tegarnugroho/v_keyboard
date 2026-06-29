@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../config/virtual_keyboard_config.dart';
 import '../controller/virtual_keyboard_controller.dart';
+import '../layouts/desktop_layouts.dart';
+import '../models/key_data.dart';
+import '../models/keyboard_type.dart';
 import '../responsive/keyboard_metrics.dart';
 import '../theme/virtual_keyboard_theme.dart';
 import '../widgets/keyboard_view.dart';
@@ -103,15 +106,48 @@ class _VirtualKeyboardScopeState extends State<VirtualKeyboardScope>
     super.dispose();
   }
 
+  /// Sizing for the desktop layout: key height scales with width, total height
+  /// follows the (responsive) row count, and the grid is centred + width-capped.
+  KeyboardMetrics _desktopMetrics(
+      MediaQueryData mq, int rowCount, double contentWidth) {
+    final rowHeight = (contentWidth / 24).clamp(34.0, 58.0);
+    const rowSpacing = 6.0;
+    const contentVertical = 16.0; // KeyboardView contentPadding.vertical
+    final height =
+        rowCount * rowHeight + rowSpacing * (rowCount - 1) + contentVertical;
+    return KeyboardMetrics(
+      height: height,
+      maxWidth: contentWidth,
+      horizontalPadding: 8,
+      rowSpacing: rowSpacing,
+      formFactor: DeviceFormFactor.desktop,
+      isLandscape: mq.size.width >= mq.size.height,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    final rows = _controller.currentRows;
     final theme = widget.theme ?? VirtualKeyboardTheme.fromTheme(Theme.of(context));
 
-    final metrics = rows == null
-        ? null
-        : KeyboardMetrics.resolve(mq, rows: rows.length);
+    final isDesktopLayout =
+        _controller.session?.type == VirtualKeyboardType.desktop &&
+            _controller.session?.customLayout == null;
+
+    final List<List<KeyData>>? rows;
+    final KeyboardMetrics? metrics;
+    if (isDesktopLayout) {
+      // Desktop layout is built responsively from the available width and is
+      // centred + width-limited; rows collapse as the window narrows.
+      final contentWidth = mq.size.width.clamp(320.0, 1320.0);
+      rows = DesktopLayouts.rows(contentWidth);
+      metrics = _desktopMetrics(mq, rows.length, contentWidth);
+    } else {
+      rows = _controller.currentRows;
+      metrics = rows == null
+          ? null
+          : KeyboardMetrics.resolve(mq, rows: rows.length);
+    }
     if (metrics != null) _lastHeight = metrics.height;
 
     final bottomInset = mq.padding.bottom; // safe area

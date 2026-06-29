@@ -112,6 +112,47 @@ Cleanly separated, single-responsibility units:
 See [`example/`](example/lib/main.dart) for a full demo of every layout, a
 custom layout, and the action callbacks.
 
+## Desktop keyboard (Windows OSK style)
+
+`VirtualKeyboardType.desktop` renders a full physical keyboard: function row,
+number row, full QWERTY, all modifiers (Ctrl/Alt/AltGr/Win/Menu, L+R Shift/Ctrl),
+Caps/Num/Scroll Lock, navigation cluster (arrows, Home/End, Page Up/Down,
+Insert/Delete), a numeric keypad and optional media keys. It is **responsive by
+width** — sections collapse as the window narrows (media → numpad → function row),
+typing keys always remain.
+
+```dart
+VirtualTextField(
+  keyboardType: VirtualKeyboardType.desktop,
+  maxLines: 5,
+)
+```
+
+Supported behaviour: Shift/Caps casing, Ctrl/Alt/Meta modifier combos,
+Shift+Arrow (extend selection), Ctrl+Arrow (by word), Home/End/PageUp/PageDown,
+Ctrl+Backspace/Delete (word), built-in Ctrl+A/C/X/V clipboard, key repeat, and
+hover/pressed/locked visual feedback.
+
+Register custom shortcuts and desktop callbacks with `VirtualKeyboardShortcuts`:
+
+```dart
+VirtualKeyboardShortcuts(
+  shortcuts: {
+    LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyS): save,
+  },
+  onMedia: (intent) => player.handle(intent),
+  onMetaKey: () => openStartMenu(),
+  clipboardCallbacks: ClipboardCallbacks(onPaste: () => myPaste()),
+  child: ...,
+)
+```
+
+Desktop architecture (separate from mobile, shared controller/engine/focus):
+`KeyboardModifierController`, `KeyboardNavigation`, `KeyboardShortcutManager`,
+`ClipboardActions`, `DesktopLayouts`. Replace the whole layout (compact / gaming
+/ POS / kiosk) by passing a `customLayout` with `VirtualKeyboardType.desktop` or
+`.custom`.
+
 ## Status
 
 Production-oriented foundation with unit + widget tests

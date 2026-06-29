@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' hide ModifierKey;
 import 'package:v_keyboard/v_keyboard.dart';
 
 void main() => runApp(const ExampleApp());
@@ -21,8 +22,21 @@ class ExampleApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       // One scope wraps the whole app: every VirtualTextField below it shares
-      // the keyboard, focus traversal and push-up behaviour.
-      builder: (context, child) => VirtualKeyboardScope(child: child!),
+      // the keyboard, focus traversal and push-up behaviour. VirtualKeyboardShortcuts
+      // adds desktop shortcuts + media/meta callbacks for the whole subtree.
+      builder: (context, child) => VirtualKeyboardScope(
+        child: VirtualKeyboardShortcuts(
+          shortcuts: {
+            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
+                () => debugPrint('Ctrl+S → save'),
+            LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
+                () => debugPrint('Ctrl+P → print'),
+          },
+          onMedia: (intent) => debugPrint('media: $intent'),
+          onMetaKey: () => debugPrint('Win key'),
+          child: child!,
+        ),
+      ),
       home: const DemoPage(),
     );
   }
@@ -46,6 +60,7 @@ class _DemoPageState extends State<DemoPage> {
   final _password = TextEditingController();
   final _multiline = TextEditingController();
   final _custom = TextEditingController();
+  final _desktop = TextEditingController();
 
   String _lastEvent = '—';
 
@@ -53,7 +68,7 @@ class _DemoPageState extends State<DemoPage> {
   void dispose() {
     for (final c in [
       _standard, _email, _url, _number, _decimal,
-      _phone, _pin, _password, _multiline, _custom,
+      _phone, _pin, _password, _multiline, _custom, _desktop,
     ]) {
       c.dispose();
     }
@@ -110,6 +125,18 @@ class _DemoPageState extends State<DemoPage> {
             _multilineField(),
             _field('Custom Greek layout', _custom,
                 type: VirtualKeyboardType.custom, custom: _greekLayout),
+            const Divider(height: 32),
+            Text('Desktop keyboard (Windows OSK style)',
+                style: Theme.of(context).textTheme.titleSmall),
+            const SizedBox(height: 4),
+            const Text(
+              'Full physical layout: function row, modifiers, navigation, '
+              'numeric keypad and media keys. Resize the window to see sections '
+              'collapse. Try Shift/Ctrl + keys, arrows, Ctrl+A/C/V, Ctrl+S.',
+              style: TextStyle(fontSize: 12),
+            ),
+            const SizedBox(height: 8),
+            _desktopField(),
             const SizedBox(height: 24),
           ],
         ),
@@ -144,6 +171,21 @@ class _DemoPageState extends State<DemoPage> {
         ),
         onSubmitted: (v) => setState(() => _lastEvent = 'submitted "$v"'),
         onAction: (a) => setState(() => _lastEvent = 'action $a'),
+      ),
+    );
+  }
+
+  Widget _desktopField() {
+    return VirtualTextField(
+      controller: _desktop,
+      keyboardType: VirtualKeyboardType.desktop,
+      textInputAction: TextInputAction.newline,
+      maxLines: 4,
+      minLines: 3,
+      decoration: const InputDecoration(
+        labelText: 'Desktop field',
+        alignLabelWithHint: true,
+        border: OutlineInputBorder(),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import '../models/key_data.dart';
 import '../models/keyboard_layout.dart';
 import '../models/keyboard_type.dart';
+import 'desktop_layouts.dart';
 
 /// Built-in keyboard layouts and the resolver that maps a
 /// [VirtualKeyboardType] to a [KeyboardLayout].
@@ -24,6 +25,8 @@ class BuiltinLayouts {
         return url;
       case VirtualKeyboardType.multiline:
         return multiline;
+      case VirtualKeyboardType.desktop:
+        return custom ?? DesktopLayouts.layout;
       case VirtualKeyboardType.number:
         return _number(action: numericAction);
       case VirtualKeyboardType.decimal:

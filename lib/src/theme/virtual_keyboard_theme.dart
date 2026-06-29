@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 /// the ambient [ThemeData] via [VirtualKeyboardTheme.fromTheme].
 @immutable
 class VirtualKeyboardTheme {
-  const VirtualKeyboardTheme({
+  // Not const: function/modifier key colours fall back to specialKeyColor.
+  // ignore: prefer_const_constructors_in_immutables
+  VirtualKeyboardTheme({
     required this.backgroundColor,
     required this.keyColor,
     required this.pressedKeyColor,
@@ -15,6 +17,9 @@ class VirtualKeyboardTheme {
     required this.textStyle,
     required this.iconColor,
     required this.subLabelStyle,
+    required this.accentColor,
+    Color? functionKeyColor,
+    Color? modifierKeyColor,
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.elevation = 0,
     this.shadowColor = const Color(0x33000000),
@@ -22,7 +27,8 @@ class VirtualKeyboardTheme {
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
     this.keySpacing = 0,
-  });
+  })  : functionKeyColor = functionKeyColor ?? specialKeyColor,
+        modifierKeyColor = modifierKeyColor ?? specialKeyColor;
 
   /// Builds a theme that follows Material's color scheme.
   factory VirtualKeyboardTheme.fromTheme(ThemeData theme) {
@@ -38,6 +44,13 @@ class VirtualKeyboardTheme {
           ? const Color(0xFF2A2A30)
           : const Color(0xFFADB3BD),
       disabledKeyColor: scheme.onSurface.withValues(alpha: 0.12),
+      accentColor: scheme.primary,
+      functionKeyColor: isDark
+          ? const Color(0xFF26262B)
+          : const Color(0xFFBCC1CB),
+      modifierKeyColor: isDark
+          ? const Color(0xFF2A2A30)
+          : const Color(0xFFADB3BD),
       iconColor: scheme.onSurface,
       textStyle: TextStyle(
         fontSize: 22,
@@ -59,6 +72,17 @@ class VirtualKeyboardTheme {
 
   /// Color for non-character keys (shift, backspace, switch, enter).
   final Color specialKeyColor;
+
+  /// Color for desktop function keys (Esc, F1–F12). Defaults to
+  /// [specialKeyColor].
+  final Color functionKeyColor;
+
+  /// Color for desktop modifier/lock keys. Defaults to [specialKeyColor].
+  final Color modifierKeyColor;
+
+  /// Accent used for active modifiers, engaged locks and focus/hover hints.
+  final Color accentColor;
+
   final Color disabledKeyColor;
   final TextStyle textStyle;
   final TextStyle subLabelStyle;
@@ -75,6 +99,9 @@ class VirtualKeyboardTheme {
     Color? keyColor,
     Color? pressedKeyColor,
     Color? specialKeyColor,
+    Color? functionKeyColor,
+    Color? modifierKeyColor,
+    Color? accentColor,
     Color? disabledKeyColor,
     TextStyle? textStyle,
     TextStyle? subLabelStyle,
@@ -91,6 +118,9 @@ class VirtualKeyboardTheme {
       keyColor: keyColor ?? this.keyColor,
       pressedKeyColor: pressedKeyColor ?? this.pressedKeyColor,
       specialKeyColor: specialKeyColor ?? this.specialKeyColor,
+      functionKeyColor: functionKeyColor ?? this.functionKeyColor,
+      modifierKeyColor: modifierKeyColor ?? this.modifierKeyColor,
+      accentColor: accentColor ?? this.accentColor,
       disabledKeyColor: disabledKeyColor ?? this.disabledKeyColor,
       textStyle: textStyle ?? this.textStyle,
       subLabelStyle: subLabelStyle ?? this.subLabelStyle,

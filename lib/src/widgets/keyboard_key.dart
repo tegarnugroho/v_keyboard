@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 
 import '../controller/virtual_keyboard_controller.dart';
 import '../models/key_data.dart';
+import '../models/key_intents.dart';
 import '../theme/virtual_keyboard_theme.dart';
 
 /// A single rendered key.
 ///
-/// Owns its own pressed-state ([ValueNotifier]) so tapping a key repaints only
-/// that key — the rest of the keyboard never rebuilds. Also implements
-/// long-press continuous delete and held-key repeat using the active config.
-class KeyboardKey extends StatefulWidget {
-  const KeyboardKey({
+/// Owns its own pressed/hover state ([ValueNotifier]) so pointer interaction
+/// repaints only that key — the rest of the keyboard never rebuilds. Implements
+/// long-press continuous delete and held-key repeat (chars, navigation, delete,
+/// space). Active modifiers and engaged locks are highlighted with the theme
+/// accent (the controller rebuilds keys when that state changes).
+class VirtualKey extends StatefulWidget {
+  const VirtualKey({
     super.key,
     required this.data,
     required this.controller,
@@ -26,24 +29,24 @@ class KeyboardKey extends StatefulWidget {
   final double height;
 
   @override
-  State<KeyboardKey> createState() => _KeyboardKeyState();
+  State<VirtualKey> createState() => _VirtualKeyState();
 }
 
-class _KeyboardKeyState extends State<KeyboardKey> {
+class _VirtualKeyState extends State<VirtualKey> {
   final ValueNotifier<bool> _pressed = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _hovered = ValueNotifier<bool>(false);
   Timer? _repeatTimer;
   Timer? _delayTimer;
   int _lastShiftTapMs = 0;
 
   KeyData get _data => widget.data;
-
-  bool get _isSpecial =>
-      _data.kind != KeyKind.character && _data.kind != KeyKind.space;
+  VirtualKeyboardController get _controller => widget.controller;
 
   @override
   void dispose() {
     _cancelRepeat();
     _pressed.dispose();
+    _hovered.dispose();
     super.dispose();
   }
 
@@ -67,7 +70,7 @@ class _KeyboardKeyState extends State<KeyboardKey> {
   }
 
   void _maybeStartRepeat() {
-    final config = widget.controller.config;
+    final config = _controller.config;
     final isBackspace = _data.kind == KeyKind.backspace;
     final canRepeat = isBackspace
         ? config.enableLongPressDelete
@@ -77,7 +80,7 @@ class _KeyboardKeyState extends State<KeyboardKey> {
     final delay = isBackspace ? config.longPressDeleteDelay : config.keyRepeatDelay;
     _delayTimer = Timer(delay, () {
       _repeatTimer = Timer.periodic(config.keyRepeatInterval, (_) {
-        widget.controller.handleKey(_data);
+        _controller.handleKey(_data);
       });
     });
   }
@@ -88,30 +91,41 @@ class _KeyboardKeyState extends State<KeyboardKey> {
       _handleShift();
       return;
     }
-    widget.controller.handleKey(_data);
+    _controller.handleKey(_data);
   }
 
   void _handleShift() {
-    // Detect double tap for caps-lock using a manual timestamp (no Date.now
-    // dependency — uses the scheduler's frame timestamp).
     final now = DateTime.now().millisecondsSinceEpoch;
     if (now - _lastShiftTapMs < 300) {
-      widget.controller.handleShiftDoubleTap();
+      _controller.handleShiftDoubleTap();
     } else {
-      widget.controller.handleShiftTap();
+      _controller.handleShiftTap();
     }
     _lastShiftTapMs = now;
+  }
+
+  /// Whether this key is in an "engaged" state (active modifier / lock).
+  bool get _isEngaged {
+    final m = _controller.modifiers;
+    return switch (_data.kind) {
+      KeyKind.shift => _controller.isShiftActive || _controller.isCapsLock,
+      KeyKind.modifier => _data.modifier != null && m.isModifierActive(_data.modifier!),
+      KeyKind.lock => _data.lock != null && m.isLocked(_data.lock!),
+      _ => false,
+    };
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = widget.theme;
+    final flex = (_data.flex * 10).round();
+
     if (_data.kind == KeyKind.spacer) {
-      return Expanded(flex: (_data.flex * 10).round(), child: const SizedBox());
+      return Expanded(flex: flex, child: const SizedBox());
     }
     if (_data.kind == KeyKind.custom && _data.builder != null) {
       return Expanded(
-        flex: (_data.flex * 10).round(),
+        flex: flex,
         child: Padding(
           padding: theme.keyPadding,
           child: GestureDetector(
@@ -122,40 +136,60 @@ class _KeyboardKeyState extends State<KeyboardKey> {
       );
     }
 
-    final baseColor = _isSpecial ? theme.specialKeyColor : theme.keyColor;
+    final engaged = _isEngaged;
+    final baseColor = engaged
+        ? Color.alphaBlend(theme.accentColor.withValues(alpha: 0.35), theme.keyColor)
+        : _baseColor(theme);
 
     return Expanded(
-      flex: (_data.flex * 10).round(),
+      flex: flex,
       child: Padding(
         padding: theme.keyPadding,
         child: Semantics(
           button: true,
           label: _semanticLabel(),
+          toggled: engaged,
           excludeSemantics: true,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTapDown: _onTapDown,
-            onTapUp: _onTapUp,
-            onTapCancel: _onTapCancel,
-            onTap: _onTap,
-            child: ValueListenableBuilder<bool>(
-              valueListenable: _pressed,
-              builder: (context, pressed, _) {
-                return RepaintBoundary(
-                  child: Material(
-                    color: pressed ? theme.pressedKeyColor : baseColor,
-                    elevation: theme.elevation,
-                    shadowColor: theme.shadowColor,
-                    borderRadius: theme.borderRadius is BorderRadius
-                        ? theme.borderRadius as BorderRadius
-                        : BorderRadius.circular(8),
-                    child: SizedBox(
-                      height: widget.height,
-                      child: Center(child: _buildContent(theme)),
-                    ),
-                  ),
-                );
-              },
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            onEnter: (_) => _hovered.value = true,
+            onExit: (_) => _hovered.value = false,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTapDown: _onTapDown,
+              onTapUp: _onTapUp,
+              onTapCancel: _onTapCancel,
+              onTap: _onTap,
+              child: ValueListenableBuilder<bool>(
+                valueListenable: _pressed,
+                builder: (context, pressed, child) {
+                  return ValueListenableBuilder<bool>(
+                    valueListenable: _hovered,
+                    builder: (context, hovered, _) {
+                      Color color = pressed ? theme.pressedKeyColor : baseColor;
+                      if (!pressed && hovered) {
+                        color = Color.alphaBlend(
+                            theme.accentColor.withValues(alpha: 0.12), color);
+                      }
+                      return RepaintBoundary(
+                        child: Material(
+                          color: color,
+                          elevation: theme.elevation,
+                          shadowColor: theme.shadowColor,
+                          borderRadius: theme.borderRadius is BorderRadius
+                              ? theme.borderRadius as BorderRadius
+                              : BorderRadius.circular(8),
+                          child: SizedBox(
+                            height: widget.height,
+                            child: Center(child: child),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: _buildContent(theme, engaged),
+              ),
             ),
           ),
         ),
@@ -163,22 +197,27 @@ class _KeyboardKeyState extends State<KeyboardKey> {
     );
   }
 
-  Widget _buildContent(VirtualKeyboardTheme theme) {
-    final shifted = widget.controller.isUpperCase;
+  Color _baseColor(VirtualKeyboardTheme theme) {
+    return switch (_data.kind) {
+      KeyKind.character || KeyKind.space => theme.keyColor,
+      KeyKind.function => theme.functionKeyColor,
+      KeyKind.modifier || KeyKind.lock || KeyKind.navigation => theme.modifierKeyColor,
+      _ => theme.specialKeyColor,
+    };
+  }
 
-    if (_data.icon != null) {
-      final highlight = _data.kind == KeyKind.shift &&
-          widget.controller.shiftState != ShiftState.off;
-      return Icon(
-        _data.kind == KeyKind.shift && widget.controller.shiftState == ShiftState.capsLock
-            ? Icons.keyboard_capslock
-            : _data.icon,
-        color: highlight ? Theme.of(context).colorScheme.primary : theme.iconColor,
-        size: theme.textStyle.fontSize! * 1.1,
-      );
+  Widget _buildContent(VirtualKeyboardTheme theme, bool engaged) {
+    final iconColor = engaged ? theme.accentColor : theme.iconColor;
+
+    // Icon keys (shift, backspace, enter, arrows…).
+    final icon = _resolveIcon();
+    if (icon != null) {
+      return Icon(icon, color: iconColor, size: theme.textStyle.fontSize! * 1.05);
     }
 
+    final shifted = _controller.isUpperCase;
     final label = _data.resolveLabel(shifted: shifted) ?? _data.label ?? '';
+
     if (_data.subLabel != null) {
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -189,23 +228,50 @@ class _KeyboardKeyState extends State<KeyboardKey> {
       );
     }
 
-    final isWordKey = label.length > 1; // e.g. .com, ABC, 123
+    final isWordKey = label.length > 1; // .com, ABC, 123, Ctrl, Esc…
     return Text(
       label,
-      style: isWordKey
-          ? theme.textStyle.copyWith(fontSize: theme.textStyle.fontSize! * 0.62)
-          : theme.textStyle,
+      maxLines: 1,
+      overflow: TextOverflow.fade,
+      softWrap: false,
+      style: (isWordKey
+              ? theme.textStyle.copyWith(fontSize: theme.textStyle.fontSize! * 0.5)
+              : theme.textStyle)
+          .copyWith(color: engaged ? theme.accentColor : null),
     );
+  }
+
+  IconData? _resolveIcon() {
+    if (_data.kind == KeyKind.shift && _controller.isCapsLock) {
+      return Icons.keyboard_capslock;
+    }
+    if (_data.icon != null) return _data.icon;
+    if (_data.kind == KeyKind.navigation) {
+      return switch (_data.nav) {
+        NavIntent.left => Icons.keyboard_arrow_left,
+        NavIntent.right => Icons.keyboard_arrow_right,
+        NavIntent.up => Icons.keyboard_arrow_up,
+        NavIntent.down => Icons.keyboard_arrow_down,
+        _ => null, // Home/End/PageUp/Down render as text labels.
+      };
+    }
+    return null;
   }
 
   String _semanticLabel() {
     return switch (_data.kind) {
-      KeyKind.backspace => 'Delete',
+      KeyKind.backspace => 'Backspace',
       KeyKind.shift => 'Shift',
       KeyKind.space => 'Space',
       KeyKind.enter => 'Enter',
       KeyKind.switchLayout => _data.label ?? 'Switch layout',
-      _ => _data.resolveLabel(shifted: widget.controller.isUpperCase) ??
+      KeyKind.modifier => _data.label ?? _data.modifier?.name ?? 'Modifier',
+      KeyKind.lock => _data.label ?? _data.lock?.name ?? 'Lock',
+      KeyKind.navigation => _data.label ?? _data.nav?.name ?? 'Navigate',
+      KeyKind.function => _data.label ?? 'Function',
+      KeyKind.clipboard => _data.label ?? _data.clip?.name ?? 'Clipboard',
+      KeyKind.media => _data.label ?? _data.media?.name ?? 'Media',
+      _ => _data.resolveLabel(shifted: _controller.isUpperCase) ??
           _data.label ??
           '',
     };

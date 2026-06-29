@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:v_keyboard/v_keyboard.dart';
+import 'package:v_keyboard/src/widgets/keyboard_key.dart';
 
 Widget _wrap(Widget child) => MaterialApp(
       home: VirtualKeyboardScope(
@@ -8,7 +9,11 @@ Widget _wrap(Widget child) => MaterialApp(
       ),
     );
 
-Finder _key(String label) => find.byKey(ValueKey('vk_KeyKind.character_$label'));
+Finder _charKey(String text) => find.byWidgetPredicate(
+    (w) => w is VirtualKey && w.data.kind == KeyKind.character && w.data.text == text);
+
+Finder _kindKey(KeyKind kind) =>
+    find.byWidgetPredicate((w) => w is VirtualKey && w.data.kind == kind);
 
 void main() {
   testWidgets('keyboard appears on focus and hides on unfocus', (tester) async {
@@ -40,11 +45,11 @@ void main() {
     await tester.pumpAndSettle();
 
     // Auto-shift makes the first letter upper-case.
-    await tester.tap(_key('h'));
+    await tester.tap(_charKey('h'));
     await tester.pump();
     expect(controller.text, 'H');
 
-    await tester.tap(_key('i'));
+    await tester.tap(_charKey('i'));
     await tester.pump();
     expect(controller.text, 'Hi');
     expect(controller.selection.baseOffset, 2);
@@ -60,7 +65,7 @@ void main() {
     await tester.pumpAndSettle();
     controller.selection = const TextSelection.collapsed(offset: 3);
 
-    await tester.tap(find.byKey(const ValueKey('vk_KeyKind.backspace_null')));
+    await tester.tap(_kindKey(KeyKind.backspace));
     await tester.pump();
     expect(controller.text, 'ab');
   });
@@ -79,7 +84,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(f1.hasFocus, isTrue);
 
-    await tester.tap(find.byKey(const ValueKey('vk_KeyKind.enter_null')));
+    await tester.tap(_kindKey(KeyKind.enter));
     await tester.pumpAndSettle();
     expect(f2.hasFocus, isTrue);
   });
