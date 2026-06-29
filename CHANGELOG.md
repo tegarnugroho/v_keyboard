@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Use absolute image URLs in the README so the showcase renders on pub.dev.
+
 ## 0.1.0
 
 Initial release.

@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/showcase/hero.png" alt="v_keyboard — Native-feeling Virtual Keyboard for Flutter" width="100%">
+  <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/hero.png" alt="v_keyboard — Native-feeling Virtual Keyboard for Flutter" width="100%">
 </p>
 
-<h1 align="center">v_keyboard</h1>
+<h1 align="center">flutter_v_keyboard</h1>
 
 <p align="center">
   A fully customizable, <b>native-feeling</b> virtual keyboard and text-input
@@ -17,28 +17,28 @@ on-screen keyboard instead of the OS keyboard.
 
 <table>
   <tr>
-    <td align="center"><img src="assets/showcase/mobile_standard.png" width="220"><br><sub>Standard</sub></td>
-    <td align="center"><img src="assets/showcase/mobile_number.png" width="220"><br><sub>PIN / Number</sub></td>
-    <td align="center"><img src="assets/showcase/mobile_password.png" width="220"><br><sub>Password (dark)</sub></td>
-    <td align="center"><img src="assets/showcase/mobile_multiline.png" width="220"><br><sub>Multiline</sub></td>
-    <td align="center"><img src="assets/showcase/mobile_emoji.png" width="220"><br><sub>Emoji panel</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_standard.png" width="220"><br><sub>Standard</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_number.png" width="220"><br><sub>PIN / Number</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_password.png" width="220"><br><sub>Password (dark)</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_multiline.png" width="220"><br><sub>Multiline</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_emoji.png" width="220"><br><sub>Emoji panel</sub></td>
   </tr>
 </table>
 
 ### Desktop (Windows OSK style)
 
-<p align="center"><img src="assets/showcase/desktop_keyboard.png" alt="Desktop keyboard" width="100%"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/desktop_keyboard.png" alt="Desktop keyboard" width="100%"></p>
 
 ### Responsive — phone · landscape · tablet · desktop
 
-<p align="center"><img src="assets/showcase/responsive.png" alt="Responsive layouts" width="100%"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/responsive.png" alt="Responsive layouts" width="100%"></p>
 
 ### Light & dark themes
 
 <table>
   <tr>
-    <td align="center"><img src="assets/showcase/light_theme.png" width="260"><br><sub>Light</sub></td>
-    <td align="center"><img src="assets/showcase/dark_theme.png" width="260"><br><sub>Dark</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/light_theme.png" width="260"><br><sub>Light</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/dark_theme.png" width="260"><br><sub>Dark</sub></td>
   </tr>
 </table>
 
@@ -46,11 +46,11 @@ on-screen keyboard instead of the OS keyboard.
 
 <table>
   <tr>
-    <td align="center"><img src="assets/showcase/feature_shift.png" width="200"><br><sub>Shift</sub></td>
-    <td align="center"><img src="assets/showcase/feature_capslock.png" width="200"><br><sub>Caps Lock</sub></td>
-    <td align="center"><img src="assets/showcase/feature_symbols.png" width="200"><br><sub>Symbols</sub></td>
-    <td align="center"><img src="assets/showcase/feature_selection.png" width="200"><br><sub>Selection</sub></td>
-    <td align="center"><img src="assets/showcase/feature_focus.png" width="200"><br><sub>Focus / Next</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_shift.png" width="200"><br><sub>Shift</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_capslock.png" width="200"><br><sub>Caps Lock</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_symbols.png" width="200"><br><sub>Symbols</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_selection.png" width="200"><br><sub>Selection</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_focus.png" width="200"><br><sub>Focus / Next</sub></td>
   </tr>
 </table>
 
