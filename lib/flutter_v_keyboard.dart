@@ -4,7 +4,7 @@
 /// Wrap your app (or a subtree) in a [VKeyboardScope] and use
 /// [VTextField] in place of `TextField`. The keyboard appears when a
 /// field gains focus and pushes the UI like the system keyboard.
-library v_keyboard;
+library flutter_v_keyboard;
 
 export 'src/config/v_keyboard_config.dart';
 export 'src/theme/v_keyboard_theme.dart';

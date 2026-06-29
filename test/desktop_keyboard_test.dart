@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' hide ModifierKey;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:v_keyboard/v_keyboard.dart';
-import 'package:v_keyboard/src/widgets/keyboard_key.dart';
+import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
+import 'package:flutter_v_keyboard/src/widgets/keyboard_key.dart';
 
 Finder _charKey(String text) => find.byWidgetPredicate(
     (w) => w is VirtualKey && w.data.kind == KeyKind.character && w.data.text == text);

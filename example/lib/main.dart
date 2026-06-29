@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' hide ModifierKey;
-import 'package:v_keyboard/v_keyboard.dart';
+import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
 
 void main() => runApp(const ExampleApp());
 

@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  v_keyboard:
+  flutter_v_keyboard:
     path: ../
 
 dev_dependencies:

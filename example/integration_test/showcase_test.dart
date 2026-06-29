@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:v_keyboard/v_keyboard.dart';
-import 'package:v_keyboard/src/widgets/emoji_panel.dart';
+import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
+import 'package:flutter_v_keyboard/src/widgets/emoji_panel.dart';
 
 const _accent = Color(0xFF6366F1);
 const _outDir = '../assets/showcase';
