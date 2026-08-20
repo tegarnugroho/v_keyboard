@@ -1,10 +1,30 @@
 # Flutter / Dart
-.dart_tool/
+.dart_tool/*
+!.dart_tool/extension_discovery/
+!.dart_tool/extension_discovery/vs_code.json
+!.dart_tool/package_config.json
+!.dart_tool/package_graph.json
+!.dart_tool/version
 .packages
-build/
+build/*
+!build/native_assets/
+!build/native_assets/windows/
+!build/native_assets/windows/native_assets.json
+!build/test_cache/
+!build/test_cache/build/
+!build/test_cache/build/0ea6338a9744699c4765127c07d5f7ae.cache.dill.track.dill
+!build/unit_test_assets/
+!build/unit_test_assets/AssetManifest.bin
+!build/unit_test_assets/FontManifest.json
+!build/unit_test_assets/NOTICES.Z
+!build/unit_test_assets/NativeAssetsManifest.json
+!build/unit_test_assets/shaders/
+!build/unit_test_assets/shaders/ink_sparkle.frag
+!build/unit_test_assets/shaders/stretch_effect.frag
 .flutter-plugins
 .flutter-plugins-dependencies
 pubspec.lock
+!pubspec.lock
 
 # IDE
 .idea/

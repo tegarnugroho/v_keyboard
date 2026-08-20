@@ -1,6 +1,8 @@
 # Keep the published archive lean — these aren't needed by consumers.
 build/
 .dart_tool/
+pubspec.lock
+example/pubspec.lock
 example/build/
 example/.dart_tool/
 example/android/
