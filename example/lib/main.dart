@@ -4,8 +4,19 @@ import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
 
 void main() => runApp(const ExampleApp());
 
-class ExampleApp extends StatelessWidget {
+class ExampleApp extends StatefulWidget {
   const ExampleApp({super.key});
+
+  @override
+  State<ExampleApp> createState() => _ExampleAppState();
+}
+
+class _ExampleAppState extends State<ExampleApp> {
+  bool _useDarkKeyboardTheme = false;
+
+  void _toggleKeyboardTheme(bool value) {
+    setState(() => _useDarkKeyboardTheme = value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,25 +36,38 @@ class ExampleApp extends StatelessWidget {
       // the keyboard, focus traversal and push-up behaviour. VKeyboardShortcuts
       // adds desktop shortcuts + media/meta callbacks for the whole subtree.
       builder: (context, child) => VKeyboardScope(
+        theme: _useDarkKeyboardTheme
+            ? VKeyboardTheme.dark()
+            : VKeyboardTheme.light(),
         child: VKeyboardShortcuts(
           shortcuts: {
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
-                () => debugPrint('Ctrl+S → save'),
+                () => debugPrint('Ctrl+S -> save'),
             LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyP):
-                () => debugPrint('Ctrl+P → print'),
+                () => debugPrint('Ctrl+P -> print'),
           },
           onMedia: (intent) => debugPrint('media: $intent'),
           onMetaKey: () => debugPrint('Win key'),
           child: child!,
         ),
       ),
-      home: const DemoPage(),
+      home: DemoPage(
+        useDarkKeyboardTheme: _useDarkKeyboardTheme,
+        onKeyboardThemeChanged: _toggleKeyboardTheme,
+      ),
     );
   }
 }
 
 class DemoPage extends StatefulWidget {
-  const DemoPage({super.key});
+  const DemoPage({
+    super.key,
+    required this.useDarkKeyboardTheme,
+    required this.onKeyboardThemeChanged,
+  });
+
+  final bool useDarkKeyboardTheme;
+  final ValueChanged<bool> onKeyboardThemeChanged;
 
   @override
   State<DemoPage> createState() => _DemoPageState();
@@ -51,6 +75,7 @@ class DemoPage extends StatefulWidget {
 
 class _DemoPageState extends State<DemoPage> {
   final _standard = TextEditingController();
+  final _text = TextEditingController();
   final _email = TextEditingController();
   final _url = TextEditingController();
   final _number = TextEditingController();
@@ -62,13 +87,23 @@ class _DemoPageState extends State<DemoPage> {
   final _custom = TextEditingController();
   final _desktop = TextEditingController();
 
-  String _lastEvent = '—';
+  String _lastEvent = '-';
 
   @override
   void dispose() {
     for (final c in [
-      _standard, _email, _url, _number, _decimal,
-      _phone, _pin, _password, _multiline, _custom, _desktop,
+      _standard,
+      _text,
+      _email,
+      _url,
+      _number,
+      _decimal,
+      _phone,
+      _pin,
+      _password,
+      _multiline,
+      _custom,
+      _desktop,
     ]) {
       c.dispose();
     }
@@ -107,8 +142,18 @@ class _DemoPageState extends State<DemoPage> {
           padding: const EdgeInsets.all(16),
           children: [
             _label('Last action: $_lastEvent'),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: const Text('Dark keyboard theme'),
+              subtitle: const Text('Toggle only the virtual keyboard theme'),
+              value: widget.useDarkKeyboardTheme,
+              onChanged: widget.onKeyboardThemeChanged,
+            ),
             _field('Standard (next)', _standard,
                 type: VKeyboardType.standard,
+                action: TextInputAction.next),
+            _field('Text without emoji (next)', _text,
+                type: VKeyboardType.text,
                 action: TextInputAction.next),
             _field('Email (next)', _email,
                 type: VKeyboardType.email,
@@ -118,8 +163,7 @@ class _DemoPageState extends State<DemoPage> {
             _field('Number', _number, type: VKeyboardType.number),
             _field('Decimal', _decimal, type: VKeyboardType.decimal),
             _field('Phone', _phone, type: VKeyboardType.phone),
-            _field('PIN', _pin,
-                type: VKeyboardType.pin, obscure: true),
+            _field('PIN', _pin, type: VKeyboardType.pin, obscure: true),
             _field('Password', _password,
                 type: VKeyboardType.password, obscure: true),
             _multilineField(),

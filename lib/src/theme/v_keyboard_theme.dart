@@ -30,39 +30,22 @@ class VKeyboardTheme {
   })  : functionKeyColor = functionKeyColor ?? specialKeyColor,
         modifierKeyColor = modifierKeyColor ?? specialKeyColor;
 
+  /// Built-in light keyboard theme preset.
+  factory VKeyboardTheme.light({Color accentColor = Colors.indigo}) {
+    return _preset(accentColor: accentColor, brightness: Brightness.light);
+  }
+
+  /// Built-in dark keyboard theme preset.
+  factory VKeyboardTheme.dark({Color accentColor = Colors.indigo}) {
+    return _preset(accentColor: accentColor, brightness: Brightness.dark);
+  }
+
   /// Builds a theme that follows Material's color scheme.
   factory VKeyboardTheme.fromTheme(ThemeData theme) {
-    final scheme = theme.colorScheme;
-    final isDark = theme.brightness == Brightness.dark;
-    return VKeyboardTheme(
-      backgroundColor: isDark
-          ? const Color(0xFF1C1C20)
-          : const Color(0xFFD1D5DB),
-      keyColor: isDark ? const Color(0xFF3A3A40) : Colors.white,
-      pressedKeyColor: scheme.primary.withValues(alpha: 0.25),
-      specialKeyColor: isDark
-          ? const Color(0xFF2A2A30)
-          : const Color(0xFFADB3BD),
-      disabledKeyColor: scheme.onSurface.withValues(alpha: 0.12),
-      accentColor: scheme.primary,
-      functionKeyColor: isDark
-          ? const Color(0xFF26262B)
-          : const Color(0xFFBCC1CB),
-      modifierKeyColor: isDark
-          ? const Color(0xFF2A2A30)
-          : const Color(0xFFADB3BD),
-      iconColor: scheme.onSurface,
-      textStyle: TextStyle(
-        fontSize: 22,
-        color: scheme.onSurface,
-        fontWeight: FontWeight.w400,
-      ),
-      subLabelStyle: TextStyle(
-        fontSize: 10,
-        color: scheme.onSurface.withValues(alpha: 0.6),
-        fontWeight: FontWeight.w500,
-      ),
-      elevation: 1,
+    return _preset(
+      accentColor: theme.colorScheme.primary,
+      brightness: theme.brightness,
+      onSurfaceColor: theme.colorScheme.onSurface,
     );
   }
 
@@ -131,6 +114,47 @@ class VKeyboardTheme {
       keyPadding: keyPadding ?? this.keyPadding,
       contentPadding: contentPadding ?? this.contentPadding,
       keySpacing: keySpacing ?? this.keySpacing,
+    );
+  }
+
+  static VKeyboardTheme _preset({
+    required Color accentColor,
+    required Brightness brightness,
+    Color? onSurfaceColor,
+  }) {
+    final isDark = brightness == Brightness.dark;
+    final surfaceColor =
+        onSurfaceColor ?? (isDark ? Colors.white : const Color(0xFF1F2937));
+
+    return VKeyboardTheme(
+      backgroundColor: isDark
+          ? const Color(0xFF1C1C20)
+          : const Color(0xFFD1D5DB),
+      keyColor: isDark ? const Color(0xFF3A3A40) : Colors.white,
+      pressedKeyColor: accentColor.withValues(alpha: 0.25),
+      specialKeyColor: isDark
+          ? const Color(0xFF2A2A30)
+          : const Color(0xFFADB3BD),
+      disabledKeyColor: surfaceColor.withValues(alpha: 0.12),
+      accentColor: accentColor,
+      functionKeyColor: isDark
+          ? const Color(0xFF26262B)
+          : const Color(0xFFBCC1CB),
+      modifierKeyColor: isDark
+          ? const Color(0xFF2A2A30)
+          : const Color(0xFFADB3BD),
+      iconColor: surfaceColor,
+      textStyle: TextStyle(
+        fontSize: 22,
+        color: surfaceColor,
+        fontWeight: FontWeight.w400,
+      ),
+      subLabelStyle: TextStyle(
+        fontSize: 10,
+        color: surfaceColor.withValues(alpha: 0.6),
+        fontWeight: FontWeight.w500,
+      ),
+      elevation: 1,
     );
   }
 }

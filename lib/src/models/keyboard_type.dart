@@ -3,8 +3,11 @@
 /// Note: Dart reserves the word `default`, so the standard alphanumeric
 /// keyboard is named [VKeyboardType.standard] (not `default`).
 enum VKeyboardType {
-  /// Full QWERTY with letters, numbers and symbols pages.
+  /// Full QWERTY with letters, numbers, symbols and emoji pages.
   standard,
+
+  /// Full QWERTY with letters, numbers and symbols pages, without emoji.
+  text,
 
   /// Digits only (0-9).
   number,

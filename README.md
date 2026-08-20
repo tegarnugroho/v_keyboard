@@ -66,8 +66,8 @@ on-screen keyboard instead of the OS keyboard.
 - Pushes the UI up like the system keyboard (injects `viewInsets.bottom`).
 - Long-press backspace + held-key repeat.
 - Temporary shift, caps-lock (double-tap), `ABC / 123 / #+=` pages.
-- Built-in layouts: standard, number, decimal, phone, pin, password, email,
-  url, multiline, and fully **custom**.
+- Built-in layouts: standard, text (no emoji key), number, decimal, phone,
+  pin, password, email, url, multiline, and fully **custom**.
 - Full `TextInputAction` support (next/previous/done/go/search/send/newline…)
   respecting `FocusTraversalPolicy`.
 - Responsive sizing for phone/tablet/desktop, portrait/landscape, resizable
@@ -78,6 +78,13 @@ on-screen keyboard instead of the OS keyboard.
   `ValueNotifier`-based pressed state.
 - Material theming via `VKeyboardTheme`, behaviour via
   `VKeyboardConfig`. Semantics for screen readers.
+
+## Install
+
+```yaml
+dependencies:
+  flutter_v_keyboard: ^0.1.2
+```
 
 ## Quick start
 
@@ -139,9 +146,13 @@ VKeyboardScope(
     enableLongPressDelete: true,
     enableKeyRepeat: true,
   ),
-  theme: VKeyboardTheme.fromTheme(Theme.of(context)),
+  theme: VKeyboardTheme.dark(),
   child: ...,
 );
+
+// Or use the built-in light preset / keep following your app ThemeData.
+VKeyboardTheme.light(accentColor: Colors.blue);
+VKeyboardTheme.fromTheme(Theme.of(context));
 ```
 
 ## Architecture

@@ -1,3 +1,8 @@
+## 0.1.2
+
+- Add built-in `VKeyboardTheme.light()` and `VKeyboardTheme.dark()` presets.
+- Add `VKeyboardType.text` for a standard QWERTY layout without the emoji key.
+
 ## 0.1.1
 
 - Use absolute image URLs in the README so the showcase renders on pub.dev.

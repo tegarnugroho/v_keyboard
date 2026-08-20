@@ -15,6 +15,9 @@ Finder _charKey(String text) => find.byWidgetPredicate(
 Finder _kindKey(KeyKind kind) =>
     find.byWidgetPredicate((w) => w is VirtualKey && w.data.kind == kind);
 
+Finder _switchKey(String label) => find.byWidgetPredicate(
+    (w) => w is VirtualKey && w.data.kind == KeyKind.switchLayout && w.data.label == label);
+
 void main() {
   testWidgets('keyboard appears on focus and hides on unfocus', (tester) async {
     final controller = TextEditingController();
@@ -53,6 +56,28 @@ void main() {
     await tester.pump();
     expect(controller.text, 'Hi');
     expect(controller.selection.baseOffset, 2);
+  });
+
+  testWidgets('text keyboard omits the emoji switch key', (tester) async {
+    final controller = TextEditingController();
+    final focus = FocusNode();
+    await tester.pumpWidget(_wrap(
+      VTextField(
+        controller: controller,
+        focusNode: focus,
+        keyboardType: VKeyboardType.text,
+      ),
+    ));
+
+    focus.requestFocus();
+    await tester.pumpAndSettle();
+
+    expect(_switchKey('123'), findsOneWidget);
+    expect(_switchKey('☺'), findsNothing);
+
+    await tester.tap(_charKey('h'));
+    await tester.pump();
+    expect(controller.text, 'H');
   });
 
   testWidgets('backspace deletes the previous character', (tester) async {

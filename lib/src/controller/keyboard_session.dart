@@ -72,6 +72,7 @@ class KeyboardSession {
 
   bool get _isAlphabetic => switch (type) {
         VKeyboardType.standard ||
+        VKeyboardType.text ||
         VKeyboardType.email ||
         VKeyboardType.url ||
         VKeyboardType.multiline =>

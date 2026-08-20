@@ -19,6 +19,8 @@ class BuiltinLayouts {
       case VKeyboardType.standard:
       case VKeyboardType.password:
         return qwerty;
+      case VKeyboardType.text:
+        return text;
       case VKeyboardType.email:
         return email;
       case VKeyboardType.url:
@@ -80,6 +82,31 @@ class BuiltinLayouts {
       '123': _numericSymbolPage('symbols'),
       'symbols': _symbolPage('123'),
       'emoji': emojiPage,
+    },
+  );
+
+  static final KeyboardLayout text = KeyboardLayout(
+    id: 'text',
+    initialPage: 'abc',
+    pages: {
+      'abc': [
+        _row('qwertyuiop'),
+        _row('asdfghjkl'),
+        [
+          KeyData.shift(flex: 1.5),
+          ..._row('zxcvbnm'),
+          KeyData.backspace(flex: 1.5),
+        ],
+        [
+          KeyData.switchTo('123', label: '123', flex: 1.5),
+          KeyData.symbol(',', flex: 1),
+          KeyData.space(flex: 5),
+          KeyData.symbol('.', flex: 1),
+          KeyData.enter(flex: 2),
+        ],
+      ],
+      '123': _numericSymbolPage('symbols'),
+      'symbols': _symbolPage('123'),
     },
   );
 
