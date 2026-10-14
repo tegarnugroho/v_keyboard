@@ -25,6 +25,7 @@ class VKeyboardScope extends StatefulWidget {
     this.theme,
     this.config = const VKeyboardConfig(),
     this.floating = false,
+    this.renderKeyboard = true,
   });
 
   final Widget child;
@@ -41,6 +42,10 @@ class VKeyboardScope extends StatefulWidget {
 
   /// When true the keyboard floats above content instead of pushing it.
   final bool floating;
+
+  /// When false, [VKeyboardScope] will not render the bottom keyboard overlay,
+  /// allowing custom or embedded keyboard placement while preserving session binding.
+  final bool renderKeyboard;
 
   /// Looks up the nearest controller. Throws if there is no scope above.
   static VKeyboardController of(BuildContext context) {
@@ -187,7 +192,9 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
           AnimatedBuilder(
             animation: _curved,
             builder: (context, child) {
-              final inset = widget.floating ? 0.0 : fullHeight * _curved.value;
+              final inset = (!widget.renderKeyboard || widget.floating)
+                  ? 0.0
+                  : fullHeight * _curved.value;
               return MediaQuery(
                 data: mq.copyWith(
                   viewInsets: mq.viewInsets
@@ -200,7 +207,9 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
           ),
 
           // The keyboard itself.
-          if ((rows != null || isClipboard) && metrics != null)
+          if (widget.renderKeyboard &&
+              (rows != null || isClipboard) &&
+              metrics != null)
             Positioned(
               left: 0,
               right: 0,

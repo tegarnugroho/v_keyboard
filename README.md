@@ -1,255 +1,339 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/hero.png" alt="v_keyboard — Native-feeling Virtual Keyboard for Flutter" width="100%">
+  <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/hero.png" alt="flutter_v_keyboard hero showcase" width="100%">
 </p>
 
-<h1 align="center">flutter_v_keyboard</h1>
+# flutter_v_keyboard
 
-<p align="center">
-  A fully customizable, <b>native-feeling</b> virtual keyboard and text-input
-  system for Flutter — Android · iOS · Windows · macOS · Linux · Web.
-</p>
+A customizable virtual keyboard and text-input system for Flutter, built for mobile, desktop, and web.
 
-It is not just a keyboard widget: `VTextField` is a drop-in replacement
-for `TextField` that integrates with Flutter's focus system and is driven by an
-on-screen keyboard instead of the OS keyboard.
+[![pub package](https://img.shields.io/pub/v/flutter_v_keyboard.svg)](https://pub.dev/packages/flutter_v_keyboard)
+[![platforms](https://img.shields.io/badge/platform-android%20|%20ios%20|%20windows%20|%20macos%20|%20linux%20|%20web-blue.svg)](https://pub.dev/packages/flutter_v_keyboard)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/tegarnugroho/v_keyboard/blob/main/LICENSE)
+
+Unlike simple keyboard widgets, `flutter_v_keyboard` pairs a drop-in `VTextField` with an on-screen text input engine. It delivers precise cursor management, multi-character selection replacement, multiline editing, layout switching, and focus traversal without invoking the host operating system's software keyboard.
+
+---
 
 ## Showcase
 
-<table>
-  <tr>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_standard.png" width="220"><br><sub>Standard</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_number.png" width="220"><br><sub>PIN / Number</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_password.png" width="220"><br><sub>Password (dark)</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_multiline.png" width="220"><br><sub>Multiline</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_emoji.png" width="220"><br><sub>Emoji panel</sub></td>
-  </tr>
-</table>
+### Everyday Typing
 
-### Desktop (Windows OSK style)
+| Standard | Number / PIN | Password | Multiline |
+| :---: | :---: | :---: | :---: |
+| <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_standard.png" width="200" alt="Standard mobile layout"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_number.png" width="200" alt="Number and PIN layout"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_password.png" width="200" alt="Password layout"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_multiline.png" width="200" alt="Multiline input layout"> |
 
-<p align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/desktop_keyboard.png" alt="Desktop keyboard" width="100%"></p>
+### Customization
 
-### Responsive — phone · landscape · tablet · desktop
+| Light Theme | Dark Theme | Emoji Panel |
+| :---: | :---: | :---: |
+| <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/light_theme.png" width="240" alt="Light theme preset"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/dark_theme.png" width="240" alt="Dark theme preset"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_emoji.png" width="240" alt="Categorized emoji picker"> |
 
-<p align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/responsive.png" alt="Responsive layouts" width="100%"></p>
+### Desktop
 
-### Light & dark themes
+Full physical desktop layout featuring function keys, navigation clusters, and responsive collapsing sections.
 
-<table>
-  <tr>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/light_theme.png" width="260"><br><sub>Light</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/dark_theme.png" width="260"><br><sub>Dark</sub></td>
-  </tr>
-</table>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/desktop_keyboard.png" alt="Desktop keyboard layout with function row and navigation cluster" width="100%">
+</p>
 
-### Features
+Responsive scaling across phones, landscape mode, tablets, and wide desktop windows.
 
-<table>
-  <tr>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_shift.png" width="200"><br><sub>Shift</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_capslock.png" width="200"><br><sub>Caps Lock</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_symbols.png" width="200"><br><sub>Symbols</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_selection.png" width="200"><br><sub>Selection</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/feature_focus.png" width="200"><br><sub>Focus / Next</sub></td>
-  </tr>
-</table>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/responsive.png" alt="Responsive layout scaling across phone, tablet, and desktop" width="100%">
+</p>
 
-> Showcase images are generated from the real package widgets by
-> `example/integration_test/showcase_test.dart` —
-> `cd example && flutter test integration_test/showcase_test.dart -d windows`.
+### Clipboard History
 
-## Highlights
+Production-ready clipboard history integrated directly into the virtual keyboard. Tap the clipboard key on the keyboard, search snippets, pin frequent items, and paste directly into the active field.
 
-- Appears on focus, hides on blur — follows `FocusNode` naturally.
-- Real cursor, selection, selection-replacement and multiline editing
-  (built on a `readOnly` `TextField`, so it behaves natively).
-- Pushes the UI up like the system keyboard (injects `viewInsets.bottom`).
-- Long-press backspace + held-key repeat.
-- Temporary shift, caps-lock (double-tap), `ABC / 123 / #+=` pages.
-- Built-in layouts: standard, text (no emoji key), number, decimal, phone,
-  pin, password, email, url, multiline, and fully **custom**.
-- Full `TextInputAction` support (next/previous/done/go/search/send/newline…)
-  respecting `FocusTraversalPolicy`.
-- Responsive sizing for phone/tablet/desktop, portrait/landscape, resizable
-  windows — heights are computed, never hard-coded; centred + width-limited on
-  large desktop windows.
-- Hardware-keyboard fallback on desktop/web.
-- Per-key repaint (taps don't rebuild the whole keyboard), `RepaintBoundary`s,
-  `ValueNotifier`-based pressed state.
-- Material theming via `VKeyboardTheme`, behaviour via
-  `VKeyboardConfig`. Semantics for screen readers.
+| Integrated Key | History Panel | Search & Filter |
+| :---: | :---: | :---: |
+| <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/clipboard_trigger.png" width="240" alt="Integrated clipboard history key"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/clipboard_history.png" width="240" alt="Clipboard history panel with pinned snippets"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/clipboard_search.png" width="240" alt="Search and quick filter chips"> |
 
-## Install
+---
+
+## Features
+
+### Text Input
+- Real cursor positioning, drag selection, and multi-character replacement.
+- Multiline editing with newline handling and text overflow wrapping.
+- Flutter focus system integration with `TextInputAction` (`next`, `done`, `go`, `search`).
+- Native keyboard avoidance by pushing application UI via `viewInsets.bottom`.
+- Full respect for `inputFormatters`, `maxLength`, and `readOnly` configurations.
+
+### Keyboard Layouts
+- **Alphabetic**: Standard QWERTY and Text (clean layout without emoji switch).
+- **Specialized**: Number, decimal, phone, PIN, password, email, and URL layouts.
+- **Symbols**: Multi-page switching (`123`, `#+=`) with sticky shift and double-tap caps lock.
+- **Emoji**: Built-in categorized emoji picker with zero external dependencies.
+- **Custom**: Declarative layout definition and custom key widget builders.
+
+### Desktop Experience
+- Windows On-Screen Keyboard style layout with function keys (F1–F12) and numpad.
+- Full modifier handling: Shift, Ctrl, Alt, AltGr, Meta, Caps Lock, Num Lock, and Scroll Lock.
+- Navigation clusters: Arrow keys, Home, End, Page Up, and Page Down.
+- Word-by-word navigation (`Ctrl + Arrow`) and word deletion (`Ctrl + Backspace`).
+- Hardware keyboard fallback on desktop and web targets.
+- Desktop shortcut registration via `VKeyboardShortcuts`.
+
+### Clipboard History
+- Automatic recording of copied and cut text snippets within the virtual keyboard pipeline.
+- Instant synchronization with the host operating system clipboard upon opening.
+- Persistent local storage surviving application restarts.
+- Deduplication with position bumping and original timestamp preservation.
+- Snippet pinning to protect critical items from eviction.
+- Search filtering with quick filter chips (`All`, `Pinned`, `Recent`).
+- Privacy protection: Password, PIN, and sensitive fields are never saved.
+- Hardware shortcut support (`Win + V`, `Ctrl + Shift + V`).
+
+---
+
+## Installation
+
+Add `flutter_v_keyboard` to your `pubspec.yaml`:
+
+```bash
+flutter pub add flutter_v_keyboard
+```
+
+Or add it manually under dependencies:
 
 ```yaml
 dependencies:
-  flutter_v_keyboard: ^0.1.2
+  flutter_v_keyboard: ^0.2.0
 ```
 
-## Quick start
+---
 
-Wrap your app once:
+## Quick Start
+
+Wrap your application tree once with `VKeyboardScope`:
 
 ```dart
-MaterialApp(
-  builder: (context, child) => VKeyboardScope(child: child!),
-  home: MyPage(),
+import 'package:flutter/material.dart';
+import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      builder: (context, child) => VKeyboardScope(
+        child: child!,
+      ),
+      home: const FormPage(),
+    );
+  }
+}
+```
+
+Replace `TextField` with `VTextField`:
+
+```dart
+class FormPage extends StatefulWidget {
+  const FormPage({super.key});
+
+  @override
+  State<FormPage> createState() => _FormPageState();
+}
+
+class _FormPageState extends State<FormPage> {
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Virtual Keyboard Example')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: VTextField(
+          controller: _controller,
+          keyboardType: VKeyboardType.standard,
+          textInputAction: TextInputAction.done,
+          decoration: const InputDecoration(
+            labelText: 'Your message',
+            border: OutlineInputBorder(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+## Customization
+
+### Themes
+
+Choose between built-in presets or inherit colors and typography from your application's `ThemeData`:
+
+```dart
+// Built-in presets
+VKeyboardScope(
+  theme: VKeyboardTheme.light(accentColor: Colors.teal),
+  child: child!,
+);
+
+VKeyboardScope(
+  theme: VKeyboardTheme.dark(accentColor: Colors.deepOrange),
+  child: child!,
+);
+
+// Ambient ThemeData inheritance (with native OS font fallback stack)
+VKeyboardScope(
+  theme: VKeyboardTheme.fromTheme(Theme.of(context)),
+  child: child!,
 );
 ```
 
-Use `VTextField` like a `TextField`:
+### Runtime Configuration
+
+Adjust keyboard behavior and clipboard limits through `VKeyboardConfig`:
 
 ```dart
-VTextField(
-  controller: controller,
-  focusNode: focusNode,
-  keyboardType: VKeyboardType.standard, // note: `default` is reserved
-  textInputAction: TextInputAction.next,
-  onSubmitted: (value) {},
-)
+VKeyboardScope(
+  config: const VKeyboardConfig(
+    hideOnDone: true,
+    moveFocusOnNext: true,
+    closeOnOutsideTap: true,
+    enableLongPressDelete: true,
+    enableKeyRepeat: true,
+    enableClipboardHistory: true,
+    maxClipboardHistoryItems: 50,
+  ),
+  child: child!,
+);
 ```
 
-> **Naming note:** Dart reserves the word `default`, so the standard
-> alphanumeric keyboard is `VKeyboardType.standard`.
+### Custom Layouts
 
-## Custom layouts
+Define custom layouts declaratively without modifying package internals:
 
 ```dart
-final layout = KeyboardLayout(
+final greekLayout = KeyboardLayout(
   id: 'greek',
   initialPage: 'main',
   pages: {
     'main': [
-      'αβγδε'.split('').map(KeyData.char).toList(),
-      [KeyData.shift(), KeyData.space(), KeyData.backspace(), KeyData.enter()],
+      'αβγδεζηθ'.split('').map(KeyData.char).toList(),
+      'ικλμνξοπ'.split('').map(KeyData.char).toList(),
+      [
+        KeyData.shift(flex: 1.5),
+        ...'ρστυφχψ'.split('').map(KeyData.char),
+        KeyData.backspace(flex: 1.5),
+      ],
+      [
+        KeyData.space(flex: 5),
+        KeyData.enter(flex: 2),
+      ],
     ],
   },
 );
 
 VTextField(
   keyboardType: VKeyboardType.custom,
-  customLayout: layout,
+  customLayout: greekLayout,
 );
 ```
 
-Custom keys (emoji/clipboard/voice/etc.) via `KeyData.custom(builder)` — no need
-to fork the package.
+### Custom Keys
 
-## Configuration
+Insert custom widget keys using `KeyData.custom`:
 
 ```dart
-VKeyboardScope(
-  config: VKeyboardConfig(
-    hideOnDone: true,
-    moveFocusOnNext: true,
-    closeOnOutsideTap: true,
-    enableLongPressDelete: true,
-    enableKeyRepeat: true,
+KeyData.custom(
+  builder: (context) => Container(
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: Colors.amber.shade200,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: const Icon(Icons.mic, size: 20),
   ),
-  theme: VKeyboardTheme.dark(),
-  child: ...,
+  text: '[voice]',
+  flex: 1.2,
 );
-
-// Or use the built-in light preset / keep following your app ThemeData.
-VKeyboardTheme.light(accentColor: Colors.blue);
-VKeyboardTheme.fromTheme(Theme.of(context));
 ```
 
-## Architecture
+### Desktop Keyboard and Shortcuts
 
-Cleanly separated, single-responsibility units:
-
-| Concern           | Type                          |
-|-------------------|-------------------------------|
-| Orchestration     | `VKeyboardController`    |
-| Per-field session | `KeyboardSession`             |
-| Pure text editing | `TextInputEngine`             |
-| Layouts/keys      | `KeyboardLayout`, `KeyData`, `BuiltinLayouts` |
-| Actions           | `KeyboardActionHandler`       |
-| Responsive sizing | `KeyboardMetrics`             |
-| Rendering         | `KeyboardView`, `KeyboardKey` |
-| Theme / config    | `VKeyboardTheme`, `VKeyboardConfig` |
-| Host + insets     | `VKeyboardScope`        |
-
-See [`example/`](example/lib/main.dart) for a full demo of every layout, a
-custom layout, and the action callbacks.
-
-## Desktop keyboard (Windows OSK style)
-
-`VKeyboardType.desktop` renders a full physical keyboard: function row,
-number row, full QWERTY, all modifiers (Ctrl/Alt/AltGr/Win/Menu, L+R Shift/Ctrl),
-Caps/Num/Scroll Lock, navigation cluster (arrows, Home/End, Page Up/Down,
-Insert/Delete), a numeric keypad and optional media keys. It is **responsive by
-width** — sections collapse as the window narrows (media → numpad → function row),
-typing keys always remain.
-
-```dart
-VTextField(
-  keyboardType: VKeyboardType.desktop,
-  maxLines: 5,
-)
-```
-
-Supported behaviour: Shift/Caps casing, Ctrl/Alt/Meta modifier combos,
-Shift+Arrow (extend selection), Ctrl+Arrow (by word), Home/End/PageUp/PageDown,
-Ctrl+Backspace/Delete (word), built-in Ctrl+A/C/X/V clipboard, key repeat, and
-hover/pressed/locked visual feedback.
-
-Register custom shortcuts and desktop callbacks with `VKeyboardShortcuts`:
+Render a full physical keyboard layout with `VKeyboardType.desktop` and bind custom global shortcuts with `VKeyboardShortcuts`:
 
 ```dart
 VKeyboardShortcuts(
   shortcuts: {
-    LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyS): save,
+    LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyS): () {
+      debugPrint('Save command invoked');
+    },
   },
-  onMedia: (intent) => player.handle(intent),
-  onMetaKey: () => openStartMenu(),
-  clipboardCallbacks: ClipboardCallbacks(onPaste: () => myPaste()),
-  child: ...,
-)
+  onMedia: (intent) => debugPrint('Media key: $intent'),
+  onMetaKey: () => debugPrint('Meta / Windows key tapped'),
+  child: child!,
+);
 ```
 
-Desktop architecture (separate from mobile, shared controller/engine/focus):
-`KeyboardModifierController`, `KeyboardNavigation`, `KeyboardShortcutManager`,
-`ClipboardActions`, `DesktopLayouts`. Replace the whole layout (compact / gaming
-/ POS / kiosk) by passing a `customLayout` with `VKeyboardType.desktop` or
-`.custom`.
+### Sensitive Fields
 
-## Clipboard History (`Win + V` style)
-
-Production-ready clipboard history integrated directly into the virtual keyboard system:
-
-- **Snippet Recording**: Automatically records non-empty text copied or cut through `v_keyboard`. Duplicate items are deduplicated and moved to the most recent position while preserving creation metadata.
-- **Dedicated UI Panel**: Clean, theme-aware panel with search filtering, 2-line snippet preview, relative timestamps (`Just now`, `5m ago`), pin/unpin toggles, delete action, and clear unpinned history with confirmation.
-- **Entry Points**: Accessible from the clipboard icon on the `123`/symbols page, the emoji panel bottom bar, the desktop function cluster, or via hardware shortcuts (`Win + V`, `Ctrl + Shift + V`).
-- **Seamless Pasting**: Tapping an item inserts text at the current cursor or replaces the active selection using the `TextInputEngine` pipeline (respecting `maxLength`, `inputFormatters`, and `readOnly` rules). The keyboard stays open after pasting.
-- **Privacy & Security**: Never records text from password or sensitive fields (`obscureText: true`, `VKeyboardType.password`, `VKeyboardType.pin`, or `VTextField(sensitive: true)`). Does **not** poll or sniff the host OS clipboard in the background.
-- **Persistence & Limits**: Survives app restarts via lightweight, local JSON storage (file-based on Android, iOS, Windows, macOS, Linux, and in-memory on Web). Configurable history limit (`maxClipboardHistoryItems`, default 50) where pinned items are immune to eviction.
+Exclude sensitive information from clipboard history by setting `sensitive: true`:
 
 ```dart
-// Configure history limit or disable feature
-VKeyboardScope(
-  config: VKeyboardConfig(
-    enableClipboardHistory: true,
-    maxClipboardHistoryItems: 50,
-  ),
-  child: ...,
-);
-
-// Mark sensitive fields that should never be recorded
 VTextField(
-  sensitive: true, // copy/cut from here is never saved to history
-  controller: controller,
+  controller: _pinController,
+  keyboardType: VKeyboardType.pin,
+  sensitive: true, // Content will never be recorded to clipboard history
 );
-
-// Programmatic control via controller
-final controller = VKeyboardScope.of(context).controller;
-controller.openClipboardHistory();
-controller.pasteText('Custom snippet');
 ```
 
-## Status
+---
 
-Production-oriented foundation with unit + widget tests
-(`flutter test`). See `CHANGELOG`/issues for the remaining roadmap items
-(emoji page UI, floating/docked desktop polish, integration tests).
+## Architecture
+
+`flutter_v_keyboard` is designed around single-responsibility layers:
+
+| Component | Responsibility |
+| :--- | :--- |
+| `VKeyboardScope` | Injects keyboard overlay, manages bottom safe-area insets (`viewInsets.bottom`), and handles tap-outside dismissal. |
+| `VKeyboardController` | Coordinates keyboard state, page switches, active modifiers, and clipboard history. |
+| `KeyboardSession` | Links the focused `VTextField` to the controller, synchronizing selection and cursor updates. |
+| `TextInputEngine` | Core text manipulation engine handling insertions, deletions, formatters, and length constraints. |
+| `KeyboardView` | Computes responsive layout metrics and renders keys with per-key repaint boundaries. |
+| `ClipboardHistoryManager` | Records snippets, enforces storage limits, handles pinning, and syncs with system clipboard. |
+| `VKeyboardTheme` | Defines visual colors, elevation, border radii, and system font fallback stacks. |
+| `VKeyboardConfig` | Controls runtime keyboard behavior flags and feature toggles. |
+
+---
+
+## Platform Support
+
+| Platform | Support | Status |
+| :--- | :---: | :--- |
+| **Android** | Supported | Verified via automated widget tests and example runner. |
+| **iOS** | Supported | Verified via automated widget tests and example runner. |
+| **macOS** | Supported | Verified via automated widget tests, integration tests, and desktop example. |
+| **Windows** | Supported | Verified via automated widget tests and desktop example. |
+| **Linux** | Supported | Verified via automated widget tests and desktop example. |
+| **Web** | Supported | Verified via automated widget tests and Chrome target (storage runs in-memory). |
+
+### SDK Requirements
+- **Flutter**: `>=3.22.0`
+- **Dart**: `>=3.4.0 <4.0.0`
+
+---
+
+## Contributing & Links
+
+- **Example App**: Explore [`example/lib/main.dart`](example/lib/main.dart) for a comprehensive demonstration of all layouts, themes, and interactions.
+- **Changelog**: Review recent updates and breaking changes in [`CHANGELOG.md`](CHANGELOG.md).
+- **Issue Tracker**: Report bugs or propose new features on [GitHub Issues](https://github.com/tegarnugroho/v_keyboard/issues).
+- **License**: Released under the [MIT License](LICENSE).

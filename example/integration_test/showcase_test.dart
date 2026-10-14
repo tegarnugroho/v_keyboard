@@ -17,7 +17,11 @@ import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
 import 'package:flutter_v_keyboard/src/widgets/emoji_panel.dart';
 
 const _accent = Color(0xFF6366F1);
-const _outDir = '../assets/showcase';
+final _outDir = Directory('../assets/showcase').existsSync()
+    ? '../assets/showcase'
+    : (Directory('assets/showcase').existsSync()
+        ? 'assets/showcase'
+        : '/Users/tegar/Dev/Projects/v_keyboard/assets/showcase');
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -50,13 +54,19 @@ Future<void> _shoot(WidgetTester tester, _Scene scene) async {
   addTearDown(tester.view.reset);
 
   await tester.pumpWidget(
-    RepaintBoundary(
-      key: key,
-      child: MediaQuery(
-        data: MediaQueryData(size: scene.size, devicePixelRatio: scene.dpr),
-        child: Directionality(
-          textDirection: TextDirection.ltr,
-          child: scene.build(),
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: RepaintBoundary(
+          key: key,
+          child: MediaQuery(
+            data: MediaQueryData(size: scene.size, devicePixelRatio: scene.dpr),
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: scene.build(),
+            ),
+          ),
         ),
       ),
     ),
@@ -314,6 +324,12 @@ List<_Scene> _scenes() => [
       _Scene('feature_symbols', _phone, () => _feature('Symbols', _sym, null)),
       _Scene('feature_selection', _phone, () => _featureSelection()),
       _Scene('feature_focus', _phone, () => _featureFocus()),
+
+      // ---- Clipboard History ----
+      _Scene('clipboard_trigger', _phone, () => _clipboardTrigger()),
+      _Scene('clipboard_history', _phone, () => _clipboardHistory(query: '')),
+      _Scene('clipboard_search', _phone,
+          () => _clipboardHistory(query: 'flutter')),
     ];
 
 Widget _mobileStandard(bool dark) => _phoneScreen(
@@ -604,3 +620,41 @@ Widget _miniDesktop() => _deviceFrame(
         ),
       ),
     );
+
+Widget _clipboardTrigger() => _phoneScreen(
+      dark: false,
+      fields: [
+        _badge('Integrated Clipboard Trigger'),
+        const SizedBox(height: 4),
+        _field('flutter pub add flutter_v_keyboard',
+            dark: false, label: 'Active Field'),
+      ],
+      keyboard: _keyboard(rows: _abc, dark: false, height: 290),
+    );
+
+Widget _clipboardHistory({String query = ''}) {
+  final storage = InMemoryClipboardHistoryStorage();
+  final manager = ClipboardHistoryManager(storage: storage);
+  final controller = VKeyboardController(clipboardHistory: manager);
+
+  manager.record('https://pub.dev/packages/flutter_v_keyboard');
+  manager.record('A customizable virtual keyboard for Flutter');
+  manager.record('flutter pub add flutter_v_keyboard');
+  manager.togglePin(manager.items.first.id);
+
+  return _phoneScreen(
+    dark: false,
+    fields: [
+      _badge(query.isEmpty ? 'Clipboard History' : 'Search Clipboard'),
+      const SizedBox(height: 4),
+      _field('Tap any snippet to paste', dark: false, label: 'Target Field'),
+    ],
+    keyboard: ClipboardHistoryPanel(
+      controller: controller,
+      theme: _theme(false),
+      height: 310,
+      maxWidth: double.infinity,
+      initialQuery: query.isNotEmpty ? query : null,
+    ),
+  );
+}

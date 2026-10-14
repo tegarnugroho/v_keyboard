@@ -20,6 +20,7 @@ class ClipboardHistoryPanel extends StatefulWidget {
     required this.height,
     required this.maxWidth,
     this.bottomSafeArea = 0,
+    this.initialQuery,
   });
 
   final VKeyboardController controller;
@@ -27,6 +28,7 @@ class ClipboardHistoryPanel extends StatefulWidget {
   final double height;
   final double maxWidth;
   final double bottomSafeArea;
+  final String? initialQuery;
 
   @override
   State<ClipboardHistoryPanel> createState() => _ClipboardHistoryPanelState();
@@ -42,6 +44,10 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
   @override
   void initState() {
     super.initState();
+    if (widget.initialQuery != null) {
+      _searchController.text = widget.initialQuery!;
+      _query = widget.initialQuery!;
+    }
     _searchController.addListener(_onSearchChanged);
     widget.controller.clipboardHistory.syncFromSystemClipboard();
   }

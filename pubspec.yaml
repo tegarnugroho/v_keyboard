@@ -44,4 +44,8 @@ screenshots:
     path: assets/showcase/mobile_emoji.png
   - description: 'Desktop (Windows OSK style) keyboard.'
     path: assets/showcase/desktop_keyboard.png
+  - description: 'Integrated clipboard history trigger.'
+    path: assets/showcase/clipboard_trigger.png
+  - description: 'Clipboard history panel with pinned snippets.'
+    path: assets/showcase/clipboard_history.png
 
