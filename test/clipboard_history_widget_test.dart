@@ -480,6 +480,32 @@ void main() {
       expect(find.text('Clipboard'), findsOneWidget);
     });
 
+    testWidgets('opens clipboard history directly from standard QWERTY layout',
+        (tester) async {
+      final controller = TextEditingController();
+      final focus = FocusNode();
+
+      await tester.pumpWidget(_wrap(
+        VTextField(
+          controller: controller,
+          focusNode: focus,
+          keyboardType: VKeyboardType.standard,
+        ),
+      ));
+
+      focus.requestFocus();
+      await tester.pumpAndSettle();
+
+      // Find the clipboard key directly on the initial QWERTY page
+      expect(_clipKey(), findsOneWidget);
+      await tester.tap(_clipKey());
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      expect(find.byType(ClipboardHistoryPanel), findsOneWidget);
+      expect(find.text('Clipboard'), findsOneWidget);
+    });
+
     testWidgets('renders in light and dark theme without overflows',
         (tester) async {
       final controller = TextEditingController();
