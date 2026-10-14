@@ -152,10 +152,10 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
           type == VKeyboardType.decimal ||
           type == VKeyboardType.pin ||
           type == VKeyboardType.phone;
-      metrics = rows != null
-          ? KeyboardMetrics.resolve(mq, rows: rows.length, compact: compact)
-          : (isClipboard
-              ? KeyboardMetrics.resolve(mq, rows: 5, compact: false)
+      metrics = isClipboard
+          ? KeyboardMetrics.resolve(mq, rows: 6, compact: false)
+          : (rows != null
+              ? KeyboardMetrics.resolve(mq, rows: rows.length, compact: compact)
               : null);
     }
     if (metrics != null) _lastHeight = metrics.height;

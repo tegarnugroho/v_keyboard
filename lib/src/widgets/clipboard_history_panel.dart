@@ -288,48 +288,47 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
 
     if (manager.items.isEmpty) {
       return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.content_paste_outlined,
-                size: 36, color: theme.iconColor.withValues(alpha: 0.35)),
-            const SizedBox(height: 8),
-            Text('Clipboard is empty',
-                style: theme.textStyle.copyWith(fontSize: 15)),
-            const SizedBox(height: 4),
-            Text('Copied text snippets will appear here',
-                style: theme.subLabelStyle.copyWith(fontSize: 12)),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.content_paste_outlined,
+                  size: 28, color: theme.iconColor.withValues(alpha: 0.35)),
+              const SizedBox(height: 6),
+              Text('Clipboard is empty',
+                  style: theme.textStyle.copyWith(fontSize: 14)),
+              const SizedBox(height: 2),
+              Text('Copied text snippets will appear here',
+                  style: theme.subLabelStyle.copyWith(fontSize: 11)),
+            ],
+          ),
         ),
       );
     }
 
     if (filtered.isEmpty) {
       return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.search_off_outlined,
-                size: 36, color: theme.iconColor.withValues(alpha: 0.35)),
-            const SizedBox(height: 8),
-            Text('No matching items',
-                style: theme.textStyle.copyWith(fontSize: 15)),
-            const SizedBox(height: 4),
-            Text('Try a different search term',
-                style: theme.subLabelStyle.copyWith(fontSize: 12)),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.search_off_outlined,
+                  size: 28, color: theme.iconColor.withValues(alpha: 0.35)),
+              const SizedBox(height: 6),
+              Text('No matching items',
+                  style: theme.textStyle.copyWith(fontSize: 14)),
+              const SizedBox(height: 2),
+              Text('Try a different search term',
+                  style: theme.subLabelStyle.copyWith(fontSize: 11)),
+            ],
+          ),
         ),
       );
     }
 
-    return ListView.builder(
+    return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      cacheExtent: 600,
-      itemCount: filtered.length,
-      itemBuilder: (context, index) {
-        final item = filtered[index];
-        return _buildItemCard(item);
-      },
+      children: filtered.map(_buildItemCard).toList(),
     );
   }
 

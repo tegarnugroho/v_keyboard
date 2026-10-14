@@ -288,15 +288,13 @@ void main() {
 
       expect(find.byType(ClipboardHistoryPanel), findsOneWidget);
       expect(find.text('Clipboard'), findsOneWidget);
-      for (final t in tester.widgetList<Text>(find.byType(Text))) {
-        debugPrint('Found Text: "${t.data}"');
-      }
       expect(find.text('Second snippet'), findsOneWidget);
       expect(find.text('First snippet'), findsOneWidget);
 
       // Search functionality
       await tester.enterText(find.byType(TextField).last, 'First');
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
 
       expect(find.text('First snippet'), findsOneWidget);
       expect(find.text('Second snippet'), findsNothing);
@@ -435,7 +433,8 @@ void main() {
       expect(find.text('Hello world'), findsOneWidget);
 
       await tester.enterText(find.byType(TextField).last, 'xyz999');
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
 
       expect(find.text('No matching items'), findsOneWidget);
     });
@@ -463,7 +462,8 @@ void main() {
       // Find the clipboard key on the 123 page
       expect(_clipKey(), findsOneWidget);
       await tester.tap(_clipKey());
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
 
       expect(find.byType(ClipboardHistoryPanel), findsOneWidget);
       expect(find.text('Clipboard'), findsOneWidget);
