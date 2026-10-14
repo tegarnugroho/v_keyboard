@@ -119,7 +119,8 @@ class BuiltinLayouts {
     _emojis(['❤️', '🧡', '💛', '💚', '💙', '💜', '🎉', '⭐', '🙌', '👀']),
     [
       KeyData.switchTo('abc', label: 'ABC', flex: 2),
-      KeyData.space(flex: 6),
+      KeyData.clipboardHistory(flex: 1.5),
+      KeyData.space(flex: 5),
       KeyData.backspace(flex: 2),
     ],
   ];
@@ -137,7 +138,8 @@ class BuiltinLayouts {
         ],
         [
           KeyData.switchTo('abc', label: 'ABC', flex: 1.5),
-          KeyData.space(),
+          KeyData.clipboardHistory(flex: 1.2),
+          KeyData.space(flex: 4),
           KeyData.enter(flex: 2),
         ],
       ];
@@ -152,7 +154,8 @@ class BuiltinLayouts {
         ],
         [
           KeyData.switchTo('abc', label: 'ABC', flex: 1.5),
-          KeyData.space(),
+          KeyData.clipboardHistory(flex: 1.2),
+          KeyData.space(flex: 4),
           KeyData.enter(flex: 2),
         ],
       ];

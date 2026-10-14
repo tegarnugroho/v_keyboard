@@ -131,6 +131,12 @@ class _EmojiPanelState extends State<EmojiPanel> {
                     onTap: () => widget.controller.switchPage('abc'),
                   ),
                   const SizedBox(width: 6),
+                  _barButton(
+                    icon: Icons.content_paste_outlined,
+                    onTap: () => widget.controller.openClipboardHistory(),
+                    color: onSurface,
+                  ),
+                  const SizedBox(width: 6),
                   Expanded(
                     child: _barButton(
                       onTap: () => widget.controller.handleKey(KeyData.space()),

@@ -7,6 +7,7 @@ import '../models/key_data.dart';
 import '../models/keyboard_type.dart';
 import '../responsive/keyboard_metrics.dart';
 import '../theme/v_keyboard_theme.dart';
+import '../widgets/clipboard_history_panel.dart';
 import '../widgets/emoji_panel.dart';
 import '../widgets/keyboard_view.dart';
 
@@ -212,13 +213,21 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                             maxWidth: metrics.maxWidth,
                             bottomSafeArea: bottomInset,
                           )
-                        : KeyboardView(
-                            controller: _controller,
-                            theme: theme,
-                            metrics: metrics,
-                            rows: rows,
-                            bottomSafeArea: bottomInset,
-                          ),
+                        : _controller.currentPage == 'clipboard'
+                            ? ClipboardHistoryPanel(
+                                controller: _controller,
+                                theme: theme,
+                                height: metrics.height,
+                                maxWidth: metrics.maxWidth,
+                                bottomSafeArea: bottomInset,
+                              )
+                            : KeyboardView(
+                                controller: _controller,
+                                theme: theme,
+                                metrics: metrics,
+                                rows: rows,
+                                bottomSafeArea: bottomInset,
+                              ),
                   ),
                 ),
               ),

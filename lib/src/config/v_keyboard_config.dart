@@ -24,7 +24,15 @@ class VKeyboardConfig {
     this.keyRepeatInterval = const Duration(milliseconds: 55),
     this.animationDuration = const Duration(milliseconds: 230),
     this.animationCurve = Curves.easeOutCubic,
+    this.enableClipboardHistory = true,
+    this.maxClipboardHistoryItems = 50,
   });
+
+  /// Whether clipboard history recording and the clipboard panel are enabled.
+  final bool enableClipboardHistory;
+
+  /// Maximum number of unpinned items to preserve in clipboard history.
+  final int maxClipboardHistoryItems;
 
   /// Hide the keyboard when a `done`/`go`/`send` action fires.
   final bool hideOnDone;
@@ -99,6 +107,8 @@ class VKeyboardConfig {
     Duration? keyRepeatInterval,
     Duration? animationDuration,
     Curve? animationCurve,
+    bool? enableClipboardHistory,
+    int? maxClipboardHistoryItems,
   }) {
     return VKeyboardConfig(
       hideOnDone: hideOnDone ?? this.hideOnDone,
@@ -120,6 +130,10 @@ class VKeyboardConfig {
       keyRepeatInterval: keyRepeatInterval ?? this.keyRepeatInterval,
       animationDuration: animationDuration ?? this.animationDuration,
       animationCurve: animationCurve ?? this.animationCurve,
+      enableClipboardHistory:
+          enableClipboardHistory ?? this.enableClipboardHistory,
+      maxClipboardHistoryItems:
+          maxClipboardHistoryItems ?? this.maxClipboardHistoryItems,
     );
   }
 }

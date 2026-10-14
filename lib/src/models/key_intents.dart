@@ -19,7 +19,7 @@ enum NavIntent {
 }
 
 /// Clipboard intents.
-enum ClipboardIntent { copy, cut, paste, selectAll }
+enum ClipboardIntent { copy, cut, paste, selectAll, history }
 
 /// Optional media intents (delivered to a developer callback).
 enum MediaIntent { playPause, stop, volumeUp, volumeDown, mute, next, previous }

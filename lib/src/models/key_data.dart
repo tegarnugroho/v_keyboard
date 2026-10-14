@@ -131,8 +131,34 @@ class KeyData {
   factory KeyData.enter({String? label, IconData? icon, double flex = 2}) =>
       KeyData(kind: KeyKind.enter, label: label, icon: icon ?? _kEnter, flex: flex);
 
-  factory KeyData.switchTo(String target, {required String label, double flex = 2}) =>
-      KeyData(kind: KeyKind.switchLayout, switchTarget: target, label: label, flex: flex);
+  factory KeyData.switchTo(
+    String target, {
+    String? label,
+    IconData? icon,
+    double flex = 2,
+  }) =>
+      KeyData(
+        kind: KeyKind.switchLayout,
+        switchTarget: target,
+        label: label,
+        icon: icon,
+        flex: flex,
+      );
+
+  /// A shortcut key that opens the clipboard history panel.
+  factory KeyData.clipboardHistory({
+    String? label,
+    IconData? icon,
+    double flex = 1,
+  }) =>
+      KeyData(
+        kind: KeyKind.clipboard,
+        clip: ClipboardIntent.history,
+        switchTarget: 'clipboard',
+        label: label,
+        icon: icon ?? Icons.content_paste_outlined,
+        flex: flex,
+      );
 
   factory KeyData.spacer({double flex = 1}) =>
       KeyData(kind: KeyKind.spacer, flex: flex);

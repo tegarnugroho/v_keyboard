@@ -2,6 +2,8 @@ import 'package:flutter/services.dart' hide ModifierKey;
 import 'package:flutter/widgets.dart';
 
 import '../actions/keyboard_action_handler.dart';
+import '../clipboard/clipboard_history_item.dart';
+import '../clipboard/clipboard_history_manager.dart';
 import '../config/v_keyboard_config.dart';
 import '../desktop/clipboard_actions.dart';
 import '../desktop/keyboard_modifier_controller.dart';
@@ -26,9 +28,17 @@ import 'keyboard_session.dart';
 /// Plain typing does **not** rebuild the keyboard; only structural changes
 /// (attach/detach, page switch, modifier/lock toggles) notify listeners.
 class VKeyboardController extends ChangeNotifier {
-  VKeyboardController({VKeyboardConfig? config})
-      : _defaultConfig = config ?? const VKeyboardConfig() {
+  VKeyboardController({
+    VKeyboardConfig? config,
+    ClipboardHistoryManager? clipboardHistory,
+  })  : _defaultConfig = config ?? const VKeyboardConfig() {
+    this.clipboardHistory = clipboardHistory ??
+        ClipboardHistoryManager(
+          maxItems: _defaultConfig.maxClipboardHistoryItems,
+          enabled: _defaultConfig.enableClipboardHistory,
+        );
     modifiers.addListener(notifyListeners);
+    this.clipboardHistory.addListener(notifyListeners);
   }
 
   final VKeyboardConfig _defaultConfig;
@@ -36,12 +46,19 @@ class VKeyboardController extends ChangeNotifier {
   /// Modifier and lock state (Shift/Ctrl/Alt/AltGr/Meta, Caps/Num/Scroll Lock).
   final KeyboardModifierController modifiers = KeyboardModifierController();
 
+  /// Clipboard history manager.
+  late final ClipboardHistoryManager clipboardHistory;
+
   KeyboardSession? _session;
+  KeyboardSession? _targetSession;
   String _page = '';
+  String _previousPage = '';
   bool _visible = false;
 
-  KeyboardSession? get session => _session;
-  bool get isVisible => _visible && _session != null;
+  KeyboardSession? get session => _session ?? _targetSession;
+  bool get isVisible =>
+      _visible &&
+      (_session != null || (_targetSession != null && _page == 'clipboard'));
 
   /// Whether letters should currently render/insert upper case.
   bool get isUpperCase => modifiers.isUpperCase;
@@ -54,8 +71,8 @@ class VKeyboardController extends ChangeNotifier {
 
   String get currentPage => _page;
 
-  VKeyboardConfig get config => _session?.config ?? _defaultConfig;
-  KeyboardLayout? get layout => _session?.layout;
+  VKeyboardConfig get config => session?.config ?? _defaultConfig;
+  KeyboardLayout? get layout => session?.layout;
 
   List<List<KeyData>>? get currentRows {
     final l = layout;
@@ -67,6 +84,8 @@ class VKeyboardController extends ChangeNotifier {
   void dispose() {
     modifiers.removeListener(notifyListeners);
     modifiers.dispose();
+    clipboardHistory.removeListener(notifyListeners);
+    clipboardHistory.dispose();
     super.dispose();
   }
 
@@ -75,6 +94,7 @@ class VKeyboardController extends ChangeNotifier {
   void attach(KeyboardSession session) {
     final sameField = _session?.id == session.id;
     _session = session;
+    _targetSession = session;
     if (!sameField) {
       _page = session.layout.initialPage;
       modifiers.reset();
@@ -88,19 +108,71 @@ class VKeyboardController extends ChangeNotifier {
 
   void detach(KeyboardSession session) {
     if (_session?.id != session.id) return;
+    if (_page == 'clipboard') {
+      _targetSession = session;
+      _session = null;
+      notifyListeners();
+      return;
+    }
     _session = null;
+    _targetSession = null;
     _visible = false;
     modifiers.reset();
     notifyListeners();
   }
 
   void hide() {
-    final s = _session;
+    final s = _session ?? _targetSession;
     _visible = false;
     _session = null;
+    _targetSession = null;
     modifiers.reset();
     notifyListeners();
     s?.focusNode.unfocus();
+  }
+
+  // ---- Clipboard History ---------------------------------------------------
+
+  /// Opens the clipboard history panel.
+  void openClipboardHistory() {
+    if (!config.enableClipboardHistory) return;
+    if (_page != 'clipboard') {
+      _previousPage =
+          _page.isNotEmpty ? _page : (session?.layout.initialPage ?? 'abc');
+    }
+    if (_session != null) {
+      _targetSession = _session;
+    }
+    _page = 'clipboard';
+    notifyListeners();
+  }
+
+  /// Closes the clipboard history panel and returns to the previous layout page.
+  void closeClipboardHistory() {
+    final target = _previousPage.isNotEmpty
+        ? _previousPage
+        : (session?.layout.initialPage ?? 'abc');
+    _page = target;
+    final s = _session ?? _targetSession;
+    if (s != null && !s.focusNode.hasFocus) {
+      s.focusNode.requestFocus();
+    }
+    notifyListeners();
+  }
+
+  /// Pastes a saved [ClipboardHistoryItem] into the active text field.
+  void pasteClipboardItem(ClipboardHistoryItem item) {
+    pasteText(item.text);
+  }
+
+  /// Pastes [text] into the active text field using the input editing pipeline.
+  void pasteText(String text) {
+    final s = _session ?? _targetSession;
+    if (s == null) return;
+    if (!s.focusNode.hasFocus) {
+      s.focusNode.requestFocus();
+    }
+    s.insertText(text);
   }
 
   // ---- Key handling ---------------------------------------------------------
@@ -188,6 +260,11 @@ class VKeyboardController extends ChangeNotifier {
           return;
       }
     }
+    // Win + V -> Clipboard history
+    if (modifiers.meta && !modifiers.control && lower == 'v') {
+      openClipboardHistory();
+      return;
+    }
     final trigger = key.logicalKey ?? logicalKeyForChar(char);
     if (trigger != null) _runShortcut(session, trigger);
   }
@@ -218,12 +295,20 @@ class VKeyboardController extends ChangeNotifier {
   }
 
   void _handleClipboard(KeyboardSession session, ClipboardIntent intent) {
+    if (intent == ClipboardIntent.history) {
+      openClipboardHistory();
+      return;
+    }
     final shortcuts = _shortcuts(session);
     ClipboardActions.perform(
       intent,
       session.editingController,
       onChanged: session.onChanged,
       callbacks: shortcuts?.clipboardCallbacks,
+      history: session.config.enableClipboardHistory ? clipboardHistory : null,
+      isSensitive: session.isSensitive,
+      readOnly: session.readOnly || !session.enabled,
+      onOpenHistory: openClipboardHistory,
     );
   }
 
@@ -315,8 +400,7 @@ class VKeyboardController extends ChangeNotifier {
   }
 
   void _insert(KeyboardSession session, String text) {
-    session.value = TextInputEngine.insert(session.value, text);
-    session.onChanged?.call(session.value.text);
+    session.insertText(text);
   }
 
   void _performAction(KeyboardSession session) {
@@ -369,6 +453,10 @@ class VKeyboardController extends ChangeNotifier {
 
   void switchPage(String pageId) {
     if (_page == pageId) return;
+    if (pageId == 'clipboard') {
+      openClipboardHistory();
+      return;
+    }
     _page = pageId;
     if (pageId != layout?.initialPage && modifiers.shift) {
       modifiers.toggleModifier(ModifierKey.shift);

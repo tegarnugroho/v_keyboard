@@ -68,7 +68,7 @@ class DesktopLayouts {
       _assemble(_tabMain(),
           _cluster(_fn('Del', LogicalKeyboardKey.delete, repeatable: true),
               _nav(NavIntent.end, 'End'), _nav(NavIntent.pageDown, 'PgDn'))),
-      _assemble(_capsMain(), _cluster(null, null, null)),
+      _assemble(_capsMain(), _cluster(null, null, _clip())),
       _assemble(_shiftMain(), _cluster(null, _navIcon(NavIntent.up), null)),
       _assemble(
           _controlMain(),
@@ -102,6 +102,7 @@ class DesktopLayouts {
   static KeyData _prtSc() => _fn('PrtSc', LogicalKeyboardKey.printScreen);
   static KeyData _scrLk() => _fn('ScrLk', LogicalKeyboardKey.scrollLock);
   static KeyData _pause() => _fn('Pause', LogicalKeyboardKey.pause);
+  static KeyData _clip() => KeyData.clipboardHistory(label: 'Clip', flex: _colFlex);
 
   // ---- Main blocks (no cluster) ---------------------------------------------
 

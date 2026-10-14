@@ -46,6 +46,8 @@ class VTextField extends StatefulWidget {
     this.maxLines = 1,
     this.minLines,
     this.maxLength,
+    this.inputFormatters,
+    this.sensitive,
     this.cursorColor,
     this.onChanged,
     this.onTap,
@@ -80,6 +82,15 @@ class VTextField extends StatefulWidget {
   final int? maxLines;
   final int? minLines;
   final int? maxLength;
+  final List<TextInputFormatter>? inputFormatters;
+
+  /// Whether text copied or cut from this field is sensitive and should never
+  /// be recorded in clipboard history.
+  ///
+  /// If null, automatically sensitive for password fields, PIN fields, or
+  /// when [obscureText] is true.
+  final bool? sensitive;
+
   final Color? cursorColor;
 
   final ValueChanged<String>? onChanged;
@@ -183,6 +194,12 @@ class _VTextFieldState extends State<VTextField> {
       config: config,
       customLayout: widget.customLayout,
       obscureText: _effectiveObscure,
+      readOnly: widget.readOnly,
+      enabled: widget.enabled,
+      maxLength: widget.maxLength,
+      inputFormatters: widget.inputFormatters,
+      sensitive: widget.sensitive ??
+          (_effectiveObscure || widget.keyboardType == VKeyboardType.pin),
       contextRef: () => mounted ? context : null,
       onChanged: widget.onChanged,
       onSubmitted: widget.onSubmitted,
@@ -256,6 +273,19 @@ class _VTextFieldState extends State<VTextField> {
     }
     final key = event.logicalKey;
 
+    if (key == LogicalKeyboardKey.keyV) {
+      final isMeta = HardwareKeyboard.instance.isMetaPressed;
+      final isCtrlShift = HardwareKeyboard.instance.isControlPressed &&
+          HardwareKeyboard.instance.isShiftPressed;
+      if (isMeta || isCtrlShift) {
+        final scope = VKeyboardScope.maybeOf(context);
+        if (scope != null && _resolveConfig().enableClipboardHistory) {
+          scope.controller.openClipboardHistory();
+          return KeyEventResult.handled;
+        }
+      }
+    }
+
     if (key == LogicalKeyboardKey.backspace) {
       _controller.value = TextInputEngine.deleteBackward(_controller.value);
       widget.onChanged?.call(_controller.text);
@@ -325,6 +355,7 @@ class _VTextFieldState extends State<VTextField> {
       maxLines: _effectiveObscure ? 1 : widget.maxLines,
       minLines: widget.minLines,
       maxLength: widget.maxLength,
+      inputFormatters: widget.inputFormatters,
       mouseCursor: SystemMouseCursors.text,
       onTap: widget.onTap,
       // Swallow the default outside-tap behaviour; TextField.onTapOutside does

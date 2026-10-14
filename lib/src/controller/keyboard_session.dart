@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../config/v_keyboard_config.dart';
+import '../engine/text_input_engine.dart';
 import '../layouts/builtin_layouts.dart';
 import '../models/keyboard_layout.dart';
 import '../models/keyboard_type.dart';
@@ -29,6 +30,11 @@ class KeyboardSession {
     this.onSelectionChanged,
     this.onAction,
     this.obscureText = false,
+    this.readOnly = false,
+    this.enabled = true,
+    this.maxLength,
+    this.inputFormatters,
+    this.sensitive = false,
   });
 
   /// Stable identity for the field (used to detect re-attach of the same one).
@@ -51,6 +57,19 @@ class KeyboardSession {
   final ValueChanged<TextSelection>? onSelectionChanged;
   final ValueChanged<TextInputAction>? onAction;
   final bool obscureText;
+  final bool readOnly;
+  final bool enabled;
+  final int? maxLength;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool sensitive;
+
+  /// Whether this field contains sensitive or private data that should not be
+  /// recorded into clipboard history.
+  bool get isSensitive =>
+      sensitive ||
+      obscureText ||
+      type == VKeyboardType.password ||
+      type == VKeyboardType.pin;
 
   /// The resolved layout for this session.
   late final KeyboardLayout layout = BuiltinLayouts.resolve(
@@ -83,4 +102,38 @@ class KeyboardSession {
   /// The live editing value.
   TextEditingValue get value => editingController.value;
   set value(TextEditingValue v) => editingController.value = v;
+
+  /// Inserts [text] into this session's field using the standard editing pipeline.
+  ///
+  /// Respects [readOnly], [enabled], [inputFormatters], and [maxLength].
+  /// Replaces any active selection range or inserts at the current cursor offset.
+  void insertText(String text) {
+    if (readOnly || !enabled || text.isEmpty) return;
+
+    final oldValue = editingController.value;
+    var newValue = TextInputEngine.insert(oldValue, text);
+
+    if (inputFormatters != null && inputFormatters!.isNotEmpty) {
+      for (final formatter in inputFormatters!) {
+        newValue = formatter.formatEditUpdate(oldValue, newValue);
+      }
+    }
+
+    if (maxLength != null && maxLength! > 0) {
+      if (newValue.text.characters.length > maxLength!) {
+        final truncated = newValue.text.characters.take(maxLength!).toString();
+        final offset =
+            newValue.selection.baseOffset.clamp(0, truncated.length);
+        newValue = TextEditingValue(
+          text: truncated,
+          selection: TextSelection.collapsed(offset: offset),
+        );
+      }
+    }
+
+    if (newValue != oldValue) {
+      editingController.value = newValue;
+      onChanged?.call(newValue.text);
+    }
+  }
 }
