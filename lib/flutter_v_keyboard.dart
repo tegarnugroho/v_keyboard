@@ -32,3 +32,4 @@ export 'src/widgets/v_text_field.dart';
 export 'src/widgets/v_keyboard_shortcuts.dart';
 export 'src/widgets/keyboard_view.dart';
 export 'src/widgets/clipboard_history_panel.dart';
+export 'src/widgets/emoji_panel.dart';

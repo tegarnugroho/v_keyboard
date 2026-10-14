@@ -14,7 +14,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
-import 'package:flutter_v_keyboard/src/widgets/emoji_panel.dart';
+import 'package:virtual_keyboard_example/main.dart';
 
 const _accent = Color(0xFF6366F1);
 final _outDir = Directory('../assets/showcase').existsSync()
@@ -53,24 +53,34 @@ Future<void> _shoot(WidgetTester tester, _Scene scene) async {
   tester.view.devicePixelRatio = scene.dpr;
   addTearDown(tester.view.reset);
 
-  await tester.pumpWidget(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: RepaintBoundary(
-          key: key,
-          child: MediaQuery(
-            data: MediaQueryData(size: scene.size, devicePixelRatio: scene.dpr),
-            child: Directionality(
-              textDirection: TextDirection.ltr,
-              child: scene.build(),
+  final childWidget = scene.build();
+  if (childWidget is ExampleApp) {
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: key,
+        child: childWidget,
+      ),
+    );
+  } else {
+    await tester.pumpWidget(
+      MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: RepaintBoundary(
+            key: key,
+            child: MediaQuery(
+              data: MediaQueryData(size: scene.size, devicePixelRatio: scene.dpr),
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: childWidget,
+              ),
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
   await tester.pumpAndSettle();
 
   final boundary =
@@ -297,7 +307,9 @@ const _wide = Size(1600, 900);
 
 List<_Scene> _scenes() => [
       // ---- Hero ----
-      _Scene('hero', _wide, () => _hero(), dpr: 2),
+      _Scene('hero', const Size(1280, 800),
+          () => const ExampleApp(initialTab: 0),
+          dpr: 1.5),
 
       // ---- Mobile ----
       _Scene('mobile_standard', _phone, () => _mobileStandard(false)),
@@ -307,8 +319,9 @@ List<_Scene> _scenes() => [
       _Scene('mobile_emoji', _phone, () => _mobileEmoji()),
 
       // ---- Desktop ----
-      _Scene('desktop_keyboard', const Size(1280, 760), () => _desktopScene(),
-          dpr: 2),
+      _Scene('desktop_keyboard', const Size(1280, 800),
+          () => const ExampleApp(initialTab: 3),
+          dpr: 1.5),
 
       // ---- Themes ----
       _Scene('light_theme', _phone, () => _mobileStandard(false)),
@@ -463,87 +476,6 @@ Widget _badge(String text) => Align(
       ),
     );
 
-Widget _hero() => DecoratedBox(
-      decoration: BoxDecoration(gradient: _bg(false)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 70),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 5,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _badge('Flutter · Material 3'),
-                  const SizedBox(height: 24),
-                  const Text('v_keyboard',
-                      style: TextStyle(
-                          fontSize: 76,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: -2,
-                          color: Color(0xFF15151E))),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Native-feeling Virtual Keyboard for Flutter.\nMobile, desktop & web — one consistent API.',
-                    style: TextStyle(
-                        fontSize: 24,
-                        height: 1.4,
-                        color: Color(0xFF4A4A57),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(height: 28),
-                  Row(children: [
-                    _chip('10+ layouts'),
-                    const SizedBox(width: 12),
-                    _chip('Desktop OSK'),
-                    const SizedBox(width: 12),
-                    _chip('Shortcuts'),
-                  ]),
-                ],
-              ),
-            ),
-            const SizedBox(width: 50),
-            Expanded(
-              flex: 4,
-              child: Center(
-                child: SizedBox(
-                  width: 330,
-                  height: 690,
-                  child: _deviceFrame(
-                    _phoneScreen(
-                      dark: false,
-                      fields: [
-                        _field('Hello 👋', dark: false, label: 'Message')
-                      ],
-                      keyboard: _keyboard(
-                          rows: _abc, dark: false, height: 250, state: _shift),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-Widget _chip(String text) => Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black.withValues(alpha: 0.06),
-              blurRadius: 14,
-              offset: const Offset(0, 6)),
-        ],
-      ),
-      child: Text(text,
-          style: const TextStyle(
-              fontWeight: FontWeight.w600, color: Color(0xFF15151E))),
-    );
 
 Widget _responsive() => DecoratedBox(
       decoration: BoxDecoration(gradient: _bg(false)),

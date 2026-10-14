@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../config/v_keyboard_config.dart';
 import '../controller/v_keyboard_controller.dart';
@@ -106,13 +107,30 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     }
   }
 
+  bool _pendingRebuild = false;
+
   void _onControllerChanged() {
+    if (!mounted) return;
     if (_controller.isVisible) {
       _anim.forward();
     } else {
       _anim.reverse();
     }
-    if (mounted) setState(() {}); // page/shift/layout changes
+
+    // If the widget tree is currently locked (e.g. during build, layout, or unmounting),
+    // defer setState to post-frame callback to avoid "setState() called when locked".
+    final phase = WidgetsBinding.instance.schedulerPhase;
+    if (phase == SchedulerPhase.persistentCallbacks) {
+      if (!_pendingRebuild) {
+        _pendingRebuild = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _pendingRebuild = false;
+          if (mounted) setState(() {});
+        });
+      }
+    } else {
+      setState(() {});
+    }
   }
 
   @override

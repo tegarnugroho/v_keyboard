@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' hide ModifierKey;
 import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
-import 'package:flutter_v_keyboard/src/widgets/emoji_panel.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,14 +22,21 @@ enum AppAccentColor {
 }
 
 class ExampleApp extends StatefulWidget {
-  const ExampleApp({super.key});
+  const ExampleApp({
+    super.key,
+    this.initialTab = 0,
+    this.initialDarkMode = true,
+  });
+
+  final int initialTab;
+  final bool initialDarkMode;
 
   @override
   State<ExampleApp> createState() => _ExampleAppState();
 }
 
 class _ExampleAppState extends State<ExampleApp> {
-  bool _isDarkMode = true;
+  late bool _isDarkMode = widget.initialDarkMode;
   AppAccentColor _accentColor = AppAccentColor.blue;
   double _keyBorderRadius = 8.0;
 
@@ -113,6 +119,7 @@ class _ExampleAppState extends State<ExampleApp> {
         );
       },
       home: ShowcasePlaygroundPage(
+        initialTab: widget.initialTab,
         isDarkMode: _isDarkMode,
         onToggleDarkMode: _toggleDarkMode,
         accentColor: _accentColor,
@@ -139,6 +146,7 @@ enum _ActiveTab {
 class ShowcasePlaygroundPage extends StatefulWidget {
   const ShowcasePlaygroundPage({
     super.key,
+    this.initialTab = 0,
     required this.isDarkMode,
     required this.onToggleDarkMode,
     required this.accentColor,
@@ -147,6 +155,7 @@ class ShowcasePlaygroundPage extends StatefulWidget {
     required this.onUpdateKeyBorderRadius,
   });
 
+  final int initialTab;
   final bool isDarkMode;
   final ValueChanged<bool> onToggleDarkMode;
   final AppAccentColor accentColor;
@@ -159,7 +168,7 @@ class ShowcasePlaygroundPage extends StatefulWidget {
 }
 
 class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
-  _ActiveTab _currentTab = _ActiveTab.playground;
+  late _ActiveTab _currentTab;
   VKeyboardType _selectedType = VKeyboardType.standard;
   String _selectedLayoutName = 'QWERTY';
   bool _showClipboardInPreview = true;
@@ -218,6 +227,12 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   @override
   void initState() {
     super.initState();
+    final tabIndex = widget.initialTab.clamp(0, _ActiveTab.values.length - 1);
+    _currentTab = _ActiveTab.values[tabIndex];
+    if (_currentTab == _ActiveTab.desktop) {
+      _selectedType = VKeyboardType.desktop;
+      _selectedLayoutName = 'Desktop';
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _seedSampleClipboardItems();
     });
@@ -367,7 +382,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                     const SizedBox(width: 16),
                     // Column 2: Center Content Panel
                     Expanded(
-                      flex: 5,
+                      flex: _currentTab == _ActiveTab.desktop ? 1 : 5,
                       child: Container(
                         decoration: BoxDecoration(
                           color: cardBg,
@@ -380,26 +395,28 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16),
-                    // Column 3: Right Keyboard Preview Panel
-                    Expanded(
-                      flex: 6,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: cardBg,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: borderColor),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: _buildDesktopKeyboardPreview(
-                            isDark,
-                            cardBg,
-                            borderColor,
+                    if (_currentTab != _ActiveTab.desktop) ...[
+                      const SizedBox(width: 16),
+                      // Column 3: Right Keyboard Preview Panel
+                      Expanded(
+                        flex: 6,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: cardBg,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: borderColor),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: _buildDesktopKeyboardPreview(
+                              isDark,
+                              cardBg,
+                              borderColor,
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),
@@ -598,7 +615,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                 ),
                 Switch(
                   value: widget.isDarkMode,
-                  activeColor: widget.accentColor.color,
+                  activeThumbColor: widget.accentColor.color,
                   onChanged: widget.onToggleDarkMode,
                 ),
               ],
@@ -1849,39 +1866,52 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                 (isDark ? VKeyboardTheme.dark() : VKeyboardTheme.light());
             if (controller == null) return const SizedBox.shrink();
 
-            return Container(
-              height: 270,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color:
-                    isDark ? const Color(0xFF11141E) : const Color(0xFFF8FAFC),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: isDark
-                      ? const Color(0xFF263248)
-                      : const Color(0xFFE2E8F0),
-                ),
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  width: 960,
-                  child: KeyboardView(
-                    controller: controller,
-                    theme: theme,
-                    metrics: const KeyboardMetrics(
-                      height: 240,
-                      maxWidth: 960,
-                      horizontalPadding: 8,
-                      rowSpacing: 5,
-                      formFactor: DeviceFormFactor.desktop,
-                      isLandscape: true,
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final availableWidth = constraints.maxWidth;
+                final layoutWidth =
+                    availableWidth < 1000 ? 1000.0 : availableWidth;
+                final rows = DesktopLayouts.rows(layoutWidth);
+                final rowCount = rows.length;
+                final keyboardHeight =
+                    (rowCount * 46.0) + ((rowCount - 1) * 6.0) + 24.0;
+
+                return Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? const Color(0xFF11141E)
+                        : const Color(0xFFF8FAFC),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isDark
+                          ? const Color(0xFF263248)
+                          : const Color(0xFFE2E8F0),
                     ),
-                    rows: DesktopLayouts.rows(960),
-                    bottomSafeArea: 0,
                   ),
-                ),
-              ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: SizedBox(
+                      width: layoutWidth,
+                      height: keyboardHeight,
+                      child: KeyboardView(
+                        controller: controller,
+                        theme: theme,
+                        metrics: KeyboardMetrics(
+                          height: keyboardHeight,
+                          maxWidth: layoutWidth,
+                          horizontalPadding: 8,
+                          rowSpacing: 6,
+                          formFactor: DeviceFormFactor.desktop,
+                          isLandscape: true,
+                        ),
+                        rows: rows,
+                        bottomSafeArea: 0,
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
           },
         ),
@@ -1915,11 +1945,13 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
             ),
           ),
           const SizedBox(width: 12),
-          Text(
-            description,
-            style: TextStyle(
-              fontSize: 12,
-              color: isDark ? Colors.white70 : Colors.black87,
+          Expanded(
+            child: Text(
+              description,
+              style: TextStyle(
+                fontSize: 12,
+                color: isDark ? Colors.white70 : Colors.black87,
+              ),
             ),
           ),
         ],
@@ -1952,12 +1984,12 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
               color: isDark ? const Color(0xFF263248) : const Color(0xFFE2E8F0),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+          child: const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   children: [
                     Icon(Icons.payment_rounded, color: Colors.blue),
                     SizedBox(width: 8),
@@ -1968,8 +2000,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
-                const VTextField(
+                SizedBox(height: 12),
+                VTextField(
                   keyboardType: VKeyboardType.standard,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
@@ -1977,8 +2009,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 10),
-                const VTextField(
+                SizedBox(height: 10),
+                VTextField(
                   keyboardType: VKeyboardType.number,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
@@ -1986,8 +2018,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 10),
-                const Row(
+                SizedBox(height: 10),
+                Row(
                   children: [
                     Expanded(
                       child: VTextField(
