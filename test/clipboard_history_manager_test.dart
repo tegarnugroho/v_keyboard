@@ -269,7 +269,8 @@ void main() {
       expect(manager.items.first.text, 'Copied from OS');
     });
 
-    test('syncFromSystemClipboard moves duplicate OS text to top and preserves metadata',
+    test(
+        'syncFromSystemClipboard moves duplicate OS text to top and preserves metadata',
         () async {
       final storage = InMemoryClipboardHistoryStorage();
       final manager = ClipboardHistoryManager(storage: storage);

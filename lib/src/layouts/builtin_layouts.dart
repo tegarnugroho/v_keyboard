@@ -108,8 +108,8 @@ class BuiltinLayouts {
           KeyData.enter(flex: 2),
         ],
       ],
-      '123': _numericSymbolPage('symbols'),
-      'symbols': _symbolPage('123'),
+      '123': _numericSymbolPage('symbols', includeEmoji: false),
+      'symbols': _symbolPage('123', includeEmoji: false),
     },
   );
 
@@ -131,7 +131,9 @@ class BuiltinLayouts {
   static List<KeyData> _emojis(List<String> emojis) =>
       emojis.map((e) => KeyData.symbol(e)).toList();
 
-  static List<List<KeyData>> _numericSymbolPage(String moreTarget) => [
+  static List<List<KeyData>> _numericSymbolPage(String moreTarget,
+          {bool includeEmoji = true}) =>
+      [
         _symbols('1234567890'),
         _symbols('-/:;()\$&@"'),
         [
@@ -140,14 +142,18 @@ class BuiltinLayouts {
           KeyData.backspace(flex: 1.5),
         ],
         [
-          KeyData.switchTo('abc', label: 'ABC', flex: 1.5),
-          KeyData.clipboardHistory(flex: 1.2),
-          KeyData.space(flex: 4),
-          KeyData.enter(flex: 2),
+          KeyData.switchTo('abc', label: 'ABC', flex: 1.4),
+          if (includeEmoji) KeyData.switchTo('emoji', label: '☺', flex: 1.1),
+          KeyData.clipboardHistory(flex: 1.1),
+          KeyData.space(flex: includeEmoji ? 4 : 4.5),
+          KeyData.symbol('.', flex: 1),
+          KeyData.enter(flex: 1.8),
         ],
       ];
 
-  static List<List<KeyData>> _symbolPage(String backTarget) => [
+  static List<List<KeyData>> _symbolPage(String backTarget,
+          {bool includeEmoji = true}) =>
+      [
         _symbols('[]{}#%^*+='),
         _symbols('_\\|~<>€£¥•'),
         [
@@ -156,10 +162,12 @@ class BuiltinLayouts {
           KeyData.backspace(flex: 1.5),
         ],
         [
-          KeyData.switchTo('abc', label: 'ABC', flex: 1.5),
-          KeyData.clipboardHistory(flex: 1.2),
-          KeyData.space(flex: 4),
-          KeyData.enter(flex: 2),
+          KeyData.switchTo('abc', label: 'ABC', flex: 1.4),
+          if (includeEmoji) KeyData.switchTo('emoji', label: '☺', flex: 1.1),
+          KeyData.clipboardHistory(flex: 1.1),
+          KeyData.space(flex: includeEmoji ? 4 : 4.5),
+          KeyData.symbol('.', flex: 1),
+          KeyData.enter(flex: 1.8),
         ],
       ];
 
@@ -188,8 +196,8 @@ class BuiltinLayouts {
           KeyData.enter(flex: 2),
         ],
       ],
-      '123': _numericSymbolPage('symbols'),
-      'symbols': _symbolPage('123'),
+      '123': _numericSymbolPage('symbols', includeEmoji: false),
+      'symbols': _symbolPage('123', includeEmoji: false),
     },
   );
 
@@ -216,8 +224,8 @@ class BuiltinLayouts {
           KeyData.enter(flex: 1.8),
         ],
       ],
-      '123': _numericSymbolPage('symbols'),
-      'symbols': _symbolPage('123'),
+      '123': _numericSymbolPage('symbols', includeEmoji: false),
+      'symbols': _symbolPage('123', includeEmoji: false),
     },
   );
 

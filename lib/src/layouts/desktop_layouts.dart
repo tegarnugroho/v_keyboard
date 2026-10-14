@@ -50,6 +50,7 @@ class DesktopLayouts {
         [..._shiftMain(), _navIcon(NavIntent.up)],
         [
           ..._controlMain(),
+          _clip(),
           _navIcon(NavIntent.left),
           _navIcon(NavIntent.down),
           _navIcon(NavIntent.right),
@@ -104,8 +105,7 @@ class DesktopLayouts {
   static KeyData _prtSc() => _fn('PrtSc', LogicalKeyboardKey.printScreen);
   static KeyData _scrLk() => _fn('ScrLk', LogicalKeyboardKey.scrollLock);
   static KeyData _pause() => _fn('Pause', LogicalKeyboardKey.pause);
-  static KeyData _clip() =>
-      KeyData.clipboardHistory(label: 'Clip', flex: _colFlex);
+  static KeyData _clip() => KeyData.clipboardHistory(flex: _colFlex);
 
   // ---- Main blocks (no cluster) ---------------------------------------------
 

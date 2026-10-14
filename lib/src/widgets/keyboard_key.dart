@@ -58,7 +58,7 @@ class _VirtualKeyState extends State<VirtualKey> {
   }
 
   void _onTapDown(TapDownDetails _) {
-    if (_data.kind == KeyKind.spacer) return;
+    if (_data.kind == KeyKind.spacer || !_isEnabled) return;
     _pressed.value = true;
     _maybeStartRepeat();
   }
@@ -88,6 +88,7 @@ class _VirtualKeyState extends State<VirtualKey> {
 
   void _onTap() {
     _cancelRepeat();
+    if (!_isEnabled) return;
     if (_data.kind == KeyKind.shift) {
       _handleShift();
       return;
@@ -105,7 +106,16 @@ class _VirtualKeyState extends State<VirtualKey> {
     _lastShiftTapMs = now;
   }
 
-  /// Whether this key is in an "engaged" state (active modifier / lock).
+  /// Whether this key is currently enabled and clickable.
+  bool get _isEnabled {
+    if (_data.kind == KeyKind.clipboard &&
+        _data.clip == ClipboardIntent.history) {
+      return _controller.config.enableClipboardHistory;
+    }
+    return true;
+  }
+
+  /// Whether this key is in an "engaged" state (active modifier / lock / open panel).
   bool get _isEngaged {
     final m = _controller.modifiers;
     return switch (_data.kind) {
@@ -113,6 +123,8 @@ class _VirtualKeyState extends State<VirtualKey> {
       KeyKind.modifier =>
         _data.modifier != null && m.isModifierActive(_data.modifier!),
       KeyKind.lock => _data.lock != null && m.isLocked(_data.lock!),
+      KeyKind.clipboard => _data.clip == ClipboardIntent.history &&
+          _controller.currentPage == 'clipboard',
       _ => false,
     };
   }
@@ -138,11 +150,32 @@ class _VirtualKeyState extends State<VirtualKey> {
       );
     }
 
+    final enabled = _isEnabled;
     final engaged = _isEngaged;
-    final baseColor = engaged
+    Color baseColor = engaged
         ? Color.alphaBlend(
             theme.accentColor.withValues(alpha: 0.35), theme.keyColor)
         : _baseColor(theme);
+    if (!enabled) {
+      baseColor = baseColor.withValues(alpha: 0.5);
+    }
+
+    Widget keyCard(Widget? child) {
+      Widget keyWidget = SizedBox(
+        height: widget.height,
+        child: Center(child: child),
+      );
+      if (_data.kind == KeyKind.clipboard &&
+          _data.clip == ClipboardIntent.history &&
+          Overlay.maybeOf(context) != null) {
+        keyWidget = Tooltip(
+          message: 'Clipboard History',
+          waitDuration: const Duration(milliseconds: 500),
+          child: keyWidget,
+        );
+      }
+      return keyWidget;
+    }
 
     return Expanded(
       flex: flex,
@@ -152,9 +185,11 @@ class _VirtualKeyState extends State<VirtualKey> {
           button: true,
           label: _semanticLabel(),
           toggled: engaged,
+          enabled: enabled,
           excludeSemantics: true,
           child: MouseRegion(
-            cursor: SystemMouseCursors.click,
+            cursor:
+                enabled ? SystemMouseCursors.click : SystemMouseCursors.basic,
             onEnter: (_) => _hovered.value = true,
             onExit: (_) => _hovered.value = false,
             child: GestureDetector(
@@ -170,7 +205,7 @@ class _VirtualKeyState extends State<VirtualKey> {
                     valueListenable: _hovered,
                     builder: (context, hovered, _) {
                       Color color = pressed ? theme.pressedKeyColor : baseColor;
-                      if (!pressed && hovered) {
+                      if (!pressed && hovered && enabled) {
                         color = Color.alphaBlend(
                             theme.accentColor.withValues(alpha: 0.12), color);
                       }
@@ -182,10 +217,7 @@ class _VirtualKeyState extends State<VirtualKey> {
                           borderRadius: theme.borderRadius is BorderRadius
                               ? theme.borderRadius as BorderRadius
                               : BorderRadius.circular(8),
-                          child: SizedBox(
-                            height: widget.height,
-                            child: Center(child: child),
-                          ),
+                          child: keyCard(child),
                         ),
                       );
                     },
@@ -208,14 +240,18 @@ class _VirtualKeyState extends State<VirtualKey> {
       KeyKind.lock ||
       KeyKind.navigation =>
         theme.modifierKeyColor,
+      KeyKind.clipboard => theme.specialKeyColor,
       _ => theme.specialKeyColor,
     };
   }
 
   Widget _buildContent(VKeyboardTheme theme, bool engaged) {
-    final iconColor = engaged ? theme.accentColor : theme.iconColor;
+    final enabled = _isEnabled;
+    final baseIconColor = engaged ? theme.accentColor : theme.iconColor;
+    final iconColor =
+        enabled ? baseIconColor : baseIconColor.withValues(alpha: 0.38);
 
-    // Icon keys (shift, backspace, enter, arrows…).
+    // Icon keys (shift, backspace, enter, arrows, clipboard…).
     final icon = _resolveIcon();
     if (icon != null) {
       return Icon(icon,
@@ -282,7 +318,9 @@ class _VirtualKeyState extends State<VirtualKey> {
       KeyKind.lock => _data.label ?? _data.lock?.name ?? 'Lock',
       KeyKind.navigation => _data.label ?? _data.nav?.name ?? 'Navigate',
       KeyKind.function => _data.label ?? 'Function',
-      KeyKind.clipboard => _data.label ?? _data.clip?.name ?? 'Clipboard',
+      KeyKind.clipboard => _data.clip == ClipboardIntent.history
+          ? 'Clipboard History'
+          : (_data.label ?? _data.clip?.name ?? 'Clipboard'),
       KeyKind.media => _data.label ?? _data.media?.name ?? 'Media',
       _ => _data.resolveLabel(shifted: _controller.isUpperCase) ??
           _data.label ??

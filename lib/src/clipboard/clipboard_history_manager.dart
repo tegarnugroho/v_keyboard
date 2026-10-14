@@ -218,4 +218,3 @@ class ClipboardHistoryManager extends ChangeNotifier {
     }
   }
 }
-

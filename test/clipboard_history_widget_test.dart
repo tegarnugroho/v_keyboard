@@ -521,7 +521,8 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('opening clipboard history automatically synchronizes with system OS clipboard',
+    testWidgets(
+        'opening clipboard history automatically synchronizes with system OS clipboard',
         (tester) async {
       // Simulate external copy outside the app into OS clipboard
       clipboardContent = 'External OS snippet';
@@ -559,7 +560,8 @@ void main() {
       expect(controller.text, 'External OS snippet');
     });
 
-    testWidgets('hardware copy Cmd+C/Ctrl+C populates OS clipboard and clipboard history',
+    testWidgets(
+        'hardware copy Cmd+C/Ctrl+C populates OS clipboard and clipboard history',
         (tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
       try {
@@ -599,6 +601,70 @@ void main() {
       } finally {
         debugDefaultTargetPlatformOverride = null;
       }
+    });
+
+    testWidgets(
+        'clipboard icon key has semantics, tooltip, and icon-only rendering',
+        (tester) async {
+      final controller = TextEditingController();
+      final focus = FocusNode();
+
+      await tester.pumpWidget(_wrap(
+        VTextField(
+          controller: controller,
+          focusNode: focus,
+          keyboardType: VKeyboardType.standard,
+        ),
+      ));
+
+      focus.requestFocus();
+      await tester.pumpAndSettle();
+
+      // Switch to 123 layout
+      await tester.tap(_switchKey('123'));
+      await tester.pumpAndSettle();
+
+      // Find clipboard key
+      final clipKeyFinder = _clipKey();
+      expect(clipKeyFinder, findsOneWidget);
+
+      final VirtualKey vk = tester.widget(clipKeyFinder);
+      expect(vk.data.icon, isNotNull);
+      expect(vk.data.label, isNull);
+
+      // Verify semantics label
+      expect(find.bySemanticsLabel('Clipboard History'), findsOneWidget);
+    });
+
+    testWidgets(
+        'desktop keyboard layout renders clipboard icon key and opens history',
+        (tester) async {
+      final controller = TextEditingController();
+      final focus = FocusNode();
+      final storage = InMemoryClipboardHistoryStorage();
+      final historyManager = ClipboardHistoryManager(storage: storage);
+      await historyManager.reload();
+      final kbController =
+          VKeyboardController(clipboardHistory: historyManager);
+
+      await tester.pumpWidget(_wrap(
+        VTextField(
+          controller: controller,
+          focusNode: focus,
+          keyboardType: VKeyboardType.desktop,
+        ),
+        controller: kbController,
+      ));
+
+      focus.requestFocus();
+      await tester.pumpAndSettle();
+
+      expect(_clipKey(), findsOneWidget);
+      await tester.tap(_clipKey());
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      expect(find.byType(ClipboardHistoryPanel), findsOneWidget);
     });
   });
 }

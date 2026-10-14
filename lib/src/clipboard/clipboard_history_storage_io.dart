@@ -105,4 +105,3 @@ ClipboardHistoryStorage createPlatformDefaultStorage({String? customPath}) {
     return InMemoryClipboardHistoryStorage();
   }
 }
-
