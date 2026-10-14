@@ -1,3 +1,6 @@
+## 0.2.2
+- Use absolute image URLs in the README so the showcase renders on pub.dev.
+
 ## 0.2.1
 
 - **OS Clipboard Synchronization**:
