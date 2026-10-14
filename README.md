@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/hero.png" alt="flutter_v_keyboard hero showcase" width="100%">
+  <img src="assets/showcase/hero.png" alt="flutter_v_keyboard hero showcase" width="100%">
 </p>
 
 # flutter_v_keyboard
@@ -20,26 +20,26 @@ Unlike simple keyboard widgets, `flutter_v_keyboard` pairs a drop-in `VTextField
 
 | Standard | Number / PIN | Password | Multiline |
 | :---: | :---: | :---: | :---: |
-| <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_standard.png" width="200" alt="Standard mobile layout"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_number.png" width="200" alt="Number and PIN layout"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_password.png" width="200" alt="Password layout"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_multiline.png" width="200" alt="Multiline input layout"> |
+| <img src="assets/showcase/mobile_standard.png" width="200" alt="Standard mobile layout"> | <img src="assets/showcase/mobile_number.png" width="200" alt="Number and PIN layout"> | <img src="assets/showcase/mobile_password.png" width="200" alt="Password layout"> | <img src="assets/showcase/mobile_multiline.png" width="200" alt="Multiline input layout"> |
 
 ### Customization
 
 | Light Theme | Dark Theme | Emoji Panel |
 | :---: | :---: | :---: |
-| <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/light_theme.png" width="240" alt="Light theme preset"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/dark_theme.png" width="240" alt="Dark theme preset"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/mobile_emoji.png" width="240" alt="Categorized emoji picker"> |
+| <img src="assets/showcase/light_theme.png" width="240" alt="Light theme preset"> | <img src="assets/showcase/dark_theme.png" width="240" alt="Dark theme preset"> | <img src="assets/showcase/mobile_emoji.png" width="240" alt="Categorized emoji picker"> |
 
 ### Desktop
 
 Full physical desktop layout featuring function keys, navigation clusters, and responsive collapsing sections.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/desktop_keyboard.png" alt="Desktop keyboard layout with function row and navigation cluster" width="100%">
+  <img src="assets/showcase/desktop_keyboard.png" alt="Desktop keyboard layout with function row and navigation cluster" width="100%">
 </p>
 
 Responsive scaling across phones, landscape mode, tablets, and wide desktop windows.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/responsive.png" alt="Responsive layout scaling across phone, tablet, and desktop" width="100%">
+  <img src="assets/showcase/responsive.png" alt="Responsive layout scaling across phone, tablet, and desktop" width="100%">
 </p>
 
 ### Clipboard History
@@ -48,7 +48,7 @@ Production-ready clipboard history integrated directly into the virtual keyboard
 
 | Integrated Key | History Panel | Search & Filter |
 | :---: | :---: | :---: |
-| <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/clipboard_trigger.png" width="240" alt="Integrated clipboard history key"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/clipboard_history.png" width="240" alt="Clipboard history panel with pinned snippets"> | <img src="https://raw.githubusercontent.com/tegarnugroho/v_keyboard/main/assets/showcase/clipboard_search.png" width="240" alt="Search and quick filter chips"> |
+| <img src="assets/showcase/clipboard_trigger.png" width="240" alt="Integrated clipboard history key"> | <img src="assets/showcase/clipboard_history.png" width="240" alt="Clipboard history panel with pinned snippets"> | <img src="assets/showcase/clipboard_search.png" width="240" alt="Search and quick filter chips"> |
 
 ---
 
@@ -100,7 +100,7 @@ Or add it manually under dependencies:
 
 ```yaml
 dependencies:
-  flutter_v_keyboard: ^0.2.0
+  flutter_v_keyboard: ^0.2.1
 ```
 
 ---

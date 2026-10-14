@@ -565,14 +565,32 @@ Widget _clipboardTrigger() => _phoneScreen(
     );
 
 Widget _clipboardHistory({String query = ''}) {
-  final storage = InMemoryClipboardHistoryStorage();
-  final manager = ClipboardHistoryManager(storage: storage);
+  final now = DateTime.now();
+  final storage = InMemoryClipboardHistoryStorage([
+    ClipboardHistoryItem(
+      id: 'clip_1',
+      text: 'flutter pub add flutter_v_keyboard',
+      createdAt: now.subtract(const Duration(minutes: 2)),
+      isPinned: true,
+    ),
+    ClipboardHistoryItem(
+      id: 'clip_2',
+      text: 'A customizable virtual keyboard for Flutter',
+      createdAt: now.subtract(const Duration(minutes: 15)),
+      isPinned: false,
+    ),
+    ClipboardHistoryItem(
+      id: 'clip_3',
+      text: 'https://pub.dev/packages/flutter_v_keyboard',
+      createdAt: now.subtract(const Duration(hours: 1)),
+      isPinned: false,
+    ),
+  ]);
+  final manager = ClipboardHistoryManager(
+    storage: storage,
+    syncSystemClipboard: false,
+  );
   final controller = VKeyboardController(clipboardHistory: manager);
-
-  manager.record('https://pub.dev/packages/flutter_v_keyboard');
-  manager.record('A customizable virtual keyboard for Flutter');
-  manager.record('flutter pub add flutter_v_keyboard');
-  manager.togglePin(manager.items.first.id);
 
   return _phoneScreen(
     dark: false,

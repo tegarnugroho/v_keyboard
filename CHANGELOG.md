@@ -1,3 +1,22 @@
+## 0.2.1
+
+- **OS Clipboard Synchronization**:
+  - Automatically synchronize clipboard history with host operating system clipboard across Android, iOS, macOS, Windows, Linux, and Web via `ClipboardHistoryManager.syncFromSystemClipboard()`.
+  - Copy and cut shortcuts (`Cmd+C`, `Ctrl+C`, `Cmd+X`, `Ctrl+X`) seamlessly populate system clipboard and history.
+  - Add `VKeyboardConfig.syncSystemClipboard` configuration toggle.
+- **Virtual Keyboard Clipboard Trigger**:
+  - Add small, subtle clipboard history icon key directly into virtual keyboard layouts (`123`/symbols page and desktop cluster) without altering keyboard height.
+  - Accessible semantic label and tooltip for clipboard key actions.
+- **UI & Experience Polish**:
+  - Modernized `ClipboardHistoryPanel` with refined typography, professional icon set, item counter badge, and quick filter chips (`All`, `Pinned`, `Recent`).
+  - High-contrast visual styling and robust system font fallback stacks across light and dark themes.
+- **Bug Fixes & Reliability**:
+  - Fix framework locked widget tree assertion: defer `setState()` in `VKeyboardScope` during unmount and persistent callback phases.
+  - Export `ClipboardHistoryPanel` and `EmojiPanel` directly in package public exports.
+- **Showcase & Example App**:
+  - Redesigned example app with macOS-style window framing, interactive playground, floating clipboard preview, and full-screen desktop keyboard view.
+  - Update all showcase screenshots in README with latest high-resolution app captures.
+
 ## 0.2.0
 
 - **Clipboard History (`Win + V` style)**:
