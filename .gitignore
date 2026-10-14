@@ -36,3 +36,5 @@ pubspec.lock
 # OS
 .DS_Store
 Thumbs.db
+.dart_tool/
+build/
