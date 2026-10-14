@@ -183,6 +183,10 @@ class _VTextFieldState extends State<VTextField> {
         const VKeyboardConfig();
   }
 
+  bool get _isSensitive =>
+      widget.sensitive ??
+      (_effectiveObscure || widget.keyboardType == VKeyboardType.pin);
+
   KeyboardSession _buildSession() {
     final config = _resolveConfig();
     return KeyboardSession(
@@ -198,8 +202,7 @@ class _VTextFieldState extends State<VTextField> {
       enabled: widget.enabled,
       maxLength: widget.maxLength,
       inputFormatters: widget.inputFormatters,
-      sensitive: widget.sensitive ??
-          (_effectiveObscure || widget.keyboardType == VKeyboardType.pin),
+      sensitive: _isSensitive,
       contextRef: () => mounted ? context : null,
       onChanged: widget.onChanged,
       onSubmitted: widget.onSubmitted,
@@ -217,6 +220,10 @@ class _VTextFieldState extends State<VTextField> {
       _session = session;
       scope.controller.attach(session);
       _scrollIntoView();
+      if (_resolveConfig().enableClipboardHistory &&
+          _resolveConfig().syncSystemClipboard) {
+        scope.controller.clipboardHistory.syncFromSystemClipboard();
+      }
     } else if (_session != null) {
       scope.controller.detach(_session!);
       _session = null;
@@ -272,18 +279,94 @@ class _VTextFieldState extends State<VTextField> {
       return KeyEventResult.ignored;
     }
     final key = event.logicalKey;
+    final isMeta = HardwareKeyboard.instance.isMetaPressed;
+    final isCtrl = HardwareKeyboard.instance.isControlPressed;
+    final isShift = HardwareKeyboard.instance.isShiftPressed;
+    final isMetaOrCtrl = isMeta || isCtrl;
 
-    if (key == LogicalKeyboardKey.keyV) {
-      final isMeta = HardwareKeyboard.instance.isMetaPressed;
-      final isCtrlShift = HardwareKeyboard.instance.isControlPressed &&
-          HardwareKeyboard.instance.isShiftPressed;
-      if (isMeta || isCtrlShift) {
-        final scope = VKeyboardScope.maybeOf(context);
-        if (scope != null && _resolveConfig().enableClipboardHistory) {
-          scope.controller.openClipboardHistory();
-          return KeyEventResult.handled;
+    // Clipboard History Shortcut:
+    // Win + V (on Windows), Cmd + Shift + V (on macOS), Ctrl + Shift + V (all)
+    final isClipboardHistoryShortcut = (key == LogicalKeyboardKey.keyV) &&
+        ((isCtrl && isShift) ||
+            (isMeta && isShift) ||
+            (defaultTargetPlatform == TargetPlatform.windows &&
+                isMeta &&
+                !isShift));
+
+    if (isClipboardHistoryShortcut) {
+      final scope = VKeyboardScope.maybeOf(context);
+      if (scope != null && _resolveConfig().enableClipboardHistory) {
+        scope.controller.openClipboardHistory();
+        return KeyEventResult.handled;
+      }
+    }
+
+    // Hardware Copy: Cmd + C / Ctrl + C
+    if (key == LogicalKeyboardKey.keyC && isMetaOrCtrl) {
+      final selection = _controller.selection;
+      if (selection.isValid && !selection.isCollapsed) {
+        final text = selection.textInside(_controller.text);
+        if (text.isNotEmpty) {
+          Clipboard.setData(ClipboardData(text: text));
+          if (!_isSensitive) {
+            final scope = VKeyboardScope.maybeOf(context);
+            scope?.controller.clipboardHistory.record(text);
+          }
         }
       }
+      return KeyEventResult.handled;
+    }
+
+    // Hardware Cut: Cmd + X / Ctrl + X
+    if (key == LogicalKeyboardKey.keyX && isMetaOrCtrl) {
+      if (!widget.readOnly && widget.enabled) {
+        final selection = _controller.selection;
+        if (selection.isValid && !selection.isCollapsed) {
+          final text = selection.textInside(_controller.text);
+          if (text.isNotEmpty) {
+            Clipboard.setData(ClipboardData(text: text));
+            _controller.value =
+                TextInputEngine.deleteBackward(_controller.value);
+            widget.onChanged?.call(_controller.text);
+            if (!_isSensitive) {
+              final scope = VKeyboardScope.maybeOf(context);
+              scope?.controller.clipboardHistory.record(text);
+            }
+          }
+        }
+      }
+      return KeyEventResult.handled;
+    }
+
+    // Hardware Paste: Cmd + V (macOS/iOS) or Ctrl + V (Windows/Linux/Android)
+    final isPasteShortcut = (key == LogicalKeyboardKey.keyV) &&
+        !isShift &&
+        ((defaultTargetPlatform == TargetPlatform.macOS ||
+                defaultTargetPlatform == TargetPlatform.iOS)
+            ? isMeta
+            : isCtrl);
+
+    if (isPasteShortcut) {
+      if (!widget.readOnly && widget.enabled) {
+        final scope = VKeyboardScope.maybeOf(context);
+        Clipboard.getData(Clipboard.kTextPlain).then((data) {
+          final text = data?.text;
+          if (text != null && text.isNotEmpty && mounted) {
+            _controller.value = TextInputEngine.insert(_controller.value, text);
+            widget.onChanged?.call(_controller.text);
+            if (!_isSensitive) {
+              scope?.controller.clipboardHistory.record(text);
+            }
+          }
+        });
+      }
+      return KeyEventResult.handled;
+    }
+
+    // Hardware Select All: Cmd + A / Ctrl + A
+    if (key == LogicalKeyboardKey.keyA && isMetaOrCtrl) {
+      _controller.value = TextInputEngine.selectAll(_controller.value);
+      return KeyEventResult.handled;
     }
 
     if (key == LogicalKeyboardKey.backspace) {

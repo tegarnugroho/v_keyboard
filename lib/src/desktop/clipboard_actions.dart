@@ -74,6 +74,9 @@ class ClipboardActions {
         if (text != null && text.isNotEmpty) {
           controller.value = TextInputEngine.insert(controller.value, text);
           onChanged?.call(controller.text);
+          if (!isSensitive) {
+            await history?.record(text);
+          }
         }
 
       case ClipboardIntent.selectAll:

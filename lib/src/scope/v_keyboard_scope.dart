@@ -60,7 +60,7 @@ class VKeyboardScope extends StatefulWidget {
 }
 
 class _VKeyboardScopeState extends State<VKeyboardScope>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late final VKeyboardController _controller;
   late final AnimationController _anim;
   late final Animation<double> _curved;
@@ -75,6 +75,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _controller =
         widget.controller ?? VKeyboardController(config: widget.config);
     _ownsController = widget.controller == null;
@@ -91,6 +92,15 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     _controller.addListener(_onControllerChanged);
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed &&
+        _controller.config.enableClipboardHistory &&
+        _controller.config.syncSystemClipboard) {
+      _controller.clipboardHistory.syncFromSystemClipboard();
+    }
+  }
+
   void _onControllerChanged() {
     if (_controller.isVisible) {
       _anim.forward();
@@ -102,6 +112,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _controller.removeListener(_onControllerChanged);
     _anim.dispose();
     if (_ownsController) _controller.dispose();

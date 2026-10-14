@@ -36,6 +36,7 @@ class VKeyboardController extends ChangeNotifier {
         ClipboardHistoryManager(
           maxItems: _defaultConfig.maxClipboardHistoryItems,
           enabled: _defaultConfig.enableClipboardHistory,
+          syncSystemClipboard: _defaultConfig.syncSystemClipboard,
         );
     modifiers.addListener(notifyListeners);
     this.clipboardHistory.addListener(notifyListeners);
@@ -146,6 +147,7 @@ class VKeyboardController extends ChangeNotifier {
     }
     _page = 'clipboard';
     notifyListeners();
+    clipboardHistory.syncFromSystemClipboard();
   }
 
   /// Closes the clipboard history panel and returns to the previous layout page.
@@ -161,6 +163,10 @@ class VKeyboardController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Synchronizes clipboard history with the operating system clipboard.
+  Future<bool> syncClipboardFromSystem() =>
+      clipboardHistory.syncFromSystemClipboard();
+
   /// Pastes a saved [ClipboardHistoryItem] into the active text field.
   void pasteClipboardItem(ClipboardHistoryItem item) {
     pasteText(item.text);
@@ -174,6 +180,7 @@ class VKeyboardController extends ChangeNotifier {
       s.focusNode.requestFocus();
     }
     s.insertText(text);
+    Clipboard.setData(ClipboardData(text: text));
   }
 
   // ---- Key handling ---------------------------------------------------------

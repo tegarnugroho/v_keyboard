@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -518,6 +519,86 @@ void main() {
 
       expect(find.byType(ClipboardHistoryPanel), findsOneWidget);
       expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('opening clipboard history automatically synchronizes with system OS clipboard',
+        (tester) async {
+      // Simulate external copy outside the app into OS clipboard
+      clipboardContent = 'External OS snippet';
+
+      final controller = TextEditingController();
+      final focus = FocusNode();
+      final storage = InMemoryClipboardHistoryStorage();
+      final historyManager = ClipboardHistoryManager(storage: storage);
+      await historyManager.reload();
+      final kbController =
+          VKeyboardController(clipboardHistory: historyManager);
+
+      await tester.pumpWidget(_wrap(
+        VTextField(controller: controller, focusNode: focus),
+        controller: kbController,
+      ));
+
+      focus.requestFocus();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      // Open clipboard history (which triggers sync)
+      kbController.openClipboardHistory();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      // The external OS snippet should appear in the history panel
+      expect(find.text('External OS snippet'), findsOneWidget);
+
+      // Tap the item to paste it into the field
+      await tester.tap(find.text('External OS snippet'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      expect(controller.text, 'External OS snippet');
+    });
+
+    testWidgets('hardware copy Cmd+C/Ctrl+C populates OS clipboard and clipboard history',
+        (tester) async {
+      debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
+      try {
+        final controller = TextEditingController(text: 'Hello from keyboard');
+        final focus = FocusNode();
+        final storage = InMemoryClipboardHistoryStorage();
+        final historyManager = ClipboardHistoryManager(storage: storage);
+        await historyManager.reload();
+        final kbController =
+            VKeyboardController(clipboardHistory: historyManager);
+
+        await tester.pumpWidget(_wrap(
+          VTextField(controller: controller, focusNode: focus),
+          controller: kbController,
+        ));
+
+        focus.requestFocus();
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 300));
+
+        // Select 'Hello' explicitly after focus
+        controller.selection =
+            const TextSelection(baseOffset: 0, extentOffset: 5);
+        await tester.pump();
+
+        // Press Meta + C (Cmd + C)
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.metaLeft);
+        await tester.sendKeyEvent(LogicalKeyboardKey.keyC);
+        await tester.sendKeyUpEvent(LogicalKeyboardKey.metaLeft);
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 300));
+
+        // Verify it was copied to system clipboard
+        expect(clipboardContent, 'Hello');
+        // And recorded in clipboard history
+        expect(kbController.clipboardHistory.items.first.text, 'Hello');
+      } finally {
+        debugDefaultTargetPlatformOverride = null;
+      }
     });
   });
 }

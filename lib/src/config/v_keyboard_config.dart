@@ -26,6 +26,7 @@ class VKeyboardConfig {
     this.animationCurve = Curves.easeOutCubic,
     this.enableClipboardHistory = true,
     this.maxClipboardHistoryItems = 50,
+    this.syncSystemClipboard = true,
   });
 
   /// Whether clipboard history recording and the clipboard panel are enabled.
@@ -33,6 +34,10 @@ class VKeyboardConfig {
 
   /// Maximum number of unpinned items to preserve in clipboard history.
   final int maxClipboardHistoryItems;
+
+  /// Whether to automatically synchronize with the operating system clipboard
+  /// across all platforms (Android, iOS, macOS, Windows, Linux, Web).
+  final bool syncSystemClipboard;
 
   /// Hide the keyboard when a `done`/`go`/`send` action fires.
   final bool hideOnDone;
@@ -109,6 +114,7 @@ class VKeyboardConfig {
     Curve? animationCurve,
     bool? enableClipboardHistory,
     int? maxClipboardHistoryItems,
+    bool? syncSystemClipboard,
   }) {
     return VKeyboardConfig(
       hideOnDone: hideOnDone ?? this.hideOnDone,
@@ -136,6 +142,7 @@ class VKeyboardConfig {
           enableClipboardHistory ?? this.enableClipboardHistory,
       maxClipboardHistoryItems:
           maxClipboardHistoryItems ?? this.maxClipboardHistoryItems,
+      syncSystemClipboard: syncSystemClipboard ?? this.syncSystemClipboard,
     );
   }
 }

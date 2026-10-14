@@ -1,26 +1,31 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 import 'clipboard_history_item.dart';
 import 'clipboard_history_storage.dart';
 
 /// Manages clipboard history recording, persistence, search, pinning, and deletion.
 ///
-/// Only snippets copied or cut explicitly through `v_keyboard` are recorded.
-/// It never polls the OS clipboard or captures fields marked as sensitive.
+/// Records snippets copied or cut through `v_keyboard` and can synchronize with
+/// the host operating system clipboard across all supported platforms (Android,
+/// iOS, macOS, Windows, Linux, and Web).
 class ClipboardHistoryManager extends ChangeNotifier {
   ClipboardHistoryManager({
     ClipboardHistoryStorage? storage,
     int maxItems = 50,
     bool enabled = true,
+    bool syncSystemClipboard = true,
   })  : _storage = storage ?? ClipboardHistoryStorage.defaultStorage(),
         _maxItems = maxItems,
-        _enabled = enabled {
+        _enabled = enabled,
+        _syncSystemClipboard = syncSystemClipboard {
     _init();
   }
 
   final ClipboardHistoryStorage _storage;
   int _maxItems;
   bool _enabled;
+  bool _syncSystemClipboard;
   List<ClipboardHistoryItem> _items = [];
   bool _isLoading = true;
   Object? _error;
@@ -36,6 +41,14 @@ class ClipboardHistoryManager extends ChangeNotifier {
   set isEnabled(bool value) {
     if (_enabled == value) return;
     _enabled = value;
+    notifyListeners();
+  }
+
+  /// Whether to synchronize with the host operating system clipboard.
+  bool get syncSystemClipboard => _syncSystemClipboard;
+  set syncSystemClipboard(bool value) {
+    if (_syncSystemClipboard == value) return;
+    _syncSystemClipboard = value;
     notifyListeners();
   }
 
@@ -71,6 +84,32 @@ class ClipboardHistoryManager extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  /// Synchronizes the clipboard history with the operating system clipboard.
+  ///
+  /// Works across all supported platforms (Android, iOS, macOS, Windows, Linux, Web)
+  /// using Flutter's native [Clipboard.getData].
+  ///
+  /// If the OS clipboard contains non-empty text, it is recorded into history
+  /// (or moved to the top position if already present).
+  ///
+  /// Returns `true` if an item was successfully imported or moved.
+  Future<bool> syncFromSystemClipboard() async {
+    if (!_enabled || !_syncSystemClipboard) return false;
+    try {
+      final data = await Clipboard.getData(Clipboard.kTextPlain);
+      final text = data?.text;
+      if (text != null && text.trim().isNotEmpty) {
+        if (_items.isNotEmpty && _items.first.text == text) {
+          return false;
+        }
+        return await record(text);
+      }
+    } catch (e) {
+      _error = e;
+    }
+    return false;
   }
 
   /// Records text copied or cut through `v_keyboard`.

@@ -40,6 +40,7 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
   void initState() {
     super.initState();
     _searchController.addListener(_onSearchChanged);
+    widget.controller.clipboardHistory.syncFromSystemClipboard();
   }
 
   void _onSearchChanged() {

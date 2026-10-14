@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
 
@@ -19,6 +20,32 @@ class FailingStorage implements ClipboardHistoryStorage {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  String mockSystemClipboard = '';
+
+  setUp(() {
+    mockSystemClipboard = '';
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform,
+            (MethodCall methodCall) async {
+      if (methodCall.method == 'Clipboard.setData') {
+        mockSystemClipboard =
+            (methodCall.arguments as Map)['text']?.toString() ?? '';
+        return null;
+      }
+      if (methodCall.method == 'Clipboard.getData') {
+        return <String, dynamic>{'text': mockSystemClipboard};
+      }
+      return null;
+    });
+  });
+
+  tearDown(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform, null);
+  });
+
   group('ClipboardHistoryManager', () {
     test('records a copied item and orders most-recent-first', () async {
       final storage = InMemoryClipboardHistoryStorage();
@@ -228,6 +255,77 @@ void main() {
       final recordedAfter = await manager.record('Should save');
       expect(recordedAfter, isTrue);
       expect(manager.items.length, 1);
+    });
+
+    test('syncFromSystemClipboard imports text from OS clipboard', () async {
+      mockSystemClipboard = 'Copied from OS';
+      final storage = InMemoryClipboardHistoryStorage();
+      final manager = ClipboardHistoryManager(storage: storage);
+      await manager.reload();
+
+      final synced = await manager.syncFromSystemClipboard();
+      expect(synced, isTrue);
+      expect(manager.items.length, 1);
+      expect(manager.items.first.text, 'Copied from OS');
+    });
+
+    test('syncFromSystemClipboard moves duplicate OS text to top and preserves metadata',
+        () async {
+      final storage = InMemoryClipboardHistoryStorage();
+      final manager = ClipboardHistoryManager(storage: storage);
+      await manager.reload();
+
+      await manager.record('Older item');
+      final olderId = manager.items.first.id;
+      final olderCreatedAt = manager.items.first.createdAt;
+      await manager.togglePin(olderId);
+
+      await manager.record('Newer item');
+      expect(manager.items.first.text, 'Newer item');
+
+      // Now OS clipboard has 'Older item'
+      mockSystemClipboard = 'Older item';
+      final synced = await manager.syncFromSystemClipboard();
+      expect(synced, isTrue);
+      expect(manager.items.length, 2);
+      expect(manager.items.first.text, 'Older item');
+      expect(manager.items.first.id, olderId);
+      expect(manager.items.first.createdAt, olderCreatedAt);
+      expect(manager.items.first.isPinned, isTrue);
+    });
+
+    test('syncFromSystemClipboard ignores empty or whitespace content from OS',
+        () async {
+      mockSystemClipboard = '   \n\t  ';
+      final storage = InMemoryClipboardHistoryStorage();
+      final manager = ClipboardHistoryManager(storage: storage);
+      await manager.reload();
+
+      final synced = await manager.syncFromSystemClipboard();
+      expect(synced, isFalse);
+      expect(manager.items, isEmpty);
+    });
+
+    test(
+        'syncFromSystemClipboard respects syncSystemClipboard = false and isEnabled = false',
+        () async {
+      mockSystemClipboard = 'Valid OS content';
+      final storage = InMemoryClipboardHistoryStorage();
+      final manager = ClipboardHistoryManager(
+        storage: storage,
+        syncSystemClipboard: false,
+      );
+      await manager.reload();
+
+      final synced = await manager.syncFromSystemClipboard();
+      expect(synced, isFalse);
+      expect(manager.items, isEmpty);
+
+      manager.syncSystemClipboard = true;
+      manager.isEnabled = false;
+      final syncedDisabled = await manager.syncFromSystemClipboard();
+      expect(syncedDisabled, isFalse);
+      expect(manager.items, isEmpty);
     });
   });
 }
