@@ -157,7 +157,7 @@ class KeyData {
         clip: ClipboardIntent.history,
         switchTarget: 'clipboard',
         label: label,
-        icon: icon ?? Icons.content_paste_outlined,
+        icon: icon ?? Icons.content_paste_rounded,
         flex: flex,
       );
 
@@ -337,7 +337,7 @@ class KeyData {
   }
 }
 
-// Real Material Icons glyphs.
-const IconData _kBackspace = Icons.backspace_outlined;
-const IconData _kShift = Icons.keyboard_capslock;
-const IconData _kEnter = Icons.keyboard_return;
+// Real Material Icons glyphs with modern rounded styling.
+const IconData _kBackspace = Icons.backspace_rounded;
+const IconData _kShift = Icons.arrow_upward_rounded;
+const IconData _kEnter = Icons.keyboard_return_rounded;

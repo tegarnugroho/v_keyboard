@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../models/key_data.dart';
 import '../models/keyboard_layout.dart';
 import '../models/keyboard_type.dart';
@@ -75,7 +77,10 @@ class BuiltinLayouts {
         ],
         [
           KeyData.switchTo('123', label: '123', flex: 1.3),
-          KeyData.switchTo('emoji', label: '☺', flex: 1.0),
+          KeyData.switchTo('emoji',
+              label: '☺',
+              icon: Icons.sentiment_satisfied_alt_rounded,
+              flex: 1.0),
           KeyData.clipboardHistory(flex: 1.0),
           KeyData.symbol(',', flex: 0.9),
           KeyData.space(flex: 3.2),
@@ -145,7 +150,11 @@ class BuiltinLayouts {
         ],
         [
           KeyData.switchTo('abc', label: 'ABC', flex: 1.4),
-          if (includeEmoji) KeyData.switchTo('emoji', label: '☺', flex: 1.1),
+          if (includeEmoji)
+            KeyData.switchTo('emoji',
+                label: '☺',
+                icon: Icons.sentiment_satisfied_alt_rounded,
+                flex: 1.1),
           KeyData.clipboardHistory(flex: 1.1),
           KeyData.space(flex: includeEmoji ? 4 : 4.5),
           KeyData.symbol('.', flex: 1),
@@ -165,7 +174,11 @@ class BuiltinLayouts {
         ],
         [
           KeyData.switchTo('abc', label: 'ABC', flex: 1.4),
-          if (includeEmoji) KeyData.switchTo('emoji', label: '☺', flex: 1.1),
+          if (includeEmoji)
+            KeyData.switchTo('emoji',
+                label: '☺',
+                icon: Icons.sentiment_satisfied_alt_rounded,
+                flex: 1.1),
           KeyData.clipboardHistory(flex: 1.1),
           KeyData.space(flex: includeEmoji ? 4 : 4.5),
           KeyData.symbol('.', flex: 1),

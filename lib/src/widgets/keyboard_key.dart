@@ -275,32 +275,41 @@ class _VirtualKeyState extends State<VirtualKey> {
       );
     }
 
-    // Word keys (.com, ABC, 123, Ctrl…) shrink; single glyphs/emoji stay big.
+    // Word keys (.com, ABC, 123, Ctrl…) scale cleanly; single glyphs stay full size.
     final isWordKey = label.runes.length > 1;
+    final fontSize = isWordKey
+        ? (theme.textStyle.fontSize! * 0.68).clamp(13.5, 16.0)
+        : theme.textStyle.fontSize;
+    final fontWeight = isWordKey ? FontWeight.w500 : theme.textStyle.fontWeight;
+
     return Text(
       label,
       maxLines: 1,
       overflow: TextOverflow.fade,
       softWrap: false,
-      style: (isWordKey
-              ? theme.textStyle
-                  .copyWith(fontSize: theme.textStyle.fontSize! * 0.5)
-              : theme.textStyle)
-          .copyWith(color: engaged ? theme.accentColor : null),
+      style: theme.textStyle.copyWith(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        letterSpacing: isWordKey ? -0.2 : 0.1,
+        color: engaged ? theme.accentColor : null,
+      ),
     );
   }
 
   IconData? _resolveIcon() {
-    if (_data.kind == KeyKind.shift && _controller.isCapsLock) {
-      return Icons.keyboard_capslock;
+    if (_data.kind == KeyKind.shift) {
+      if (_controller.isCapsLock) {
+        return Icons.keyboard_capslock_rounded;
+      }
+      return Icons.arrow_upward_rounded;
     }
     if (_data.icon != null) return _data.icon;
     if (_data.kind == KeyKind.navigation) {
       return switch (_data.nav) {
-        NavIntent.left => Icons.keyboard_arrow_left,
-        NavIntent.right => Icons.keyboard_arrow_right,
-        NavIntent.up => Icons.keyboard_arrow_up,
-        NavIntent.down => Icons.keyboard_arrow_down,
+        NavIntent.left => Icons.keyboard_arrow_left_rounded,
+        NavIntent.right => Icons.keyboard_arrow_right_rounded,
+        NavIntent.up => Icons.keyboard_arrow_up_rounded,
+        NavIntent.down => Icons.keyboard_arrow_down_rounded,
         _ => null, // Home/End/PageUp/Down render as text labels.
       };
     }

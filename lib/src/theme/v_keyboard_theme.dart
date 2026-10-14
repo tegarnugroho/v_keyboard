@@ -31,13 +31,27 @@ class VKeyboardTheme {
         modifierKeyColor = modifierKeyColor ?? specialKeyColor;
 
   /// Built-in light keyboard theme preset.
-  factory VKeyboardTheme.light({Color accentColor = Colors.indigo}) {
-    return _preset(accentColor: accentColor, brightness: Brightness.light);
+  factory VKeyboardTheme.light({
+    Color accentColor = Colors.indigo,
+    String? fontFamily,
+  }) {
+    return _preset(
+      accentColor: accentColor,
+      brightness: Brightness.light,
+      fontFamily: fontFamily,
+    );
   }
 
   /// Built-in dark keyboard theme preset.
-  factory VKeyboardTheme.dark({Color accentColor = Colors.indigo}) {
-    return _preset(accentColor: accentColor, brightness: Brightness.dark);
+  factory VKeyboardTheme.dark({
+    Color accentColor = Colors.indigo,
+    String? fontFamily,
+  }) {
+    return _preset(
+      accentColor: accentColor,
+      brightness: Brightness.dark,
+      fontFamily: fontFamily,
+    );
   }
 
   /// Builds a theme that follows Material's color scheme.
@@ -46,6 +60,7 @@ class VKeyboardTheme {
       accentColor: theme.colorScheme.primary,
       brightness: theme.brightness,
       onSurfaceColor: theme.colorScheme.onSurface,
+      fontFamily: theme.textTheme.bodyMedium?.fontFamily,
     );
   }
 
@@ -121,10 +136,23 @@ class VKeyboardTheme {
     required Color accentColor,
     required Brightness brightness,
     Color? onSurfaceColor,
+    String? fontFamily,
   }) {
     final isDark = brightness == Brightness.dark;
     final surfaceColor =
         onSurfaceColor ?? (isDark ? Colors.white : const Color(0xFF1F2937));
+
+    const defaultFontFamilyFallback = [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      'SF Pro Text',
+      'SF Pro',
+      'Segoe UI',
+      'Roboto',
+      'Helvetica Neue',
+      'Arial',
+      'sans-serif',
+    ];
 
     return VKeyboardTheme(
       backgroundColor:
@@ -144,11 +172,15 @@ class VKeyboardTheme {
         fontSize: 22,
         color: surfaceColor,
         fontWeight: FontWeight.w400,
+        fontFamily: fontFamily,
+        fontFamilyFallback: defaultFontFamilyFallback,
       ),
       subLabelStyle: TextStyle(
         fontSize: 10,
         color: surfaceColor.withValues(alpha: 0.6),
         fontWeight: FontWeight.w500,
+        fontFamily: fontFamily,
+        fontFamilyFallback: defaultFontFamilyFallback,
       ),
       elevation: 1,
     );
