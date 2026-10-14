@@ -73,6 +73,7 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
   Widget build(BuildContext context) {
     final theme = widget.theme;
     final manager = widget.controller.clipboardHistory;
+    final hasOverlay = Overlay.maybeOf(context) != null;
     final panelWidth = (widget.maxWidth.isFinite ? widget.maxWidth : 600.0)
         .clamp(300.0, 700.0);
 
@@ -93,7 +94,7 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                     IconButton(
                       icon: Icon(Icons.arrow_back,
                           color: theme.iconColor, size: 20),
-                      tooltip: 'Back to keyboard',
+                      tooltip: hasOverlay ? 'Back to keyboard' : null,
                       onPressed: () =>
                           widget.controller.closeClipboardHistory(),
                     ),
@@ -110,13 +111,13 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                       IconButton(
                         icon: Icon(Icons.delete_sweep_outlined,
                             color: theme.iconColor, size: 20),
-                        tooltip: 'Clear history',
+                        tooltip: hasOverlay ? 'Clear history' : null,
                         onPressed: () =>
                             setState(() => _showClearConfirmation = true),
                       ),
                     IconButton(
                       icon: Icon(Icons.close, color: theme.iconColor, size: 20),
-                      tooltip: 'Close',
+                      tooltip: hasOverlay ? 'Close' : null,
                       onPressed: () =>
                           widget.controller.closeClipboardHistory(),
                     ),
@@ -339,6 +340,7 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
   Widget _buildItemCard(ClipboardHistoryItem item) {
     final theme = widget.theme;
     final manager = widget.controller.clipboardHistory;
+    final hasOverlay = Overlay.maybeOf(context) != null;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3),
@@ -395,7 +397,9 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                         ? theme.accentColor
                         : theme.iconColor.withValues(alpha: 0.5),
                   ),
-                  tooltip: item.isPinned ? 'Unpin item' : 'Pin item',
+                  tooltip: hasOverlay
+                      ? (item.isPinned ? 'Unpin item' : 'Pin item')
+                      : null,
                   padding: EdgeInsets.zero,
                   constraints:
                       const BoxConstraints(minWidth: 28, minHeight: 28),
@@ -407,7 +411,7 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                     size: 18,
                     color: theme.iconColor.withValues(alpha: 0.5),
                   ),
-                  tooltip: 'Delete item',
+                  tooltip: hasOverlay ? 'Delete item' : null,
                   padding: EdgeInsets.zero,
                   constraints:
                       const BoxConstraints(minWidth: 28, minHeight: 28),
