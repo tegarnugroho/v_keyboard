@@ -38,3 +38,4 @@ pubspec.lock
 Thumbs.db
 .dart_tool/
 build/
+example/macos/

@@ -132,6 +132,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     final mq = MediaQuery.of(context);
     final theme = widget.theme ?? VKeyboardTheme.fromTheme(Theme.of(context));
 
+    final isClipboard = _controller.currentPage == 'clipboard';
     final isDesktopLayout =
         _controller.session?.type == VKeyboardType.desktop &&
             _controller.session?.customLayout == null;
@@ -151,9 +152,11 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
           type == VKeyboardType.decimal ||
           type == VKeyboardType.pin ||
           type == VKeyboardType.phone;
-      metrics = rows == null
-          ? null
-          : KeyboardMetrics.resolve(mq, rows: rows.length, compact: compact);
+      metrics = rows != null
+          ? KeyboardMetrics.resolve(mq, rows: rows.length, compact: compact)
+          : (isClipboard
+              ? KeyboardMetrics.resolve(mq, rows: 5, compact: false)
+              : null);
     }
     if (metrics != null) _lastHeight = metrics.height;
 
@@ -186,7 +189,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
           ),
 
           // The keyboard itself.
-          if (rows != null && metrics != null)
+          if ((rows != null || isClipboard) && metrics != null)
             Positioned(
               left: 0,
               right: 0,
@@ -225,7 +228,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                 controller: _controller,
                                 theme: theme,
                                 metrics: metrics,
-                                rows: rows,
+                                rows: rows ?? const [],
                                 bottomSafeArea: bottomInset,
                               ),
                   ),

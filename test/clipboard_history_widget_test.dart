@@ -26,6 +26,32 @@ Finder _clipKey() => find.byWidgetPredicate(
     (w) => w is VirtualKey && (w.data.clip == ClipboardIntent.history || w.data.switchTarget == 'clipboard'));
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  String clipboardContent = '';
+
+  setUp(() {
+    clipboardContent = '';
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform,
+            (MethodCall methodCall) async {
+      if (methodCall.method == 'Clipboard.setData') {
+        clipboardContent =
+            (methodCall.arguments as Map)['text']?.toString() ?? '';
+        return null;
+      }
+      if (methodCall.method == 'Clipboard.getData') {
+        return <String, dynamic>{'text': clipboardContent};
+      }
+      return null;
+    });
+  });
+
+  tearDown(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform, null);
+  });
+
   group('Clipboard History Text Editing & Security', () {
     testWidgets('pasting at the cursor inserts text correctly', (tester) async {
       final controller = TextEditingController(text: 'Hello world');
@@ -262,6 +288,9 @@ void main() {
 
       expect(find.byType(ClipboardHistoryPanel), findsOneWidget);
       expect(find.text('Clipboard'), findsOneWidget);
+      for (final t in tester.widgetList<Text>(find.byType(Text))) {
+        debugPrint('Found Text: "${t.data}"');
+      }
       expect(find.text('Second snippet'), findsOneWidget);
       expect(find.text('First snippet'), findsOneWidget);
 

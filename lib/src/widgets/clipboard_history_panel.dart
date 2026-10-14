@@ -324,6 +324,7 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
 
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      cacheExtent: 600,
       itemCount: filtered.length,
       itemBuilder: (context, index) {
         final item = filtered[index];
