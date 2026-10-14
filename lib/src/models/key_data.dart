@@ -129,7 +129,8 @@ class KeyData {
       KeyData(kind: KeyKind.space, label: label, text: ' ', flex: flex);
 
   factory KeyData.enter({String? label, IconData? icon, double flex = 2}) =>
-      KeyData(kind: KeyKind.enter, label: label, icon: icon ?? _kEnter, flex: flex);
+      KeyData(
+          kind: KeyKind.enter, label: label, icon: icon ?? _kEnter, flex: flex);
 
   factory KeyData.switchTo(
     String target, {
@@ -165,7 +166,8 @@ class KeyData {
 
   /// A developer-defined key. [builder] paints the content; [onTapText] (if
   /// any) is inserted when tapped, otherwise [builder] handles interaction.
-  factory KeyData.custom(WidgetBuilder builder, {double flex = 1, String? insert}) =>
+  factory KeyData.custom(WidgetBuilder builder,
+          {double flex = 1, String? insert}) =>
       KeyData(kind: KeyKind.custom, builder: builder, text: insert, flex: flex);
 
   // ---- Desktop factories ----------------------------------------------------

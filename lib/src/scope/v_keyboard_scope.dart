@@ -45,8 +45,7 @@ class VKeyboardScope extends StatefulWidget {
   /// Looks up the nearest controller. Throws if there is no scope above.
   static VKeyboardController of(BuildContext context) {
     final marker = maybeOf(context);
-    assert(marker != null,
-        'No VKeyboardScope found above this VTextField.');
+    assert(marker != null, 'No VKeyboardScope found above this VTextField.');
     return marker!.controller;
   }
 
@@ -76,7 +75,8 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ?? VKeyboardController(config: widget.config);
+    _controller =
+        widget.controller ?? VKeyboardController(config: widget.config);
     _ownsController = widget.controller == null;
     _anim = AnimationController(
       vsync: this,
@@ -179,8 +179,8 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
               final inset = widget.floating ? 0.0 : fullHeight * _curved.value;
               return MediaQuery(
                 data: mq.copyWith(
-                  viewInsets:
-                      mq.viewInsets.copyWith(bottom: mq.viewInsets.bottom + inset),
+                  viewInsets: mq.viewInsets
+                      .copyWith(bottom: mq.viewInsets.bottom + inset),
                 ),
                 child: child!,
               );

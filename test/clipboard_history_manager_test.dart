@@ -33,7 +33,9 @@ void main() {
       expect(manager.items.last.text, 'First snippet');
     });
 
-    test('ignores empty or whitespace-only content while preserving meaningful whitespace', () async {
+    test(
+        'ignores empty or whitespace-only content while preserving meaningful whitespace',
+        () async {
       final storage = InMemoryClipboardHistoryStorage();
       final manager = ClipboardHistoryManager(storage: storage);
       await manager.reload();
@@ -54,7 +56,9 @@ void main() {
       expect(manager.items.first.text, '  indented code  ');
     });
 
-    test('duplicate content moves existing item to top and preserves original metadata', () async {
+    test(
+        'duplicate content moves existing item to top and preserves original metadata',
+        () async {
       final storage = InMemoryClipboardHistoryStorage();
       final manager = ClipboardHistoryManager(storage: storage);
       await manager.reload();
@@ -79,7 +83,8 @@ void main() {
       expect(manager.items.first.isPinned, isTrue);
     });
 
-    test('enforces maxItems limit while pinned items survive eviction', () async {
+    test('enforces maxItems limit while pinned items survive eviction',
+        () async {
       final storage = InMemoryClipboardHistoryStorage();
       final manager = ClipboardHistoryManager(storage: storage, maxItems: 2);
       await manager.reload();
@@ -136,7 +141,8 @@ void main() {
       expect(manager.items.first.text, 'Keep me');
     });
 
-    test('clearUnpinned clears only unpinned items; clearAll clears everything', () async {
+    test('clearUnpinned clears only unpinned items; clearAll clears everything',
+        () async {
       final storage = InMemoryClipboardHistoryStorage();
       final manager = ClipboardHistoryManager(storage: storage);
       await manager.reload();
@@ -188,7 +194,7 @@ void main() {
     });
 
     test('handles corrupted stored data gracefully', () async {
-      final item = ClipboardHistoryItem.fromJson({
+      final item = ClipboardHistoryItem.fromJson(const {
         'id': 123,
         'text': null,
         'createdAt': 'invalid-date',
@@ -211,8 +217,7 @@ void main() {
 
     test('disabling clipboard history prevents new recordings', () async {
       final storage = InMemoryClipboardHistoryStorage();
-      final manager =
-          ClipboardHistoryManager(storage: storage, enabled: false);
+      final manager = ClipboardHistoryManager(storage: storage, enabled: false);
       await manager.reload();
 
       final recorded = await manager.record('Should not save');

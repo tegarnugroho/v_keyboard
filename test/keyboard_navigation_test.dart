@@ -19,8 +19,8 @@ void main() {
     });
 
     test('word right jumps to end of word', () {
-      final r = KeyboardNavigation.move(v('hello world', base: 0),
-          NavIntent.right,
+      final r = KeyboardNavigation.move(
+          v('hello world', base: 0), NavIntent.right,
           extend: false, word: true);
       expect(r.selection.baseOffset, 5);
     });
@@ -33,8 +33,8 @@ void main() {
     });
 
     test('bare right collapses a range to its end', () {
-      final r = KeyboardNavigation.move(v('abcde', base: 1, extent: 4),
-          NavIntent.right,
+      final r = KeyboardNavigation.move(
+          v('abcde', base: 1, extent: 4), NavIntent.right,
           extend: false, word: false);
       expect(r.selection.isCollapsed, isTrue);
       expect(r.selection.baseOffset, 4);
@@ -59,7 +59,8 @@ void main() {
 
     test('down preserves column', () {
       // 'abc\ndefgh', cursor at column 2 of line 0 (offset 2) -> line 1 col 2.
-      final r = KeyboardNavigation.move(v('abc\ndefgh', base: 2), NavIntent.down,
+      final r = KeyboardNavigation.move(
+          v('abc\ndefgh', base: 2), NavIntent.down,
           extend: false, word: false);
       expect(r.selection.baseOffset, 6); // 4 (line start) + 2
     });

@@ -19,11 +19,15 @@ Widget _wrap(
       ),
     );
 
-Finder _switchKey(String label) => find.byWidgetPredicate(
-    (w) => w is VirtualKey && w.data.kind == KeyKind.switchLayout && w.data.label == label);
+Finder _switchKey(String label) => find.byWidgetPredicate((w) =>
+    w is VirtualKey &&
+    w.data.kind == KeyKind.switchLayout &&
+    w.data.label == label);
 
-Finder _clipKey() => find.byWidgetPredicate(
-    (w) => w is VirtualKey && (w.data.clip == ClipboardIntent.history || w.data.switchTarget == 'clipboard'));
+Finder _clipKey() => find.byWidgetPredicate((w) =>
+    w is VirtualKey &&
+    (w.data.clip == ClipboardIntent.history ||
+        w.data.switchTarget == 'clipboard'));
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -163,12 +167,14 @@ void main() {
       expect(controller.text, 'Original Text');
     });
 
-    testWidgets('copy and cut record text with valid selection; sensitive fields are excluded',
+    testWidgets(
+        'copy and cut record text with valid selection; sensitive fields are excluded',
         (tester) async {
       final normalController = TextEditingController(text: 'Public Snippet');
       final normalFocus = FocusNode();
 
-      final passwordController = TextEditingController(text: 'SecretPassword123');
+      final passwordController =
+          TextEditingController(text: 'SecretPassword123');
       final passwordFocus = FocusNode();
 
       final storage = InMemoryClipboardHistoryStorage();
@@ -256,7 +262,8 @@ void main() {
   });
 
   group('Clipboard History UI Panel & Interaction', () {
-    testWidgets('opens panel, displays items, searches, and pastes item into field',
+    testWidgets(
+        'opens panel, displays items, searches, and pastes item into field',
         (tester) async {
       final controller = TextEditingController(text: 'Initial: ');
       controller.selection = const TextSelection.collapsed(offset: 9);
@@ -313,6 +320,8 @@ void main() {
 
       expect(find.byType(ClipboardHistoryPanel), findsNothing);
       expect(find.byType(KeyboardView), findsOneWidget);
+
+      await tester.pump(const Duration(milliseconds: 300));
     });
 
     testWidgets('pins, unpins, and deletes items from UI', (tester) async {
@@ -366,7 +375,8 @@ void main() {
       await historyManager.reload();
       await historyManager.record('Pinned Item');
       await historyManager.record('Unpinned Item');
-      await historyManager.togglePin(historyManager.items.last.id); // Pin "Pinned Item"
+      await historyManager
+          .togglePin(historyManager.items.last.id); // Pin "Pinned Item"
 
       final kbController =
           VKeyboardController(clipboardHistory: historyManager);
@@ -477,7 +487,8 @@ void main() {
       final storage = InMemoryClipboardHistoryStorage();
       final historyManager = ClipboardHistoryManager(storage: storage);
       await historyManager.reload();
-      await historyManager.record('A very long text snippet that stretches across multiple lines to verify text overflow truncation in both light and dark themes.');
+      await historyManager.record(
+          'A very long text snippet that stretches across multiple lines to verify text overflow truncation in both light and dark themes.');
 
       final kbController =
           VKeyboardController(clipboardHistory: historyManager);

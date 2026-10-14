@@ -116,8 +116,10 @@ class VKeyboardConfig {
       moveFocusOnNext: moveFocusOnNext ?? this.moveFocusOnNext,
       moveFocusOnPrevious: moveFocusOnPrevious ?? this.moveFocusOnPrevious,
       closeOnOutsideTap: closeOnOutsideTap ?? this.closeOnOutsideTap,
-      maintainFocusOnSearch: maintainFocusOnSearch ?? this.maintainFocusOnSearch,
-      enableLongPressDelete: enableLongPressDelete ?? this.enableLongPressDelete,
+      maintainFocusOnSearch:
+          maintainFocusOnSearch ?? this.maintainFocusOnSearch,
+      enableLongPressDelete:
+          enableLongPressDelete ?? this.enableLongPressDelete,
       enableKeyRepeat: enableKeyRepeat ?? this.enableKeyRepeat,
       autoShiftFirstLetter: autoShiftFirstLetter ?? this.autoShiftFirstLetter,
       hardwareKeyboardFallback:

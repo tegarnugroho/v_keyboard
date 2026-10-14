@@ -122,8 +122,7 @@ class KeyboardSession {
     if (maxLength != null && maxLength! > 0) {
       if (newValue.text.characters.length > maxLength!) {
         final truncated = newValue.text.characters.take(maxLength!).toString();
-        final offset =
-            newValue.selection.baseOffset.clamp(0, truncated.length);
+        final offset = newValue.selection.baseOffset.clamp(0, truncated.length);
         newValue = TextEditingValue(
           text: truncated,
           selection: TextSelection.collapsed(offset: offset),

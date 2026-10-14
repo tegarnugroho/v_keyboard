@@ -143,7 +143,8 @@ Widget _field(
           TextSpan(text: text.substring(0, a)),
           TextSpan(
             text: text.substring(a, b),
-            style: TextStyle(background: Paint()..color = _accent.withValues(alpha: 0.35)),
+            style: TextStyle(
+                background: Paint()..color = _accent.withValues(alpha: 0.35)),
           ),
           TextSpan(text: text.substring(b)),
         ],
@@ -265,12 +266,14 @@ Widget _deviceFrame(Widget child,
 List<List<KeyData>> get _abc => BuiltinLayouts.qwerty.rowsFor('abc');
 List<List<KeyData>> get _sym => BuiltinLayouts.qwerty.rowsFor('123');
 List<List<KeyData>> _pin() =>
-    BuiltinLayouts.resolve(VKeyboardType.pin, numericAction: true).rowsFor('num');
+    BuiltinLayouts.resolve(VKeyboardType.pin, numericAction: true)
+        .rowsFor('num');
 List<List<KeyData>> _multi() =>
     BuiltinLayouts.resolve(VKeyboardType.multiline).rowsFor('abc');
 List<List<KeyData>> _desktop(double w) => DesktopLayouts.rows(w);
 
-void _shift(VKeyboardController c) => c.modifiers.toggleModifier(ModifierKey.shift);
+void _shift(VKeyboardController c) =>
+    c.modifiers.toggleModifier(ModifierKey.shift);
 void _caps(VKeyboardController c) => c.modifiers.toggleLock(LockKey.capsLock);
 
 // ---------------------------------------------------------------------------
@@ -306,7 +309,8 @@ List<_Scene> _scenes() => [
 
       // ---- Features ----
       _Scene('feature_shift', _phone, () => _feature('Shift', _abc, _shift)),
-      _Scene('feature_capslock', _phone, () => _feature('Caps Lock', _abc, _caps)),
+      _Scene(
+          'feature_capslock', _phone, () => _feature('Caps Lock', _abc, _caps)),
       _Scene('feature_symbols', _phone, () => _feature('Symbols', _sym, null)),
       _Scene('feature_selection', _phone, () => _featureSelection()),
       _Scene('feature_focus', _phone, () => _featureFocus()),
@@ -328,7 +332,9 @@ Widget _mobileNumber() => _phoneScreen(
 
 Widget _mobilePassword() => _phoneScreen(
       dark: true,
-      fields: [_field('s3cr3tPass', dark: true, label: 'Password', obscure: true)],
+      fields: [
+        _field('s3cr3tPass', dark: true, label: 'Password', obscure: true)
+      ],
       keyboard: _keyboard(rows: _abc, dark: true, height: 290),
     );
 
@@ -346,8 +352,8 @@ Widget _mobileEmoji() => _phoneScreen(
 Widget _mobileMultiline() => _phoneScreen(
       dark: false,
       fields: [
-        _field('Dear team,\nShipping the new release', dark: false,
-            label: 'Note', multiline: true),
+        _field('Dear team,\nShipping the new release',
+            dark: false, label: 'Note', multiline: true),
       ],
       keyboard: _keyboard(rows: _multi(), dark: false, height: 290),
     );
@@ -407,7 +413,9 @@ Widget _featureSelection() => _phoneScreen(
       fields: [
         _badge('Text selection'),
         const SizedBox(height: 4),
-        _field('Select this text', dark: false, label: 'Selection',
+        _field('Select this text',
+            dark: false,
+            label: 'Selection',
             selection: const TextSelection(baseOffset: 7, extentOffset: 11)),
       ],
       keyboard: _keyboard(rows: _abc, dark: false, height: 290),
@@ -489,9 +497,11 @@ Widget _hero() => DecoratedBox(
                   child: _deviceFrame(
                     _phoneScreen(
                       dark: false,
-                      fields: [_field('Hello 👋', dark: false, label: 'Message')],
-                      keyboard:
-                          _keyboard(rows: _abc, dark: false, height: 250, state: _shift),
+                      fields: [
+                        _field('Hello 👋', dark: false, label: 'Message')
+                      ],
+                      keyboard: _keyboard(
+                          rows: _abc, dark: false, height: 250, state: _shift),
                     ),
                   ),
                 ),
@@ -554,8 +564,8 @@ Widget _responsive() => DecoratedBox(
       ),
     );
 
-Widget _miniDevice(double w, double h, Size logical, List<List<KeyData>> rows,
-    double kbH) {
+Widget _miniDevice(
+    double w, double h, Size logical, List<List<KeyData>> rows, double kbH) {
   return _deviceFrame(
     radius: 26,
     bezel: 7,

@@ -4,14 +4,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
 import 'package:flutter_v_keyboard/src/widgets/keyboard_key.dart';
 
-Finder _charKey(String text) => find.byWidgetPredicate(
-    (w) => w is VirtualKey && w.data.kind == KeyKind.character && w.data.text == text);
+Finder _charKey(String text) => find.byWidgetPredicate((w) =>
+    w is VirtualKey && w.data.kind == KeyKind.character && w.data.text == text);
 
-Finder _modKey(ModifierKey m) => find.byWidgetPredicate(
-    (w) => w is VirtualKey && w.data.kind == KeyKind.modifier && w.data.modifier == m);
+Finder _modKey(ModifierKey m) => find.byWidgetPredicate((w) =>
+    w is VirtualKey && w.data.kind == KeyKind.modifier && w.data.modifier == m);
 
-Finder _navKey(NavIntent n) => find.byWidgetPredicate(
-    (w) => w is VirtualKey && w.data.kind == KeyKind.navigation && w.data.nav == n);
+Finder _navKey(NavIntent n) => find.byWidgetPredicate((w) =>
+    w is VirtualKey && w.data.kind == KeyKind.navigation && w.data.nav == n);
 
 void main() {
   group('KeyboardModifierController', () {
@@ -38,8 +38,8 @@ void main() {
   });
 
   group('Desktop keyboard widget', () {
-    Future<void> pumpDesktop(WidgetTester tester, TextEditingController c,
-        FocusNode focus) async {
+    Future<void> pumpDesktop(
+        WidgetTester tester, TextEditingController c, FocusNode focus) async {
       tester.view.physicalSize = const Size(1400, 900);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);

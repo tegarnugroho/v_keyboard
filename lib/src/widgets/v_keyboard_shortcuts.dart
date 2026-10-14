@@ -58,8 +58,7 @@ class VKeyboardShortcuts extends InheritedWidget {
   /// Reads the nearest instance without creating a dependency (safe to call
   /// from the controller outside of build).
   static VKeyboardShortcuts? read(BuildContext context) {
-    return context
-        .getInheritedWidgetOfExactType<VKeyboardShortcuts>();
+    return context.getInheritedWidgetOfExactType<VKeyboardShortcuts>();
   }
 
   @override

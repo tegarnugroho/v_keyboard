@@ -31,7 +31,7 @@ class VKeyboardController extends ChangeNotifier {
   VKeyboardController({
     VKeyboardConfig? config,
     ClipboardHistoryManager? clipboardHistory,
-  })  : _defaultConfig = config ?? const VKeyboardConfig() {
+  }) : _defaultConfig = config ?? const VKeyboardConfig() {
     this.clipboardHistory = clipboardHistory ??
         ClipboardHistoryManager(
           maxItems: _defaultConfig.maxClipboardHistoryItems,
@@ -92,10 +92,11 @@ class VKeyboardController extends ChangeNotifier {
   // ---- Session lifecycle ----------------------------------------------------
 
   void attach(KeyboardSession session) {
-    final sameField = _session?.id == session.id;
+    final sameField =
+        _session?.id == session.id || _targetSession?.id == session.id;
     _session = session;
     _targetSession = session;
-    if (!sameField) {
+    if (!sameField && _page != 'clipboard') {
       _page = session.layout.initialPage;
       modifiers.reset();
       if (session.allowsAutoShift && session.value.text.isEmpty) {

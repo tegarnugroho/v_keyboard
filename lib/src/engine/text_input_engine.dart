@@ -51,8 +51,8 @@ class TextInputEngine {
     final offset = selection.baseOffset;
     if (offset <= 0) return value;
     final removed = _charsToDeleteBefore(value.text, offset);
-    final newText =
-        value.text.substring(0, offset - removed) + value.text.substring(offset);
+    final newText = value.text.substring(0, offset - removed) +
+        value.text.substring(offset);
     return TextEditingValue(
       text: newText,
       selection: TextSelection.collapsed(offset: offset - removed),
@@ -70,8 +70,8 @@ class TextInputEngine {
     final offset = selection.baseOffset;
     if (offset >= value.text.length) return value;
     final removed = _charsToDeleteAfter(value.text, offset);
-    final newText =
-        value.text.substring(0, offset) + value.text.substring(offset + removed);
+    final newText = value.text.substring(0, offset) +
+        value.text.substring(offset + removed);
     return TextEditingValue(
       text: newText,
       selection: TextSelection.collapsed(offset: offset),
@@ -80,7 +80,8 @@ class TextInputEngine {
   }
 
   /// Inserts a newline at the cursor.
-  static TextEditingValue newline(TextEditingValue value) => insert(value, '\n');
+  static TextEditingValue newline(TextEditingValue value) =>
+      insert(value, '\n');
 
   /// Moves the collapsed cursor by [delta] graphemes (negative = left).
   static TextEditingValue moveCursor(TextEditingValue value, int delta) {

@@ -33,8 +33,7 @@ class _EmojiPanelState extends State<EmojiPanel> {
   int _category = 0;
 
   List<String> get _categories => EmojiData.categories.keys.toList();
-  List<String> get _emojis =>
-      EmojiData.categories[_categories[_category]]!;
+  List<String> get _emojis => EmojiData.categories[_categories[_category]]!;
 
   void _insert(String emoji) =>
       widget.controller.handleKey(KeyData.symbol(emoji));
@@ -45,8 +44,8 @@ class _EmojiPanelState extends State<EmojiPanel> {
     final onSurface = theme.iconColor;
     // A picker reads best as a narrow, dense, centred column — so cap the width
     // on large screens instead of stretching the grid full-width.
-    final panelWidth =
-        (widget.maxWidth.isFinite ? widget.maxWidth : 480.0).clamp(280.0, 480.0);
+    final panelWidth = (widget.maxWidth.isFinite ? widget.maxWidth : 480.0)
+        .clamp(280.0, 480.0);
 
     return Material(
       color: theme.backgroundColor,
@@ -60,7 +59,8 @@ class _EmojiPanelState extends State<EmojiPanel> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: panelWidth),
                   child: GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 42,
@@ -74,7 +74,8 @@ class _EmojiPanelState extends State<EmojiPanel> {
                         borderRadius: BorderRadius.circular(8),
                         onTap: () => _insert(emoji),
                         child: Center(
-                          child: Text(emoji, style: const TextStyle(fontSize: 26)),
+                          child:
+                              Text(emoji, style: const TextStyle(fontSize: 26)),
                         ),
                       );
                     },
@@ -103,14 +104,17 @@ class _EmojiPanelState extends State<EmojiPanel> {
                         decoration: BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: selected ? theme.accentColor : Colors.transparent,
+                              color: selected
+                                  ? theme.accentColor
+                                  : Colors.transparent,
                               width: 2.5,
                             ),
                           ),
                         ),
                         child: Opacity(
                           opacity: selected ? 1 : 0.6,
-                          child: Text(rep, style: const TextStyle(fontSize: 22)),
+                          child:
+                              Text(rep, style: const TextStyle(fontSize: 22)),
                         ),
                       ),
                     );

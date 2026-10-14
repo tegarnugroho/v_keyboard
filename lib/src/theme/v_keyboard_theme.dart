@@ -127,22 +127,18 @@ class VKeyboardTheme {
         onSurfaceColor ?? (isDark ? Colors.white : const Color(0xFF1F2937));
 
     return VKeyboardTheme(
-      backgroundColor: isDark
-          ? const Color(0xFF1C1C20)
-          : const Color(0xFFD1D5DB),
+      backgroundColor:
+          isDark ? const Color(0xFF1C1C20) : const Color(0xFFD1D5DB),
       keyColor: isDark ? const Color(0xFF3A3A40) : Colors.white,
       pressedKeyColor: accentColor.withValues(alpha: 0.25),
-      specialKeyColor: isDark
-          ? const Color(0xFF2A2A30)
-          : const Color(0xFFADB3BD),
+      specialKeyColor:
+          isDark ? const Color(0xFF2A2A30) : const Color(0xFFADB3BD),
       disabledKeyColor: surfaceColor.withValues(alpha: 0.12),
       accentColor: accentColor,
-      functionKeyColor: isDark
-          ? const Color(0xFF26262B)
-          : const Color(0xFFBCC1CB),
-      modifierKeyColor: isDark
-          ? const Color(0xFF2A2A30)
-          : const Color(0xFFADB3BD),
+      functionKeyColor:
+          isDark ? const Color(0xFF26262B) : const Color(0xFFBCC1CB),
+      modifierKeyColor:
+          isDark ? const Color(0xFF2A2A30) : const Color(0xFFADB3BD),
       iconColor: surfaceColor,
       textStyle: TextStyle(
         fontSize: 22,

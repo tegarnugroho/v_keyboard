@@ -9,14 +9,16 @@ Widget _wrap(Widget child) => MaterialApp(
       ),
     );
 
-Finder _charKey(String text) => find.byWidgetPredicate(
-    (w) => w is VirtualKey && w.data.kind == KeyKind.character && w.data.text == text);
+Finder _charKey(String text) => find.byWidgetPredicate((w) =>
+    w is VirtualKey && w.data.kind == KeyKind.character && w.data.text == text);
 
 Finder _kindKey(KeyKind kind) =>
     find.byWidgetPredicate((w) => w is VirtualKey && w.data.kind == kind);
 
-Finder _switchKey(String label) => find.byWidgetPredicate(
-    (w) => w is VirtualKey && w.data.kind == KeyKind.switchLayout && w.data.label == label);
+Finder _switchKey(String label) => find.byWidgetPredicate((w) =>
+    w is VirtualKey &&
+    w.data.kind == KeyKind.switchLayout &&
+    w.data.label == label);
 
 void main() {
   testWidgets('keyboard appears on focus and hides on unfocus', (tester) async {
@@ -37,7 +39,8 @@ void main() {
     expect(find.byType(KeyboardView), findsNothing);
   });
 
-  testWidgets('tapping keys edits the field and preserves cursor', (tester) async {
+  testWidgets('tapping keys edits the field and preserves cursor',
+      (tester) async {
     final controller = TextEditingController();
     final focus = FocusNode();
     await tester.pumpWidget(_wrap(

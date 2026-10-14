@@ -73,8 +73,8 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
   Widget build(BuildContext context) {
     final theme = widget.theme;
     final manager = widget.controller.clipboardHistory;
-    final panelWidth =
-        (widget.maxWidth.isFinite ? widget.maxWidth : 600.0).clamp(300.0, 700.0);
+    final panelWidth = (widget.maxWidth.isFinite ? widget.maxWidth : 600.0)
+        .clamp(300.0, 700.0);
 
     return Material(
       color: theme.backgroundColor,
@@ -91,9 +91,11 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back, color: theme.iconColor, size: 20),
+                      icon: Icon(Icons.arrow_back,
+                          color: theme.iconColor, size: 20),
                       tooltip: 'Back to keyboard',
-                      onPressed: () => widget.controller.closeClipboardHistory(),
+                      onPressed: () =>
+                          widget.controller.closeClipboardHistory(),
                     ),
                     const SizedBox(width: 4),
                     Text(
@@ -115,7 +117,8 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                     IconButton(
                       icon: Icon(Icons.close, color: theme.iconColor, size: 20),
                       tooltip: 'Close',
-                      onPressed: () => widget.controller.closeClipboardHistory(),
+                      onPressed: () =>
+                          widget.controller.closeClipboardHistory(),
                     ),
                   ],
                 ),
@@ -183,21 +186,23 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                       hintText: 'Search clipboard...',
                       hintStyle: theme.subLabelStyle.copyWith(fontSize: 13),
                       prefixIcon: Icon(Icons.search,
-                          size: 18, color: theme.iconColor.withValues(alpha: 0.6)),
+                          size: 18,
+                          color: theme.iconColor.withValues(alpha: 0.6)),
                       prefixIconConstraints:
                           const BoxConstraints(minWidth: 32, minHeight: 32),
                       suffixIcon: _query.isNotEmpty
                           ? IconButton(
                               icon: Icon(Icons.clear,
                                   size: 16,
-                                  color: theme.iconColor.withValues(alpha: 0.6)),
+                                  color:
+                                      theme.iconColor.withValues(alpha: 0.6)),
                               onPressed: () => _searchController.clear(),
                             )
                           : null,
                       suffixIconConstraints:
                           const BoxConstraints(minWidth: 32, minHeight: 32),
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 0),
                       filled: true,
                       fillColor: theme.keyColor,
                       border: OutlineInputBorder(
@@ -234,8 +239,7 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                   const SizedBox(width: 6),
                   Expanded(
                     child: _barButton(
-                      onTap: () =>
-                          widget.controller.handleKey(KeyData.space()),
+                      onTap: () => widget.controller.handleKey(KeyData.space()),
                     ),
                   ),
                   const SizedBox(width: 6),
@@ -393,7 +397,8 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                   ),
                   tooltip: item.isPinned ? 'Unpin item' : 'Pin item',
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                  constraints:
+                      const BoxConstraints(minWidth: 28, minHeight: 28),
                   onPressed: () => manager.togglePin(item.id),
                 ),
                 IconButton(
@@ -404,7 +409,8 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                   ),
                   tooltip: 'Delete item',
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                  constraints:
+                      const BoxConstraints(minWidth: 28, minHeight: 28),
                   onPressed: () => manager.deleteItem(item.id),
                 ),
               ],

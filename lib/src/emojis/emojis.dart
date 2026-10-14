@@ -267,11 +267,16 @@ class Emojis {
   static const crossedFingersMediumDarkSkinTone = '\u{1F91E}\u{1F3FE}';
   static const crossedFingersDarkSkinTone = '\u{1F91E}\u{1F3FF}';
   static const handWithIndexFingerAndThumbCrossed = '\u{1FAF0}';
-  static const handWithIndexFingerAndThumbCrossedLightSkinTone = '\u{1FAF0}\u{1F3FB}';
-  static const handWithIndexFingerAndThumbCrossedMediumLightSkinTone = '\u{1FAF0}\u{1F3FC}';
-  static const handWithIndexFingerAndThumbCrossedMediumSkinTone = '\u{1FAF0}\u{1F3FD}';
-  static const handWithIndexFingerAndThumbCrossedMediumDarkSkinTone = '\u{1FAF0}\u{1F3FE}';
-  static const handWithIndexFingerAndThumbCrossedDarkSkinTone = '\u{1FAF0}\u{1F3FF}';
+  static const handWithIndexFingerAndThumbCrossedLightSkinTone =
+      '\u{1FAF0}\u{1F3FB}';
+  static const handWithIndexFingerAndThumbCrossedMediumLightSkinTone =
+      '\u{1FAF0}\u{1F3FC}';
+  static const handWithIndexFingerAndThumbCrossedMediumSkinTone =
+      '\u{1FAF0}\u{1F3FD}';
+  static const handWithIndexFingerAndThumbCrossedMediumDarkSkinTone =
+      '\u{1FAF0}\u{1F3FE}';
+  static const handWithIndexFingerAndThumbCrossedDarkSkinTone =
+      '\u{1FAF0}\u{1F3FF}';
   static const loveYouGesture = '\u{1F91F}';
   static const loveYouGestureLightSkinTone = '\u{1F91F}\u{1F3FB}';
   static const loveYouGestureMediumLightSkinTone = '\u{1F91F}\u{1F3FC}';
@@ -292,19 +297,24 @@ class Emojis {
   static const callMeHandDarkSkinTone = '\u{1F919}\u{1F3FF}';
   static const backhandIndexPointingLeft = '\u{1F448}';
   static const backhandIndexPointingLeftLightSkinTone = '\u{1F448}\u{1F3FB}';
-  static const backhandIndexPointingLeftMediumLightSkinTone = '\u{1F448}\u{1F3FC}';
+  static const backhandIndexPointingLeftMediumLightSkinTone =
+      '\u{1F448}\u{1F3FC}';
   static const backhandIndexPointingLeftMediumSkinTone = '\u{1F448}\u{1F3FD}';
-  static const backhandIndexPointingLeftMediumDarkSkinTone = '\u{1F448}\u{1F3FE}';
+  static const backhandIndexPointingLeftMediumDarkSkinTone =
+      '\u{1F448}\u{1F3FE}';
   static const backhandIndexPointingLeftDarkSkinTone = '\u{1F448}\u{1F3FF}';
   static const backhandIndexPointingRight = '\u{1F449}';
   static const backhandIndexPointingRightLightSkinTone = '\u{1F449}\u{1F3FB}';
-  static const backhandIndexPointingRightMediumLightSkinTone = '\u{1F449}\u{1F3FC}';
+  static const backhandIndexPointingRightMediumLightSkinTone =
+      '\u{1F449}\u{1F3FC}';
   static const backhandIndexPointingRightMediumSkinTone = '\u{1F449}\u{1F3FD}';
-  static const backhandIndexPointingRightMediumDarkSkinTone = '\u{1F449}\u{1F3FE}';
+  static const backhandIndexPointingRightMediumDarkSkinTone =
+      '\u{1F449}\u{1F3FE}';
   static const backhandIndexPointingRightDarkSkinTone = '\u{1F449}\u{1F3FF}';
   static const backhandIndexPointingUp = '\u{1F446}';
   static const backhandIndexPointingUpLightSkinTone = '\u{1F446}\u{1F3FB}';
-  static const backhandIndexPointingUpMediumLightSkinTone = '\u{1F446}\u{1F3FC}';
+  static const backhandIndexPointingUpMediumLightSkinTone =
+      '\u{1F446}\u{1F3FC}';
   static const backhandIndexPointingUpMediumSkinTone = '\u{1F446}\u{1F3FD}';
   static const backhandIndexPointingUpMediumDarkSkinTone = '\u{1F446}\u{1F3FE}';
   static const backhandIndexPointingUpDarkSkinTone = '\u{1F446}\u{1F3FF}';
@@ -316,9 +326,11 @@ class Emojis {
   static const middleFingerDarkSkinTone = '\u{1F595}\u{1F3FF}';
   static const backhandIndexPointingDown = '\u{1F447}';
   static const backhandIndexPointingDownLightSkinTone = '\u{1F447}\u{1F3FB}';
-  static const backhandIndexPointingDownMediumLightSkinTone = '\u{1F447}\u{1F3FC}';
+  static const backhandIndexPointingDownMediumLightSkinTone =
+      '\u{1F447}\u{1F3FC}';
   static const backhandIndexPointingDownMediumSkinTone = '\u{1F447}\u{1F3FD}';
-  static const backhandIndexPointingDownMediumDarkSkinTone = '\u{1F447}\u{1F3FE}';
+  static const backhandIndexPointingDownMediumDarkSkinTone =
+      '\u{1F447}\u{1F3FE}';
   static const backhandIndexPointingDownDarkSkinTone = '\u{1F447}\u{1F3FF}';
   static const indexPointingUp = '\u{261D}\u{FE0F}';
   static const indexPointingUpLightSkinTone = '\u{261D}\u{1F3FB}';
@@ -328,9 +340,11 @@ class Emojis {
   static const indexPointingUpDarkSkinTone = '\u{261D}\u{1F3FF}';
   static const indexPointingAtTheViewer = '\u{1FAF5}';
   static const indexPointingAtTheViewerLightSkinTone = '\u{1FAF5}\u{1F3FB}';
-  static const indexPointingAtTheViewerMediumLightSkinTone = '\u{1FAF5}\u{1F3FC}';
+  static const indexPointingAtTheViewerMediumLightSkinTone =
+      '\u{1FAF5}\u{1F3FC}';
   static const indexPointingAtTheViewerMediumSkinTone = '\u{1FAF5}\u{1F3FD}';
-  static const indexPointingAtTheViewerMediumDarkSkinTone = '\u{1FAF5}\u{1F3FE}';
+  static const indexPointingAtTheViewerMediumDarkSkinTone =
+      '\u{1FAF5}\u{1F3FE}';
   static const indexPointingAtTheViewerDarkSkinTone = '\u{1FAF5}\u{1F3FF}';
   static const thumbsUp = '\u{1F44D}';
   static const thumbsUpLightSkinTone = '\u{1F44D}\u{1F3FB}';
@@ -404,26 +418,46 @@ class Emojis {
   static const handshakeMediumSkinTone = '\u{1F91D}\u{1F3FD}';
   static const handshakeMediumDarkSkinTone = '\u{1F91D}\u{1F3FE}';
   static const handshakeDarkSkinTone = '\u{1F91D}\u{1F3FF}';
-  static const handshakeLightSkinToneMediumLightSkinTone = '\u{1FAF1}\u{1F3FB}\u{200D}\u{1FAF2}\u{1F3FC}';
-  static const handshakeLightSkinToneMediumSkinTone = '\u{1FAF1}\u{1F3FB}\u{200D}\u{1FAF2}\u{1F3FD}';
-  static const handshakeLightSkinToneMediumDarkSkinTone = '\u{1FAF1}\u{1F3FB}\u{200D}\u{1FAF2}\u{1F3FE}';
-  static const handshakeLightSkinToneDarkSkinTone = '\u{1FAF1}\u{1F3FB}\u{200D}\u{1FAF2}\u{1F3FF}';
-  static const handshakeMediumLightSkinToneLightSkinTone = '\u{1FAF1}\u{1F3FC}\u{200D}\u{1FAF2}\u{1F3FB}';
-  static const handshakeMediumLightSkinToneMediumSkinTone = '\u{1FAF1}\u{1F3FC}\u{200D}\u{1FAF2}\u{1F3FD}';
-  static const handshakeMediumLightSkinToneMediumDarkSkinTone = '\u{1FAF1}\u{1F3FC}\u{200D}\u{1FAF2}\u{1F3FE}';
-  static const handshakeMediumLightSkinToneDarkSkinTone = '\u{1FAF1}\u{1F3FC}\u{200D}\u{1FAF2}\u{1F3FF}';
-  static const handshakeMediumSkinToneLightSkinTone = '\u{1FAF1}\u{1F3FD}\u{200D}\u{1FAF2}\u{1F3FB}';
-  static const handshakeMediumSkinToneMediumLightSkinTone = '\u{1FAF1}\u{1F3FD}\u{200D}\u{1FAF2}\u{1F3FC}';
-  static const handshakeMediumSkinToneMediumDarkSkinTone = '\u{1FAF1}\u{1F3FD}\u{200D}\u{1FAF2}\u{1F3FE}';
-  static const handshakeMediumSkinToneDarkSkinTone = '\u{1FAF1}\u{1F3FD}\u{200D}\u{1FAF2}\u{1F3FF}';
-  static const handshakeMediumDarkSkinToneLightSkinTone = '\u{1FAF1}\u{1F3FE}\u{200D}\u{1FAF2}\u{1F3FB}';
-  static const handshakeMediumDarkSkinToneMediumLightSkinTone = '\u{1FAF1}\u{1F3FE}\u{200D}\u{1FAF2}\u{1F3FC}';
-  static const handshakeMediumDarkSkinToneMediumSkinTone = '\u{1FAF1}\u{1F3FE}\u{200D}\u{1FAF2}\u{1F3FD}';
-  static const handshakeMediumDarkSkinToneDarkSkinTone = '\u{1FAF1}\u{1F3FE}\u{200D}\u{1FAF2}\u{1F3FF}';
-  static const handshakeDarkSkinToneLightSkinTone = '\u{1FAF1}\u{1F3FF}\u{200D}\u{1FAF2}\u{1F3FB}';
-  static const handshakeDarkSkinToneMediumLightSkinTone = '\u{1FAF1}\u{1F3FF}\u{200D}\u{1FAF2}\u{1F3FC}';
-  static const handshakeDarkSkinToneMediumSkinTone = '\u{1FAF1}\u{1F3FF}\u{200D}\u{1FAF2}\u{1F3FD}';
-  static const handshakeDarkSkinToneMediumDarkSkinTone = '\u{1FAF1}\u{1F3FF}\u{200D}\u{1FAF2}\u{1F3FE}';
+  static const handshakeLightSkinToneMediumLightSkinTone =
+      '\u{1FAF1}\u{1F3FB}\u{200D}\u{1FAF2}\u{1F3FC}';
+  static const handshakeLightSkinToneMediumSkinTone =
+      '\u{1FAF1}\u{1F3FB}\u{200D}\u{1FAF2}\u{1F3FD}';
+  static const handshakeLightSkinToneMediumDarkSkinTone =
+      '\u{1FAF1}\u{1F3FB}\u{200D}\u{1FAF2}\u{1F3FE}';
+  static const handshakeLightSkinToneDarkSkinTone =
+      '\u{1FAF1}\u{1F3FB}\u{200D}\u{1FAF2}\u{1F3FF}';
+  static const handshakeMediumLightSkinToneLightSkinTone =
+      '\u{1FAF1}\u{1F3FC}\u{200D}\u{1FAF2}\u{1F3FB}';
+  static const handshakeMediumLightSkinToneMediumSkinTone =
+      '\u{1FAF1}\u{1F3FC}\u{200D}\u{1FAF2}\u{1F3FD}';
+  static const handshakeMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1FAF1}\u{1F3FC}\u{200D}\u{1FAF2}\u{1F3FE}';
+  static const handshakeMediumLightSkinToneDarkSkinTone =
+      '\u{1FAF1}\u{1F3FC}\u{200D}\u{1FAF2}\u{1F3FF}';
+  static const handshakeMediumSkinToneLightSkinTone =
+      '\u{1FAF1}\u{1F3FD}\u{200D}\u{1FAF2}\u{1F3FB}';
+  static const handshakeMediumSkinToneMediumLightSkinTone =
+      '\u{1FAF1}\u{1F3FD}\u{200D}\u{1FAF2}\u{1F3FC}';
+  static const handshakeMediumSkinToneMediumDarkSkinTone =
+      '\u{1FAF1}\u{1F3FD}\u{200D}\u{1FAF2}\u{1F3FE}';
+  static const handshakeMediumSkinToneDarkSkinTone =
+      '\u{1FAF1}\u{1F3FD}\u{200D}\u{1FAF2}\u{1F3FF}';
+  static const handshakeMediumDarkSkinToneLightSkinTone =
+      '\u{1FAF1}\u{1F3FE}\u{200D}\u{1FAF2}\u{1F3FB}';
+  static const handshakeMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1FAF1}\u{1F3FE}\u{200D}\u{1FAF2}\u{1F3FC}';
+  static const handshakeMediumDarkSkinToneMediumSkinTone =
+      '\u{1FAF1}\u{1F3FE}\u{200D}\u{1FAF2}\u{1F3FD}';
+  static const handshakeMediumDarkSkinToneDarkSkinTone =
+      '\u{1FAF1}\u{1F3FE}\u{200D}\u{1FAF2}\u{1F3FF}';
+  static const handshakeDarkSkinToneLightSkinTone =
+      '\u{1FAF1}\u{1F3FF}\u{200D}\u{1FAF2}\u{1F3FB}';
+  static const handshakeDarkSkinToneMediumLightSkinTone =
+      '\u{1FAF1}\u{1F3FF}\u{200D}\u{1FAF2}\u{1F3FC}';
+  static const handshakeDarkSkinToneMediumSkinTone =
+      '\u{1FAF1}\u{1F3FF}\u{200D}\u{1FAF2}\u{1F3FD}';
+  static const handshakeDarkSkinToneMediumDarkSkinTone =
+      '\u{1FAF1}\u{1F3FF}\u{200D}\u{1FAF2}\u{1F3FE}';
   static const foldedHands = '\u{1F64F}';
   static const foldedHandsLightSkinTone = '\u{1F64F}\u{1F3FB}';
   static const foldedHandsMediumLightSkinTone = '\u{1F64F}\u{1F3FC}';
@@ -545,40 +579,62 @@ class Emojis {
   static const personMediumDarkSkinToneBeard = '\u{1F9D4}\u{1F3FE}';
   static const personDarkSkinToneBeard = '\u{1F9D4}\u{1F3FF}';
   static const manBeard = '\u{1F9D4}\u{200D}\u{2642}\u{FE0F}';
-  static const manLightSkinToneBeard = '\u{1F9D4}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manMediumLightSkinToneBeard = '\u{1F9D4}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manMediumSkinToneBeard = '\u{1F9D4}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manMediumDarkSkinToneBeard = '\u{1F9D4}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manDarkSkinToneBeard = '\u{1F9D4}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manLightSkinToneBeard =
+      '\u{1F9D4}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manMediumLightSkinToneBeard =
+      '\u{1F9D4}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manMediumSkinToneBeard =
+      '\u{1F9D4}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manMediumDarkSkinToneBeard =
+      '\u{1F9D4}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manDarkSkinToneBeard =
+      '\u{1F9D4}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanBeard = '\u{1F9D4}\u{200D}\u{2640}\u{FE0F}';
-  static const womanLightSkinToneBeard = '\u{1F9D4}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMediumLightSkinToneBeard = '\u{1F9D4}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMediumSkinToneBeard = '\u{1F9D4}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMediumDarkSkinToneBeard = '\u{1F9D4}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanDarkSkinToneBeard = '\u{1F9D4}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanLightSkinToneBeard =
+      '\u{1F9D4}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMediumLightSkinToneBeard =
+      '\u{1F9D4}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMediumSkinToneBeard =
+      '\u{1F9D4}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMediumDarkSkinToneBeard =
+      '\u{1F9D4}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanDarkSkinToneBeard =
+      '\u{1F9D4}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const manRedHair = '\u{1F468}\u{200D}\u{1F9B0}';
   static const manLightSkinToneRedHair = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9B0}';
-  static const manMediumLightSkinToneRedHair = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9B0}';
+  static const manMediumLightSkinToneRedHair =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9B0}';
   static const manMediumSkinToneRedHair = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9B0}';
-  static const manMediumDarkSkinToneRedHair = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9B0}';
+  static const manMediumDarkSkinToneRedHair =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9B0}';
   static const manDarkSkinToneRedHair = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9B0}';
   static const manCurlyHair = '\u{1F468}\u{200D}\u{1F9B1}';
-  static const manLightSkinToneCurlyHair = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9B1}';
-  static const manMediumLightSkinToneCurlyHair = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9B1}';
-  static const manMediumSkinToneCurlyHair = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9B1}';
-  static const manMediumDarkSkinToneCurlyHair = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9B1}';
+  static const manLightSkinToneCurlyHair =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F9B1}';
+  static const manMediumLightSkinToneCurlyHair =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9B1}';
+  static const manMediumSkinToneCurlyHair =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F9B1}';
+  static const manMediumDarkSkinToneCurlyHair =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9B1}';
   static const manDarkSkinToneCurlyHair = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9B1}';
   static const manWhiteHair = '\u{1F468}\u{200D}\u{1F9B3}';
-  static const manLightSkinToneWhiteHair = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9B3}';
-  static const manMediumLightSkinToneWhiteHair = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9B3}';
-  static const manMediumSkinToneWhiteHair = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9B3}';
-  static const manMediumDarkSkinToneWhiteHair = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9B3}';
+  static const manLightSkinToneWhiteHair =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F9B3}';
+  static const manMediumLightSkinToneWhiteHair =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9B3}';
+  static const manMediumSkinToneWhiteHair =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F9B3}';
+  static const manMediumDarkSkinToneWhiteHair =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9B3}';
   static const manDarkSkinToneWhiteHair = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9B3}';
   static const manBald = '\u{1F468}\u{200D}\u{1F9B2}';
   static const manLightSkinToneBald = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9B2}';
-  static const manMediumLightSkinToneBald = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9B2}';
+  static const manMediumLightSkinToneBald =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9B2}';
   static const manMediumSkinToneBald = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9B2}';
-  static const manMediumDarkSkinToneBald = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9B2}';
+  static const manMediumDarkSkinToneBald =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9B2}';
   static const manDarkSkinToneBald = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9B2}';
   static const woman = '\u{1F469}';
   static const womanLightSkinTone = '\u{1F469}\u{1F3FB}';
@@ -587,65 +643,108 @@ class Emojis {
   static const womanMediumDarkSkinTone = '\u{1F469}\u{1F3FE}';
   static const womanDarkSkinTone = '\u{1F469}\u{1F3FF}';
   static const womanRedHair = '\u{1F469}\u{200D}\u{1F9B0}';
-  static const womanLightSkinToneRedHair = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9B0}';
-  static const womanMediumLightSkinToneRedHair = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9B0}';
-  static const womanMediumSkinToneRedHair = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9B0}';
-  static const womanMediumDarkSkinToneRedHair = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9B0}';
+  static const womanLightSkinToneRedHair =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F9B0}';
+  static const womanMediumLightSkinToneRedHair =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9B0}';
+  static const womanMediumSkinToneRedHair =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F9B0}';
+  static const womanMediumDarkSkinToneRedHair =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9B0}';
   static const womanDarkSkinToneRedHair = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9B0}';
   static const personRedHair = '\u{1F9D1}\u{200D}\u{1F9B0}';
-  static const personLightSkinToneRedHair = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9B0}';
-  static const personMediumLightSkinToneRedHair = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9B0}';
-  static const personMediumSkinToneRedHair = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9B0}';
-  static const personMediumDarkSkinToneRedHair = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9B0}';
-  static const personDarkSkinToneRedHair = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9B0}';
+  static const personLightSkinToneRedHair =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9B0}';
+  static const personMediumLightSkinToneRedHair =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9B0}';
+  static const personMediumSkinToneRedHair =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9B0}';
+  static const personMediumDarkSkinToneRedHair =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9B0}';
+  static const personDarkSkinToneRedHair =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9B0}';
   static const womanCurlyHair = '\u{1F469}\u{200D}\u{1F9B1}';
-  static const womanLightSkinToneCurlyHair = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9B1}';
-  static const womanMediumLightSkinToneCurlyHair = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9B1}';
-  static const womanMediumSkinToneCurlyHair = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9B1}';
-  static const womanMediumDarkSkinToneCurlyHair = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9B1}';
-  static const womanDarkSkinToneCurlyHair = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9B1}';
+  static const womanLightSkinToneCurlyHair =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F9B1}';
+  static const womanMediumLightSkinToneCurlyHair =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9B1}';
+  static const womanMediumSkinToneCurlyHair =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F9B1}';
+  static const womanMediumDarkSkinToneCurlyHair =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9B1}';
+  static const womanDarkSkinToneCurlyHair =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F9B1}';
   static const personCurlyHair = '\u{1F9D1}\u{200D}\u{1F9B1}';
-  static const personLightSkinToneCurlyHair = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9B1}';
-  static const personMediumLightSkinToneCurlyHair = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9B1}';
-  static const personMediumSkinToneCurlyHair = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9B1}';
-  static const personMediumDarkSkinToneCurlyHair = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9B1}';
-  static const personDarkSkinToneCurlyHair = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9B1}';
+  static const personLightSkinToneCurlyHair =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9B1}';
+  static const personMediumLightSkinToneCurlyHair =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9B1}';
+  static const personMediumSkinToneCurlyHair =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9B1}';
+  static const personMediumDarkSkinToneCurlyHair =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9B1}';
+  static const personDarkSkinToneCurlyHair =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9B1}';
   static const womanWhiteHair = '\u{1F469}\u{200D}\u{1F9B3}';
-  static const womanLightSkinToneWhiteHair = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9B3}';
-  static const womanMediumLightSkinToneWhiteHair = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9B3}';
-  static const womanMediumSkinToneWhiteHair = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9B3}';
-  static const womanMediumDarkSkinToneWhiteHair = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9B3}';
-  static const womanDarkSkinToneWhiteHair = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9B3}';
+  static const womanLightSkinToneWhiteHair =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F9B3}';
+  static const womanMediumLightSkinToneWhiteHair =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9B3}';
+  static const womanMediumSkinToneWhiteHair =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F9B3}';
+  static const womanMediumDarkSkinToneWhiteHair =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9B3}';
+  static const womanDarkSkinToneWhiteHair =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F9B3}';
   static const personWhiteHair = '\u{1F9D1}\u{200D}\u{1F9B3}';
-  static const personLightSkinToneWhiteHair = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9B3}';
-  static const personMediumLightSkinToneWhiteHair = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9B3}';
-  static const personMediumSkinToneWhiteHair = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9B3}';
-  static const personMediumDarkSkinToneWhiteHair = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9B3}';
-  static const personDarkSkinToneWhiteHair = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9B3}';
+  static const personLightSkinToneWhiteHair =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9B3}';
+  static const personMediumLightSkinToneWhiteHair =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9B3}';
+  static const personMediumSkinToneWhiteHair =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9B3}';
+  static const personMediumDarkSkinToneWhiteHair =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9B3}';
+  static const personDarkSkinToneWhiteHair =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9B3}';
   static const womanBald = '\u{1F469}\u{200D}\u{1F9B2}';
   static const womanLightSkinToneBald = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9B2}';
-  static const womanMediumLightSkinToneBald = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9B2}';
+  static const womanMediumLightSkinToneBald =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9B2}';
   static const womanMediumSkinToneBald = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9B2}';
-  static const womanMediumDarkSkinToneBald = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9B2}';
+  static const womanMediumDarkSkinToneBald =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9B2}';
   static const womanDarkSkinToneBald = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9B2}';
   static const personBald = '\u{1F9D1}\u{200D}\u{1F9B2}';
   static const personLightSkinToneBald = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9B2}';
-  static const personMediumLightSkinToneBald = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9B2}';
+  static const personMediumLightSkinToneBald =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9B2}';
   static const personMediumSkinToneBald = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9B2}';
-  static const personMediumDarkSkinToneBald = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9B2}';
+  static const personMediumDarkSkinToneBald =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9B2}';
   static const personDarkSkinToneBald = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9B2}';
   static const womanBlondHair = '\u{1F471}\u{200D}\u{2640}\u{FE0F}';
-  static const womanLightSkinToneBlondHair = '\u{1F471}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMediumLightSkinToneBlondHair = '\u{1F471}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMediumSkinToneBlondHair = '\u{1F471}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMediumDarkSkinToneBlondHair = '\u{1F471}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanDarkSkinToneBlondHair = '\u{1F471}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanLightSkinToneBlondHair =
+      '\u{1F471}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMediumLightSkinToneBlondHair =
+      '\u{1F471}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMediumSkinToneBlondHair =
+      '\u{1F471}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMediumDarkSkinToneBlondHair =
+      '\u{1F471}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanDarkSkinToneBlondHair =
+      '\u{1F471}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const manBlondHair = '\u{1F471}\u{200D}\u{2642}\u{FE0F}';
-  static const manLightSkinToneBlondHair = '\u{1F471}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manMediumLightSkinToneBlondHair = '\u{1F471}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manMediumSkinToneBlondHair = '\u{1F471}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manMediumDarkSkinToneBlondHair = '\u{1F471}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manDarkSkinToneBlondHair = '\u{1F471}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manLightSkinToneBlondHair =
+      '\u{1F471}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manMediumLightSkinToneBlondHair =
+      '\u{1F471}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manMediumSkinToneBlondHair =
+      '\u{1F471}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manMediumDarkSkinToneBlondHair =
+      '\u{1F471}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manDarkSkinToneBlondHair =
+      '\u{1F471}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const olderPerson = '\u{1F9D3}';
   static const olderPersonLightSkinTone = '\u{1F9D3}\u{1F3FB}';
   static const olderPersonMediumLightSkinTone = '\u{1F9D3}\u{1F3FC}';
@@ -671,17 +770,27 @@ class Emojis {
   static const personFrowningMediumDarkSkinTone = '\u{1F64D}\u{1F3FE}';
   static const personFrowningDarkSkinTone = '\u{1F64D}\u{1F3FF}';
   static const manFrowning = '\u{1F64D}\u{200D}\u{2642}\u{FE0F}';
-  static const manFrowningLightSkinTone = '\u{1F64D}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manFrowningMediumLightSkinTone = '\u{1F64D}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manFrowningMediumSkinTone = '\u{1F64D}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manFrowningMediumDarkSkinTone = '\u{1F64D}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manFrowningDarkSkinTone = '\u{1F64D}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manFrowningLightSkinTone =
+      '\u{1F64D}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manFrowningMediumLightSkinTone =
+      '\u{1F64D}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manFrowningMediumSkinTone =
+      '\u{1F64D}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manFrowningMediumDarkSkinTone =
+      '\u{1F64D}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manFrowningDarkSkinTone =
+      '\u{1F64D}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanFrowning = '\u{1F64D}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFrowningLightSkinTone = '\u{1F64D}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFrowningMediumLightSkinTone = '\u{1F64D}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFrowningMediumSkinTone = '\u{1F64D}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFrowningMediumDarkSkinTone = '\u{1F64D}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFrowningDarkSkinTone = '\u{1F64D}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFrowningLightSkinTone =
+      '\u{1F64D}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFrowningMediumLightSkinTone =
+      '\u{1F64D}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFrowningMediumSkinTone =
+      '\u{1F64D}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFrowningMediumDarkSkinTone =
+      '\u{1F64D}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFrowningDarkSkinTone =
+      '\u{1F64D}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personPouting = '\u{1F64E}';
   static const personPoutingLightSkinTone = '\u{1F64E}\u{1F3FB}';
   static const personPoutingMediumLightSkinTone = '\u{1F64E}\u{1F3FC}';
@@ -689,17 +798,27 @@ class Emojis {
   static const personPoutingMediumDarkSkinTone = '\u{1F64E}\u{1F3FE}';
   static const personPoutingDarkSkinTone = '\u{1F64E}\u{1F3FF}';
   static const manPouting = '\u{1F64E}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoutingLightSkinTone = '\u{1F64E}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoutingMediumLightSkinTone = '\u{1F64E}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoutingMediumSkinTone = '\u{1F64E}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoutingMediumDarkSkinTone = '\u{1F64E}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoutingDarkSkinTone = '\u{1F64E}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoutingLightSkinTone =
+      '\u{1F64E}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoutingMediumLightSkinTone =
+      '\u{1F64E}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoutingMediumSkinTone =
+      '\u{1F64E}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoutingMediumDarkSkinTone =
+      '\u{1F64E}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoutingDarkSkinTone =
+      '\u{1F64E}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanPouting = '\u{1F64E}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoutingLightSkinTone = '\u{1F64E}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoutingMediumLightSkinTone = '\u{1F64E}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoutingMediumSkinTone = '\u{1F64E}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoutingMediumDarkSkinTone = '\u{1F64E}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoutingDarkSkinTone = '\u{1F64E}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoutingLightSkinTone =
+      '\u{1F64E}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoutingMediumLightSkinTone =
+      '\u{1F64E}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoutingMediumSkinTone =
+      '\u{1F64E}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoutingMediumDarkSkinTone =
+      '\u{1F64E}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoutingDarkSkinTone =
+      '\u{1F64E}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personGesturingNo = '\u{1F645}';
   static const personGesturingNoLightSkinTone = '\u{1F645}\u{1F3FB}';
   static const personGesturingNoMediumLightSkinTone = '\u{1F645}\u{1F3FC}';
@@ -707,17 +826,27 @@ class Emojis {
   static const personGesturingNoMediumDarkSkinTone = '\u{1F645}\u{1F3FE}';
   static const personGesturingNoDarkSkinTone = '\u{1F645}\u{1F3FF}';
   static const manGesturingNo = '\u{1F645}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingNoLightSkinTone = '\u{1F645}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingNoMediumLightSkinTone = '\u{1F645}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingNoMediumSkinTone = '\u{1F645}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingNoMediumDarkSkinTone = '\u{1F645}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingNoDarkSkinTone = '\u{1F645}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingNoLightSkinTone =
+      '\u{1F645}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingNoMediumLightSkinTone =
+      '\u{1F645}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingNoMediumSkinTone =
+      '\u{1F645}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingNoMediumDarkSkinTone =
+      '\u{1F645}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingNoDarkSkinTone =
+      '\u{1F645}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanGesturingNo = '\u{1F645}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingNoLightSkinTone = '\u{1F645}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingNoMediumLightSkinTone = '\u{1F645}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingNoMediumSkinTone = '\u{1F645}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingNoMediumDarkSkinTone = '\u{1F645}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingNoDarkSkinTone = '\u{1F645}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingNoLightSkinTone =
+      '\u{1F645}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingNoMediumLightSkinTone =
+      '\u{1F645}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingNoMediumSkinTone =
+      '\u{1F645}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingNoMediumDarkSkinTone =
+      '\u{1F645}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingNoDarkSkinTone =
+      '\u{1F645}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personGesturingOk = '\u{1F646}';
   static const personGesturingOkLightSkinTone = '\u{1F646}\u{1F3FB}';
   static const personGesturingOkMediumLightSkinTone = '\u{1F646}\u{1F3FC}';
@@ -725,17 +854,27 @@ class Emojis {
   static const personGesturingOkMediumDarkSkinTone = '\u{1F646}\u{1F3FE}';
   static const personGesturingOkDarkSkinTone = '\u{1F646}\u{1F3FF}';
   static const manGesturingOk = '\u{1F646}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingOkLightSkinTone = '\u{1F646}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingOkMediumLightSkinTone = '\u{1F646}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingOkMediumSkinTone = '\u{1F646}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingOkMediumDarkSkinTone = '\u{1F646}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manGesturingOkDarkSkinTone = '\u{1F646}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingOkLightSkinTone =
+      '\u{1F646}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingOkMediumLightSkinTone =
+      '\u{1F646}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingOkMediumSkinTone =
+      '\u{1F646}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingOkMediumDarkSkinTone =
+      '\u{1F646}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manGesturingOkDarkSkinTone =
+      '\u{1F646}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanGesturingOk = '\u{1F646}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingOkLightSkinTone = '\u{1F646}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingOkMediumLightSkinTone = '\u{1F646}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingOkMediumSkinTone = '\u{1F646}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingOkMediumDarkSkinTone = '\u{1F646}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGesturingOkDarkSkinTone = '\u{1F646}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingOkLightSkinTone =
+      '\u{1F646}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingOkMediumLightSkinTone =
+      '\u{1F646}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingOkMediumSkinTone =
+      '\u{1F646}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingOkMediumDarkSkinTone =
+      '\u{1F646}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGesturingOkDarkSkinTone =
+      '\u{1F646}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personTippingHand = '\u{1F481}';
   static const personTippingHandLightSkinTone = '\u{1F481}\u{1F3FB}';
   static const personTippingHandMediumLightSkinTone = '\u{1F481}\u{1F3FC}';
@@ -743,17 +882,27 @@ class Emojis {
   static const personTippingHandMediumDarkSkinTone = '\u{1F481}\u{1F3FE}';
   static const personTippingHandDarkSkinTone = '\u{1F481}\u{1F3FF}';
   static const manTippingHand = '\u{1F481}\u{200D}\u{2642}\u{FE0F}';
-  static const manTippingHandLightSkinTone = '\u{1F481}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manTippingHandMediumLightSkinTone = '\u{1F481}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manTippingHandMediumSkinTone = '\u{1F481}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manTippingHandMediumDarkSkinTone = '\u{1F481}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manTippingHandDarkSkinTone = '\u{1F481}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manTippingHandLightSkinTone =
+      '\u{1F481}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manTippingHandMediumLightSkinTone =
+      '\u{1F481}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manTippingHandMediumSkinTone =
+      '\u{1F481}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manTippingHandMediumDarkSkinTone =
+      '\u{1F481}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manTippingHandDarkSkinTone =
+      '\u{1F481}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanTippingHand = '\u{1F481}\u{200D}\u{2640}\u{FE0F}';
-  static const womanTippingHandLightSkinTone = '\u{1F481}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanTippingHandMediumLightSkinTone = '\u{1F481}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanTippingHandMediumSkinTone = '\u{1F481}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanTippingHandMediumDarkSkinTone = '\u{1F481}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanTippingHandDarkSkinTone = '\u{1F481}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanTippingHandLightSkinTone =
+      '\u{1F481}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanTippingHandMediumLightSkinTone =
+      '\u{1F481}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanTippingHandMediumSkinTone =
+      '\u{1F481}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanTippingHandMediumDarkSkinTone =
+      '\u{1F481}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanTippingHandDarkSkinTone =
+      '\u{1F481}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personRaisingHand = '\u{1F64B}';
   static const personRaisingHandLightSkinTone = '\u{1F64B}\u{1F3FB}';
   static const personRaisingHandMediumLightSkinTone = '\u{1F64B}\u{1F3FC}';
@@ -761,17 +910,27 @@ class Emojis {
   static const personRaisingHandMediumDarkSkinTone = '\u{1F64B}\u{1F3FE}';
   static const personRaisingHandDarkSkinTone = '\u{1F64B}\u{1F3FF}';
   static const manRaisingHand = '\u{1F64B}\u{200D}\u{2642}\u{FE0F}';
-  static const manRaisingHandLightSkinTone = '\u{1F64B}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manRaisingHandMediumLightSkinTone = '\u{1F64B}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manRaisingHandMediumSkinTone = '\u{1F64B}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manRaisingHandMediumDarkSkinTone = '\u{1F64B}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manRaisingHandDarkSkinTone = '\u{1F64B}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manRaisingHandLightSkinTone =
+      '\u{1F64B}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manRaisingHandMediumLightSkinTone =
+      '\u{1F64B}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manRaisingHandMediumSkinTone =
+      '\u{1F64B}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manRaisingHandMediumDarkSkinTone =
+      '\u{1F64B}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manRaisingHandDarkSkinTone =
+      '\u{1F64B}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanRaisingHand = '\u{1F64B}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRaisingHandLightSkinTone = '\u{1F64B}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRaisingHandMediumLightSkinTone = '\u{1F64B}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRaisingHandMediumSkinTone = '\u{1F64B}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRaisingHandMediumDarkSkinTone = '\u{1F64B}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRaisingHandDarkSkinTone = '\u{1F64B}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRaisingHandLightSkinTone =
+      '\u{1F64B}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRaisingHandMediumLightSkinTone =
+      '\u{1F64B}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRaisingHandMediumSkinTone =
+      '\u{1F64B}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRaisingHandMediumDarkSkinTone =
+      '\u{1F64B}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRaisingHandDarkSkinTone =
+      '\u{1F64B}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const deafPerson = '\u{1F9CF}';
   static const deafPersonLightSkinTone = '\u{1F9CF}\u{1F3FB}';
   static const deafPersonMediumLightSkinTone = '\u{1F9CF}\u{1F3FC}';
@@ -779,17 +938,27 @@ class Emojis {
   static const deafPersonMediumDarkSkinTone = '\u{1F9CF}\u{1F3FE}';
   static const deafPersonDarkSkinTone = '\u{1F9CF}\u{1F3FF}';
   static const deafMan = '\u{1F9CF}\u{200D}\u{2642}\u{FE0F}';
-  static const deafManLightSkinTone = '\u{1F9CF}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const deafManMediumLightSkinTone = '\u{1F9CF}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const deafManMediumSkinTone = '\u{1F9CF}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const deafManMediumDarkSkinTone = '\u{1F9CF}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const deafManDarkSkinTone = '\u{1F9CF}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const deafManLightSkinTone =
+      '\u{1F9CF}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const deafManMediumLightSkinTone =
+      '\u{1F9CF}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const deafManMediumSkinTone =
+      '\u{1F9CF}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const deafManMediumDarkSkinTone =
+      '\u{1F9CF}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const deafManDarkSkinTone =
+      '\u{1F9CF}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const deafWoman = '\u{1F9CF}\u{200D}\u{2640}\u{FE0F}';
-  static const deafWomanLightSkinTone = '\u{1F9CF}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const deafWomanMediumLightSkinTone = '\u{1F9CF}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const deafWomanMediumSkinTone = '\u{1F9CF}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const deafWomanMediumDarkSkinTone = '\u{1F9CF}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const deafWomanDarkSkinTone = '\u{1F9CF}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const deafWomanLightSkinTone =
+      '\u{1F9CF}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const deafWomanMediumLightSkinTone =
+      '\u{1F9CF}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const deafWomanMediumSkinTone =
+      '\u{1F9CF}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const deafWomanMediumDarkSkinTone =
+      '\u{1F9CF}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const deafWomanDarkSkinTone =
+      '\u{1F9CF}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personBowing = '\u{1F647}';
   static const personBowingLightSkinTone = '\u{1F647}\u{1F3FB}';
   static const personBowingMediumLightSkinTone = '\u{1F647}\u{1F3FC}';
@@ -797,17 +966,27 @@ class Emojis {
   static const personBowingMediumDarkSkinTone = '\u{1F647}\u{1F3FE}';
   static const personBowingDarkSkinTone = '\u{1F647}\u{1F3FF}';
   static const manBowing = '\u{1F647}\u{200D}\u{2642}\u{FE0F}';
-  static const manBowingLightSkinTone = '\u{1F647}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manBowingMediumLightSkinTone = '\u{1F647}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manBowingMediumSkinTone = '\u{1F647}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manBowingMediumDarkSkinTone = '\u{1F647}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manBowingDarkSkinTone = '\u{1F647}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manBowingLightSkinTone =
+      '\u{1F647}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manBowingMediumLightSkinTone =
+      '\u{1F647}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manBowingMediumSkinTone =
+      '\u{1F647}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manBowingMediumDarkSkinTone =
+      '\u{1F647}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manBowingDarkSkinTone =
+      '\u{1F647}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanBowing = '\u{1F647}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBowingLightSkinTone = '\u{1F647}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBowingMediumLightSkinTone = '\u{1F647}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBowingMediumSkinTone = '\u{1F647}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBowingMediumDarkSkinTone = '\u{1F647}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBowingDarkSkinTone = '\u{1F647}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBowingLightSkinTone =
+      '\u{1F647}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBowingMediumLightSkinTone =
+      '\u{1F647}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBowingMediumSkinTone =
+      '\u{1F647}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBowingMediumDarkSkinTone =
+      '\u{1F647}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBowingDarkSkinTone =
+      '\u{1F647}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personFacepalming = '\u{1F926}';
   static const personFacepalmingLightSkinTone = '\u{1F926}\u{1F3FB}';
   static const personFacepalmingMediumLightSkinTone = '\u{1F926}\u{1F3FC}';
@@ -815,17 +994,27 @@ class Emojis {
   static const personFacepalmingMediumDarkSkinTone = '\u{1F926}\u{1F3FE}';
   static const personFacepalmingDarkSkinTone = '\u{1F926}\u{1F3FF}';
   static const manFacepalming = '\u{1F926}\u{200D}\u{2642}\u{FE0F}';
-  static const manFacepalmingLightSkinTone = '\u{1F926}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manFacepalmingMediumLightSkinTone = '\u{1F926}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manFacepalmingMediumSkinTone = '\u{1F926}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manFacepalmingMediumDarkSkinTone = '\u{1F926}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manFacepalmingDarkSkinTone = '\u{1F926}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manFacepalmingLightSkinTone =
+      '\u{1F926}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manFacepalmingMediumLightSkinTone =
+      '\u{1F926}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manFacepalmingMediumSkinTone =
+      '\u{1F926}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manFacepalmingMediumDarkSkinTone =
+      '\u{1F926}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manFacepalmingDarkSkinTone =
+      '\u{1F926}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanFacepalming = '\u{1F926}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFacepalmingLightSkinTone = '\u{1F926}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFacepalmingMediumLightSkinTone = '\u{1F926}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFacepalmingMediumSkinTone = '\u{1F926}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFacepalmingMediumDarkSkinTone = '\u{1F926}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFacepalmingDarkSkinTone = '\u{1F926}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFacepalmingLightSkinTone =
+      '\u{1F926}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFacepalmingMediumLightSkinTone =
+      '\u{1F926}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFacepalmingMediumSkinTone =
+      '\u{1F926}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFacepalmingMediumDarkSkinTone =
+      '\u{1F926}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFacepalmingDarkSkinTone =
+      '\u{1F926}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personShrugging = '\u{1F937}';
   static const personShruggingLightSkinTone = '\u{1F937}\u{1F3FB}';
   static const personShruggingMediumLightSkinTone = '\u{1F937}\u{1F3FC}';
@@ -833,106 +1022,167 @@ class Emojis {
   static const personShruggingMediumDarkSkinTone = '\u{1F937}\u{1F3FE}';
   static const personShruggingDarkSkinTone = '\u{1F937}\u{1F3FF}';
   static const manShrugging = '\u{1F937}\u{200D}\u{2642}\u{FE0F}';
-  static const manShruggingLightSkinTone = '\u{1F937}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manShruggingMediumLightSkinTone = '\u{1F937}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manShruggingMediumSkinTone = '\u{1F937}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manShruggingMediumDarkSkinTone = '\u{1F937}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manShruggingDarkSkinTone = '\u{1F937}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manShruggingLightSkinTone =
+      '\u{1F937}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manShruggingMediumLightSkinTone =
+      '\u{1F937}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manShruggingMediumSkinTone =
+      '\u{1F937}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manShruggingMediumDarkSkinTone =
+      '\u{1F937}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manShruggingDarkSkinTone =
+      '\u{1F937}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanShrugging = '\u{1F937}\u{200D}\u{2640}\u{FE0F}';
-  static const womanShruggingLightSkinTone = '\u{1F937}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanShruggingMediumLightSkinTone = '\u{1F937}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanShruggingMediumSkinTone = '\u{1F937}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanShruggingMediumDarkSkinTone = '\u{1F937}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanShruggingDarkSkinTone = '\u{1F937}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanShruggingLightSkinTone =
+      '\u{1F937}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanShruggingMediumLightSkinTone =
+      '\u{1F937}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanShruggingMediumSkinTone =
+      '\u{1F937}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanShruggingMediumDarkSkinTone =
+      '\u{1F937}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanShruggingDarkSkinTone =
+      '\u{1F937}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const healthWorker = '\u{1F9D1}\u{200D}\u{2695}\u{FE0F}';
-  static const healthWorkerLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2695}\u{FE0F}';
-  static const healthWorkerMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2695}\u{FE0F}';
-  static const healthWorkerMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2695}\u{FE0F}';
-  static const healthWorkerMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2695}\u{FE0F}';
-  static const healthWorkerDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2695}\u{FE0F}';
+  static const healthWorkerLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2695}\u{FE0F}';
+  static const healthWorkerMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2695}\u{FE0F}';
+  static const healthWorkerMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2695}\u{FE0F}';
+  static const healthWorkerMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2695}\u{FE0F}';
+  static const healthWorkerDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{2695}\u{FE0F}';
   static const manHealthWorker = '\u{1F468}\u{200D}\u{2695}\u{FE0F}';
-  static const manHealthWorkerLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2695}\u{FE0F}';
-  static const manHealthWorkerMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2695}\u{FE0F}';
-  static const manHealthWorkerMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2695}\u{FE0F}';
-  static const manHealthWorkerMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2695}\u{FE0F}';
-  static const manHealthWorkerDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2695}\u{FE0F}';
+  static const manHealthWorkerLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2695}\u{FE0F}';
+  static const manHealthWorkerMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2695}\u{FE0F}';
+  static const manHealthWorkerMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2695}\u{FE0F}';
+  static const manHealthWorkerMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2695}\u{FE0F}';
+  static const manHealthWorkerDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2695}\u{FE0F}';
   static const womanHealthWorker = '\u{1F469}\u{200D}\u{2695}\u{FE0F}';
-  static const womanHealthWorkerLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2695}\u{FE0F}';
-  static const womanHealthWorkerMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2695}\u{FE0F}';
-  static const womanHealthWorkerMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2695}\u{FE0F}';
-  static const womanHealthWorkerMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2695}\u{FE0F}';
-  static const womanHealthWorkerDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2695}\u{FE0F}';
+  static const womanHealthWorkerLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2695}\u{FE0F}';
+  static const womanHealthWorkerMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2695}\u{FE0F}';
+  static const womanHealthWorkerMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2695}\u{FE0F}';
+  static const womanHealthWorkerMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2695}\u{FE0F}';
+  static const womanHealthWorkerDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2695}\u{FE0F}';
   static const student = '\u{1F9D1}\u{200D}\u{1F393}';
   static const studentLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F393}';
-  static const studentMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F393}';
+  static const studentMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F393}';
   static const studentMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F393}';
-  static const studentMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F393}';
+  static const studentMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F393}';
   static const studentDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F393}';
   static const manStudent = '\u{1F468}\u{200D}\u{1F393}';
   static const manStudentLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F393}';
-  static const manStudentMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F393}';
+  static const manStudentMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F393}';
   static const manStudentMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F393}';
-  static const manStudentMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F393}';
+  static const manStudentMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F393}';
   static const manStudentDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F393}';
   static const womanStudent = '\u{1F469}\u{200D}\u{1F393}';
-  static const womanStudentLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F393}';
-  static const womanStudentMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F393}';
-  static const womanStudentMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F393}';
-  static const womanStudentMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F393}';
+  static const womanStudentLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F393}';
+  static const womanStudentMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F393}';
+  static const womanStudentMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F393}';
+  static const womanStudentMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F393}';
   static const womanStudentDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F393}';
   static const teacher = '\u{1F9D1}\u{200D}\u{1F3EB}';
   static const teacherLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F3EB}';
-  static const teacherMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F3EB}';
+  static const teacherMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F3EB}';
   static const teacherMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F3EB}';
-  static const teacherMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F3EB}';
+  static const teacherMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F3EB}';
   static const teacherDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F3EB}';
   static const manTeacher = '\u{1F468}\u{200D}\u{1F3EB}';
   static const manTeacherLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F3EB}';
-  static const manTeacherMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F3EB}';
+  static const manTeacherMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F3EB}';
   static const manTeacherMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F3EB}';
-  static const manTeacherMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F3EB}';
+  static const manTeacherMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F3EB}';
   static const manTeacherDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F3EB}';
   static const womanTeacher = '\u{1F469}\u{200D}\u{1F3EB}';
-  static const womanTeacherLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F3EB}';
-  static const womanTeacherMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F3EB}';
-  static const womanTeacherMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F3EB}';
-  static const womanTeacherMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F3EB}';
+  static const womanTeacherLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F3EB}';
+  static const womanTeacherMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F3EB}';
+  static const womanTeacherMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F3EB}';
+  static const womanTeacherMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F3EB}';
   static const womanTeacherDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F3EB}';
   static const judge = '\u{1F9D1}\u{200D}\u{2696}\u{FE0F}';
-  static const judgeLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2696}\u{FE0F}';
-  static const judgeMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2696}\u{FE0F}';
-  static const judgeMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2696}\u{FE0F}';
-  static const judgeMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2696}\u{FE0F}';
+  static const judgeLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2696}\u{FE0F}';
+  static const judgeMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2696}\u{FE0F}';
+  static const judgeMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2696}\u{FE0F}';
+  static const judgeMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2696}\u{FE0F}';
   static const judgeDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2696}\u{FE0F}';
   static const manJudge = '\u{1F468}\u{200D}\u{2696}\u{FE0F}';
-  static const manJudgeLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2696}\u{FE0F}';
-  static const manJudgeMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2696}\u{FE0F}';
-  static const manJudgeMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2696}\u{FE0F}';
-  static const manJudgeMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2696}\u{FE0F}';
-  static const manJudgeDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2696}\u{FE0F}';
+  static const manJudgeLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2696}\u{FE0F}';
+  static const manJudgeMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2696}\u{FE0F}';
+  static const manJudgeMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2696}\u{FE0F}';
+  static const manJudgeMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2696}\u{FE0F}';
+  static const manJudgeDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2696}\u{FE0F}';
   static const womanJudge = '\u{1F469}\u{200D}\u{2696}\u{FE0F}';
-  static const womanJudgeLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2696}\u{FE0F}';
-  static const womanJudgeMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2696}\u{FE0F}';
-  static const womanJudgeMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2696}\u{FE0F}';
-  static const womanJudgeMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2696}\u{FE0F}';
-  static const womanJudgeDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2696}\u{FE0F}';
+  static const womanJudgeLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2696}\u{FE0F}';
+  static const womanJudgeMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2696}\u{FE0F}';
+  static const womanJudgeMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2696}\u{FE0F}';
+  static const womanJudgeMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2696}\u{FE0F}';
+  static const womanJudgeDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2696}\u{FE0F}';
   static const farmer = '\u{1F9D1}\u{200D}\u{1F33E}';
   static const farmerLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F33E}';
-  static const farmerMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F33E}';
+  static const farmerMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F33E}';
   static const farmerMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F33E}';
   static const farmerMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F33E}';
   static const farmerDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F33E}';
   static const manFarmer = '\u{1F468}\u{200D}\u{1F33E}';
   static const manFarmerLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F33E}';
-  static const manFarmerMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F33E}';
+  static const manFarmerMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F33E}';
   static const manFarmerMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F33E}';
-  static const manFarmerMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F33E}';
+  static const manFarmerMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F33E}';
   static const manFarmerDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F33E}';
   static const womanFarmer = '\u{1F469}\u{200D}\u{1F33E}';
   static const womanFarmerLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F33E}';
-  static const womanFarmerMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F33E}';
-  static const womanFarmerMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F33E}';
-  static const womanFarmerMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F33E}';
+  static const womanFarmerMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F33E}';
+  static const womanFarmerMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F33E}';
+  static const womanFarmerMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F33E}';
   static const womanFarmerDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F33E}';
   static const cook = '\u{1F9D1}\u{200D}\u{1F373}';
   static const cookLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F373}';
@@ -942,196 +1192,314 @@ class Emojis {
   static const cookDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F373}';
   static const manCook = '\u{1F468}\u{200D}\u{1F373}';
   static const manCookLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F373}';
-  static const manCookMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F373}';
+  static const manCookMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F373}';
   static const manCookMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F373}';
-  static const manCookMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F373}';
+  static const manCookMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F373}';
   static const manCookDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F373}';
   static const womanCook = '\u{1F469}\u{200D}\u{1F373}';
   static const womanCookLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F373}';
-  static const womanCookMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F373}';
+  static const womanCookMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F373}';
   static const womanCookMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F373}';
-  static const womanCookMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F373}';
+  static const womanCookMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F373}';
   static const womanCookDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F373}';
   static const mechanic = '\u{1F9D1}\u{200D}\u{1F527}';
   static const mechanicLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F527}';
-  static const mechanicMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F527}';
+  static const mechanicMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F527}';
   static const mechanicMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F527}';
-  static const mechanicMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F527}';
+  static const mechanicMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F527}';
   static const mechanicDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F527}';
   static const manMechanic = '\u{1F468}\u{200D}\u{1F527}';
   static const manMechanicLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F527}';
-  static const manMechanicMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F527}';
-  static const manMechanicMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F527}';
-  static const manMechanicMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F527}';
+  static const manMechanicMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F527}';
+  static const manMechanicMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F527}';
+  static const manMechanicMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F527}';
   static const manMechanicDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F527}';
   static const womanMechanic = '\u{1F469}\u{200D}\u{1F527}';
-  static const womanMechanicLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F527}';
-  static const womanMechanicMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F527}';
-  static const womanMechanicMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F527}';
-  static const womanMechanicMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F527}';
-  static const womanMechanicDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F527}';
+  static const womanMechanicLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F527}';
+  static const womanMechanicMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F527}';
+  static const womanMechanicMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F527}';
+  static const womanMechanicMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F527}';
+  static const womanMechanicDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F527}';
   static const factoryWorker = '\u{1F9D1}\u{200D}\u{1F3ED}';
-  static const factoryWorkerLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F3ED}';
-  static const factoryWorkerMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F3ED}';
-  static const factoryWorkerMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F3ED}';
-  static const factoryWorkerMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F3ED}';
-  static const factoryWorkerDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F3ED}';
+  static const factoryWorkerLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F3ED}';
+  static const factoryWorkerMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F3ED}';
+  static const factoryWorkerMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F3ED}';
+  static const factoryWorkerMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F3ED}';
+  static const factoryWorkerDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F3ED}';
   static const manFactoryWorker = '\u{1F468}\u{200D}\u{1F3ED}';
-  static const manFactoryWorkerLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F3ED}';
-  static const manFactoryWorkerMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F3ED}';
-  static const manFactoryWorkerMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F3ED}';
-  static const manFactoryWorkerMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F3ED}';
-  static const manFactoryWorkerDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F3ED}';
+  static const manFactoryWorkerLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F3ED}';
+  static const manFactoryWorkerMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F3ED}';
+  static const manFactoryWorkerMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F3ED}';
+  static const manFactoryWorkerMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F3ED}';
+  static const manFactoryWorkerDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F3ED}';
   static const womanFactoryWorker = '\u{1F469}\u{200D}\u{1F3ED}';
-  static const womanFactoryWorkerLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F3ED}';
-  static const womanFactoryWorkerMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F3ED}';
-  static const womanFactoryWorkerMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F3ED}';
-  static const womanFactoryWorkerMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F3ED}';
-  static const womanFactoryWorkerDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F3ED}';
+  static const womanFactoryWorkerLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F3ED}';
+  static const womanFactoryWorkerMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F3ED}';
+  static const womanFactoryWorkerMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F3ED}';
+  static const womanFactoryWorkerMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F3ED}';
+  static const womanFactoryWorkerDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F3ED}';
   static const officeWorker = '\u{1F9D1}\u{200D}\u{1F4BC}';
-  static const officeWorkerLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F4BC}';
-  static const officeWorkerMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F4BC}';
-  static const officeWorkerMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F4BC}';
-  static const officeWorkerMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F4BC}';
+  static const officeWorkerLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F4BC}';
+  static const officeWorkerMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F4BC}';
+  static const officeWorkerMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F4BC}';
+  static const officeWorkerMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F4BC}';
   static const officeWorkerDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F4BC}';
   static const manOfficeWorker = '\u{1F468}\u{200D}\u{1F4BC}';
-  static const manOfficeWorkerLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F4BC}';
-  static const manOfficeWorkerMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F4BC}';
-  static const manOfficeWorkerMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F4BC}';
-  static const manOfficeWorkerMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F4BC}';
-  static const manOfficeWorkerDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F4BC}';
+  static const manOfficeWorkerLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F4BC}';
+  static const manOfficeWorkerMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F4BC}';
+  static const manOfficeWorkerMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F4BC}';
+  static const manOfficeWorkerMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F4BC}';
+  static const manOfficeWorkerDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F4BC}';
   static const womanOfficeWorker = '\u{1F469}\u{200D}\u{1F4BC}';
-  static const womanOfficeWorkerLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F4BC}';
-  static const womanOfficeWorkerMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F4BC}';
-  static const womanOfficeWorkerMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F4BC}';
-  static const womanOfficeWorkerMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F4BC}';
-  static const womanOfficeWorkerDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F4BC}';
+  static const womanOfficeWorkerLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F4BC}';
+  static const womanOfficeWorkerMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F4BC}';
+  static const womanOfficeWorkerMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F4BC}';
+  static const womanOfficeWorkerMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F4BC}';
+  static const womanOfficeWorkerDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F4BC}';
   static const scientist = '\u{1F9D1}\u{200D}\u{1F52C}';
   static const scientistLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F52C}';
-  static const scientistMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F52C}';
+  static const scientistMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F52C}';
   static const scientistMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F52C}';
-  static const scientistMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F52C}';
+  static const scientistMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F52C}';
   static const scientistDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F52C}';
   static const manScientist = '\u{1F468}\u{200D}\u{1F52C}';
-  static const manScientistLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F52C}';
-  static const manScientistMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F52C}';
-  static const manScientistMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F52C}';
-  static const manScientistMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F52C}';
+  static const manScientistLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F52C}';
+  static const manScientistMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F52C}';
+  static const manScientistMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F52C}';
+  static const manScientistMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F52C}';
   static const manScientistDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F52C}';
   static const womanScientist = '\u{1F469}\u{200D}\u{1F52C}';
-  static const womanScientistLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F52C}';
-  static const womanScientistMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F52C}';
-  static const womanScientistMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F52C}';
-  static const womanScientistMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F52C}';
-  static const womanScientistDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F52C}';
+  static const womanScientistLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F52C}';
+  static const womanScientistMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F52C}';
+  static const womanScientistMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F52C}';
+  static const womanScientistMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F52C}';
+  static const womanScientistDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F52C}';
   static const technologist = '\u{1F9D1}\u{200D}\u{1F4BB}';
-  static const technologistLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F4BB}';
-  static const technologistMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F4BB}';
-  static const technologistMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F4BB}';
-  static const technologistMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F4BB}';
+  static const technologistLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F4BB}';
+  static const technologistMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F4BB}';
+  static const technologistMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F4BB}';
+  static const technologistMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F4BB}';
   static const technologistDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F4BB}';
   static const manTechnologist = '\u{1F468}\u{200D}\u{1F4BB}';
-  static const manTechnologistLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F4BB}';
-  static const manTechnologistMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F4BB}';
-  static const manTechnologistMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F4BB}';
-  static const manTechnologistMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F4BB}';
-  static const manTechnologistDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F4BB}';
+  static const manTechnologistLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F4BB}';
+  static const manTechnologistMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F4BB}';
+  static const manTechnologistMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F4BB}';
+  static const manTechnologistMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F4BB}';
+  static const manTechnologistDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F4BB}';
   static const womanTechnologist = '\u{1F469}\u{200D}\u{1F4BB}';
-  static const womanTechnologistLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F4BB}';
-  static const womanTechnologistMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F4BB}';
-  static const womanTechnologistMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F4BB}';
-  static const womanTechnologistMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F4BB}';
-  static const womanTechnologistDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F4BB}';
+  static const womanTechnologistLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F4BB}';
+  static const womanTechnologistMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F4BB}';
+  static const womanTechnologistMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F4BB}';
+  static const womanTechnologistMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F4BB}';
+  static const womanTechnologistDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F4BB}';
   static const singer = '\u{1F9D1}\u{200D}\u{1F3A4}';
   static const singerLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F3A4}';
-  static const singerMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F3A4}';
+  static const singerMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F3A4}';
   static const singerMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F3A4}';
   static const singerMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F3A4}';
   static const singerDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F3A4}';
   static const manSinger = '\u{1F468}\u{200D}\u{1F3A4}';
   static const manSingerLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F3A4}';
-  static const manSingerMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F3A4}';
+  static const manSingerMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F3A4}';
   static const manSingerMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F3A4}';
-  static const manSingerMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F3A4}';
+  static const manSingerMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F3A4}';
   static const manSingerDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F3A4}';
   static const womanSinger = '\u{1F469}\u{200D}\u{1F3A4}';
   static const womanSingerLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F3A4}';
-  static const womanSingerMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F3A4}';
-  static const womanSingerMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F3A4}';
-  static const womanSingerMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F3A4}';
+  static const womanSingerMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F3A4}';
+  static const womanSingerMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F3A4}';
+  static const womanSingerMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F3A4}';
   static const womanSingerDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F3A4}';
   static const artist = '\u{1F9D1}\u{200D}\u{1F3A8}';
   static const artistLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F3A8}';
-  static const artistMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F3A8}';
+  static const artistMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F3A8}';
   static const artistMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F3A8}';
   static const artistMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F3A8}';
   static const artistDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F3A8}';
   static const manArtist = '\u{1F468}\u{200D}\u{1F3A8}';
   static const manArtistLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F3A8}';
-  static const manArtistMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F3A8}';
+  static const manArtistMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F3A8}';
   static const manArtistMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F3A8}';
-  static const manArtistMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F3A8}';
+  static const manArtistMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F3A8}';
   static const manArtistDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F3A8}';
   static const womanArtist = '\u{1F469}\u{200D}\u{1F3A8}';
   static const womanArtistLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F3A8}';
-  static const womanArtistMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F3A8}';
-  static const womanArtistMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F3A8}';
-  static const womanArtistMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F3A8}';
+  static const womanArtistMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F3A8}';
+  static const womanArtistMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F3A8}';
+  static const womanArtistMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F3A8}';
   static const womanArtistDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F3A8}';
   static const pilot = '\u{1F9D1}\u{200D}\u{2708}\u{FE0F}';
-  static const pilotLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2708}\u{FE0F}';
-  static const pilotMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2708}\u{FE0F}';
-  static const pilotMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2708}\u{FE0F}';
-  static const pilotMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2708}\u{FE0F}';
+  static const pilotLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2708}\u{FE0F}';
+  static const pilotMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2708}\u{FE0F}';
+  static const pilotMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2708}\u{FE0F}';
+  static const pilotMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2708}\u{FE0F}';
   static const pilotDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2708}\u{FE0F}';
   static const manPilot = '\u{1F468}\u{200D}\u{2708}\u{FE0F}';
-  static const manPilotLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2708}\u{FE0F}';
-  static const manPilotMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2708}\u{FE0F}';
-  static const manPilotMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2708}\u{FE0F}';
-  static const manPilotMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2708}\u{FE0F}';
-  static const manPilotDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2708}\u{FE0F}';
+  static const manPilotLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2708}\u{FE0F}';
+  static const manPilotMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2708}\u{FE0F}';
+  static const manPilotMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2708}\u{FE0F}';
+  static const manPilotMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2708}\u{FE0F}';
+  static const manPilotDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2708}\u{FE0F}';
   static const womanPilot = '\u{1F469}\u{200D}\u{2708}\u{FE0F}';
-  static const womanPilotLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2708}\u{FE0F}';
-  static const womanPilotMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2708}\u{FE0F}';
-  static const womanPilotMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2708}\u{FE0F}';
-  static const womanPilotMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2708}\u{FE0F}';
-  static const womanPilotDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2708}\u{FE0F}';
+  static const womanPilotLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2708}\u{FE0F}';
+  static const womanPilotMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2708}\u{FE0F}';
+  static const womanPilotMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2708}\u{FE0F}';
+  static const womanPilotMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2708}\u{FE0F}';
+  static const womanPilotDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2708}\u{FE0F}';
   static const astronaut = '\u{1F9D1}\u{200D}\u{1F680}';
   static const astronautLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F680}';
-  static const astronautMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F680}';
+  static const astronautMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F680}';
   static const astronautMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F680}';
-  static const astronautMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F680}';
+  static const astronautMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F680}';
   static const astronautDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F680}';
   static const manAstronaut = '\u{1F468}\u{200D}\u{1F680}';
-  static const manAstronautLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F680}';
-  static const manAstronautMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F680}';
-  static const manAstronautMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F680}';
-  static const manAstronautMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F680}';
+  static const manAstronautLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F680}';
+  static const manAstronautMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F680}';
+  static const manAstronautMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F680}';
+  static const manAstronautMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F680}';
   static const manAstronautDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F680}';
   static const womanAstronaut = '\u{1F469}\u{200D}\u{1F680}';
-  static const womanAstronautLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F680}';
-  static const womanAstronautMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F680}';
-  static const womanAstronautMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F680}';
-  static const womanAstronautMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F680}';
-  static const womanAstronautDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F680}';
+  static const womanAstronautLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F680}';
+  static const womanAstronautMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F680}';
+  static const womanAstronautMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F680}';
+  static const womanAstronautMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F680}';
+  static const womanAstronautDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F680}';
   static const firefighter = '\u{1F9D1}\u{200D}\u{1F692}';
   static const firefighterLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F692}';
-  static const firefighterMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F692}';
-  static const firefighterMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F692}';
-  static const firefighterMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F692}';
+  static const firefighterMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F692}';
+  static const firefighterMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F692}';
+  static const firefighterMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F692}';
   static const firefighterDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F692}';
   static const manFirefighter = '\u{1F468}\u{200D}\u{1F692}';
-  static const manFirefighterLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F692}';
-  static const manFirefighterMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F692}';
-  static const manFirefighterMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F692}';
-  static const manFirefighterMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F692}';
-  static const manFirefighterDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F692}';
+  static const manFirefighterLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F692}';
+  static const manFirefighterMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F692}';
+  static const manFirefighterMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F692}';
+  static const manFirefighterMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F692}';
+  static const manFirefighterDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F692}';
   static const womanFirefighter = '\u{1F469}\u{200D}\u{1F692}';
-  static const womanFirefighterLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F692}';
-  static const womanFirefighterMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F692}';
-  static const womanFirefighterMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F692}';
-  static const womanFirefighterMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F692}';
-  static const womanFirefighterDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F692}';
+  static const womanFirefighterLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F692}';
+  static const womanFirefighterMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F692}';
+  static const womanFirefighterMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F692}';
+  static const womanFirefighterMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F692}';
+  static const womanFirefighterDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F692}';
   static const policeOfficer = '\u{1F46E}';
   static const policeOfficerLightSkinTone = '\u{1F46E}\u{1F3FB}';
   static const policeOfficerMediumLightSkinTone = '\u{1F46E}\u{1F3FC}';
@@ -1139,17 +1507,27 @@ class Emojis {
   static const policeOfficerMediumDarkSkinTone = '\u{1F46E}\u{1F3FE}';
   static const policeOfficerDarkSkinTone = '\u{1F46E}\u{1F3FF}';
   static const manPoliceOfficer = '\u{1F46E}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoliceOfficerLightSkinTone = '\u{1F46E}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoliceOfficerMediumLightSkinTone = '\u{1F46E}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoliceOfficerMediumSkinTone = '\u{1F46E}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoliceOfficerMediumDarkSkinTone = '\u{1F46E}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manPoliceOfficerDarkSkinTone = '\u{1F46E}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoliceOfficerLightSkinTone =
+      '\u{1F46E}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoliceOfficerMediumLightSkinTone =
+      '\u{1F46E}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoliceOfficerMediumSkinTone =
+      '\u{1F46E}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoliceOfficerMediumDarkSkinTone =
+      '\u{1F46E}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manPoliceOfficerDarkSkinTone =
+      '\u{1F46E}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanPoliceOfficer = '\u{1F46E}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoliceOfficerLightSkinTone = '\u{1F46E}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoliceOfficerMediumLightSkinTone = '\u{1F46E}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoliceOfficerMediumSkinTone = '\u{1F46E}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoliceOfficerMediumDarkSkinTone = '\u{1F46E}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPoliceOfficerDarkSkinTone = '\u{1F46E}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoliceOfficerLightSkinTone =
+      '\u{1F46E}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoliceOfficerMediumLightSkinTone =
+      '\u{1F46E}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoliceOfficerMediumSkinTone =
+      '\u{1F46E}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoliceOfficerMediumDarkSkinTone =
+      '\u{1F46E}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPoliceOfficerDarkSkinTone =
+      '\u{1F46E}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const detective = '\u{1F575}\u{FE0F}';
   static const detectiveLightSkinTone = '\u{1F575}\u{1F3FB}';
   static const detectiveMediumLightSkinTone = '\u{1F575}\u{1F3FC}';
@@ -1157,17 +1535,27 @@ class Emojis {
   static const detectiveMediumDarkSkinTone = '\u{1F575}\u{1F3FE}';
   static const detectiveDarkSkinTone = '\u{1F575}\u{1F3FF}';
   static const manDetective = '\u{1F575}\u{FE0F}\u{200D}\u{2642}\u{FE0F}';
-  static const manDetectiveLightSkinTone = '\u{1F575}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manDetectiveMediumLightSkinTone = '\u{1F575}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manDetectiveMediumSkinTone = '\u{1F575}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manDetectiveMediumDarkSkinTone = '\u{1F575}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manDetectiveDarkSkinTone = '\u{1F575}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manDetectiveLightSkinTone =
+      '\u{1F575}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manDetectiveMediumLightSkinTone =
+      '\u{1F575}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manDetectiveMediumSkinTone =
+      '\u{1F575}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manDetectiveMediumDarkSkinTone =
+      '\u{1F575}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manDetectiveDarkSkinTone =
+      '\u{1F575}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanDetective = '\u{1F575}\u{FE0F}\u{200D}\u{2640}\u{FE0F}';
-  static const womanDetectiveLightSkinTone = '\u{1F575}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanDetectiveMediumLightSkinTone = '\u{1F575}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanDetectiveMediumSkinTone = '\u{1F575}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanDetectiveMediumDarkSkinTone = '\u{1F575}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanDetectiveDarkSkinTone = '\u{1F575}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanDetectiveLightSkinTone =
+      '\u{1F575}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanDetectiveMediumLightSkinTone =
+      '\u{1F575}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanDetectiveMediumSkinTone =
+      '\u{1F575}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanDetectiveMediumDarkSkinTone =
+      '\u{1F575}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanDetectiveDarkSkinTone =
+      '\u{1F575}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const guard = '\u{1F482}';
   static const guardLightSkinTone = '\u{1F482}\u{1F3FB}';
   static const guardMediumLightSkinTone = '\u{1F482}\u{1F3FC}';
@@ -1175,17 +1563,27 @@ class Emojis {
   static const guardMediumDarkSkinTone = '\u{1F482}\u{1F3FE}';
   static const guardDarkSkinTone = '\u{1F482}\u{1F3FF}';
   static const manGuard = '\u{1F482}\u{200D}\u{2642}\u{FE0F}';
-  static const manGuardLightSkinTone = '\u{1F482}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manGuardMediumLightSkinTone = '\u{1F482}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manGuardMediumSkinTone = '\u{1F482}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manGuardMediumDarkSkinTone = '\u{1F482}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manGuardDarkSkinTone = '\u{1F482}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manGuardLightSkinTone =
+      '\u{1F482}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manGuardMediumLightSkinTone =
+      '\u{1F482}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manGuardMediumSkinTone =
+      '\u{1F482}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manGuardMediumDarkSkinTone =
+      '\u{1F482}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manGuardDarkSkinTone =
+      '\u{1F482}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanGuard = '\u{1F482}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGuardLightSkinTone = '\u{1F482}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGuardMediumLightSkinTone = '\u{1F482}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGuardMediumSkinTone = '\u{1F482}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGuardMediumDarkSkinTone = '\u{1F482}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGuardDarkSkinTone = '\u{1F482}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGuardLightSkinTone =
+      '\u{1F482}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGuardMediumLightSkinTone =
+      '\u{1F482}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGuardMediumSkinTone =
+      '\u{1F482}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGuardMediumDarkSkinTone =
+      '\u{1F482}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGuardDarkSkinTone =
+      '\u{1F482}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const ninja = '\u{1F977}';
   static const ninjaLightSkinTone = '\u{1F977}\u{1F3FB}';
   static const ninjaMediumLightSkinTone = '\u{1F977}\u{1F3FC}';
@@ -1199,17 +1597,27 @@ class Emojis {
   static const constructionWorkerMediumDarkSkinTone = '\u{1F477}\u{1F3FE}';
   static const constructionWorkerDarkSkinTone = '\u{1F477}\u{1F3FF}';
   static const manConstructionWorker = '\u{1F477}\u{200D}\u{2642}\u{FE0F}';
-  static const manConstructionWorkerLightSkinTone = '\u{1F477}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manConstructionWorkerMediumLightSkinTone = '\u{1F477}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manConstructionWorkerMediumSkinTone = '\u{1F477}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manConstructionWorkerMediumDarkSkinTone = '\u{1F477}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manConstructionWorkerDarkSkinTone = '\u{1F477}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manConstructionWorkerLightSkinTone =
+      '\u{1F477}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manConstructionWorkerMediumLightSkinTone =
+      '\u{1F477}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manConstructionWorkerMediumSkinTone =
+      '\u{1F477}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manConstructionWorkerMediumDarkSkinTone =
+      '\u{1F477}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manConstructionWorkerDarkSkinTone =
+      '\u{1F477}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanConstructionWorker = '\u{1F477}\u{200D}\u{2640}\u{FE0F}';
-  static const womanConstructionWorkerLightSkinTone = '\u{1F477}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanConstructionWorkerMediumLightSkinTone = '\u{1F477}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanConstructionWorkerMediumSkinTone = '\u{1F477}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanConstructionWorkerMediumDarkSkinTone = '\u{1F477}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanConstructionWorkerDarkSkinTone = '\u{1F477}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanConstructionWorkerLightSkinTone =
+      '\u{1F477}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanConstructionWorkerMediumLightSkinTone =
+      '\u{1F477}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanConstructionWorkerMediumSkinTone =
+      '\u{1F477}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanConstructionWorkerMediumDarkSkinTone =
+      '\u{1F477}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanConstructionWorkerDarkSkinTone =
+      '\u{1F477}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personWithCrown = '\u{1FAC5}';
   static const personWithCrownLightSkinTone = '\u{1FAC5}\u{1F3FB}';
   static const personWithCrownMediumLightSkinTone = '\u{1FAC5}\u{1F3FC}';
@@ -1235,17 +1643,27 @@ class Emojis {
   static const personWearingTurbanMediumDarkSkinTone = '\u{1F473}\u{1F3FE}';
   static const personWearingTurbanDarkSkinTone = '\u{1F473}\u{1F3FF}';
   static const manWearingTurban = '\u{1F473}\u{200D}\u{2642}\u{FE0F}';
-  static const manWearingTurbanLightSkinTone = '\u{1F473}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manWearingTurbanMediumLightSkinTone = '\u{1F473}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manWearingTurbanMediumSkinTone = '\u{1F473}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manWearingTurbanMediumDarkSkinTone = '\u{1F473}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manWearingTurbanDarkSkinTone = '\u{1F473}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manWearingTurbanLightSkinTone =
+      '\u{1F473}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manWearingTurbanMediumLightSkinTone =
+      '\u{1F473}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manWearingTurbanMediumSkinTone =
+      '\u{1F473}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manWearingTurbanMediumDarkSkinTone =
+      '\u{1F473}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manWearingTurbanDarkSkinTone =
+      '\u{1F473}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanWearingTurban = '\u{1F473}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWearingTurbanLightSkinTone = '\u{1F473}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWearingTurbanMediumLightSkinTone = '\u{1F473}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWearingTurbanMediumSkinTone = '\u{1F473}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWearingTurbanMediumDarkSkinTone = '\u{1F473}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWearingTurbanDarkSkinTone = '\u{1F473}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWearingTurbanLightSkinTone =
+      '\u{1F473}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWearingTurbanMediumLightSkinTone =
+      '\u{1F473}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWearingTurbanMediumSkinTone =
+      '\u{1F473}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWearingTurbanMediumDarkSkinTone =
+      '\u{1F473}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWearingTurbanDarkSkinTone =
+      '\u{1F473}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personWithSkullcap = '\u{1F472}';
   static const personWithSkullcapLightSkinTone = '\u{1F472}\u{1F3FB}';
   static const personWithSkullcapMediumLightSkinTone = '\u{1F472}\u{1F3FC}';
@@ -1265,17 +1683,27 @@ class Emojis {
   static const personInTuxedoMediumDarkSkinTone = '\u{1F935}\u{1F3FE}';
   static const personInTuxedoDarkSkinTone = '\u{1F935}\u{1F3FF}';
   static const manInTuxedo = '\u{1F935}\u{200D}\u{2642}\u{FE0F}';
-  static const manInTuxedoLightSkinTone = '\u{1F935}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manInTuxedoMediumLightSkinTone = '\u{1F935}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manInTuxedoMediumSkinTone = '\u{1F935}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manInTuxedoMediumDarkSkinTone = '\u{1F935}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manInTuxedoDarkSkinTone = '\u{1F935}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manInTuxedoLightSkinTone =
+      '\u{1F935}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manInTuxedoMediumLightSkinTone =
+      '\u{1F935}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manInTuxedoMediumSkinTone =
+      '\u{1F935}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manInTuxedoMediumDarkSkinTone =
+      '\u{1F935}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manInTuxedoDarkSkinTone =
+      '\u{1F935}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanInTuxedo = '\u{1F935}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInTuxedoLightSkinTone = '\u{1F935}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInTuxedoMediumLightSkinTone = '\u{1F935}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInTuxedoMediumSkinTone = '\u{1F935}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInTuxedoMediumDarkSkinTone = '\u{1F935}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInTuxedoDarkSkinTone = '\u{1F935}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInTuxedoLightSkinTone =
+      '\u{1F935}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInTuxedoMediumLightSkinTone =
+      '\u{1F935}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInTuxedoMediumSkinTone =
+      '\u{1F935}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInTuxedoMediumDarkSkinTone =
+      '\u{1F935}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInTuxedoDarkSkinTone =
+      '\u{1F935}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personWithVeil = '\u{1F470}';
   static const personWithVeilLightSkinTone = '\u{1F470}\u{1F3FB}';
   static const personWithVeilMediumLightSkinTone = '\u{1F470}\u{1F3FC}';
@@ -1283,17 +1711,27 @@ class Emojis {
   static const personWithVeilMediumDarkSkinTone = '\u{1F470}\u{1F3FE}';
   static const personWithVeilDarkSkinTone = '\u{1F470}\u{1F3FF}';
   static const manWithVeil = '\u{1F470}\u{200D}\u{2642}\u{FE0F}';
-  static const manWithVeilLightSkinTone = '\u{1F470}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manWithVeilMediumLightSkinTone = '\u{1F470}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manWithVeilMediumSkinTone = '\u{1F470}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manWithVeilMediumDarkSkinTone = '\u{1F470}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manWithVeilDarkSkinTone = '\u{1F470}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manWithVeilLightSkinTone =
+      '\u{1F470}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manWithVeilMediumLightSkinTone =
+      '\u{1F470}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manWithVeilMediumSkinTone =
+      '\u{1F470}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manWithVeilMediumDarkSkinTone =
+      '\u{1F470}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manWithVeilDarkSkinTone =
+      '\u{1F470}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanWithVeil = '\u{1F470}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWithVeilLightSkinTone = '\u{1F470}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWithVeilMediumLightSkinTone = '\u{1F470}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWithVeilMediumSkinTone = '\u{1F470}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWithVeilMediumDarkSkinTone = '\u{1F470}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWithVeilDarkSkinTone = '\u{1F470}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWithVeilLightSkinTone =
+      '\u{1F470}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWithVeilMediumLightSkinTone =
+      '\u{1F470}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWithVeilMediumSkinTone =
+      '\u{1F470}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWithVeilMediumDarkSkinTone =
+      '\u{1F470}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWithVeilDarkSkinTone =
+      '\u{1F470}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const pregnantWoman = '\u{1F930}';
   static const pregnantWomanLightSkinTone = '\u{1F930}\u{1F3FB}';
   static const pregnantWomanMediumLightSkinTone = '\u{1F930}\u{1F3FC}';
@@ -1319,23 +1757,38 @@ class Emojis {
   static const breastFeedingMediumDarkSkinTone = '\u{1F931}\u{1F3FE}';
   static const breastFeedingDarkSkinTone = '\u{1F931}\u{1F3FF}';
   static const womanFeedingBaby = '\u{1F469}\u{200D}\u{1F37C}';
-  static const womanFeedingBabyLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F37C}';
-  static const womanFeedingBabyMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F37C}';
-  static const womanFeedingBabyMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F37C}';
-  static const womanFeedingBabyMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F37C}';
-  static const womanFeedingBabyDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F37C}';
+  static const womanFeedingBabyLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F37C}';
+  static const womanFeedingBabyMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F37C}';
+  static const womanFeedingBabyMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F37C}';
+  static const womanFeedingBabyMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F37C}';
+  static const womanFeedingBabyDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F37C}';
   static const manFeedingBaby = '\u{1F468}\u{200D}\u{1F37C}';
-  static const manFeedingBabyLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F37C}';
-  static const manFeedingBabyMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F37C}';
-  static const manFeedingBabyMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F37C}';
-  static const manFeedingBabyMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F37C}';
-  static const manFeedingBabyDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F37C}';
+  static const manFeedingBabyLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F37C}';
+  static const manFeedingBabyMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F37C}';
+  static const manFeedingBabyMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F37C}';
+  static const manFeedingBabyMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F37C}';
+  static const manFeedingBabyDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F37C}';
   static const personFeedingBaby = '\u{1F9D1}\u{200D}\u{1F37C}';
-  static const personFeedingBabyLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F37C}';
-  static const personFeedingBabyMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F37C}';
-  static const personFeedingBabyMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F37C}';
-  static const personFeedingBabyMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F37C}';
-  static const personFeedingBabyDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F37C}';
+  static const personFeedingBabyLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F37C}';
+  static const personFeedingBabyMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F37C}';
+  static const personFeedingBabyMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F37C}';
+  static const personFeedingBabyMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F37C}';
+  static const personFeedingBabyDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F37C}';
   static const babyAngel = '\u{1F47C}';
   static const babyAngelLightSkinTone = '\u{1F47C}\u{1F3FB}';
   static const babyAngelMediumLightSkinTone = '\u{1F47C}\u{1F3FC}';
@@ -1356,9 +1809,11 @@ class Emojis {
   static const mrsClausDarkSkinTone = '\u{1F936}\u{1F3FF}';
   static const mxClaus = '\u{1F9D1}\u{200D}\u{1F384}';
   static const mxClausLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F384}';
-  static const mxClausMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F384}';
+  static const mxClausMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F384}';
   static const mxClausMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F384}';
-  static const mxClausMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F384}';
+  static const mxClausMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F384}';
   static const mxClausDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F384}';
   static const superhero = '\u{1F9B8}';
   static const superheroLightSkinTone = '\u{1F9B8}\u{1F3FB}';
@@ -1367,17 +1822,27 @@ class Emojis {
   static const superheroMediumDarkSkinTone = '\u{1F9B8}\u{1F3FE}';
   static const superheroDarkSkinTone = '\u{1F9B8}\u{1F3FF}';
   static const manSuperhero = '\u{1F9B8}\u{200D}\u{2642}\u{FE0F}';
-  static const manSuperheroLightSkinTone = '\u{1F9B8}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manSuperheroMediumLightSkinTone = '\u{1F9B8}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manSuperheroMediumSkinTone = '\u{1F9B8}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manSuperheroMediumDarkSkinTone = '\u{1F9B8}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manSuperheroDarkSkinTone = '\u{1F9B8}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manSuperheroLightSkinTone =
+      '\u{1F9B8}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manSuperheroMediumLightSkinTone =
+      '\u{1F9B8}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manSuperheroMediumSkinTone =
+      '\u{1F9B8}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manSuperheroMediumDarkSkinTone =
+      '\u{1F9B8}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manSuperheroDarkSkinTone =
+      '\u{1F9B8}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanSuperhero = '\u{1F9B8}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSuperheroLightSkinTone = '\u{1F9B8}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSuperheroMediumLightSkinTone = '\u{1F9B8}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSuperheroMediumSkinTone = '\u{1F9B8}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSuperheroMediumDarkSkinTone = '\u{1F9B8}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSuperheroDarkSkinTone = '\u{1F9B8}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSuperheroLightSkinTone =
+      '\u{1F9B8}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSuperheroMediumLightSkinTone =
+      '\u{1F9B8}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSuperheroMediumSkinTone =
+      '\u{1F9B8}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSuperheroMediumDarkSkinTone =
+      '\u{1F9B8}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSuperheroDarkSkinTone =
+      '\u{1F9B8}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const supervillain = '\u{1F9B9}';
   static const supervillainLightSkinTone = '\u{1F9B9}\u{1F3FB}';
   static const supervillainMediumLightSkinTone = '\u{1F9B9}\u{1F3FC}';
@@ -1385,17 +1850,27 @@ class Emojis {
   static const supervillainMediumDarkSkinTone = '\u{1F9B9}\u{1F3FE}';
   static const supervillainDarkSkinTone = '\u{1F9B9}\u{1F3FF}';
   static const manSupervillain = '\u{1F9B9}\u{200D}\u{2642}\u{FE0F}';
-  static const manSupervillainLightSkinTone = '\u{1F9B9}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manSupervillainMediumLightSkinTone = '\u{1F9B9}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manSupervillainMediumSkinTone = '\u{1F9B9}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manSupervillainMediumDarkSkinTone = '\u{1F9B9}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manSupervillainDarkSkinTone = '\u{1F9B9}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manSupervillainLightSkinTone =
+      '\u{1F9B9}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manSupervillainMediumLightSkinTone =
+      '\u{1F9B9}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manSupervillainMediumSkinTone =
+      '\u{1F9B9}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manSupervillainMediumDarkSkinTone =
+      '\u{1F9B9}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manSupervillainDarkSkinTone =
+      '\u{1F9B9}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanSupervillain = '\u{1F9B9}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSupervillainLightSkinTone = '\u{1F9B9}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSupervillainMediumLightSkinTone = '\u{1F9B9}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSupervillainMediumSkinTone = '\u{1F9B9}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSupervillainMediumDarkSkinTone = '\u{1F9B9}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSupervillainDarkSkinTone = '\u{1F9B9}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSupervillainLightSkinTone =
+      '\u{1F9B9}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSupervillainMediumLightSkinTone =
+      '\u{1F9B9}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSupervillainMediumSkinTone =
+      '\u{1F9B9}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSupervillainMediumDarkSkinTone =
+      '\u{1F9B9}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSupervillainDarkSkinTone =
+      '\u{1F9B9}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const mage = '\u{1F9D9}';
   static const mageLightSkinTone = '\u{1F9D9}\u{1F3FB}';
   static const mageMediumLightSkinTone = '\u{1F9D9}\u{1F3FC}';
@@ -1403,17 +1878,27 @@ class Emojis {
   static const mageMediumDarkSkinTone = '\u{1F9D9}\u{1F3FE}';
   static const mageDarkSkinTone = '\u{1F9D9}\u{1F3FF}';
   static const manMage = '\u{1F9D9}\u{200D}\u{2642}\u{FE0F}';
-  static const manMageLightSkinTone = '\u{1F9D9}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manMageMediumLightSkinTone = '\u{1F9D9}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manMageMediumSkinTone = '\u{1F9D9}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manMageMediumDarkSkinTone = '\u{1F9D9}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manMageDarkSkinTone = '\u{1F9D9}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manMageLightSkinTone =
+      '\u{1F9D9}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manMageMediumLightSkinTone =
+      '\u{1F9D9}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manMageMediumSkinTone =
+      '\u{1F9D9}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manMageMediumDarkSkinTone =
+      '\u{1F9D9}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manMageDarkSkinTone =
+      '\u{1F9D9}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanMage = '\u{1F9D9}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMageLightSkinTone = '\u{1F9D9}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMageMediumLightSkinTone = '\u{1F9D9}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMageMediumSkinTone = '\u{1F9D9}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMageMediumDarkSkinTone = '\u{1F9D9}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMageDarkSkinTone = '\u{1F9D9}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMageLightSkinTone =
+      '\u{1F9D9}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMageMediumLightSkinTone =
+      '\u{1F9D9}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMageMediumSkinTone =
+      '\u{1F9D9}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMageMediumDarkSkinTone =
+      '\u{1F9D9}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMageDarkSkinTone =
+      '\u{1F9D9}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const fairy = '\u{1F9DA}';
   static const fairyLightSkinTone = '\u{1F9DA}\u{1F3FB}';
   static const fairyMediumLightSkinTone = '\u{1F9DA}\u{1F3FC}';
@@ -1421,17 +1906,27 @@ class Emojis {
   static const fairyMediumDarkSkinTone = '\u{1F9DA}\u{1F3FE}';
   static const fairyDarkSkinTone = '\u{1F9DA}\u{1F3FF}';
   static const manFairy = '\u{1F9DA}\u{200D}\u{2642}\u{FE0F}';
-  static const manFairyLightSkinTone = '\u{1F9DA}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manFairyMediumLightSkinTone = '\u{1F9DA}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manFairyMediumSkinTone = '\u{1F9DA}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manFairyMediumDarkSkinTone = '\u{1F9DA}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manFairyDarkSkinTone = '\u{1F9DA}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manFairyLightSkinTone =
+      '\u{1F9DA}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manFairyMediumLightSkinTone =
+      '\u{1F9DA}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manFairyMediumSkinTone =
+      '\u{1F9DA}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manFairyMediumDarkSkinTone =
+      '\u{1F9DA}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manFairyDarkSkinTone =
+      '\u{1F9DA}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanFairy = '\u{1F9DA}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFairyLightSkinTone = '\u{1F9DA}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFairyMediumLightSkinTone = '\u{1F9DA}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFairyMediumSkinTone = '\u{1F9DA}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFairyMediumDarkSkinTone = '\u{1F9DA}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanFairyDarkSkinTone = '\u{1F9DA}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFairyLightSkinTone =
+      '\u{1F9DA}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFairyMediumLightSkinTone =
+      '\u{1F9DA}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFairyMediumSkinTone =
+      '\u{1F9DA}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFairyMediumDarkSkinTone =
+      '\u{1F9DA}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanFairyDarkSkinTone =
+      '\u{1F9DA}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const vampire = '\u{1F9DB}';
   static const vampireLightSkinTone = '\u{1F9DB}\u{1F3FB}';
   static const vampireMediumLightSkinTone = '\u{1F9DB}\u{1F3FC}';
@@ -1439,17 +1934,27 @@ class Emojis {
   static const vampireMediumDarkSkinTone = '\u{1F9DB}\u{1F3FE}';
   static const vampireDarkSkinTone = '\u{1F9DB}\u{1F3FF}';
   static const manVampire = '\u{1F9DB}\u{200D}\u{2642}\u{FE0F}';
-  static const manVampireLightSkinTone = '\u{1F9DB}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manVampireMediumLightSkinTone = '\u{1F9DB}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manVampireMediumSkinTone = '\u{1F9DB}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manVampireMediumDarkSkinTone = '\u{1F9DB}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manVampireDarkSkinTone = '\u{1F9DB}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manVampireLightSkinTone =
+      '\u{1F9DB}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manVampireMediumLightSkinTone =
+      '\u{1F9DB}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manVampireMediumSkinTone =
+      '\u{1F9DB}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manVampireMediumDarkSkinTone =
+      '\u{1F9DB}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manVampireDarkSkinTone =
+      '\u{1F9DB}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanVampire = '\u{1F9DB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanVampireLightSkinTone = '\u{1F9DB}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanVampireMediumLightSkinTone = '\u{1F9DB}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanVampireMediumSkinTone = '\u{1F9DB}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanVampireMediumDarkSkinTone = '\u{1F9DB}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanVampireDarkSkinTone = '\u{1F9DB}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanVampireLightSkinTone =
+      '\u{1F9DB}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanVampireMediumLightSkinTone =
+      '\u{1F9DB}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanVampireMediumSkinTone =
+      '\u{1F9DB}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanVampireMediumDarkSkinTone =
+      '\u{1F9DB}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanVampireDarkSkinTone =
+      '\u{1F9DB}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const merperson = '\u{1F9DC}';
   static const merpersonLightSkinTone = '\u{1F9DC}\u{1F3FB}';
   static const merpersonMediumLightSkinTone = '\u{1F9DC}\u{1F3FC}';
@@ -1457,17 +1962,27 @@ class Emojis {
   static const merpersonMediumDarkSkinTone = '\u{1F9DC}\u{1F3FE}';
   static const merpersonDarkSkinTone = '\u{1F9DC}\u{1F3FF}';
   static const merman = '\u{1F9DC}\u{200D}\u{2642}\u{FE0F}';
-  static const mermanLightSkinTone = '\u{1F9DC}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const mermanMediumLightSkinTone = '\u{1F9DC}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const mermanMediumSkinTone = '\u{1F9DC}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const mermanMediumDarkSkinTone = '\u{1F9DC}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const mermanDarkSkinTone = '\u{1F9DC}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const mermanLightSkinTone =
+      '\u{1F9DC}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const mermanMediumLightSkinTone =
+      '\u{1F9DC}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const mermanMediumSkinTone =
+      '\u{1F9DC}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const mermanMediumDarkSkinTone =
+      '\u{1F9DC}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const mermanDarkSkinTone =
+      '\u{1F9DC}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const mermaid = '\u{1F9DC}\u{200D}\u{2640}\u{FE0F}';
-  static const mermaidLightSkinTone = '\u{1F9DC}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const mermaidMediumLightSkinTone = '\u{1F9DC}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const mermaidMediumSkinTone = '\u{1F9DC}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const mermaidMediumDarkSkinTone = '\u{1F9DC}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const mermaidDarkSkinTone = '\u{1F9DC}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const mermaidLightSkinTone =
+      '\u{1F9DC}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const mermaidMediumLightSkinTone =
+      '\u{1F9DC}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const mermaidMediumSkinTone =
+      '\u{1F9DC}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const mermaidMediumDarkSkinTone =
+      '\u{1F9DC}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const mermaidDarkSkinTone =
+      '\u{1F9DC}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const elf = '\u{1F9DD}';
   static const elfLightSkinTone = '\u{1F9DD}\u{1F3FB}';
   static const elfMediumLightSkinTone = '\u{1F9DD}\u{1F3FC}';
@@ -1475,17 +1990,27 @@ class Emojis {
   static const elfMediumDarkSkinTone = '\u{1F9DD}\u{1F3FE}';
   static const elfDarkSkinTone = '\u{1F9DD}\u{1F3FF}';
   static const manElf = '\u{1F9DD}\u{200D}\u{2642}\u{FE0F}';
-  static const manElfLightSkinTone = '\u{1F9DD}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manElfMediumLightSkinTone = '\u{1F9DD}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manElfMediumSkinTone = '\u{1F9DD}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manElfMediumDarkSkinTone = '\u{1F9DD}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manElfDarkSkinTone = '\u{1F9DD}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manElfLightSkinTone =
+      '\u{1F9DD}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manElfMediumLightSkinTone =
+      '\u{1F9DD}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manElfMediumSkinTone =
+      '\u{1F9DD}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manElfMediumDarkSkinTone =
+      '\u{1F9DD}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manElfDarkSkinTone =
+      '\u{1F9DD}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanElf = '\u{1F9DD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanElfLightSkinTone = '\u{1F9DD}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanElfMediumLightSkinTone = '\u{1F9DD}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanElfMediumSkinTone = '\u{1F9DD}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanElfMediumDarkSkinTone = '\u{1F9DD}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanElfDarkSkinTone = '\u{1F9DD}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanElfLightSkinTone =
+      '\u{1F9DD}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanElfMediumLightSkinTone =
+      '\u{1F9DD}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanElfMediumSkinTone =
+      '\u{1F9DD}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanElfMediumDarkSkinTone =
+      '\u{1F9DD}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanElfDarkSkinTone =
+      '\u{1F9DD}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const genie = '\u{1F9DE}';
   static const manGenie = '\u{1F9DE}\u{200D}\u{2642}\u{FE0F}';
   static const womanGenie = '\u{1F9DE}\u{200D}\u{2640}\u{FE0F}';
@@ -1501,17 +2026,27 @@ class Emojis {
   static const personGettingMassageMediumDarkSkinTone = '\u{1F486}\u{1F3FE}';
   static const personGettingMassageDarkSkinTone = '\u{1F486}\u{1F3FF}';
   static const manGettingMassage = '\u{1F486}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingMassageLightSkinTone = '\u{1F486}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingMassageMediumLightSkinTone = '\u{1F486}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingMassageMediumSkinTone = '\u{1F486}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingMassageMediumDarkSkinTone = '\u{1F486}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingMassageDarkSkinTone = '\u{1F486}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingMassageLightSkinTone =
+      '\u{1F486}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingMassageMediumLightSkinTone =
+      '\u{1F486}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingMassageMediumSkinTone =
+      '\u{1F486}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingMassageMediumDarkSkinTone =
+      '\u{1F486}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingMassageDarkSkinTone =
+      '\u{1F486}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanGettingMassage = '\u{1F486}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingMassageLightSkinTone = '\u{1F486}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingMassageMediumLightSkinTone = '\u{1F486}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingMassageMediumSkinTone = '\u{1F486}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingMassageMediumDarkSkinTone = '\u{1F486}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingMassageDarkSkinTone = '\u{1F486}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingMassageLightSkinTone =
+      '\u{1F486}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingMassageMediumLightSkinTone =
+      '\u{1F486}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingMassageMediumSkinTone =
+      '\u{1F486}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingMassageMediumDarkSkinTone =
+      '\u{1F486}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingMassageDarkSkinTone =
+      '\u{1F486}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personGettingHaircut = '\u{1F487}';
   static const personGettingHaircutLightSkinTone = '\u{1F487}\u{1F3FB}';
   static const personGettingHaircutMediumLightSkinTone = '\u{1F487}\u{1F3FC}';
@@ -1519,17 +2054,27 @@ class Emojis {
   static const personGettingHaircutMediumDarkSkinTone = '\u{1F487}\u{1F3FE}';
   static const personGettingHaircutDarkSkinTone = '\u{1F487}\u{1F3FF}';
   static const manGettingHaircut = '\u{1F487}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingHaircutLightSkinTone = '\u{1F487}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingHaircutMediumLightSkinTone = '\u{1F487}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingHaircutMediumSkinTone = '\u{1F487}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingHaircutMediumDarkSkinTone = '\u{1F487}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manGettingHaircutDarkSkinTone = '\u{1F487}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingHaircutLightSkinTone =
+      '\u{1F487}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingHaircutMediumLightSkinTone =
+      '\u{1F487}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingHaircutMediumSkinTone =
+      '\u{1F487}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingHaircutMediumDarkSkinTone =
+      '\u{1F487}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manGettingHaircutDarkSkinTone =
+      '\u{1F487}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanGettingHaircut = '\u{1F487}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingHaircutLightSkinTone = '\u{1F487}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingHaircutMediumLightSkinTone = '\u{1F487}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingHaircutMediumSkinTone = '\u{1F487}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingHaircutMediumDarkSkinTone = '\u{1F487}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGettingHaircutDarkSkinTone = '\u{1F487}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingHaircutLightSkinTone =
+      '\u{1F487}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingHaircutMediumLightSkinTone =
+      '\u{1F487}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingHaircutMediumSkinTone =
+      '\u{1F487}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingHaircutMediumDarkSkinTone =
+      '\u{1F487}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGettingHaircutDarkSkinTone =
+      '\u{1F487}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personWalking = '\u{1F6B6}';
   static const personWalkingLightSkinTone = '\u{1F6B6}\u{1F3FB}';
   static const personWalkingMediumLightSkinTone = '\u{1F6B6}\u{1F3FC}';
@@ -1537,35 +2082,62 @@ class Emojis {
   static const personWalkingMediumDarkSkinTone = '\u{1F6B6}\u{1F3FE}';
   static const personWalkingDarkSkinTone = '\u{1F6B6}\u{1F3FF}';
   static const manWalking = '\u{1F6B6}\u{200D}\u{2642}\u{FE0F}';
-  static const manWalkingLightSkinTone = '\u{1F6B6}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manWalkingMediumLightSkinTone = '\u{1F6B6}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manWalkingMediumSkinTone = '\u{1F6B6}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manWalkingMediumDarkSkinTone = '\u{1F6B6}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manWalkingDarkSkinTone = '\u{1F6B6}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manWalkingLightSkinTone =
+      '\u{1F6B6}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manWalkingMediumLightSkinTone =
+      '\u{1F6B6}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manWalkingMediumSkinTone =
+      '\u{1F6B6}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manWalkingMediumDarkSkinTone =
+      '\u{1F6B6}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manWalkingDarkSkinTone =
+      '\u{1F6B6}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanWalking = '\u{1F6B6}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWalkingLightSkinTone = '\u{1F6B6}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWalkingMediumLightSkinTone = '\u{1F6B6}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWalkingMediumSkinTone = '\u{1F6B6}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWalkingMediumDarkSkinTone = '\u{1F6B6}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanWalkingDarkSkinTone = '\u{1F6B6}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWalkingLightSkinTone =
+      '\u{1F6B6}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWalkingMediumLightSkinTone =
+      '\u{1F6B6}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWalkingMediumSkinTone =
+      '\u{1F6B6}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWalkingMediumDarkSkinTone =
+      '\u{1F6B6}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanWalkingDarkSkinTone =
+      '\u{1F6B6}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personWalkingFacingRight = '\u{1F6B6}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWalkingFacingRightLightSkinTone = '\u{1F6B6}\u{1F3FB}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWalkingFacingRightMediumLightSkinTone = '\u{1F6B6}\u{1F3FC}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWalkingFacingRightMediumSkinTone = '\u{1F6B6}\u{1F3FD}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWalkingFacingRightMediumDarkSkinTone = '\u{1F6B6}\u{1F3FE}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWalkingFacingRightDarkSkinTone = '\u{1F6B6}\u{1F3FF}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWalkingFacingRight = '\u{1F6B6}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWalkingFacingRightLightSkinTone = '\u{1F6B6}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWalkingFacingRightMediumLightSkinTone = '\u{1F6B6}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWalkingFacingRightMediumSkinTone = '\u{1F6B6}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWalkingFacingRightMediumDarkSkinTone = '\u{1F6B6}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWalkingFacingRightDarkSkinTone = '\u{1F6B6}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWalkingFacingRight = '\u{1F6B6}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWalkingFacingRightLightSkinTone = '\u{1F6B6}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWalkingFacingRightMediumLightSkinTone = '\u{1F6B6}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWalkingFacingRightMediumSkinTone = '\u{1F6B6}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWalkingFacingRightMediumDarkSkinTone = '\u{1F6B6}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWalkingFacingRightDarkSkinTone = '\u{1F6B6}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWalkingFacingRightLightSkinTone =
+      '\u{1F6B6}\u{1F3FB}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWalkingFacingRightMediumLightSkinTone =
+      '\u{1F6B6}\u{1F3FC}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWalkingFacingRightMediumSkinTone =
+      '\u{1F6B6}\u{1F3FD}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWalkingFacingRightMediumDarkSkinTone =
+      '\u{1F6B6}\u{1F3FE}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWalkingFacingRightDarkSkinTone =
+      '\u{1F6B6}\u{1F3FF}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWalkingFacingRight =
+      '\u{1F6B6}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWalkingFacingRightLightSkinTone =
+      '\u{1F6B6}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWalkingFacingRightMediumLightSkinTone =
+      '\u{1F6B6}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWalkingFacingRightMediumSkinTone =
+      '\u{1F6B6}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWalkingFacingRightMediumDarkSkinTone =
+      '\u{1F6B6}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWalkingFacingRightDarkSkinTone =
+      '\u{1F6B6}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWalkingFacingRight =
+      '\u{1F6B6}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWalkingFacingRightLightSkinTone =
+      '\u{1F6B6}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWalkingFacingRightMediumLightSkinTone =
+      '\u{1F6B6}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWalkingFacingRightMediumSkinTone =
+      '\u{1F6B6}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWalkingFacingRightMediumDarkSkinTone =
+      '\u{1F6B6}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWalkingFacingRightDarkSkinTone =
+      '\u{1F6B6}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
   static const personStanding = '\u{1F9CD}';
   static const personStandingLightSkinTone = '\u{1F9CD}\u{1F3FB}';
   static const personStandingMediumLightSkinTone = '\u{1F9CD}\u{1F3FC}';
@@ -1573,17 +2145,27 @@ class Emojis {
   static const personStandingMediumDarkSkinTone = '\u{1F9CD}\u{1F3FE}';
   static const personStandingDarkSkinTone = '\u{1F9CD}\u{1F3FF}';
   static const manStanding = '\u{1F9CD}\u{200D}\u{2642}\u{FE0F}';
-  static const manStandingLightSkinTone = '\u{1F9CD}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manStandingMediumLightSkinTone = '\u{1F9CD}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manStandingMediumSkinTone = '\u{1F9CD}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manStandingMediumDarkSkinTone = '\u{1F9CD}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manStandingDarkSkinTone = '\u{1F9CD}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manStandingLightSkinTone =
+      '\u{1F9CD}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manStandingMediumLightSkinTone =
+      '\u{1F9CD}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manStandingMediumSkinTone =
+      '\u{1F9CD}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manStandingMediumDarkSkinTone =
+      '\u{1F9CD}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manStandingDarkSkinTone =
+      '\u{1F9CD}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanStanding = '\u{1F9CD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanStandingLightSkinTone = '\u{1F9CD}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanStandingMediumLightSkinTone = '\u{1F9CD}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanStandingMediumSkinTone = '\u{1F9CD}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanStandingMediumDarkSkinTone = '\u{1F9CD}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanStandingDarkSkinTone = '\u{1F9CD}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanStandingLightSkinTone =
+      '\u{1F9CD}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanStandingMediumLightSkinTone =
+      '\u{1F9CD}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanStandingMediumSkinTone =
+      '\u{1F9CD}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanStandingMediumDarkSkinTone =
+      '\u{1F9CD}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanStandingDarkSkinTone =
+      '\u{1F9CD}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personKneeling = '\u{1F9CE}';
   static const personKneelingLightSkinTone = '\u{1F9CE}\u{1F3FB}';
   static const personKneelingMediumLightSkinTone = '\u{1F9CE}\u{1F3FC}';
@@ -1591,143 +2173,269 @@ class Emojis {
   static const personKneelingMediumDarkSkinTone = '\u{1F9CE}\u{1F3FE}';
   static const personKneelingDarkSkinTone = '\u{1F9CE}\u{1F3FF}';
   static const manKneeling = '\u{1F9CE}\u{200D}\u{2642}\u{FE0F}';
-  static const manKneelingLightSkinTone = '\u{1F9CE}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manKneelingMediumLightSkinTone = '\u{1F9CE}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manKneelingMediumSkinTone = '\u{1F9CE}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manKneelingMediumDarkSkinTone = '\u{1F9CE}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manKneelingDarkSkinTone = '\u{1F9CE}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manKneelingLightSkinTone =
+      '\u{1F9CE}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manKneelingMediumLightSkinTone =
+      '\u{1F9CE}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manKneelingMediumSkinTone =
+      '\u{1F9CE}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manKneelingMediumDarkSkinTone =
+      '\u{1F9CE}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manKneelingDarkSkinTone =
+      '\u{1F9CE}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanKneeling = '\u{1F9CE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanKneelingLightSkinTone = '\u{1F9CE}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanKneelingMediumLightSkinTone = '\u{1F9CE}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanKneelingMediumSkinTone = '\u{1F9CE}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanKneelingMediumDarkSkinTone = '\u{1F9CE}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanKneelingDarkSkinTone = '\u{1F9CE}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanKneelingLightSkinTone =
+      '\u{1F9CE}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanKneelingMediumLightSkinTone =
+      '\u{1F9CE}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanKneelingMediumSkinTone =
+      '\u{1F9CE}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanKneelingMediumDarkSkinTone =
+      '\u{1F9CE}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanKneelingDarkSkinTone =
+      '\u{1F9CE}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personKneelingFacingRight = '\u{1F9CE}\u{200D}\u{27A1}\u{FE0F}';
-  static const personKneelingFacingRightLightSkinTone = '\u{1F9CE}\u{1F3FB}\u{200D}\u{27A1}\u{FE0F}';
-  static const personKneelingFacingRightMediumLightSkinTone = '\u{1F9CE}\u{1F3FC}\u{200D}\u{27A1}\u{FE0F}';
-  static const personKneelingFacingRightMediumSkinTone = '\u{1F9CE}\u{1F3FD}\u{200D}\u{27A1}\u{FE0F}';
-  static const personKneelingFacingRightMediumDarkSkinTone = '\u{1F9CE}\u{1F3FE}\u{200D}\u{27A1}\u{FE0F}';
-  static const personKneelingFacingRightDarkSkinTone = '\u{1F9CE}\u{1F3FF}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanKneelingFacingRight = '\u{1F9CE}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanKneelingFacingRightLightSkinTone = '\u{1F9CE}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanKneelingFacingRightMediumLightSkinTone = '\u{1F9CE}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanKneelingFacingRightMediumSkinTone = '\u{1F9CE}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanKneelingFacingRightMediumDarkSkinTone = '\u{1F9CE}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanKneelingFacingRightDarkSkinTone = '\u{1F9CE}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manKneelingFacingRight = '\u{1F9CE}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manKneelingFacingRightLightSkinTone = '\u{1F9CE}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manKneelingFacingRightMediumLightSkinTone = '\u{1F9CE}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manKneelingFacingRightMediumSkinTone = '\u{1F9CE}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manKneelingFacingRightMediumDarkSkinTone = '\u{1F9CE}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manKneelingFacingRightDarkSkinTone = '\u{1F9CE}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const personKneelingFacingRightLightSkinTone =
+      '\u{1F9CE}\u{1F3FB}\u{200D}\u{27A1}\u{FE0F}';
+  static const personKneelingFacingRightMediumLightSkinTone =
+      '\u{1F9CE}\u{1F3FC}\u{200D}\u{27A1}\u{FE0F}';
+  static const personKneelingFacingRightMediumSkinTone =
+      '\u{1F9CE}\u{1F3FD}\u{200D}\u{27A1}\u{FE0F}';
+  static const personKneelingFacingRightMediumDarkSkinTone =
+      '\u{1F9CE}\u{1F3FE}\u{200D}\u{27A1}\u{FE0F}';
+  static const personKneelingFacingRightDarkSkinTone =
+      '\u{1F9CE}\u{1F3FF}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanKneelingFacingRight =
+      '\u{1F9CE}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanKneelingFacingRightLightSkinTone =
+      '\u{1F9CE}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanKneelingFacingRightMediumLightSkinTone =
+      '\u{1F9CE}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanKneelingFacingRightMediumSkinTone =
+      '\u{1F9CE}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanKneelingFacingRightMediumDarkSkinTone =
+      '\u{1F9CE}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanKneelingFacingRightDarkSkinTone =
+      '\u{1F9CE}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manKneelingFacingRight =
+      '\u{1F9CE}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manKneelingFacingRightLightSkinTone =
+      '\u{1F9CE}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manKneelingFacingRightMediumLightSkinTone =
+      '\u{1F9CE}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manKneelingFacingRightMediumSkinTone =
+      '\u{1F9CE}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manKneelingFacingRightMediumDarkSkinTone =
+      '\u{1F9CE}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manKneelingFacingRightDarkSkinTone =
+      '\u{1F9CE}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
   static const personWithWhiteCane = '\u{1F9D1}\u{200D}\u{1F9AF}';
-  static const personWithWhiteCaneLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9AF}';
-  static const personWithWhiteCaneMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9AF}';
-  static const personWithWhiteCaneMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9AF}';
-  static const personWithWhiteCaneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9AF}';
-  static const personWithWhiteCaneDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9AF}';
-  static const personWithWhiteCaneFacingRight = '\u{1F9D1}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWithWhiteCaneFacingRightLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWithWhiteCaneFacingRightMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWithWhiteCaneFacingRightMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWithWhiteCaneFacingRightMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const personWithWhiteCaneFacingRightDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWithWhiteCaneLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9AF}';
+  static const personWithWhiteCaneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9AF}';
+  static const personWithWhiteCaneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9AF}';
+  static const personWithWhiteCaneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9AF}';
+  static const personWithWhiteCaneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9AF}';
+  static const personWithWhiteCaneFacingRight =
+      '\u{1F9D1}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWithWhiteCaneFacingRightLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWithWhiteCaneFacingRightMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWithWhiteCaneFacingRightMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWithWhiteCaneFacingRightMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const personWithWhiteCaneFacingRightDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
   static const manWithWhiteCane = '\u{1F468}\u{200D}\u{1F9AF}';
-  static const manWithWhiteCaneLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9AF}';
-  static const manWithWhiteCaneMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9AF}';
-  static const manWithWhiteCaneMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9AF}';
-  static const manWithWhiteCaneMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9AF}';
-  static const manWithWhiteCaneDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9AF}';
-  static const manWithWhiteCaneFacingRight = '\u{1F468}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWithWhiteCaneFacingRightLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWithWhiteCaneFacingRightMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWithWhiteCaneFacingRightMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWithWhiteCaneFacingRightMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const manWithWhiteCaneFacingRightDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWithWhiteCaneLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F9AF}';
+  static const manWithWhiteCaneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9AF}';
+  static const manWithWhiteCaneMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F9AF}';
+  static const manWithWhiteCaneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9AF}';
+  static const manWithWhiteCaneDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F9AF}';
+  static const manWithWhiteCaneFacingRight =
+      '\u{1F468}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWithWhiteCaneFacingRightLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWithWhiteCaneFacingRightMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWithWhiteCaneFacingRightMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWithWhiteCaneFacingRightMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const manWithWhiteCaneFacingRightDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
   static const womanWithWhiteCane = '\u{1F469}\u{200D}\u{1F9AF}';
-  static const womanWithWhiteCaneLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9AF}';
-  static const womanWithWhiteCaneMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9AF}';
-  static const womanWithWhiteCaneMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9AF}';
-  static const womanWithWhiteCaneMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9AF}';
-  static const womanWithWhiteCaneDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9AF}';
-  static const womanWithWhiteCaneFacingRight = '\u{1F469}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWithWhiteCaneFacingRightLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWithWhiteCaneFacingRightMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWithWhiteCaneFacingRightMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWithWhiteCaneFacingRightMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanWithWhiteCaneFacingRightDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWithWhiteCaneLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F9AF}';
+  static const womanWithWhiteCaneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9AF}';
+  static const womanWithWhiteCaneMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F9AF}';
+  static const womanWithWhiteCaneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9AF}';
+  static const womanWithWhiteCaneDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F9AF}';
+  static const womanWithWhiteCaneFacingRight =
+      '\u{1F469}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWithWhiteCaneFacingRightLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWithWhiteCaneFacingRightMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWithWhiteCaneFacingRightMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWithWhiteCaneFacingRightMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanWithWhiteCaneFacingRightDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F9AF}\u{200D}\u{27A1}\u{FE0F}';
   static const personInMotorizedWheelchair = '\u{1F9D1}\u{200D}\u{1F9BC}';
-  static const personInMotorizedWheelchairLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9BC}';
-  static const personInMotorizedWheelchairMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9BC}';
-  static const personInMotorizedWheelchairMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9BC}';
-  static const personInMotorizedWheelchairMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9BC}';
-  static const personInMotorizedWheelchairDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9BC}';
-  static const personInMotorizedWheelchairFacingRight = '\u{1F9D1}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInMotorizedWheelchairFacingRightLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInMotorizedWheelchairFacingRightMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInMotorizedWheelchairFacingRightMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInMotorizedWheelchairFacingRightMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInMotorizedWheelchairFacingRightDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInMotorizedWheelchairLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9BC}';
+  static const personInMotorizedWheelchairMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9BC}';
+  static const personInMotorizedWheelchairMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9BC}';
+  static const personInMotorizedWheelchairMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9BC}';
+  static const personInMotorizedWheelchairDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9BC}';
+  static const personInMotorizedWheelchairFacingRight =
+      '\u{1F9D1}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInMotorizedWheelchairFacingRightLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInMotorizedWheelchairFacingRightMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInMotorizedWheelchairFacingRightMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInMotorizedWheelchairFacingRightMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInMotorizedWheelchairFacingRightDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
   static const manInMotorizedWheelchair = '\u{1F468}\u{200D}\u{1F9BC}';
-  static const manInMotorizedWheelchairLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9BC}';
-  static const manInMotorizedWheelchairMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9BC}';
-  static const manInMotorizedWheelchairMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9BC}';
-  static const manInMotorizedWheelchairMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9BC}';
-  static const manInMotorizedWheelchairDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9BC}';
-  static const manInMotorizedWheelchairFacingRight = '\u{1F468}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInMotorizedWheelchairFacingRightLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInMotorizedWheelchairFacingRightMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInMotorizedWheelchairFacingRightMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInMotorizedWheelchairFacingRightMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInMotorizedWheelchairFacingRightDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInMotorizedWheelchairLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F9BC}';
+  static const manInMotorizedWheelchairMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9BC}';
+  static const manInMotorizedWheelchairMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F9BC}';
+  static const manInMotorizedWheelchairMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9BC}';
+  static const manInMotorizedWheelchairDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F9BC}';
+  static const manInMotorizedWheelchairFacingRight =
+      '\u{1F468}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInMotorizedWheelchairFacingRightLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInMotorizedWheelchairFacingRightMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInMotorizedWheelchairFacingRightMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInMotorizedWheelchairFacingRightMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInMotorizedWheelchairFacingRightDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
   static const womanInMotorizedWheelchair = '\u{1F469}\u{200D}\u{1F9BC}';
-  static const womanInMotorizedWheelchairLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9BC}';
-  static const womanInMotorizedWheelchairMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9BC}';
-  static const womanInMotorizedWheelchairMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9BC}';
-  static const womanInMotorizedWheelchairMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9BC}';
-  static const womanInMotorizedWheelchairDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9BC}';
-  static const womanInMotorizedWheelchairFacingRight = '\u{1F469}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInMotorizedWheelchairFacingRightLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInMotorizedWheelchairFacingRightMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInMotorizedWheelchairFacingRightMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInMotorizedWheelchairFacingRightMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInMotorizedWheelchairFacingRightDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInMotorizedWheelchairLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F9BC}';
+  static const womanInMotorizedWheelchairMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9BC}';
+  static const womanInMotorizedWheelchairMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F9BC}';
+  static const womanInMotorizedWheelchairMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9BC}';
+  static const womanInMotorizedWheelchairDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F9BC}';
+  static const womanInMotorizedWheelchairFacingRight =
+      '\u{1F469}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInMotorizedWheelchairFacingRightLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInMotorizedWheelchairFacingRightMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInMotorizedWheelchairFacingRightMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInMotorizedWheelchairFacingRightMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInMotorizedWheelchairFacingRightDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F9BC}\u{200D}\u{27A1}\u{FE0F}';
   static const personInManualWheelchair = '\u{1F9D1}\u{200D}\u{1F9BD}';
-  static const personInManualWheelchairLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9BD}';
-  static const personInManualWheelchairMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9BD}';
-  static const personInManualWheelchairMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9BD}';
-  static const personInManualWheelchairMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9BD}';
-  static const personInManualWheelchairDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9BD}';
-  static const personInManualWheelchairFacingRight = '\u{1F9D1}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInManualWheelchairFacingRightLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInManualWheelchairFacingRightMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInManualWheelchairFacingRightMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInManualWheelchairFacingRightMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const personInManualWheelchairFacingRightDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInManualWheelchairLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9BD}';
+  static const personInManualWheelchairMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9BD}';
+  static const personInManualWheelchairMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9BD}';
+  static const personInManualWheelchairMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9BD}';
+  static const personInManualWheelchairDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9BD}';
+  static const personInManualWheelchairFacingRight =
+      '\u{1F9D1}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInManualWheelchairFacingRightLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInManualWheelchairFacingRightMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInManualWheelchairFacingRightMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInManualWheelchairFacingRightMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const personInManualWheelchairFacingRightDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
   static const manInManualWheelchair = '\u{1F468}\u{200D}\u{1F9BD}';
-  static const manInManualWheelchairLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9BD}';
-  static const manInManualWheelchairMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9BD}';
-  static const manInManualWheelchairMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9BD}';
-  static const manInManualWheelchairMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9BD}';
-  static const manInManualWheelchairDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9BD}';
-  static const manInManualWheelchairFacingRight = '\u{1F468}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInManualWheelchairFacingRightLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInManualWheelchairFacingRightMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInManualWheelchairFacingRightMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInManualWheelchairFacingRightMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const manInManualWheelchairFacingRightDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInManualWheelchairLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F9BD}';
+  static const manInManualWheelchairMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9BD}';
+  static const manInManualWheelchairMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F9BD}';
+  static const manInManualWheelchairMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9BD}';
+  static const manInManualWheelchairDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F9BD}';
+  static const manInManualWheelchairFacingRight =
+      '\u{1F468}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInManualWheelchairFacingRightLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInManualWheelchairFacingRightMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInManualWheelchairFacingRightMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInManualWheelchairFacingRightMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const manInManualWheelchairFacingRightDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
   static const womanInManualWheelchair = '\u{1F469}\u{200D}\u{1F9BD}';
-  static const womanInManualWheelchairLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9BD}';
-  static const womanInManualWheelchairMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9BD}';
-  static const womanInManualWheelchairMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9BD}';
-  static const womanInManualWheelchairMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9BD}';
-  static const womanInManualWheelchairDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9BD}';
-  static const womanInManualWheelchairFacingRight = '\u{1F469}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInManualWheelchairFacingRightLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInManualWheelchairFacingRightMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInManualWheelchairFacingRightMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInManualWheelchairFacingRightMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanInManualWheelchairFacingRightDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInManualWheelchairLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F9BD}';
+  static const womanInManualWheelchairMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9BD}';
+  static const womanInManualWheelchairMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F9BD}';
+  static const womanInManualWheelchairMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9BD}';
+  static const womanInManualWheelchairDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F9BD}';
+  static const womanInManualWheelchairFacingRight =
+      '\u{1F469}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInManualWheelchairFacingRightLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInManualWheelchairFacingRightMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInManualWheelchairFacingRightMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInManualWheelchairFacingRightMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanInManualWheelchairFacingRightDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F9BD}\u{200D}\u{27A1}\u{FE0F}';
   static const personRunning = '\u{1F3C3}';
   static const personRunningLightSkinTone = '\u{1F3C3}\u{1F3FB}';
   static const personRunningMediumLightSkinTone = '\u{1F3C3}\u{1F3FC}';
@@ -1735,40 +2443,71 @@ class Emojis {
   static const personRunningMediumDarkSkinTone = '\u{1F3C3}\u{1F3FE}';
   static const personRunningDarkSkinTone = '\u{1F3C3}\u{1F3FF}';
   static const manRunning = '\u{1F3C3}\u{200D}\u{2642}\u{FE0F}';
-  static const manRunningLightSkinTone = '\u{1F3C3}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manRunningMediumLightSkinTone = '\u{1F3C3}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manRunningMediumSkinTone = '\u{1F3C3}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manRunningMediumDarkSkinTone = '\u{1F3C3}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manRunningDarkSkinTone = '\u{1F3C3}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manRunningLightSkinTone =
+      '\u{1F3C3}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manRunningMediumLightSkinTone =
+      '\u{1F3C3}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manRunningMediumSkinTone =
+      '\u{1F3C3}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manRunningMediumDarkSkinTone =
+      '\u{1F3C3}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manRunningDarkSkinTone =
+      '\u{1F3C3}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanRunning = '\u{1F3C3}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRunningLightSkinTone = '\u{1F3C3}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRunningMediumLightSkinTone = '\u{1F3C3}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRunningMediumSkinTone = '\u{1F3C3}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRunningMediumDarkSkinTone = '\u{1F3C3}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRunningDarkSkinTone = '\u{1F3C3}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRunningLightSkinTone =
+      '\u{1F3C3}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRunningMediumLightSkinTone =
+      '\u{1F3C3}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRunningMediumSkinTone =
+      '\u{1F3C3}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRunningMediumDarkSkinTone =
+      '\u{1F3C3}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRunningDarkSkinTone =
+      '\u{1F3C3}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personRunningFacingRight = '\u{1F3C3}\u{200D}\u{27A1}\u{FE0F}';
-  static const personRunningFacingRightLightSkinTone = '\u{1F3C3}\u{1F3FB}\u{200D}\u{27A1}\u{FE0F}';
-  static const personRunningFacingRightMediumLightSkinTone = '\u{1F3C3}\u{1F3FC}\u{200D}\u{27A1}\u{FE0F}';
-  static const personRunningFacingRightMediumSkinTone = '\u{1F3C3}\u{1F3FD}\u{200D}\u{27A1}\u{FE0F}';
-  static const personRunningFacingRightMediumDarkSkinTone = '\u{1F3C3}\u{1F3FE}\u{200D}\u{27A1}\u{FE0F}';
-  static const personRunningFacingRightDarkSkinTone = '\u{1F3C3}\u{1F3FF}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanRunningFacingRight = '\u{1F3C3}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanRunningFacingRightLightSkinTone = '\u{1F3C3}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanRunningFacingRightMediumLightSkinTone = '\u{1F3C3}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanRunningFacingRightMediumSkinTone = '\u{1F3C3}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanRunningFacingRightMediumDarkSkinTone = '\u{1F3C3}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const womanRunningFacingRightDarkSkinTone = '\u{1F3C3}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manRunningFacingRight = '\u{1F3C3}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manRunningFacingRightLightSkinTone = '\u{1F3C3}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manRunningFacingRightMediumLightSkinTone = '\u{1F3C3}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manRunningFacingRightMediumSkinTone = '\u{1F3C3}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manRunningFacingRightMediumDarkSkinTone = '\u{1F3C3}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
-  static const manRunningFacingRightDarkSkinTone = '\u{1F3C3}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const personRunningFacingRightLightSkinTone =
+      '\u{1F3C3}\u{1F3FB}\u{200D}\u{27A1}\u{FE0F}';
+  static const personRunningFacingRightMediumLightSkinTone =
+      '\u{1F3C3}\u{1F3FC}\u{200D}\u{27A1}\u{FE0F}';
+  static const personRunningFacingRightMediumSkinTone =
+      '\u{1F3C3}\u{1F3FD}\u{200D}\u{27A1}\u{FE0F}';
+  static const personRunningFacingRightMediumDarkSkinTone =
+      '\u{1F3C3}\u{1F3FE}\u{200D}\u{27A1}\u{FE0F}';
+  static const personRunningFacingRightDarkSkinTone =
+      '\u{1F3C3}\u{1F3FF}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanRunningFacingRight =
+      '\u{1F3C3}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanRunningFacingRightLightSkinTone =
+      '\u{1F3C3}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanRunningFacingRightMediumLightSkinTone =
+      '\u{1F3C3}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanRunningFacingRightMediumSkinTone =
+      '\u{1F3C3}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanRunningFacingRightMediumDarkSkinTone =
+      '\u{1F3C3}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const womanRunningFacingRightDarkSkinTone =
+      '\u{1F3C3}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manRunningFacingRight =
+      '\u{1F3C3}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manRunningFacingRightLightSkinTone =
+      '\u{1F3C3}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manRunningFacingRightMediumLightSkinTone =
+      '\u{1F3C3}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manRunningFacingRightMediumSkinTone =
+      '\u{1F3C3}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manRunningFacingRightMediumDarkSkinTone =
+      '\u{1F3C3}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
+  static const manRunningFacingRightDarkSkinTone =
+      '\u{1F3C3}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}\u{200D}\u{27A1}\u{FE0F}';
   static const balletDancer = '\u{1F9D1}\u{200D}\u{1FA70}';
-  static const balletDancerLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FA70}';
-  static const balletDancerMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FA70}';
-  static const balletDancerMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FA70}';
-  static const balletDancerMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FA70}';
+  static const balletDancerLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FA70}';
+  static const balletDancerMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FA70}';
+  static const balletDancerMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FA70}';
+  static const balletDancerMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FA70}';
   static const balletDancerDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1FA70}';
   static const womanDancing = '\u{1F483}';
   static const womanDancingLightSkinTone = '\u{1F483}\u{1F3FB}';
@@ -1795,77 +2534,147 @@ class Emojis {
   static const peopleWithBunnyEarsMediumDarkSkinTone = '\u{1F46F}\u{1F3FE}';
   static const peopleWithBunnyEarsDarkSkinTone = '\u{1F46F}\u{1F3FF}';
   static const menWithBunnyEars = '\u{1F46F}\u{200D}\u{2642}\u{FE0F}';
-  static const menWithBunnyEarsLightSkinTone = '\u{1F46F}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const menWithBunnyEarsMediumLightSkinTone = '\u{1F46F}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const menWithBunnyEarsMediumSkinTone = '\u{1F46F}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const menWithBunnyEarsMediumDarkSkinTone = '\u{1F46F}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const menWithBunnyEarsDarkSkinTone = '\u{1F46F}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const menWithBunnyEarsLightSkinTone =
+      '\u{1F46F}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const menWithBunnyEarsMediumLightSkinTone =
+      '\u{1F46F}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const menWithBunnyEarsMediumSkinTone =
+      '\u{1F46F}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const menWithBunnyEarsMediumDarkSkinTone =
+      '\u{1F46F}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const menWithBunnyEarsDarkSkinTone =
+      '\u{1F46F}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womenWithBunnyEars = '\u{1F46F}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWithBunnyEarsLightSkinTone = '\u{1F46F}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWithBunnyEarsMediumLightSkinTone = '\u{1F46F}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWithBunnyEarsMediumSkinTone = '\u{1F46F}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWithBunnyEarsMediumDarkSkinTone = '\u{1F46F}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWithBunnyEarsDarkSkinTone = '\u{1F46F}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
-  static const peopleWithBunnyEarsLightSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleWithBunnyEarsLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleWithBunnyEarsLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleWithBunnyEarsLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleWithBunnyEarsMediumLightSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleWithBunnyEarsMediumLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleWithBunnyEarsMediumLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleWithBunnyEarsMediumLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleWithBunnyEarsMediumSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleWithBunnyEarsMediumSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleWithBunnyEarsMediumSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleWithBunnyEarsMediumSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleWithBunnyEarsMediumDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleWithBunnyEarsMediumDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleWithBunnyEarsMediumDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleWithBunnyEarsMediumDarkSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleWithBunnyEarsDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleWithBunnyEarsDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleWithBunnyEarsDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleWithBunnyEarsDarkSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const menWithBunnyEarsLightSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menWithBunnyEarsLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menWithBunnyEarsLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FE}';
-  static const menWithBunnyEarsLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menWithBunnyEarsMediumLightSkinToneLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menWithBunnyEarsMediumLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menWithBunnyEarsMediumLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FE}';
-  static const menWithBunnyEarsMediumLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menWithBunnyEarsMediumSkinToneLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menWithBunnyEarsMediumSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menWithBunnyEarsMediumSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FE}';
-  static const menWithBunnyEarsMediumSkinToneDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menWithBunnyEarsMediumDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menWithBunnyEarsMediumDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menWithBunnyEarsMediumDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menWithBunnyEarsMediumDarkSkinToneDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menWithBunnyEarsDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menWithBunnyEarsDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menWithBunnyEarsDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menWithBunnyEarsDarkSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FE}';
-  static const womenWithBunnyEarsLightSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenWithBunnyEarsLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenWithBunnyEarsLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FE}';
-  static const womenWithBunnyEarsLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenWithBunnyEarsMediumLightSkinToneLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenWithBunnyEarsMediumLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenWithBunnyEarsMediumLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FE}';
-  static const womenWithBunnyEarsMediumLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenWithBunnyEarsMediumSkinToneLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenWithBunnyEarsMediumSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenWithBunnyEarsMediumSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FE}';
-  static const womenWithBunnyEarsMediumSkinToneDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenWithBunnyEarsMediumDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenWithBunnyEarsMediumDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenWithBunnyEarsMediumDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenWithBunnyEarsMediumDarkSkinToneDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenWithBunnyEarsDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenWithBunnyEarsDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenWithBunnyEarsDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenWithBunnyEarsDarkSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenWithBunnyEarsLightSkinTone =
+      '\u{1F46F}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womenWithBunnyEarsMediumLightSkinTone =
+      '\u{1F46F}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womenWithBunnyEarsMediumSkinTone =
+      '\u{1F46F}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womenWithBunnyEarsMediumDarkSkinTone =
+      '\u{1F46F}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womenWithBunnyEarsDarkSkinTone =
+      '\u{1F46F}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const peopleWithBunnyEarsLightSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleWithBunnyEarsLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleWithBunnyEarsLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleWithBunnyEarsLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleWithBunnyEarsMediumLightSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleWithBunnyEarsMediumLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleWithBunnyEarsMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleWithBunnyEarsMediumLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleWithBunnyEarsMediumSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleWithBunnyEarsMediumSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleWithBunnyEarsMediumSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleWithBunnyEarsMediumSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleWithBunnyEarsMediumDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleWithBunnyEarsMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleWithBunnyEarsMediumDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleWithBunnyEarsMediumDarkSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleWithBunnyEarsDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleWithBunnyEarsDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleWithBunnyEarsDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleWithBunnyEarsDarkSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const menWithBunnyEarsLightSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menWithBunnyEarsLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menWithBunnyEarsLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menWithBunnyEarsLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menWithBunnyEarsMediumLightSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menWithBunnyEarsMediumLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menWithBunnyEarsMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menWithBunnyEarsMediumLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menWithBunnyEarsMediumSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menWithBunnyEarsMediumSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menWithBunnyEarsMediumSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menWithBunnyEarsMediumSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menWithBunnyEarsMediumDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menWithBunnyEarsMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menWithBunnyEarsMediumDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menWithBunnyEarsMediumDarkSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menWithBunnyEarsDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menWithBunnyEarsDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menWithBunnyEarsDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menWithBunnyEarsDarkSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F468}\u{1F3FE}';
+  static const womenWithBunnyEarsLightSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenWithBunnyEarsLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenWithBunnyEarsLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenWithBunnyEarsLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenWithBunnyEarsMediumLightSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenWithBunnyEarsMediumLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenWithBunnyEarsMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenWithBunnyEarsMediumLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenWithBunnyEarsMediumSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenWithBunnyEarsMediumSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenWithBunnyEarsMediumSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenWithBunnyEarsMediumSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenWithBunnyEarsMediumDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenWithBunnyEarsMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenWithBunnyEarsMediumDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenWithBunnyEarsMediumDarkSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenWithBunnyEarsDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenWithBunnyEarsDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenWithBunnyEarsDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenWithBunnyEarsDarkSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F430}\u{200D}\u{1F469}\u{1F3FE}';
   static const personInSteamyRoom = '\u{1F9D6}';
   static const personInSteamyRoomLightSkinTone = '\u{1F9D6}\u{1F3FB}';
   static const personInSteamyRoomMediumLightSkinTone = '\u{1F9D6}\u{1F3FC}';
@@ -1873,17 +2682,27 @@ class Emojis {
   static const personInSteamyRoomMediumDarkSkinTone = '\u{1F9D6}\u{1F3FE}';
   static const personInSteamyRoomDarkSkinTone = '\u{1F9D6}\u{1F3FF}';
   static const manInSteamyRoom = '\u{1F9D6}\u{200D}\u{2642}\u{FE0F}';
-  static const manInSteamyRoomLightSkinTone = '\u{1F9D6}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manInSteamyRoomMediumLightSkinTone = '\u{1F9D6}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manInSteamyRoomMediumSkinTone = '\u{1F9D6}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manInSteamyRoomMediumDarkSkinTone = '\u{1F9D6}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manInSteamyRoomDarkSkinTone = '\u{1F9D6}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manInSteamyRoomLightSkinTone =
+      '\u{1F9D6}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manInSteamyRoomMediumLightSkinTone =
+      '\u{1F9D6}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manInSteamyRoomMediumSkinTone =
+      '\u{1F9D6}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manInSteamyRoomMediumDarkSkinTone =
+      '\u{1F9D6}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manInSteamyRoomDarkSkinTone =
+      '\u{1F9D6}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanInSteamyRoom = '\u{1F9D6}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInSteamyRoomLightSkinTone = '\u{1F9D6}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInSteamyRoomMediumLightSkinTone = '\u{1F9D6}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInSteamyRoomMediumSkinTone = '\u{1F9D6}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInSteamyRoomMediumDarkSkinTone = '\u{1F9D6}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInSteamyRoomDarkSkinTone = '\u{1F9D6}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInSteamyRoomLightSkinTone =
+      '\u{1F9D6}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInSteamyRoomMediumLightSkinTone =
+      '\u{1F9D6}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInSteamyRoomMediumSkinTone =
+      '\u{1F9D6}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInSteamyRoomMediumDarkSkinTone =
+      '\u{1F9D6}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInSteamyRoomDarkSkinTone =
+      '\u{1F9D6}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personClimbing = '\u{1F9D7}';
   static const personClimbingLightSkinTone = '\u{1F9D7}\u{1F3FB}';
   static const personClimbingMediumLightSkinTone = '\u{1F9D7}\u{1F3FC}';
@@ -1891,17 +2710,27 @@ class Emojis {
   static const personClimbingMediumDarkSkinTone = '\u{1F9D7}\u{1F3FE}';
   static const personClimbingDarkSkinTone = '\u{1F9D7}\u{1F3FF}';
   static const manClimbing = '\u{1F9D7}\u{200D}\u{2642}\u{FE0F}';
-  static const manClimbingLightSkinTone = '\u{1F9D7}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manClimbingMediumLightSkinTone = '\u{1F9D7}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manClimbingMediumSkinTone = '\u{1F9D7}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manClimbingMediumDarkSkinTone = '\u{1F9D7}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manClimbingDarkSkinTone = '\u{1F9D7}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manClimbingLightSkinTone =
+      '\u{1F9D7}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manClimbingMediumLightSkinTone =
+      '\u{1F9D7}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manClimbingMediumSkinTone =
+      '\u{1F9D7}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manClimbingMediumDarkSkinTone =
+      '\u{1F9D7}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manClimbingDarkSkinTone =
+      '\u{1F9D7}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanClimbing = '\u{1F9D7}\u{200D}\u{2640}\u{FE0F}';
-  static const womanClimbingLightSkinTone = '\u{1F9D7}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanClimbingMediumLightSkinTone = '\u{1F9D7}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanClimbingMediumSkinTone = '\u{1F9D7}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanClimbingMediumDarkSkinTone = '\u{1F9D7}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanClimbingDarkSkinTone = '\u{1F9D7}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanClimbingLightSkinTone =
+      '\u{1F9D7}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanClimbingMediumLightSkinTone =
+      '\u{1F9D7}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanClimbingMediumSkinTone =
+      '\u{1F9D7}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanClimbingMediumDarkSkinTone =
+      '\u{1F9D7}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanClimbingDarkSkinTone =
+      '\u{1F9D7}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personFencing = '\u{1F93A}';
   static const horseRacing = '\u{1F3C7}';
   static const horseRacingLightSkinTone = '\u{1F3C7}\u{1F3FB}';
@@ -1923,17 +2752,27 @@ class Emojis {
   static const personGolfingMediumDarkSkinTone = '\u{1F3CC}\u{1F3FE}';
   static const personGolfingDarkSkinTone = '\u{1F3CC}\u{1F3FF}';
   static const manGolfing = '\u{1F3CC}\u{FE0F}\u{200D}\u{2642}\u{FE0F}';
-  static const manGolfingLightSkinTone = '\u{1F3CC}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manGolfingMediumLightSkinTone = '\u{1F3CC}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manGolfingMediumSkinTone = '\u{1F3CC}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manGolfingMediumDarkSkinTone = '\u{1F3CC}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manGolfingDarkSkinTone = '\u{1F3CC}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manGolfingLightSkinTone =
+      '\u{1F3CC}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manGolfingMediumLightSkinTone =
+      '\u{1F3CC}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manGolfingMediumSkinTone =
+      '\u{1F3CC}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manGolfingMediumDarkSkinTone =
+      '\u{1F3CC}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manGolfingDarkSkinTone =
+      '\u{1F3CC}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanGolfing = '\u{1F3CC}\u{FE0F}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGolfingLightSkinTone = '\u{1F3CC}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGolfingMediumLightSkinTone = '\u{1F3CC}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGolfingMediumSkinTone = '\u{1F3CC}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGolfingMediumDarkSkinTone = '\u{1F3CC}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanGolfingDarkSkinTone = '\u{1F3CC}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGolfingLightSkinTone =
+      '\u{1F3CC}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGolfingMediumLightSkinTone =
+      '\u{1F3CC}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGolfingMediumSkinTone =
+      '\u{1F3CC}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGolfingMediumDarkSkinTone =
+      '\u{1F3CC}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanGolfingDarkSkinTone =
+      '\u{1F3CC}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personSurfing = '\u{1F3C4}';
   static const personSurfingLightSkinTone = '\u{1F3C4}\u{1F3FB}';
   static const personSurfingMediumLightSkinTone = '\u{1F3C4}\u{1F3FC}';
@@ -1941,17 +2780,27 @@ class Emojis {
   static const personSurfingMediumDarkSkinTone = '\u{1F3C4}\u{1F3FE}';
   static const personSurfingDarkSkinTone = '\u{1F3C4}\u{1F3FF}';
   static const manSurfing = '\u{1F3C4}\u{200D}\u{2642}\u{FE0F}';
-  static const manSurfingLightSkinTone = '\u{1F3C4}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manSurfingMediumLightSkinTone = '\u{1F3C4}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manSurfingMediumSkinTone = '\u{1F3C4}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manSurfingMediumDarkSkinTone = '\u{1F3C4}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manSurfingDarkSkinTone = '\u{1F3C4}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manSurfingLightSkinTone =
+      '\u{1F3C4}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manSurfingMediumLightSkinTone =
+      '\u{1F3C4}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manSurfingMediumSkinTone =
+      '\u{1F3C4}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manSurfingMediumDarkSkinTone =
+      '\u{1F3C4}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manSurfingDarkSkinTone =
+      '\u{1F3C4}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanSurfing = '\u{1F3C4}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSurfingLightSkinTone = '\u{1F3C4}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSurfingMediumLightSkinTone = '\u{1F3C4}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSurfingMediumSkinTone = '\u{1F3C4}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSurfingMediumDarkSkinTone = '\u{1F3C4}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSurfingDarkSkinTone = '\u{1F3C4}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSurfingLightSkinTone =
+      '\u{1F3C4}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSurfingMediumLightSkinTone =
+      '\u{1F3C4}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSurfingMediumSkinTone =
+      '\u{1F3C4}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSurfingMediumDarkSkinTone =
+      '\u{1F3C4}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSurfingDarkSkinTone =
+      '\u{1F3C4}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personRowingBoat = '\u{1F6A3}';
   static const personRowingBoatLightSkinTone = '\u{1F6A3}\u{1F3FB}';
   static const personRowingBoatMediumLightSkinTone = '\u{1F6A3}\u{1F3FC}';
@@ -1959,17 +2808,27 @@ class Emojis {
   static const personRowingBoatMediumDarkSkinTone = '\u{1F6A3}\u{1F3FE}';
   static const personRowingBoatDarkSkinTone = '\u{1F6A3}\u{1F3FF}';
   static const manRowingBoat = '\u{1F6A3}\u{200D}\u{2642}\u{FE0F}';
-  static const manRowingBoatLightSkinTone = '\u{1F6A3}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manRowingBoatMediumLightSkinTone = '\u{1F6A3}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manRowingBoatMediumSkinTone = '\u{1F6A3}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manRowingBoatMediumDarkSkinTone = '\u{1F6A3}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manRowingBoatDarkSkinTone = '\u{1F6A3}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manRowingBoatLightSkinTone =
+      '\u{1F6A3}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manRowingBoatMediumLightSkinTone =
+      '\u{1F6A3}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manRowingBoatMediumSkinTone =
+      '\u{1F6A3}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manRowingBoatMediumDarkSkinTone =
+      '\u{1F6A3}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manRowingBoatDarkSkinTone =
+      '\u{1F6A3}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanRowingBoat = '\u{1F6A3}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRowingBoatLightSkinTone = '\u{1F6A3}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRowingBoatMediumLightSkinTone = '\u{1F6A3}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRowingBoatMediumSkinTone = '\u{1F6A3}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRowingBoatMediumDarkSkinTone = '\u{1F6A3}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanRowingBoatDarkSkinTone = '\u{1F6A3}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRowingBoatLightSkinTone =
+      '\u{1F6A3}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRowingBoatMediumLightSkinTone =
+      '\u{1F6A3}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRowingBoatMediumSkinTone =
+      '\u{1F6A3}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRowingBoatMediumDarkSkinTone =
+      '\u{1F6A3}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanRowingBoatDarkSkinTone =
+      '\u{1F6A3}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personSwimming = '\u{1F3CA}';
   static const personSwimmingLightSkinTone = '\u{1F3CA}\u{1F3FB}';
   static const personSwimmingMediumLightSkinTone = '\u{1F3CA}\u{1F3FC}';
@@ -1977,17 +2836,27 @@ class Emojis {
   static const personSwimmingMediumDarkSkinTone = '\u{1F3CA}\u{1F3FE}';
   static const personSwimmingDarkSkinTone = '\u{1F3CA}\u{1F3FF}';
   static const manSwimming = '\u{1F3CA}\u{200D}\u{2642}\u{FE0F}';
-  static const manSwimmingLightSkinTone = '\u{1F3CA}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manSwimmingMediumLightSkinTone = '\u{1F3CA}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manSwimmingMediumSkinTone = '\u{1F3CA}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manSwimmingMediumDarkSkinTone = '\u{1F3CA}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manSwimmingDarkSkinTone = '\u{1F3CA}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manSwimmingLightSkinTone =
+      '\u{1F3CA}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manSwimmingMediumLightSkinTone =
+      '\u{1F3CA}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manSwimmingMediumSkinTone =
+      '\u{1F3CA}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manSwimmingMediumDarkSkinTone =
+      '\u{1F3CA}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manSwimmingDarkSkinTone =
+      '\u{1F3CA}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanSwimming = '\u{1F3CA}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSwimmingLightSkinTone = '\u{1F3CA}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSwimmingMediumLightSkinTone = '\u{1F3CA}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSwimmingMediumSkinTone = '\u{1F3CA}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSwimmingMediumDarkSkinTone = '\u{1F3CA}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanSwimmingDarkSkinTone = '\u{1F3CA}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSwimmingLightSkinTone =
+      '\u{1F3CA}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSwimmingMediumLightSkinTone =
+      '\u{1F3CA}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSwimmingMediumSkinTone =
+      '\u{1F3CA}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSwimmingMediumDarkSkinTone =
+      '\u{1F3CA}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanSwimmingDarkSkinTone =
+      '\u{1F3CA}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personBouncingBall = '\u{26F9}\u{FE0F}';
   static const personBouncingBallLightSkinTone = '\u{26F9}\u{1F3FB}';
   static const personBouncingBallMediumLightSkinTone = '\u{26F9}\u{1F3FC}';
@@ -1995,17 +2864,27 @@ class Emojis {
   static const personBouncingBallMediumDarkSkinTone = '\u{26F9}\u{1F3FE}';
   static const personBouncingBallDarkSkinTone = '\u{26F9}\u{1F3FF}';
   static const manBouncingBall = '\u{26F9}\u{FE0F}\u{200D}\u{2642}\u{FE0F}';
-  static const manBouncingBallLightSkinTone = '\u{26F9}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manBouncingBallMediumLightSkinTone = '\u{26F9}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manBouncingBallMediumSkinTone = '\u{26F9}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manBouncingBallMediumDarkSkinTone = '\u{26F9}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manBouncingBallDarkSkinTone = '\u{26F9}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manBouncingBallLightSkinTone =
+      '\u{26F9}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manBouncingBallMediumLightSkinTone =
+      '\u{26F9}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manBouncingBallMediumSkinTone =
+      '\u{26F9}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manBouncingBallMediumDarkSkinTone =
+      '\u{26F9}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manBouncingBallDarkSkinTone =
+      '\u{26F9}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanBouncingBall = '\u{26F9}\u{FE0F}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBouncingBallLightSkinTone = '\u{26F9}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBouncingBallMediumLightSkinTone = '\u{26F9}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBouncingBallMediumSkinTone = '\u{26F9}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBouncingBallMediumDarkSkinTone = '\u{26F9}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBouncingBallDarkSkinTone = '\u{26F9}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBouncingBallLightSkinTone =
+      '\u{26F9}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBouncingBallMediumLightSkinTone =
+      '\u{26F9}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBouncingBallMediumSkinTone =
+      '\u{26F9}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBouncingBallMediumDarkSkinTone =
+      '\u{26F9}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBouncingBallDarkSkinTone =
+      '\u{26F9}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personLiftingWeights = '\u{1F3CB}\u{FE0F}';
   static const personLiftingWeightsLightSkinTone = '\u{1F3CB}\u{1F3FB}';
   static const personLiftingWeightsMediumLightSkinTone = '\u{1F3CB}\u{1F3FC}';
@@ -2013,17 +2892,28 @@ class Emojis {
   static const personLiftingWeightsMediumDarkSkinTone = '\u{1F3CB}\u{1F3FE}';
   static const personLiftingWeightsDarkSkinTone = '\u{1F3CB}\u{1F3FF}';
   static const manLiftingWeights = '\u{1F3CB}\u{FE0F}\u{200D}\u{2642}\u{FE0F}';
-  static const manLiftingWeightsLightSkinTone = '\u{1F3CB}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manLiftingWeightsMediumLightSkinTone = '\u{1F3CB}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manLiftingWeightsMediumSkinTone = '\u{1F3CB}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manLiftingWeightsMediumDarkSkinTone = '\u{1F3CB}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manLiftingWeightsDarkSkinTone = '\u{1F3CB}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
-  static const womanLiftingWeights = '\u{1F3CB}\u{FE0F}\u{200D}\u{2640}\u{FE0F}';
-  static const womanLiftingWeightsLightSkinTone = '\u{1F3CB}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanLiftingWeightsMediumLightSkinTone = '\u{1F3CB}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanLiftingWeightsMediumSkinTone = '\u{1F3CB}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanLiftingWeightsMediumDarkSkinTone = '\u{1F3CB}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanLiftingWeightsDarkSkinTone = '\u{1F3CB}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const manLiftingWeightsLightSkinTone =
+      '\u{1F3CB}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manLiftingWeightsMediumLightSkinTone =
+      '\u{1F3CB}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manLiftingWeightsMediumSkinTone =
+      '\u{1F3CB}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manLiftingWeightsMediumDarkSkinTone =
+      '\u{1F3CB}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manLiftingWeightsDarkSkinTone =
+      '\u{1F3CB}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const womanLiftingWeights =
+      '\u{1F3CB}\u{FE0F}\u{200D}\u{2640}\u{FE0F}';
+  static const womanLiftingWeightsLightSkinTone =
+      '\u{1F3CB}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanLiftingWeightsMediumLightSkinTone =
+      '\u{1F3CB}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanLiftingWeightsMediumSkinTone =
+      '\u{1F3CB}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanLiftingWeightsMediumDarkSkinTone =
+      '\u{1F3CB}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanLiftingWeightsDarkSkinTone =
+      '\u{1F3CB}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personBiking = '\u{1F6B4}';
   static const personBikingLightSkinTone = '\u{1F6B4}\u{1F3FB}';
   static const personBikingMediumLightSkinTone = '\u{1F6B4}\u{1F3FC}';
@@ -2031,17 +2921,27 @@ class Emojis {
   static const personBikingMediumDarkSkinTone = '\u{1F6B4}\u{1F3FE}';
   static const personBikingDarkSkinTone = '\u{1F6B4}\u{1F3FF}';
   static const manBiking = '\u{1F6B4}\u{200D}\u{2642}\u{FE0F}';
-  static const manBikingLightSkinTone = '\u{1F6B4}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manBikingMediumLightSkinTone = '\u{1F6B4}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manBikingMediumSkinTone = '\u{1F6B4}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manBikingMediumDarkSkinTone = '\u{1F6B4}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manBikingDarkSkinTone = '\u{1F6B4}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manBikingLightSkinTone =
+      '\u{1F6B4}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manBikingMediumLightSkinTone =
+      '\u{1F6B4}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manBikingMediumSkinTone =
+      '\u{1F6B4}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manBikingMediumDarkSkinTone =
+      '\u{1F6B4}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manBikingDarkSkinTone =
+      '\u{1F6B4}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanBiking = '\u{1F6B4}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBikingLightSkinTone = '\u{1F6B4}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBikingMediumLightSkinTone = '\u{1F6B4}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBikingMediumSkinTone = '\u{1F6B4}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBikingMediumDarkSkinTone = '\u{1F6B4}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanBikingDarkSkinTone = '\u{1F6B4}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBikingLightSkinTone =
+      '\u{1F6B4}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBikingMediumLightSkinTone =
+      '\u{1F6B4}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBikingMediumSkinTone =
+      '\u{1F6B4}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBikingMediumDarkSkinTone =
+      '\u{1F6B4}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanBikingDarkSkinTone =
+      '\u{1F6B4}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personMountainBiking = '\u{1F6B5}';
   static const personMountainBikingLightSkinTone = '\u{1F6B5}\u{1F3FB}';
   static const personMountainBikingMediumLightSkinTone = '\u{1F6B5}\u{1F3FC}';
@@ -2049,17 +2949,27 @@ class Emojis {
   static const personMountainBikingMediumDarkSkinTone = '\u{1F6B5}\u{1F3FE}';
   static const personMountainBikingDarkSkinTone = '\u{1F6B5}\u{1F3FF}';
   static const manMountainBiking = '\u{1F6B5}\u{200D}\u{2642}\u{FE0F}';
-  static const manMountainBikingLightSkinTone = '\u{1F6B5}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manMountainBikingMediumLightSkinTone = '\u{1F6B5}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manMountainBikingMediumSkinTone = '\u{1F6B5}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manMountainBikingMediumDarkSkinTone = '\u{1F6B5}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manMountainBikingDarkSkinTone = '\u{1F6B5}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manMountainBikingLightSkinTone =
+      '\u{1F6B5}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manMountainBikingMediumLightSkinTone =
+      '\u{1F6B5}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manMountainBikingMediumSkinTone =
+      '\u{1F6B5}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manMountainBikingMediumDarkSkinTone =
+      '\u{1F6B5}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manMountainBikingDarkSkinTone =
+      '\u{1F6B5}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanMountainBiking = '\u{1F6B5}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMountainBikingLightSkinTone = '\u{1F6B5}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMountainBikingMediumLightSkinTone = '\u{1F6B5}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMountainBikingMediumSkinTone = '\u{1F6B5}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMountainBikingMediumDarkSkinTone = '\u{1F6B5}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanMountainBikingDarkSkinTone = '\u{1F6B5}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMountainBikingLightSkinTone =
+      '\u{1F6B5}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMountainBikingMediumLightSkinTone =
+      '\u{1F6B5}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMountainBikingMediumSkinTone =
+      '\u{1F6B5}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMountainBikingMediumDarkSkinTone =
+      '\u{1F6B5}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanMountainBikingDarkSkinTone =
+      '\u{1F6B5}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personCartwheeling = '\u{1F938}';
   static const personCartwheelingLightSkinTone = '\u{1F938}\u{1F3FB}';
   static const personCartwheelingMediumLightSkinTone = '\u{1F938}\u{1F3FC}';
@@ -2067,17 +2977,27 @@ class Emojis {
   static const personCartwheelingMediumDarkSkinTone = '\u{1F938}\u{1F3FE}';
   static const personCartwheelingDarkSkinTone = '\u{1F938}\u{1F3FF}';
   static const manCartwheeling = '\u{1F938}\u{200D}\u{2642}\u{FE0F}';
-  static const manCartwheelingLightSkinTone = '\u{1F938}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manCartwheelingMediumLightSkinTone = '\u{1F938}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manCartwheelingMediumSkinTone = '\u{1F938}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manCartwheelingMediumDarkSkinTone = '\u{1F938}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manCartwheelingDarkSkinTone = '\u{1F938}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manCartwheelingLightSkinTone =
+      '\u{1F938}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manCartwheelingMediumLightSkinTone =
+      '\u{1F938}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manCartwheelingMediumSkinTone =
+      '\u{1F938}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manCartwheelingMediumDarkSkinTone =
+      '\u{1F938}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manCartwheelingDarkSkinTone =
+      '\u{1F938}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanCartwheeling = '\u{1F938}\u{200D}\u{2640}\u{FE0F}';
-  static const womanCartwheelingLightSkinTone = '\u{1F938}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanCartwheelingMediumLightSkinTone = '\u{1F938}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanCartwheelingMediumSkinTone = '\u{1F938}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanCartwheelingMediumDarkSkinTone = '\u{1F938}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanCartwheelingDarkSkinTone = '\u{1F938}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanCartwheelingLightSkinTone =
+      '\u{1F938}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanCartwheelingMediumLightSkinTone =
+      '\u{1F938}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanCartwheelingMediumSkinTone =
+      '\u{1F938}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanCartwheelingMediumDarkSkinTone =
+      '\u{1F938}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanCartwheelingDarkSkinTone =
+      '\u{1F938}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const peopleWrestling = '\u{1F93C}';
   static const peopleWrestlingLightSkinTone = '\u{1F93C}\u{1F3FB}';
   static const peopleWrestlingMediumLightSkinTone = '\u{1F93C}\u{1F3FC}';
@@ -2085,77 +3005,147 @@ class Emojis {
   static const peopleWrestlingMediumDarkSkinTone = '\u{1F93C}\u{1F3FE}';
   static const peopleWrestlingDarkSkinTone = '\u{1F93C}\u{1F3FF}';
   static const menWrestling = '\u{1F93C}\u{200D}\u{2642}\u{FE0F}';
-  static const menWrestlingLightSkinTone = '\u{1F93C}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const menWrestlingMediumLightSkinTone = '\u{1F93C}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const menWrestlingMediumSkinTone = '\u{1F93C}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const menWrestlingMediumDarkSkinTone = '\u{1F93C}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const menWrestlingDarkSkinTone = '\u{1F93C}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const menWrestlingLightSkinTone =
+      '\u{1F93C}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const menWrestlingMediumLightSkinTone =
+      '\u{1F93C}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const menWrestlingMediumSkinTone =
+      '\u{1F93C}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const menWrestlingMediumDarkSkinTone =
+      '\u{1F93C}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const menWrestlingDarkSkinTone =
+      '\u{1F93C}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womenWrestling = '\u{1F93C}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWrestlingLightSkinTone = '\u{1F93C}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWrestlingMediumLightSkinTone = '\u{1F93C}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWrestlingMediumSkinTone = '\u{1F93C}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWrestlingMediumDarkSkinTone = '\u{1F93C}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womenWrestlingDarkSkinTone = '\u{1F93C}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
-  static const peopleWrestlingLightSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleWrestlingLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleWrestlingLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleWrestlingLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleWrestlingMediumLightSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleWrestlingMediumLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleWrestlingMediumLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleWrestlingMediumLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleWrestlingMediumSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleWrestlingMediumSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleWrestlingMediumSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleWrestlingMediumSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleWrestlingMediumDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleWrestlingMediumDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleWrestlingMediumDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleWrestlingMediumDarkSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleWrestlingDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleWrestlingDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleWrestlingDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleWrestlingDarkSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const menWrestlingLightSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menWrestlingLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menWrestlingLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FE}';
-  static const menWrestlingLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menWrestlingMediumLightSkinToneLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menWrestlingMediumLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menWrestlingMediumLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FE}';
-  static const menWrestlingMediumLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menWrestlingMediumSkinToneLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menWrestlingMediumSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menWrestlingMediumSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FE}';
-  static const menWrestlingMediumSkinToneDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menWrestlingMediumDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menWrestlingMediumDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menWrestlingMediumDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menWrestlingMediumDarkSkinToneDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menWrestlingDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menWrestlingDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menWrestlingDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menWrestlingDarkSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FE}';
-  static const womenWrestlingLightSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenWrestlingLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenWrestlingLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FE}';
-  static const womenWrestlingLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenWrestlingMediumLightSkinToneLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenWrestlingMediumLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenWrestlingMediumLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FE}';
-  static const womenWrestlingMediumLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenWrestlingMediumSkinToneLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenWrestlingMediumSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenWrestlingMediumSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FE}';
-  static const womenWrestlingMediumSkinToneDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenWrestlingMediumDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenWrestlingMediumDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenWrestlingMediumDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenWrestlingMediumDarkSkinToneDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenWrestlingDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenWrestlingDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenWrestlingDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenWrestlingDarkSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenWrestlingLightSkinTone =
+      '\u{1F93C}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womenWrestlingMediumLightSkinTone =
+      '\u{1F93C}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womenWrestlingMediumSkinTone =
+      '\u{1F93C}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womenWrestlingMediumDarkSkinTone =
+      '\u{1F93C}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womenWrestlingDarkSkinTone =
+      '\u{1F93C}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const peopleWrestlingLightSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleWrestlingLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleWrestlingLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleWrestlingLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleWrestlingMediumLightSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleWrestlingMediumLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleWrestlingMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleWrestlingMediumLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleWrestlingMediumSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleWrestlingMediumSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleWrestlingMediumSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleWrestlingMediumSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleWrestlingMediumDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleWrestlingMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleWrestlingMediumDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleWrestlingMediumDarkSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleWrestlingDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleWrestlingDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleWrestlingDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleWrestlingDarkSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const menWrestlingLightSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menWrestlingLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menWrestlingLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menWrestlingLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menWrestlingMediumLightSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menWrestlingMediumLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menWrestlingMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menWrestlingMediumLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menWrestlingMediumSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menWrestlingMediumSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menWrestlingMediumSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menWrestlingMediumSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menWrestlingMediumDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menWrestlingMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menWrestlingMediumDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menWrestlingMediumDarkSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menWrestlingDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menWrestlingDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menWrestlingDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menWrestlingDarkSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F468}\u{1F3FE}';
+  static const womenWrestlingLightSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenWrestlingLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenWrestlingLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenWrestlingLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenWrestlingMediumLightSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenWrestlingMediumLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenWrestlingMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenWrestlingMediumLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenWrestlingMediumSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenWrestlingMediumSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenWrestlingMediumSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenWrestlingMediumSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenWrestlingMediumDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenWrestlingMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenWrestlingMediumDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenWrestlingMediumDarkSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenWrestlingDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenWrestlingDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenWrestlingDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenWrestlingDarkSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1FAEF}\u{200D}\u{1F469}\u{1F3FE}';
   static const personPlayingWaterPolo = '\u{1F93D}';
   static const personPlayingWaterPoloLightSkinTone = '\u{1F93D}\u{1F3FB}';
   static const personPlayingWaterPoloMediumLightSkinTone = '\u{1F93D}\u{1F3FC}';
@@ -2163,17 +3153,27 @@ class Emojis {
   static const personPlayingWaterPoloMediumDarkSkinTone = '\u{1F93D}\u{1F3FE}';
   static const personPlayingWaterPoloDarkSkinTone = '\u{1F93D}\u{1F3FF}';
   static const manPlayingWaterPolo = '\u{1F93D}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingWaterPoloLightSkinTone = '\u{1F93D}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingWaterPoloMediumLightSkinTone = '\u{1F93D}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingWaterPoloMediumSkinTone = '\u{1F93D}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingWaterPoloMediumDarkSkinTone = '\u{1F93D}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingWaterPoloDarkSkinTone = '\u{1F93D}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingWaterPoloLightSkinTone =
+      '\u{1F93D}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingWaterPoloMediumLightSkinTone =
+      '\u{1F93D}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingWaterPoloMediumSkinTone =
+      '\u{1F93D}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingWaterPoloMediumDarkSkinTone =
+      '\u{1F93D}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingWaterPoloDarkSkinTone =
+      '\u{1F93D}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanPlayingWaterPolo = '\u{1F93D}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingWaterPoloLightSkinTone = '\u{1F93D}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingWaterPoloMediumLightSkinTone = '\u{1F93D}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingWaterPoloMediumSkinTone = '\u{1F93D}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingWaterPoloMediumDarkSkinTone = '\u{1F93D}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingWaterPoloDarkSkinTone = '\u{1F93D}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingWaterPoloLightSkinTone =
+      '\u{1F93D}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingWaterPoloMediumLightSkinTone =
+      '\u{1F93D}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingWaterPoloMediumSkinTone =
+      '\u{1F93D}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingWaterPoloMediumDarkSkinTone =
+      '\u{1F93D}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingWaterPoloDarkSkinTone =
+      '\u{1F93D}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personPlayingHandball = '\u{1F93E}';
   static const personPlayingHandballLightSkinTone = '\u{1F93E}\u{1F3FB}';
   static const personPlayingHandballMediumLightSkinTone = '\u{1F93E}\u{1F3FC}';
@@ -2181,17 +3181,27 @@ class Emojis {
   static const personPlayingHandballMediumDarkSkinTone = '\u{1F93E}\u{1F3FE}';
   static const personPlayingHandballDarkSkinTone = '\u{1F93E}\u{1F3FF}';
   static const manPlayingHandball = '\u{1F93E}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingHandballLightSkinTone = '\u{1F93E}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingHandballMediumLightSkinTone = '\u{1F93E}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingHandballMediumSkinTone = '\u{1F93E}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingHandballMediumDarkSkinTone = '\u{1F93E}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manPlayingHandballDarkSkinTone = '\u{1F93E}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingHandballLightSkinTone =
+      '\u{1F93E}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingHandballMediumLightSkinTone =
+      '\u{1F93E}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingHandballMediumSkinTone =
+      '\u{1F93E}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingHandballMediumDarkSkinTone =
+      '\u{1F93E}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manPlayingHandballDarkSkinTone =
+      '\u{1F93E}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanPlayingHandball = '\u{1F93E}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingHandballLightSkinTone = '\u{1F93E}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingHandballMediumLightSkinTone = '\u{1F93E}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingHandballMediumSkinTone = '\u{1F93E}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingHandballMediumDarkSkinTone = '\u{1F93E}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanPlayingHandballDarkSkinTone = '\u{1F93E}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingHandballLightSkinTone =
+      '\u{1F93E}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingHandballMediumLightSkinTone =
+      '\u{1F93E}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingHandballMediumSkinTone =
+      '\u{1F93E}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingHandballMediumDarkSkinTone =
+      '\u{1F93E}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanPlayingHandballDarkSkinTone =
+      '\u{1F93E}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personJuggling = '\u{1F939}';
   static const personJugglingLightSkinTone = '\u{1F939}\u{1F3FB}';
   static const personJugglingMediumLightSkinTone = '\u{1F939}\u{1F3FC}';
@@ -2199,17 +3209,27 @@ class Emojis {
   static const personJugglingMediumDarkSkinTone = '\u{1F939}\u{1F3FE}';
   static const personJugglingDarkSkinTone = '\u{1F939}\u{1F3FF}';
   static const manJuggling = '\u{1F939}\u{200D}\u{2642}\u{FE0F}';
-  static const manJugglingLightSkinTone = '\u{1F939}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manJugglingMediumLightSkinTone = '\u{1F939}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manJugglingMediumSkinTone = '\u{1F939}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manJugglingMediumDarkSkinTone = '\u{1F939}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manJugglingDarkSkinTone = '\u{1F939}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manJugglingLightSkinTone =
+      '\u{1F939}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manJugglingMediumLightSkinTone =
+      '\u{1F939}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manJugglingMediumSkinTone =
+      '\u{1F939}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manJugglingMediumDarkSkinTone =
+      '\u{1F939}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manJugglingDarkSkinTone =
+      '\u{1F939}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanJuggling = '\u{1F939}\u{200D}\u{2640}\u{FE0F}';
-  static const womanJugglingLightSkinTone = '\u{1F939}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanJugglingMediumLightSkinTone = '\u{1F939}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanJugglingMediumSkinTone = '\u{1F939}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanJugglingMediumDarkSkinTone = '\u{1F939}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanJugglingDarkSkinTone = '\u{1F939}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanJugglingLightSkinTone =
+      '\u{1F939}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanJugglingMediumLightSkinTone =
+      '\u{1F939}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanJugglingMediumSkinTone =
+      '\u{1F939}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanJugglingMediumDarkSkinTone =
+      '\u{1F939}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanJugglingDarkSkinTone =
+      '\u{1F939}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personInLotusPosition = '\u{1F9D8}';
   static const personInLotusPositionLightSkinTone = '\u{1F9D8}\u{1F3FB}';
   static const personInLotusPositionMediumLightSkinTone = '\u{1F9D8}\u{1F3FC}';
@@ -2217,17 +3237,27 @@ class Emojis {
   static const personInLotusPositionMediumDarkSkinTone = '\u{1F9D8}\u{1F3FE}';
   static const personInLotusPositionDarkSkinTone = '\u{1F9D8}\u{1F3FF}';
   static const manInLotusPosition = '\u{1F9D8}\u{200D}\u{2642}\u{FE0F}';
-  static const manInLotusPositionLightSkinTone = '\u{1F9D8}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
-  static const manInLotusPositionMediumLightSkinTone = '\u{1F9D8}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
-  static const manInLotusPositionMediumSkinTone = '\u{1F9D8}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
-  static const manInLotusPositionMediumDarkSkinTone = '\u{1F9D8}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
-  static const manInLotusPositionDarkSkinTone = '\u{1F9D8}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
+  static const manInLotusPositionLightSkinTone =
+      '\u{1F9D8}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}';
+  static const manInLotusPositionMediumLightSkinTone =
+      '\u{1F9D8}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}';
+  static const manInLotusPositionMediumSkinTone =
+      '\u{1F9D8}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}';
+  static const manInLotusPositionMediumDarkSkinTone =
+      '\u{1F9D8}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}';
+  static const manInLotusPositionDarkSkinTone =
+      '\u{1F9D8}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}';
   static const womanInLotusPosition = '\u{1F9D8}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInLotusPositionLightSkinTone = '\u{1F9D8}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInLotusPositionMediumLightSkinTone = '\u{1F9D8}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInLotusPositionMediumSkinTone = '\u{1F9D8}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInLotusPositionMediumDarkSkinTone = '\u{1F9D8}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
-  static const womanInLotusPositionDarkSkinTone = '\u{1F9D8}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInLotusPositionLightSkinTone =
+      '\u{1F9D8}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInLotusPositionMediumLightSkinTone =
+      '\u{1F9D8}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInLotusPositionMediumSkinTone =
+      '\u{1F9D8}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInLotusPositionMediumDarkSkinTone =
+      '\u{1F9D8}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}';
+  static const womanInLotusPositionDarkSkinTone =
+      '\u{1F9D8}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}';
   static const personTakingBath = '\u{1F6C0}';
   static const personTakingBathLightSkinTone = '\u{1F6C0}\u{1F3FB}';
   static const personTakingBathMediumLightSkinTone = '\u{1F6C0}\u{1F3FC}';
@@ -2240,109 +3270,196 @@ class Emojis {
   static const personInBedMediumSkinTone = '\u{1F6CC}\u{1F3FD}';
   static const personInBedMediumDarkSkinTone = '\u{1F6CC}\u{1F3FE}';
   static const personInBedDarkSkinTone = '\u{1F6CC}\u{1F3FF}';
-  static const peopleHoldingHands = '\u{1F9D1}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}';
-  static const peopleHoldingHandsLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleHoldingHandsLightSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleHoldingHandsLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleHoldingHandsLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleHoldingHandsLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleHoldingHandsMediumLightSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleHoldingHandsMediumLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleHoldingHandsMediumLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleHoldingHandsMediumLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleHoldingHandsMediumLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleHoldingHandsMediumSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleHoldingHandsMediumSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleHoldingHandsMediumSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleHoldingHandsMediumSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleHoldingHandsMediumSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleHoldingHandsMediumDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleHoldingHandsMediumDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleHoldingHandsMediumDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleHoldingHandsMediumDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleHoldingHandsMediumDarkSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const peopleHoldingHandsDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const peopleHoldingHandsDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const peopleHoldingHandsDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const peopleHoldingHandsDarkSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const peopleHoldingHandsDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleHoldingHands =
+      '\u{1F9D1}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}';
+  static const peopleHoldingHandsLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleHoldingHandsLightSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleHoldingHandsLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleHoldingHandsLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleHoldingHandsLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleHoldingHandsMediumLightSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleHoldingHandsMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleHoldingHandsMediumLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleHoldingHandsMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleHoldingHandsMediumLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleHoldingHandsMediumSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleHoldingHandsMediumSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleHoldingHandsMediumSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleHoldingHandsMediumSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleHoldingHandsMediumSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleHoldingHandsMediumDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleHoldingHandsMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleHoldingHandsMediumDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleHoldingHandsMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleHoldingHandsMediumDarkSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const peopleHoldingHandsDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const peopleHoldingHandsDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const peopleHoldingHandsDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const peopleHoldingHandsDarkSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const peopleHoldingHandsDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F9D1}\u{1F3FF}';
   static const womenHoldingHands = '\u{1F46D}';
   static const womenHoldingHandsLightSkinTone = '\u{1F46D}\u{1F3FB}';
-  static const womenHoldingHandsLightSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenHoldingHandsLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenHoldingHandsLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FE}';
-  static const womenHoldingHandsLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenHoldingHandsMediumLightSkinToneLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenHoldingHandsLightSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenHoldingHandsLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenHoldingHandsLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenHoldingHandsLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenHoldingHandsMediumLightSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FB}';
   static const womenHoldingHandsMediumLightSkinTone = '\u{1F46D}\u{1F3FC}';
-  static const womenHoldingHandsMediumLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenHoldingHandsMediumLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FE}';
-  static const womenHoldingHandsMediumLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenHoldingHandsMediumSkinToneLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenHoldingHandsMediumSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenHoldingHandsMediumLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenHoldingHandsMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenHoldingHandsMediumLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenHoldingHandsMediumSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenHoldingHandsMediumSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FC}';
   static const womenHoldingHandsMediumSkinTone = '\u{1F46D}\u{1F3FD}';
-  static const womenHoldingHandsMediumSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FE}';
-  static const womenHoldingHandsMediumSkinToneDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenHoldingHandsMediumDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenHoldingHandsMediumDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenHoldingHandsMediumDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenHoldingHandsMediumSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenHoldingHandsMediumSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenHoldingHandsMediumDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenHoldingHandsMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenHoldingHandsMediumDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FD}';
   static const womenHoldingHandsMediumDarkSkinTone = '\u{1F46D}\u{1F3FE}';
-  static const womenHoldingHandsMediumDarkSkinToneDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FF}';
-  static const womenHoldingHandsDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FB}';
-  static const womenHoldingHandsDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FC}';
-  static const womenHoldingHandsDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FD}';
-  static const womenHoldingHandsDarkSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FE}';
+  static const womenHoldingHandsMediumDarkSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FF}';
+  static const womenHoldingHandsDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FB}';
+  static const womenHoldingHandsDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FC}';
+  static const womenHoldingHandsDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FD}';
+  static const womenHoldingHandsDarkSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F469}\u{1F3FE}';
   static const womenHoldingHandsDarkSkinTone = '\u{1F46D}\u{1F3FF}';
   static const womanAndManHoldingHands = '\u{1F46B}';
   static const womanAndManHoldingHandsLightSkinTone = '\u{1F46B}\u{1F3FB}';
-  static const womanAndManHoldingHandsLightSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
-  static const womanAndManHoldingHandsLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
-  static const womanAndManHoldingHandsLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
-  static const womanAndManHoldingHandsLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
-  static const womanAndManHoldingHandsMediumLightSkinToneLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
-  static const womanAndManHoldingHandsMediumLightSkinTone = '\u{1F46B}\u{1F3FC}';
-  static const womanAndManHoldingHandsMediumLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
-  static const womanAndManHoldingHandsMediumLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
-  static const womanAndManHoldingHandsMediumLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
-  static const womanAndManHoldingHandsMediumSkinToneLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
-  static const womanAndManHoldingHandsMediumSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
+  static const womanAndManHoldingHandsLightSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
+  static const womanAndManHoldingHandsLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
+  static const womanAndManHoldingHandsLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
+  static const womanAndManHoldingHandsLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
+  static const womanAndManHoldingHandsMediumLightSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
+  static const womanAndManHoldingHandsMediumLightSkinTone =
+      '\u{1F46B}\u{1F3FC}';
+  static const womanAndManHoldingHandsMediumLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
+  static const womanAndManHoldingHandsMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
+  static const womanAndManHoldingHandsMediumLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
+  static const womanAndManHoldingHandsMediumSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
+  static const womanAndManHoldingHandsMediumSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
   static const womanAndManHoldingHandsMediumSkinTone = '\u{1F46B}\u{1F3FD}';
-  static const womanAndManHoldingHandsMediumSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
-  static const womanAndManHoldingHandsMediumSkinToneDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
-  static const womanAndManHoldingHandsMediumDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
-  static const womanAndManHoldingHandsMediumDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
-  static const womanAndManHoldingHandsMediumDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
+  static const womanAndManHoldingHandsMediumSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
+  static const womanAndManHoldingHandsMediumSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
+  static const womanAndManHoldingHandsMediumDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
+  static const womanAndManHoldingHandsMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
+  static const womanAndManHoldingHandsMediumDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
   static const womanAndManHoldingHandsMediumDarkSkinTone = '\u{1F46B}\u{1F3FE}';
-  static const womanAndManHoldingHandsMediumDarkSkinToneDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
-  static const womanAndManHoldingHandsDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
-  static const womanAndManHoldingHandsDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
-  static const womanAndManHoldingHandsDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
-  static const womanAndManHoldingHandsDarkSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
+  static const womanAndManHoldingHandsMediumDarkSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
+  static const womanAndManHoldingHandsDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
+  static const womanAndManHoldingHandsDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
+  static const womanAndManHoldingHandsDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
+  static const womanAndManHoldingHandsDarkSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
   static const womanAndManHoldingHandsDarkSkinTone = '\u{1F46B}\u{1F3FF}';
   static const menHoldingHands = '\u{1F46C}';
   static const menHoldingHandsLightSkinTone = '\u{1F46C}\u{1F3FB}';
-  static const menHoldingHandsLightSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menHoldingHandsLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menHoldingHandsLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
-  static const menHoldingHandsLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menHoldingHandsMediumLightSkinToneLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menHoldingHandsLightSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menHoldingHandsLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menHoldingHandsLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menHoldingHandsLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menHoldingHandsMediumLightSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
   static const menHoldingHandsMediumLightSkinTone = '\u{1F46C}\u{1F3FC}';
-  static const menHoldingHandsMediumLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menHoldingHandsMediumLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
-  static const menHoldingHandsMediumLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menHoldingHandsMediumSkinToneLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menHoldingHandsMediumSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menHoldingHandsMediumLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menHoldingHandsMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menHoldingHandsMediumLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menHoldingHandsMediumSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menHoldingHandsMediumSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
   static const menHoldingHandsMediumSkinTone = '\u{1F46C}\u{1F3FD}';
-  static const menHoldingHandsMediumSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
-  static const menHoldingHandsMediumSkinToneDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menHoldingHandsMediumDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menHoldingHandsMediumDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menHoldingHandsMediumDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menHoldingHandsMediumSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menHoldingHandsMediumSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menHoldingHandsMediumDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menHoldingHandsMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menHoldingHandsMediumDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
   static const menHoldingHandsMediumDarkSkinTone = '\u{1F46C}\u{1F3FE}';
-  static const menHoldingHandsMediumDarkSkinToneDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
-  static const menHoldingHandsDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
-  static const menHoldingHandsDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
-  static const menHoldingHandsDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
-  static const menHoldingHandsDarkSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
+  static const menHoldingHandsMediumDarkSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FF}';
+  static const menHoldingHandsDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FB}';
+  static const menHoldingHandsDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FC}';
+  static const menHoldingHandsDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FD}';
+  static const menHoldingHandsDarkSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{1F91D}\u{200D}\u{1F468}\u{1F3FE}';
   static const menHoldingHandsDarkSkinTone = '\u{1F46C}\u{1F3FF}';
   static const kiss = '\u{1F48F}';
   static const kissLightSkinTone = '\u{1F48F}\u{1F3FB}';
@@ -2350,242 +3467,458 @@ class Emojis {
   static const kissMediumSkinTone = '\u{1F48F}\u{1F3FD}';
   static const kissMediumDarkSkinTone = '\u{1F48F}\u{1F3FE}';
   static const kissDarkSkinTone = '\u{1F48F}\u{1F3FF}';
-  static const kissPersonPersonLightSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const kissPersonPersonLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const kissPersonPersonLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const kissPersonPersonLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const kissPersonPersonMediumLightSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const kissPersonPersonMediumLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const kissPersonPersonMediumLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const kissPersonPersonMediumLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const kissPersonPersonMediumSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const kissPersonPersonMediumSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const kissPersonPersonMediumSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const kissPersonPersonMediumSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const kissPersonPersonMediumDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const kissPersonPersonMediumDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const kissPersonPersonMediumDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const kissPersonPersonMediumDarkSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const kissPersonPersonDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const kissPersonPersonDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const kissPersonPersonDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const kissPersonPersonDarkSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const kissWomanMan = '\u{1F469}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}';
-  static const kissWomanManLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissWomanManLightSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissWomanManLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissWomanManLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissWomanManLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissWomanManMediumLightSkinToneLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissWomanManMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissWomanManMediumLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissWomanManMediumLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissWomanManMediumLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissWomanManMediumSkinToneLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissWomanManMediumSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissWomanManMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissWomanManMediumSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissWomanManMediumSkinToneDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissWomanManMediumDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissWomanManMediumDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissWomanManMediumDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissWomanManMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissWomanManMediumDarkSkinToneDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissWomanManDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissWomanManDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissWomanManDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissWomanManDarkSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissWomanManDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissManMan = '\u{1F468}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}';
-  static const kissManManLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissManManLightSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissManManLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissManManLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissManManLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissManManMediumLightSkinToneLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissManManMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissManManMediumLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissManManMediumLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissManManMediumLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissManManMediumSkinToneLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissManManMediumSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissManManMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissManManMediumSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissManManMediumSkinToneDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissManManMediumDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissManManMediumDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissManManMediumDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissManManMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissManManMediumDarkSkinToneDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissManManDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
-  static const kissManManDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
-  static const kissManManDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
-  static const kissManManDarkSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
-  static const kissManManDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
-  static const kissWomanWoman = '\u{1F469}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}';
-  static const kissWomanWomanLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
-  static const kissWomanWomanLightSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
-  static const kissWomanWomanLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
-  static const kissWomanWomanLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
-  static const kissWomanWomanLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
-  static const kissWomanWomanMediumLightSkinToneLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
-  static const kissWomanWomanMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
-  static const kissWomanWomanMediumLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
-  static const kissWomanWomanMediumLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
-  static const kissWomanWomanMediumLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
-  static const kissWomanWomanMediumSkinToneLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
-  static const kissWomanWomanMediumSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
-  static const kissWomanWomanMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
-  static const kissWomanWomanMediumSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
-  static const kissWomanWomanMediumSkinToneDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
-  static const kissWomanWomanMediumDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
-  static const kissWomanWomanMediumDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
-  static const kissWomanWomanMediumDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
-  static const kissWomanWomanMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
-  static const kissWomanWomanMediumDarkSkinToneDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
-  static const kissWomanWomanDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
-  static const kissWomanWomanDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
-  static const kissWomanWomanDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
-  static const kissWomanWomanDarkSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
-  static const kissWomanWomanDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
+  static const kissPersonPersonLightSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const kissPersonPersonLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const kissPersonPersonLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const kissPersonPersonLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const kissPersonPersonMediumLightSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const kissPersonPersonMediumLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const kissPersonPersonMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const kissPersonPersonMediumLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const kissPersonPersonMediumSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const kissPersonPersonMediumSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const kissPersonPersonMediumSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const kissPersonPersonMediumSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const kissPersonPersonMediumDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const kissPersonPersonMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const kissPersonPersonMediumDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const kissPersonPersonMediumDarkSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const kissPersonPersonDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const kissPersonPersonDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const kissPersonPersonDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const kissPersonPersonDarkSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const kissWomanMan =
+      '\u{1F469}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}';
+  static const kissWomanManLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissWomanManLightSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissWomanManLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissWomanManLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissWomanManLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissWomanManMediumLightSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissWomanManMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissWomanManMediumLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissWomanManMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissWomanManMediumLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissWomanManMediumSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissWomanManMediumSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissWomanManMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissWomanManMediumSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissWomanManMediumSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissWomanManMediumDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissWomanManMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissWomanManMediumDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissWomanManMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissWomanManMediumDarkSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissWomanManDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissWomanManDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissWomanManDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissWomanManDarkSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissWomanManDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissManMan =
+      '\u{1F468}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}';
+  static const kissManManLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissManManLightSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissManManLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissManManLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissManManLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissManManMediumLightSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissManManMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissManManMediumLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissManManMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissManManMediumLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissManManMediumSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissManManMediumSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissManManMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissManManMediumSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissManManMediumSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissManManMediumDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissManManMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissManManMediumDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissManManMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissManManMediumDarkSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissManManDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FB}';
+  static const kissManManDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FC}';
+  static const kissManManDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FD}';
+  static const kissManManDarkSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FE}';
+  static const kissManManDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F468}\u{1F3FF}';
+  static const kissWomanWoman =
+      '\u{1F469}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}';
+  static const kissWomanWomanLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
+  static const kissWomanWomanLightSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
+  static const kissWomanWomanLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
+  static const kissWomanWomanLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
+  static const kissWomanWomanLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
+  static const kissWomanWomanMediumLightSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
+  static const kissWomanWomanMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
+  static const kissWomanWomanMediumLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
+  static const kissWomanWomanMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
+  static const kissWomanWomanMediumLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
+  static const kissWomanWomanMediumSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
+  static const kissWomanWomanMediumSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
+  static const kissWomanWomanMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
+  static const kissWomanWomanMediumSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
+  static const kissWomanWomanMediumSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
+  static const kissWomanWomanMediumDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
+  static const kissWomanWomanMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
+  static const kissWomanWomanMediumDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
+  static const kissWomanWomanMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
+  static const kissWomanWomanMediumDarkSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
+  static const kissWomanWomanDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FB}';
+  static const kissWomanWomanDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FC}';
+  static const kissWomanWomanDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FD}';
+  static const kissWomanWomanDarkSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FE}';
+  static const kissWomanWomanDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F48B}\u{200D}\u{1F469}\u{1F3FF}';
   static const coupleWithHeart = '\u{1F491}';
   static const coupleWithHeartLightSkinTone = '\u{1F491}\u{1F3FB}';
   static const coupleWithHeartMediumLightSkinTone = '\u{1F491}\u{1F3FC}';
   static const coupleWithHeartMediumSkinTone = '\u{1F491}\u{1F3FD}';
   static const coupleWithHeartMediumDarkSkinTone = '\u{1F491}\u{1F3FE}';
   static const coupleWithHeartDarkSkinTone = '\u{1F491}\u{1F3FF}';
-  static const coupleWithHeartPersonPersonLightSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const coupleWithHeartPersonPersonLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const coupleWithHeartPersonPersonLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const coupleWithHeartPersonPersonLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const coupleWithHeartPersonPersonMediumLightSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const coupleWithHeartPersonPersonMediumLightSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const coupleWithHeartPersonPersonMediumLightSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const coupleWithHeartPersonPersonMediumLightSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const coupleWithHeartPersonPersonMediumSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const coupleWithHeartPersonPersonMediumSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const coupleWithHeartPersonPersonMediumSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const coupleWithHeartPersonPersonMediumSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const coupleWithHeartPersonPersonMediumDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const coupleWithHeartPersonPersonMediumDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const coupleWithHeartPersonPersonMediumDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const coupleWithHeartPersonPersonMediumDarkSkinToneDarkSkinTone = '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FF}';
-  static const coupleWithHeartPersonPersonDarkSkinToneLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FB}';
-  static const coupleWithHeartPersonPersonDarkSkinToneMediumLightSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FC}';
-  static const coupleWithHeartPersonPersonDarkSkinToneMediumSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FD}';
-  static const coupleWithHeartPersonPersonDarkSkinToneMediumDarkSkinTone = '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FE}';
-  static const coupleWithHeartWomanMan = '\u{1F469}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}';
-  static const coupleWithHeartWomanManLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartWomanManLightSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartWomanManLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartWomanManLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartWomanManLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartWomanManMediumLightSkinToneLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartWomanManMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartWomanManMediumLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartWomanManMediumLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartWomanManMediumLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartWomanManMediumSkinToneLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartWomanManMediumSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartWomanManMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartWomanManMediumSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartWomanManMediumSkinToneDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartWomanManMediumDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartWomanManMediumDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartWomanManMediumDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartWomanManMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartWomanManMediumDarkSkinToneDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartWomanManDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartWomanManDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartWomanManDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartWomanManDarkSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartWomanManDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartManMan = '\u{1F468}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}';
-  static const coupleWithHeartManManLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartManManLightSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartManManLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartManManLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartManManLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartManManMediumLightSkinToneLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartManManMediumLightSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartManManMediumLightSkinToneMediumSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartManManMediumLightSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartManManMediumLightSkinToneDarkSkinTone = '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartManManMediumSkinToneLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartManManMediumSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartManManMediumSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartManManMediumSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartManManMediumSkinToneDarkSkinTone = '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartManManMediumDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartManManMediumDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartManManMediumDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartManManMediumDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartManManMediumDarkSkinToneDarkSkinTone = '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartManManDarkSkinToneLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
-  static const coupleWithHeartManManDarkSkinToneMediumLightSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
-  static const coupleWithHeartManManDarkSkinToneMediumSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
-  static const coupleWithHeartManManDarkSkinToneMediumDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
-  static const coupleWithHeartManManDarkSkinTone = '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
-  static const coupleWithHeartWomanWoman = '\u{1F469}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}';
-  static const coupleWithHeartWomanWomanLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
-  static const coupleWithHeartWomanWomanLightSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
-  static const coupleWithHeartWomanWomanLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
-  static const coupleWithHeartWomanWomanLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
-  static const coupleWithHeartWomanWomanLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
-  static const coupleWithHeartWomanWomanMediumLightSkinToneLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
-  static const coupleWithHeartWomanWomanMediumLightSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
-  static const coupleWithHeartWomanWomanMediumLightSkinToneMediumSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
-  static const coupleWithHeartWomanWomanMediumLightSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
-  static const coupleWithHeartWomanWomanMediumLightSkinToneDarkSkinTone = '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
-  static const coupleWithHeartWomanWomanMediumSkinToneLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
-  static const coupleWithHeartWomanWomanMediumSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
-  static const coupleWithHeartWomanWomanMediumSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
-  static const coupleWithHeartWomanWomanMediumSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
-  static const coupleWithHeartWomanWomanMediumSkinToneDarkSkinTone = '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
-  static const coupleWithHeartWomanWomanMediumDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
-  static const coupleWithHeartWomanWomanMediumDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
-  static const coupleWithHeartWomanWomanMediumDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
-  static const coupleWithHeartWomanWomanMediumDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
-  static const coupleWithHeartWomanWomanMediumDarkSkinToneDarkSkinTone = '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
-  static const coupleWithHeartWomanWomanDarkSkinToneLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
-  static const coupleWithHeartWomanWomanDarkSkinToneMediumLightSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
-  static const coupleWithHeartWomanWomanDarkSkinToneMediumSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
-  static const coupleWithHeartWomanWomanDarkSkinToneMediumDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
-  static const coupleWithHeartWomanWomanDarkSkinTone = '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
-  static const familyManWomanBoy = '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F466}';
-  static const familyManWomanGirl = '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}';
-  static const familyManWomanGirlBoy = '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F466}';
-  static const familyManWomanBoyBoy = '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F466}\u{200D}\u{1F466}';
-  static const familyManWomanGirlGirl = '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F467}';
+  static const coupleWithHeartPersonPersonLightSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const coupleWithHeartPersonPersonLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const coupleWithHeartPersonPersonLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const coupleWithHeartPersonPersonLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const coupleWithHeartPersonPersonMediumLightSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const coupleWithHeartPersonPersonMediumLightSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const coupleWithHeartPersonPersonMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const coupleWithHeartPersonPersonMediumLightSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const coupleWithHeartPersonPersonMediumSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const coupleWithHeartPersonPersonMediumSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const coupleWithHeartPersonPersonMediumSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const coupleWithHeartPersonPersonMediumSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const coupleWithHeartPersonPersonMediumDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const coupleWithHeartPersonPersonMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const coupleWithHeartPersonPersonMediumDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const coupleWithHeartPersonPersonMediumDarkSkinToneDarkSkinTone =
+      '\u{1F9D1}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FF}';
+  static const coupleWithHeartPersonPersonDarkSkinToneLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FB}';
+  static const coupleWithHeartPersonPersonDarkSkinToneMediumLightSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FC}';
+  static const coupleWithHeartPersonPersonDarkSkinToneMediumSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FD}';
+  static const coupleWithHeartPersonPersonDarkSkinToneMediumDarkSkinTone =
+      '\u{1F9D1}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F9D1}\u{1F3FE}';
+  static const coupleWithHeartWomanMan =
+      '\u{1F469}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}';
+  static const coupleWithHeartWomanManLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartWomanManLightSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartWomanManLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartWomanManLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartWomanManLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartWomanManMediumLightSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartWomanManMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartWomanManMediumLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartWomanManMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartWomanManMediumLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartWomanManMediumSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartWomanManMediumSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartWomanManMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartWomanManMediumSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartWomanManMediumSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartWomanManMediumDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartWomanManMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartWomanManMediumDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartWomanManMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartWomanManMediumDarkSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartWomanManDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartWomanManDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartWomanManDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartWomanManDarkSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartWomanManDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartManMan =
+      '\u{1F468}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}';
+  static const coupleWithHeartManManLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartManManLightSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartManManLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartManManLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartManManLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartManManMediumLightSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartManManMediumLightSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartManManMediumLightSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartManManMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartManManMediumLightSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartManManMediumSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartManManMediumSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartManManMediumSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartManManMediumSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartManManMediumSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartManManMediumDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartManManMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartManManMediumDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartManManMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartManManMediumDarkSkinToneDarkSkinTone =
+      '\u{1F468}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartManManDarkSkinToneLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FB}';
+  static const coupleWithHeartManManDarkSkinToneMediumLightSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FC}';
+  static const coupleWithHeartManManDarkSkinToneMediumSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FD}';
+  static const coupleWithHeartManManDarkSkinToneMediumDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FE}';
+  static const coupleWithHeartManManDarkSkinTone =
+      '\u{1F468}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F468}\u{1F3FF}';
+  static const coupleWithHeartWomanWoman =
+      '\u{1F469}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}';
+  static const coupleWithHeartWomanWomanLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
+  static const coupleWithHeartWomanWomanLightSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
+  static const coupleWithHeartWomanWomanLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
+  static const coupleWithHeartWomanWomanLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
+  static const coupleWithHeartWomanWomanLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FB}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
+  static const coupleWithHeartWomanWomanMediumLightSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
+  static const coupleWithHeartWomanWomanMediumLightSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
+  static const coupleWithHeartWomanWomanMediumLightSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
+  static const coupleWithHeartWomanWomanMediumLightSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
+  static const coupleWithHeartWomanWomanMediumLightSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FC}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
+  static const coupleWithHeartWomanWomanMediumSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
+  static const coupleWithHeartWomanWomanMediumSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
+  static const coupleWithHeartWomanWomanMediumSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
+  static const coupleWithHeartWomanWomanMediumSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
+  static const coupleWithHeartWomanWomanMediumSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FD}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
+  static const coupleWithHeartWomanWomanMediumDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
+  static const coupleWithHeartWomanWomanMediumDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
+  static const coupleWithHeartWomanWomanMediumDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
+  static const coupleWithHeartWomanWomanMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
+  static const coupleWithHeartWomanWomanMediumDarkSkinToneDarkSkinTone =
+      '\u{1F469}\u{1F3FE}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
+  static const coupleWithHeartWomanWomanDarkSkinToneLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FB}';
+  static const coupleWithHeartWomanWomanDarkSkinToneMediumLightSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FC}';
+  static const coupleWithHeartWomanWomanDarkSkinToneMediumSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FD}';
+  static const coupleWithHeartWomanWomanDarkSkinToneMediumDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FE}';
+  static const coupleWithHeartWomanWomanDarkSkinTone =
+      '\u{1F469}\u{1F3FF}\u{200D}\u{2764}\u{FE0F}\u{200D}\u{1F469}\u{1F3FF}';
+  static const familyManWomanBoy =
+      '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F466}';
+  static const familyManWomanGirl =
+      '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}';
+  static const familyManWomanGirlBoy =
+      '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F466}';
+  static const familyManWomanBoyBoy =
+      '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F466}\u{200D}\u{1F466}';
+  static const familyManWomanGirlGirl =
+      '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F467}';
   static const familyManManBoy = '\u{1F468}\u{200D}\u{1F468}\u{200D}\u{1F466}';
   static const familyManManGirl = '\u{1F468}\u{200D}\u{1F468}\u{200D}\u{1F467}';
-  static const familyManManGirlBoy = '\u{1F468}\u{200D}\u{1F468}\u{200D}\u{1F467}\u{200D}\u{1F466}';
-  static const familyManManBoyBoy = '\u{1F468}\u{200D}\u{1F468}\u{200D}\u{1F466}\u{200D}\u{1F466}';
-  static const familyManManGirlGirl = '\u{1F468}\u{200D}\u{1F468}\u{200D}\u{1F467}\u{200D}\u{1F467}';
-  static const familyWomanWomanBoy = '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F466}';
-  static const familyWomanWomanGirl = '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F467}';
-  static const familyWomanWomanGirlBoy = '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F466}';
-  static const familyWomanWomanBoyBoy = '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F466}\u{200D}\u{1F466}';
-  static const familyWomanWomanGirlGirl = '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F467}';
+  static const familyManManGirlBoy =
+      '\u{1F468}\u{200D}\u{1F468}\u{200D}\u{1F467}\u{200D}\u{1F466}';
+  static const familyManManBoyBoy =
+      '\u{1F468}\u{200D}\u{1F468}\u{200D}\u{1F466}\u{200D}\u{1F466}';
+  static const familyManManGirlGirl =
+      '\u{1F468}\u{200D}\u{1F468}\u{200D}\u{1F467}\u{200D}\u{1F467}';
+  static const familyWomanWomanBoy =
+      '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F466}';
+  static const familyWomanWomanGirl =
+      '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F467}';
+  static const familyWomanWomanGirlBoy =
+      '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F466}';
+  static const familyWomanWomanBoyBoy =
+      '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F466}\u{200D}\u{1F466}';
+  static const familyWomanWomanGirlGirl =
+      '\u{1F469}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F467}';
   static const familyManBoy = '\u{1F468}\u{200D}\u{1F466}';
   static const familyManBoyBoy = '\u{1F468}\u{200D}\u{1F466}\u{200D}\u{1F466}';
   static const familyManGirl = '\u{1F468}\u{200D}\u{1F467}';
   static const familyManGirlBoy = '\u{1F468}\u{200D}\u{1F467}\u{200D}\u{1F466}';
-  static const familyManGirlGirl = '\u{1F468}\u{200D}\u{1F467}\u{200D}\u{1F467}';
+  static const familyManGirlGirl =
+      '\u{1F468}\u{200D}\u{1F467}\u{200D}\u{1F467}';
   static const familyWomanBoy = '\u{1F469}\u{200D}\u{1F466}';
-  static const familyWomanBoyBoy = '\u{1F469}\u{200D}\u{1F466}\u{200D}\u{1F466}';
+  static const familyWomanBoyBoy =
+      '\u{1F469}\u{200D}\u{1F466}\u{200D}\u{1F466}';
   static const familyWomanGirl = '\u{1F469}\u{200D}\u{1F467}';
-  static const familyWomanGirlBoy = '\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F466}';
-  static const familyWomanGirlGirl = '\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F467}';
+  static const familyWomanGirlBoy =
+      '\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F466}';
+  static const familyWomanGirlGirl =
+      '\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F467}';
   static const speakingHead = '\u{1F5E3}\u{FE0F}';
   static const bustInSilhouette = '\u{1F464}';
   static const bustsInSilhouette = '\u{1F465}';
   static const peopleHugging = '\u{1FAC2}';
   static const family = '\u{1F46A}';
-  static const familyAdultAdultChild = '\u{1F9D1}\u{200D}\u{1F9D1}\u{200D}\u{1F9D2}';
-  static const familyAdultAdultChildChild = '\u{1F9D1}\u{200D}\u{1F9D1}\u{200D}\u{1F9D2}\u{200D}\u{1F9D2}';
+  static const familyAdultAdultChild =
+      '\u{1F9D1}\u{200D}\u{1F9D1}\u{200D}\u{1F9D2}';
+  static const familyAdultAdultChildChild =
+      '\u{1F9D1}\u{200D}\u{1F9D1}\u{200D}\u{1F9D2}\u{200D}\u{1F9D2}';
   static const familyAdultChild = '\u{1F9D1}\u{200D}\u{1F9D2}';
-  static const familyAdultChildChild = '\u{1F9D1}\u{200D}\u{1F9D2}\u{200D}\u{1F9D2}';
+  static const familyAdultChildChild =
+      '\u{1F9D1}\u{200D}\u{1F9D2}\u{200D}\u{1F9D2}';
   static const footprints = '\u{1F463}';
   static const fingerprint = '\u{1FAC6}';
   static const lightSkinTone = '\u{1F3FB}';
@@ -3949,9 +5282,12 @@ class Emojis {
   static const flagSouthAfrica = '\u{1F1FF}\u{1F1E6}';
   static const flagZambia = '\u{1F1FF}\u{1F1F2}';
   static const flagZimbabwe = '\u{1F1FF}\u{1F1FC}';
-  static const flagEngland = '\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E0067}\u{E007F}';
-  static const flagScotland = '\u{1F3F4}\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E0074}\u{E007F}';
-  static const flagWales = '\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}';
+  static const flagEngland =
+      '\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E0067}\u{E007F}';
+  static const flagScotland =
+      '\u{1F3F4}\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E0074}\u{E007F}';
+  static const flagWales =
+      '\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}';
   static const regionalIndicatorSymbolLetterA = '\u{1F1E6}';
   static const regionalIndicatorSymbolLetterB = '\u{1F1E7}';
   static const regionalIndicatorSymbolLetterC = '\u{1F1E8}';

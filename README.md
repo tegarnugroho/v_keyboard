@@ -215,6 +215,39 @@ Desktop architecture (separate from mobile, shared controller/engine/focus):
 / POS / kiosk) by passing a `customLayout` with `VKeyboardType.desktop` or
 `.custom`.
 
+## Clipboard History (`Win + V` style)
+
+Production-ready clipboard history integrated directly into the virtual keyboard system:
+
+- **Snippet Recording**: Automatically records non-empty text copied or cut through `v_keyboard`. Duplicate items are deduplicated and moved to the most recent position while preserving creation metadata.
+- **Dedicated UI Panel**: Clean, theme-aware panel with search filtering, 2-line snippet preview, relative timestamps (`Just now`, `5m ago`), pin/unpin toggles, delete action, and clear unpinned history with confirmation.
+- **Entry Points**: Accessible from the clipboard icon on the `123`/symbols page, the emoji panel bottom bar, the desktop function cluster, or via hardware shortcuts (`Win + V`, `Ctrl + Shift + V`).
+- **Seamless Pasting**: Tapping an item inserts text at the current cursor or replaces the active selection using the `TextInputEngine` pipeline (respecting `maxLength`, `inputFormatters`, and `readOnly` rules). The keyboard stays open after pasting.
+- **Privacy & Security**: Never records text from password or sensitive fields (`obscureText: true`, `VKeyboardType.password`, `VKeyboardType.pin`, or `VTextField(sensitive: true)`). Does **not** poll or sniff the host OS clipboard in the background.
+- **Persistence & Limits**: Survives app restarts via lightweight, local JSON storage (file-based on Android, iOS, Windows, macOS, Linux, and in-memory on Web). Configurable history limit (`maxClipboardHistoryItems`, default 50) where pinned items are immune to eviction.
+
+```dart
+// Configure history limit or disable feature
+VKeyboardScope(
+  config: VKeyboardConfig(
+    enableClipboardHistory: true,
+    maxClipboardHistoryItems: 50,
+  ),
+  child: ...,
+);
+
+// Mark sensitive fields that should never be recorded
+VTextField(
+  sensitive: true, // copy/cut from here is never saved to history
+  controller: controller,
+);
+
+// Programmatic control via controller
+final controller = VKeyboardScope.of(context).controller;
+controller.openClipboardHistory();
+controller.pasteText('Custom snippet');
+```
+
 ## Status
 
 Production-oriented foundation with unit + widget tests

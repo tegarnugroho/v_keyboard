@@ -50,8 +50,11 @@ class BuiltinLayouts {
 
   /// Full-width action/enter row, appended only when the pad has no empty slot
   /// to host the key (e.g. the decimal pad).
-  static List<List<KeyData>> _actionRow(bool action) =>
-      action ? [[KeyData.enter(flex: 1)]] : const [];
+  static List<List<KeyData>> _actionRow(bool action) => action
+      ? [
+          [KeyData.enter(flex: 1)]
+        ]
+      : const [];
 
   // ---- Alphabetic (QWERTY) with 123 and symbols pages -----------------------
 

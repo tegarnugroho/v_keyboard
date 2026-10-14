@@ -77,7 +77,8 @@ class _VirtualKeyState extends State<VirtualKey> {
         : (_data.repeatable && config.enableKeyRepeat);
     if (!canRepeat) return;
 
-    final delay = isBackspace ? config.longPressDeleteDelay : config.keyRepeatDelay;
+    final delay =
+        isBackspace ? config.longPressDeleteDelay : config.keyRepeatDelay;
     _delayTimer = Timer(delay, () {
       _repeatTimer = Timer.periodic(config.keyRepeatInterval, (_) {
         _controller.handleKey(_data);
@@ -109,7 +110,8 @@ class _VirtualKeyState extends State<VirtualKey> {
     final m = _controller.modifiers;
     return switch (_data.kind) {
       KeyKind.shift => _controller.isShiftActive || _controller.isCapsLock,
-      KeyKind.modifier => _data.modifier != null && m.isModifierActive(_data.modifier!),
+      KeyKind.modifier =>
+        _data.modifier != null && m.isModifierActive(_data.modifier!),
       KeyKind.lock => _data.lock != null && m.isLocked(_data.lock!),
       _ => false,
     };
@@ -138,7 +140,8 @@ class _VirtualKeyState extends State<VirtualKey> {
 
     final engaged = _isEngaged;
     final baseColor = engaged
-        ? Color.alphaBlend(theme.accentColor.withValues(alpha: 0.35), theme.keyColor)
+        ? Color.alphaBlend(
+            theme.accentColor.withValues(alpha: 0.35), theme.keyColor)
         : _baseColor(theme);
 
     return Expanded(
@@ -201,7 +204,10 @@ class _VirtualKeyState extends State<VirtualKey> {
     return switch (_data.kind) {
       KeyKind.character || KeyKind.space => theme.keyColor,
       KeyKind.function => theme.functionKeyColor,
-      KeyKind.modifier || KeyKind.lock || KeyKind.navigation => theme.modifierKeyColor,
+      KeyKind.modifier ||
+      KeyKind.lock ||
+      KeyKind.navigation =>
+        theme.modifierKeyColor,
       _ => theme.specialKeyColor,
     };
   }
@@ -212,7 +218,8 @@ class _VirtualKeyState extends State<VirtualKey> {
     // Icon keys (shift, backspace, enter, arrows…).
     final icon = _resolveIcon();
     if (icon != null) {
-      return Icon(icon, color: iconColor, size: theme.textStyle.fontSize! * 1.05);
+      return Icon(icon,
+          color: iconColor, size: theme.textStyle.fontSize! * 1.05);
     }
 
     final shifted = _controller.isShiftedForKey(_data);
@@ -240,7 +247,8 @@ class _VirtualKeyState extends State<VirtualKey> {
       overflow: TextOverflow.fade,
       softWrap: false,
       style: (isWordKey
-              ? theme.textStyle.copyWith(fontSize: theme.textStyle.fontSize! * 0.5)
+              ? theme.textStyle
+                  .copyWith(fontSize: theme.textStyle.fontSize! * 0.5)
               : theme.textStyle)
           .copyWith(color: engaged ? theme.accentColor : null),
     );

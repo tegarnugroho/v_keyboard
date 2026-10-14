@@ -1,6 +1,7 @@
 import 'clipboard_history_item.dart';
 import 'clipboard_history_storage_stub.dart'
-    if (dart.library.io) 'clipboard_history_storage_io.dart' as platform_storage;
+    if (dart.library.io) 'clipboard_history_storage_io.dart'
+    as platform_storage;
 
 /// Abstract persistence contract for [ClipboardHistoryManager].
 abstract class ClipboardHistoryStorage {

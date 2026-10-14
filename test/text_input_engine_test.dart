@@ -74,8 +74,14 @@ void main() {
     });
 
     test('moveCursor clamps within bounds', () {
-      expect(TextInputEngine.moveCursor(v('abc', base: 1), -5).selection.baseOffset, 0);
-      expect(TextInputEngine.moveCursor(v('abc', base: 1), 5).selection.baseOffset, 3);
+      expect(
+          TextInputEngine.moveCursor(v('abc', base: 1), -5)
+              .selection
+              .baseOffset,
+          0);
+      expect(
+          TextInputEngine.moveCursor(v('abc', base: 1), 5).selection.baseOffset,
+          3);
     });
   });
 }

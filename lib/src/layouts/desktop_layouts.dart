@@ -62,10 +62,12 @@ class DesktopLayouts {
     return [
       if (showFn)
         _assemble(_functionMain(), _cluster(_prtSc(), _scrLk(), _pause())),
-      _assemble(_numberMain(),
+      _assemble(
+          _numberMain(),
           _cluster(_fn('Ins', LogicalKeyboardKey.insert),
               _nav(NavIntent.home, 'Home'), _nav(NavIntent.pageUp, 'PgUp'))),
-      _assemble(_tabMain(),
+      _assemble(
+          _tabMain(),
           _cluster(_fn('Del', LogicalKeyboardKey.delete, repeatable: true),
               _nav(NavIntent.end, 'End'), _nav(NavIntent.pageDown, 'PgDn'))),
       _assemble(_capsMain(), _cluster(null, null, _clip())),
@@ -102,7 +104,8 @@ class DesktopLayouts {
   static KeyData _prtSc() => _fn('PrtSc', LogicalKeyboardKey.printScreen);
   static KeyData _scrLk() => _fn('ScrLk', LogicalKeyboardKey.scrollLock);
   static KeyData _pause() => _fn('Pause', LogicalKeyboardKey.pause);
-  static KeyData _clip() => KeyData.clipboardHistory(label: 'Clip', flex: _colFlex);
+  static KeyData _clip() =>
+      KeyData.clipboardHistory(label: 'Clip', flex: _colFlex);
 
   // ---- Main blocks (no cluster) ---------------------------------------------
 
@@ -128,7 +131,8 @@ class DesktopLayouts {
       ];
 
   static List<KeyData> _tabMain() => [
-        KeyData.function('Tab', LogicalKeyboardKey.tab, insert: '\t', flex: 1.5),
+        KeyData.function('Tab', LogicalKeyboardKey.tab,
+            insert: '\t', flex: 1.5),
         for (final c in 'qwertyuiop'.split('')) KeyData.char(c),
         KeyData.char('[', shift: '{'),
         KeyData.char(']', shift: '}'),

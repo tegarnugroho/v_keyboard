@@ -65,7 +65,8 @@ class KeyboardMetrics {
     // Scale the height by the number of rows relative to a 5-row baseline so
     // compact layouts (numeric) aren't unnecessarily tall.
     final rowScale = (rows / 5).clamp(0.55, 1.15);
-    final height = (size.height * fraction * rowScale).clamp(minH * rowScale, maxH);
+    final height =
+        (size.height * fraction * rowScale).clamp(minH * rowScale, maxH);
 
     // Compact layouts (numeric/pin/phone) keep a narrow, centred block so the
     // keys don't stretch huge on wide tablet/desktop windows.

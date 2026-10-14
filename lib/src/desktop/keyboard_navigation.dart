@@ -28,9 +28,11 @@ class KeyboardNavigation {
 
     switch (intent) {
       case NavIntent.left:
-        return _horizontal(text, sel, forward: false, extend: extend, word: word);
+        return _horizontal(text, sel,
+            forward: false, extend: extend, word: word);
       case NavIntent.right:
-        return _horizontal(text, sel, forward: true, extend: extend, word: word);
+        return _horizontal(text, sel,
+            forward: true, extend: extend, word: word);
       case NavIntent.home:
         return _toLineEdge(text, sel, start: true, extend: extend, doc: word);
       case NavIntent.end:
@@ -40,9 +42,11 @@ class KeyboardNavigation {
       case NavIntent.down:
         return _vertical(text, sel, down: true, extend: extend, lines: 1);
       case NavIntent.pageUp:
-        return _vertical(text, sel, down: false, extend: extend, lines: _pageLines);
+        return _vertical(text, sel,
+            down: false, extend: extend, lines: _pageLines);
       case NavIntent.pageDown:
-        return _vertical(text, sel, down: true, extend: extend, lines: _pageLines);
+        return _vertical(text, sel,
+            down: true, extend: extend, lines: _pageLines);
     }
   }
 
@@ -65,7 +69,8 @@ class KeyboardNavigation {
     if (!extend && !sel.isCollapsed) {
       // A bare arrow collapses a range to its leading/trailing edge.
       return value.copyWith(
-        selection: TextSelection.collapsed(offset: forward ? sel.end : sel.start),
+        selection:
+            TextSelection.collapsed(offset: forward ? sel.end : sel.start),
       );
     }
     final from = sel.extentOffset;

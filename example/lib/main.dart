@@ -150,14 +150,11 @@ class _DemoPageState extends State<DemoPage> {
               onChanged: widget.onKeyboardThemeChanged,
             ),
             _field('Standard (next)', _standard,
-                type: VKeyboardType.standard,
-                action: TextInputAction.next),
+                type: VKeyboardType.standard, action: TextInputAction.next),
             _field('Text without emoji (next)', _text,
-                type: VKeyboardType.text,
-                action: TextInputAction.next),
+                type: VKeyboardType.text, action: TextInputAction.next),
             _field('Email (next)', _email,
-                type: VKeyboardType.email,
-                action: TextInputAction.next),
+                type: VKeyboardType.email, action: TextInputAction.next),
             _field('URL (go)', _url,
                 type: VKeyboardType.url, action: TextInputAction.go),
             _field('Number', _number, type: VKeyboardType.number),
@@ -169,6 +166,48 @@ class _DemoPageState extends State<DemoPage> {
             _multilineField(),
             _field('Custom Greek layout', _custom,
                 type: VKeyboardType.custom, custom: _greekLayout),
+            const Divider(height: 32),
+            Text('Clipboard History (Win + V style)',
+                style: Theme.of(context).textTheme.titleSmall),
+            const SizedBox(height: 4),
+            const Text(
+              'Copy or cut snippets using the virtual keyboard or physical shortcuts (Win+V / Ctrl+Shift+V). '
+              'Tap the clipboard icon on the 123/symbols page, emoji panel, or desktop function cluster. '
+              'Items can be searched, pinned to prevent eviction, or deleted.',
+              style: TextStyle(fontSize: 12),
+            ),
+            const SizedBox(height: 12),
+            Builder(builder: (ctx) {
+              return Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  FilledButton.tonalIcon(
+                    icon: const Icon(Icons.content_paste_outlined, size: 18),
+                    label: const Text('Open Clipboard Panel'),
+                    onPressed: () {
+                      VKeyboardScope.maybeOf(ctx)
+                          ?.controller
+                          .openClipboardHistory();
+                    },
+                  ),
+                ],
+              );
+            }),
+            const SizedBox(height: 12),
+            _field(
+              'Copyable text snippet (Copy text from here)',
+              _standard,
+              type: VKeyboardType.standard,
+              action: TextInputAction.next,
+            ),
+            _field(
+              'Sensitive text (sensitive: true - Never saved to clipboard history)',
+              _password,
+              type: VKeyboardType.text,
+              sensitive: true,
+              action: TextInputAction.done,
+            ),
             const Divider(height: 32),
             Text('Desktop keyboard (Windows OSK style)',
                 style: Theme.of(context).textTheme.titleSmall),
@@ -199,6 +238,7 @@ class _DemoPageState extends State<DemoPage> {
     required VKeyboardType type,
     TextInputAction action = TextInputAction.done,
     bool obscure = false,
+    bool? sensitive,
     KeyboardLayout? custom,
   }) {
     return Padding(
@@ -208,6 +248,7 @@ class _DemoPageState extends State<DemoPage> {
         keyboardType: type,
         textInputAction: action,
         obscureText: obscure,
+        sensitive: sensitive,
         customLayout: custom,
         decoration: InputDecoration(
           labelText: label,
