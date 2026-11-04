@@ -1,3 +1,10 @@
+## 0.2.3
+
+- **Scroll-into-view improvement**:
+  - Restrict automatic focus scroll-into-view (`_scrollIntoView`) in `VTextField` to vertical ancestor `Scrollable`s only.
+  - Fixes unwanted horizontal displacement and snapping when focusing input fields inside horizontal scroll containers such as `TabBarView`, `PageView`, or carousels.
+  - Preserves vertical scrolling behavior for fields obscured by the on-screen keyboard within vertical scroll views.
+
 ## 0.2.2
 - Use absolute image URLs in the README so the showcase renders on pub.dev.
 

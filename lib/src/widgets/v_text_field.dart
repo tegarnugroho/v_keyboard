@@ -231,14 +231,15 @@ class _VTextFieldState extends State<VTextField> {
   }
 
   /// Scrolls this field above the keyboard once it has animated up (the
-  /// MediaQuery view-inset is then in place), via the nearest [Scrollable].
+  /// MediaQuery view-inset is then in place), via its vertical [Scrollable]
+  /// ancestors.
   void _scrollIntoView() {
     final config = _resolveConfig();
     if (!config.scrollFocusedIntoView) return;
     Future.delayed(config.animationDuration + const Duration(milliseconds: 20),
         () {
       if (!mounted || !_focusNode.hasFocus) return;
-      Scrollable.ensureVisible(
+      _ensureVisibleVertically(
         context,
         alignment: 0.5,
         alignmentPolicy: ScrollPositionAlignmentPolicy.explicit,
@@ -246,6 +247,51 @@ class _VTextFieldState extends State<VTextField> {
         curve: Curves.easeOutCubic,
       );
     });
+  }
+
+  /// Like [Scrollable.ensureVisible], but only scrolls vertical ancestors.
+  ///
+  /// The keyboard always rises from the bottom, so moving a horizontal
+  /// [Scrollable] (TabBarView, PageView, carousel) never reveals the field;
+  /// it only shifts the content sideways until it snaps back. Every ancestor
+  /// is still walked so each offset is computed against the viewport directly
+  /// above the object being revealed.
+  static Future<void> _ensureVisibleVertically(
+    BuildContext context, {
+    double alignment = 0.0,
+    Duration duration = Duration.zero,
+    Curve curve = Curves.ease,
+    ScrollPositionAlignmentPolicy alignmentPolicy =
+        ScrollPositionAlignmentPolicy.explicit,
+  }) {
+    final futures = <Future<void>>[];
+    RenderObject? targetRenderObject;
+    var current = context;
+    var scrollable = Scrollable.maybeOf(current);
+    while (scrollable != null) {
+      final object = current.findRenderObject();
+      if (object == null || !object.attached) break;
+      if (axisDirectionToAxis(scrollable.axisDirection) == Axis.vertical) {
+        futures.add(
+          scrollable.position.ensureVisible(
+            object,
+            alignment: alignment,
+            duration: duration,
+            curve: curve,
+            alignmentPolicy: alignmentPolicy,
+            targetRenderObject: targetRenderObject,
+          ),
+        );
+      }
+      targetRenderObject ??= object;
+      current = scrollable.context;
+      scrollable = Scrollable.maybeOf(current);
+    }
+    if (futures.isEmpty || duration == Duration.zero) {
+      return Future<void>.value();
+    }
+    if (futures.length == 1) return futures.single;
+    return Future.wait<void>(futures).then<void>((_) {});
   }
 
   void _onEditingValueChanged() {
