@@ -383,8 +383,7 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
             // Bottom bar: ABC · Space · Backspace
             Container(
               height: 48,
-              padding: EdgeInsets.only(
-                  left: 8, right: 8, bottom: widget.bottomSafeArea),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
                   _barButton(
@@ -410,6 +409,37 @@ class _ClipboardHistoryPanelState extends State<ClipboardHistoryPanel> {
                 ],
               ),
             ),
+            if (widget.bottomSafeArea > 0)
+              Container(
+                height: widget.bottomSafeArea,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                alignment: Alignment.centerLeft,
+                child: widget.controller.config.showHideKeyboardButton
+                    ? Semantics(
+                        button: true,
+                        label: 'Close keyboard',
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkResponse(
+                            onTap: widget.controller.hide,
+                            radius: 20,
+                            highlightColor:
+                                theme.keyColor.withValues(alpha: 0.5),
+                            splashColor:
+                                theme.accentColor.withValues(alpha: 0.2),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                size: 24,
+                                color: theme.iconColor.withValues(alpha: 0.8),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : null,
+              ),
           ],
         ),
       ),

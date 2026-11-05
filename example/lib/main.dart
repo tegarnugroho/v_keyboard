@@ -171,7 +171,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   late _ActiveTab _currentTab;
   VKeyboardType _selectedType = VKeyboardType.standard;
   String _selectedLayoutName = 'QWERTY';
-  bool _showClipboardInPreview = true;
+  bool _showClipboardInPreview = false;
 
   // Text controllers for playground & tabs
   final TextEditingController _playgroundController = TextEditingController();

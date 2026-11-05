@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -194,7 +196,11 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     }
     if (metrics != null) _lastHeight = metrics.height;
 
-    final bottomInset = mq.padding.bottom; // safe area
+    final showHideButton =
+        widget.config.showHideKeyboardButton && !isDesktopLayout;
+    final bottomInset = showHideButton
+        ? math.max(mq.padding.bottom, 36.0)
+        : mq.padding.bottom;
     final fullHeight = _lastHeight + bottomInset;
 
     return _VKeyboardScopeMarker(
@@ -268,6 +274,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                 metrics: metrics,
                                 rows: rows ?? const [],
                                 bottomSafeArea: bottomInset,
+                                showHideKeyboardButton: showHideButton,
                               ),
                   ),
                 ),

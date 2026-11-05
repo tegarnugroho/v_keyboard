@@ -27,6 +27,7 @@ class VKeyboardConfig {
     this.enableClipboardHistory = true,
     this.maxClipboardHistoryItems = 50,
     this.syncSystemClipboard = true,
+    this.showHideKeyboardButton = true,
   });
 
   /// Whether clipboard history recording and the clipboard panel are enabled.
@@ -38,6 +39,10 @@ class VKeyboardConfig {
   /// Whether to automatically synchronize with the operating system clipboard
   /// across all platforms (Android, iOS, macOS, Windows, Linux, Web).
   final bool syncSystemClipboard;
+
+  /// Whether to show a downward arrow button below the keyboard (like
+  /// Google Keyboard / Gboard) to dismiss/close the keyboard.
+  final bool showHideKeyboardButton;
 
   /// Hide the keyboard when a `done`/`go`/`send` action fires.
   final bool hideOnDone;
@@ -115,6 +120,7 @@ class VKeyboardConfig {
     bool? enableClipboardHistory,
     int? maxClipboardHistoryItems,
     bool? syncSystemClipboard,
+    bool? showHideKeyboardButton,
   }) {
     return VKeyboardConfig(
       hideOnDone: hideOnDone ?? this.hideOnDone,
@@ -143,6 +149,8 @@ class VKeyboardConfig {
       maxClipboardHistoryItems:
           maxClipboardHistoryItems ?? this.maxClipboardHistoryItems,
       syncSystemClipboard: syncSystemClipboard ?? this.syncSystemClipboard,
+      showHideKeyboardButton:
+          showHideKeyboardButton ?? this.showHideKeyboardButton,
     );
   }
 }
