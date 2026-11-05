@@ -170,7 +170,6 @@ class ShowcasePlaygroundPage extends StatefulWidget {
 class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   late _ActiveTab _currentTab;
   VKeyboardType _selectedType = VKeyboardType.standard;
-  String _selectedLayoutName = 'QWERTY';
   bool _showClipboardInPreview = false;
 
   // Text controllers for playground & tabs
@@ -231,7 +230,6 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
     _currentTab = _ActiveTab.values[tabIndex];
     if (_currentTab == _ActiveTab.desktop) {
       _selectedType = VKeyboardType.desktop;
-      _selectedLayoutName = 'Desktop';
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _seedSampleClipboardItems();
@@ -275,30 +273,6 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   void _onSelectKeyboardType(VKeyboardType type) {
     setState(() {
       _selectedType = type;
-      switch (type) {
-        case VKeyboardType.standard:
-          _selectedLayoutName = 'QWERTY';
-        case VKeyboardType.email:
-          _selectedLayoutName = 'Email';
-        case VKeyboardType.number:
-          _selectedLayoutName = 'Number';
-        case VKeyboardType.decimal:
-          _selectedLayoutName = 'Decimal';
-        case VKeyboardType.url:
-          _selectedLayoutName = 'URL';
-        case VKeyboardType.phone:
-          _selectedLayoutName = 'Phone';
-        case VKeyboardType.pin:
-          _selectedLayoutName = 'PIN';
-        case VKeyboardType.password:
-          _selectedLayoutName = 'Password';
-        case VKeyboardType.custom:
-          _selectedLayoutName = 'Greek';
-        case VKeyboardType.desktop:
-          _selectedLayoutName = 'Desktop';
-        default:
-          _selectedLayoutName = 'QWERTY';
-      }
     });
     _playgroundFocusNode.requestFocus();
   }
@@ -327,7 +301,6 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
         setState(() {
           _currentTab = _ActiveTab.desktop;
           _selectedType = VKeyboardType.desktop;
-          _selectedLayoutName = 'Desktop';
         });
         break;
     }
@@ -535,10 +508,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                         _currentTab = tab;
                         if (tab == _ActiveTab.playground) {
                           _selectedType = VKeyboardType.standard;
-                          _selectedLayoutName = 'QWERTY';
                         } else if (tab == _ActiveTab.desktop) {
                           _selectedType = VKeyboardType.desktop;
-                          _selectedLayoutName = 'Desktop';
                         }
                       });
                     },
@@ -987,8 +958,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                   ),
                 ),
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: _selectedLayoutName,
+                  child: DropdownButton<VKeyboardType>(
+                    value: _selectedType,
                     isDense: true,
                     style: TextStyle(
                       fontSize: 12,
@@ -999,37 +970,31 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                         isDark ? const Color(0xFF181D2A) : Colors.white,
                     items: const [
                       DropdownMenuItem(
-                          value: 'QWERTY', child: Text('QWERTY')),
-                      DropdownMenuItem(value: 'Email', child: Text('Email')),
+                          value: VKeyboardType.standard,
+                          child: Text('QWERTY')),
                       DropdownMenuItem(
-                          value: 'Number', child: Text('Number')),
-                      DropdownMenuItem(value: 'Phone', child: Text('Phone')),
-                      DropdownMenuItem(value: 'PIN', child: Text('PIN')),
-                      DropdownMenuItem(value: 'Greek', child: Text('Greek')),
+                          value: VKeyboardType.email, child: Text('Email')),
                       DropdownMenuItem(
-                          value: 'Desktop', child: Text('Desktop')),
+                          value: VKeyboardType.url, child: Text('URL')),
+                      DropdownMenuItem(
+                          value: VKeyboardType.number, child: Text('Number')),
+                      DropdownMenuItem(
+                          value: VKeyboardType.decimal, child: Text('Decimal')),
+                      DropdownMenuItem(
+                          value: VKeyboardType.phone, child: Text('Phone')),
+                      DropdownMenuItem(
+                          value: VKeyboardType.pin, child: Text('PIN')),
+                      DropdownMenuItem(
+                          value: VKeyboardType.password,
+                          child: Text('Password')),
+                      DropdownMenuItem(
+                          value: VKeyboardType.custom, child: Text('Greek')),
+                      DropdownMenuItem(
+                          value: VKeyboardType.desktop, child: Text('Desktop')),
                     ],
                     onChanged: (val) {
                       if (val == null) return;
-                      setState(() {
-                        _selectedLayoutName = val;
-                        if (val == 'QWERTY') {
-                          _selectedType = VKeyboardType.standard;
-                        } else if (val == 'Email') {
-                          _selectedType = VKeyboardType.email;
-                        } else if (val == 'Number') {
-                          _selectedType = VKeyboardType.number;
-                        } else if (val == 'Phone') {
-                          _selectedType = VKeyboardType.phone;
-                        } else if (val == 'PIN') {
-                          _selectedType = VKeyboardType.pin;
-                        } else if (val == 'Greek') {
-                          _selectedType = VKeyboardType.custom;
-                        } else if (val == 'Desktop') {
-                          _selectedType = VKeyboardType.desktop;
-                        }
-                      });
-                      _playgroundFocusNode.requestFocus();
+                      _onSelectKeyboardType(val);
                     },
                   ),
                 ),
