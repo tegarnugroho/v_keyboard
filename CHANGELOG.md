@@ -1,3 +1,17 @@
+## 0.2.4
+
+- **Gboard-Style Dismiss Arrow**:
+  - Add a downward arrow button (`Icons.keyboard_arrow_down_rounded`) below the keyboard grid in `KeyboardView` (like Google Keyboard / Gboard) to dismiss/close the virtual keyboard.
+  - Configurable via `VKeyboardConfig.showHideKeyboardButton` (default: `true`), automatically omitted on desktop layouts.
+  - Accurately synchronizes bottom bar height with `VKeyboardScope`'s safe area insets and `viewInsets.bottom` so focused text fields remain properly visible above the keyboard.
+  - Add dismiss button support across `EmojiPanel` and `ClipboardHistoryPanel` bottom safe area areas.
+  - Support custom `hideIcon` and `onHide` callback in `KeyboardView`.
+- **`VKeyboardType` Enum with Value**:
+  - Add `label` property to `VKeyboardType` enum (`standard('QWERTY')`, `decimal('Decimal')`, etc.) for type-safe, human-readable display names.
+- **Example App & Bug Fixes**:
+  - Fix `DropdownButton` assertion error when selecting `Decimal`, `URL`, or `Password` keyboard types by switching the preview dropdown to strictly typed `DropdownButton<VKeyboardType>`.
+  - Fix example app initial state opening the clipboard panel on first launch by defaulting `_showClipboardInPreview` to `false`.
+
 ## 0.2.3
 
 - **Scroll-into-view improvement**:
