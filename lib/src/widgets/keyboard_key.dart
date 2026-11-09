@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../controller/v_keyboard_controller.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
+import '../scope/v_keyboard_scope.dart';
 import '../theme/v_keyboard_theme.dart';
 
 /// A single rendered key.
@@ -37,6 +38,7 @@ class _VirtualKeyState extends State<VirtualKey> {
   final ValueNotifier<bool> _hovered = ValueNotifier<bool>(false);
   Timer? _repeatTimer;
   Timer? _delayTimer;
+  OverlayEntry? _accentOverlay;
   int _lastShiftTapMs = 0;
 
   KeyData get _data => widget.data;
@@ -44,10 +46,110 @@ class _VirtualKeyState extends State<VirtualKey> {
 
   @override
   void dispose() {
+    _dismissAccentPopup();
     _cancelRepeat();
     _pressed.dispose();
     _hovered.dispose();
     super.dispose();
+  }
+
+  void _dismissAccentPopup() {
+    _accentOverlay?.remove();
+    _accentOverlay = null;
+  }
+
+  void _showAccentPopup() {
+    _cancelRepeat();
+    final alternates = _data.alternates;
+    if (alternates == null || alternates.isEmpty) return;
+
+    final overlay = Overlay.maybeOf(context);
+    if (overlay == null) return;
+
+    final renderBox = context.findRenderObject() as RenderBox?;
+    if (renderBox == null || !renderBox.hasSize) return;
+
+    final keyOffset = renderBox.localToGlobal(Offset.zero);
+    final keySize = renderBox.size;
+    final shifted = _controller.isShiftedForKey(_data);
+
+    final allChars = [
+      _data.resolveText(shifted: shifted) ?? _data.text ?? '',
+      ...alternates.map((c) => shifted ? c.toUpperCase() : c.toLowerCase()),
+    ];
+
+    _accentOverlay = OverlayEntry(
+      builder: (ctx) {
+        final theme = widget.theme;
+        final totalWidth = allChars.length * 36.0 + 8.0;
+        final screenWidth = MediaQuery.of(ctx).size.width;
+        final left = (keyOffset.dx + keySize.width / 2 - totalWidth / 2)
+            .clamp(8.0, screenWidth - totalWidth - 8.0);
+        final tapGroup = VKeyboardScope.maybeOf(context)?.tapGroup;
+
+        Widget content = Stack(
+          children: [
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: _dismissAccentPopup,
+                child: const SizedBox(),
+              ),
+            ),
+            Positioned(
+              left: left,
+              top: (keyOffset.dy - 52).clamp(8.0, double.infinity),
+              child: Material(
+                elevation: 6,
+                borderRadius: BorderRadius.circular(10),
+                color: theme.keyColor,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: theme.accentColor.withValues(alpha: 0.3),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: allChars.map((char) {
+                      return InkWell(
+                        onTap: () {
+                          _dismissAccentPopup();
+                          _controller.insertText(char);
+                        },
+                        borderRadius: BorderRadius.circular(6),
+                        child: Container(
+                          width: 34,
+                          height: 40,
+                          alignment: Alignment.center,
+                          child: Text(
+                            char,
+                            style: theme.textStyle.copyWith(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+
+        if (tapGroup != null) {
+          content = TapRegion(groupId: tapGroup, child: content);
+        }
+        return content;
+      },
+    );
+
+    overlay.insert(_accentOverlay!);
   }
 
   void _cancelRepeat() {
@@ -63,7 +165,13 @@ class _VirtualKeyState extends State<VirtualKey> {
     _maybeStartRepeat();
   }
 
-  void _onTapUp(TapUpDetails _) => _pressed.value = false;
+  void _onTapUp(TapUpDetails _) {
+    _pressed.value = false;
+    if (_accentOverlay != null) {
+      // Accent popup is open; don't auto-dismiss immediately so user can select
+    }
+  }
+
   void _onTapCancel() {
     _pressed.value = false;
     _cancelRepeat();
@@ -72,23 +180,29 @@ class _VirtualKeyState extends State<VirtualKey> {
   void _maybeStartRepeat() {
     final config = _controller.config;
     final isBackspace = _data.kind == KeyKind.backspace;
+    final hasAlternates = _data.alternates != null && _data.alternates!.isNotEmpty;
     final canRepeat = isBackspace
         ? config.enableLongPressDelete
-        : (_data.repeatable && config.enableKeyRepeat);
+        : (hasAlternates || (_data.repeatable && config.enableKeyRepeat));
     if (!canRepeat) return;
 
     final delay =
         isBackspace ? config.longPressDeleteDelay : config.keyRepeatDelay;
     _delayTimer = Timer(delay, () {
-      _repeatTimer = Timer.periodic(config.keyRepeatInterval, (_) {
-        _controller.handleKey(_data);
-      });
+      if (hasAlternates) {
+        _showAccentPopup();
+      } else {
+        _repeatTimer = Timer.periodic(config.keyRepeatInterval, (_) {
+          _controller.handleKey(_data);
+        });
+      }
     });
   }
 
   void _onTap() {
     _cancelRepeat();
     if (!_isEnabled) return;
+    if (_accentOverlay != null) return;
     if (_data.kind == KeyKind.shift) {
       _handleShift();
       return;
@@ -256,6 +370,30 @@ class _VirtualKeyState extends State<VirtualKey> {
     if (icon != null) {
       return Icon(icon,
           color: iconColor, size: theme.textStyle.fontSize! * 1.05);
+    }
+
+    if (_data.kind == KeyKind.space) {
+      final banner = _controller.spaceBarBanner;
+      if (banner != null && banner.isNotEmpty) {
+        return AnimatedOpacity(
+          opacity: 1.0,
+          duration: const Duration(milliseconds: 300),
+          child: Text(
+            banner,
+            maxLines: 1,
+            overflow: TextOverflow.fade,
+            style: theme.textStyle.copyWith(
+              fontSize: (theme.textStyle.fontSize! * 0.72).clamp(12.0, 15.0),
+              fontWeight: FontWeight.w500,
+              color: theme.textStyle.color?.withValues(alpha: 0.7),
+            ),
+          ),
+        );
+      }
+      if (_data.label != null && _data.label!.isNotEmpty) {
+        return Text(_data.label!, style: theme.textStyle);
+      }
+      return const SizedBox.shrink();
     }
 
     final shifted = _controller.isShiftedForKey(_data);

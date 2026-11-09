@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart' hide ModifierKey;
 import 'package:flutter/widgets.dart';
 
@@ -11,6 +14,8 @@ import '../desktop/keyboard_navigation.dart';
 import '../desktop/keyboard_shortcut_manager.dart';
 import '../desktop/native_print_screen.dart';
 import '../engine/text_input_engine.dart';
+import '../layouts/layout_selection_storage.dart';
+import '../layouts/v_keyboard_layouts.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
 import '../models/keyboard_layout.dart';
@@ -31,6 +36,7 @@ class VKeyboardController extends ChangeNotifier {
   VKeyboardController({
     VKeyboardConfig? config,
     ClipboardHistoryManager? clipboardHistory,
+    LayoutSelectionStorage? layoutStorage,
   }) : _defaultConfig = config ?? const VKeyboardConfig() {
     this.clipboardHistory = clipboardHistory ??
         ClipboardHistoryManager(
@@ -38,11 +44,49 @@ class VKeyboardController extends ChangeNotifier {
           enabled: _defaultConfig.enableClipboardHistory,
           syncSystemClipboard: _defaultConfig.syncSystemClipboard,
         );
+    _layoutStorage = layoutStorage ??
+        (_defaultConfig.persistLayoutSelection
+            ? LayoutSelectionStorage.defaultStorage()
+            : null);
+    _currentLayoutId = _defaultConfig.defaultLayout ??
+        (_defaultConfig.enabledLayouts.isNotEmpty
+            ? _defaultConfig.enabledLayouts.first
+            : 'en_US');
+
     modifiers.addListener(notifyListeners);
     this.clipboardHistory.addListener(notifyListeners);
+
+    if (_defaultConfig.persistLayoutSelection && _layoutStorage != null) {
+      _restorePersistedLayout();
+    }
   }
 
-  final VKeyboardConfig _defaultConfig;
+  VKeyboardConfig _defaultConfig;
+  LayoutSelectionStorage? _layoutStorage;
+  late String _currentLayoutId;
+  final StreamController<String> _layoutChangeController =
+      StreamController<String>.broadcast();
+  String? _spaceBarBanner;
+  Timer? _spaceBarTimer;
+
+  /// Updates the default configuration when the parent scope's config changes.
+  void updateConfig(VKeyboardConfig newConfig) {
+    _defaultConfig = newConfig;
+    if (_layoutStorage == null && newConfig.persistLayoutSelection) {
+      _layoutStorage = LayoutSelectionStorage.defaultStorage();
+      _restorePersistedLayout();
+    }
+    notifyListeners();
+  }
+
+  /// The identifier of the currently active keyboard layout (e.g. 'en_US', 'de_DE').
+  String get currentLayoutId => _currentLayoutId;
+
+  /// Stream emitting the layout id whenever the active layout changes.
+  Stream<String> get onLayoutChanged => _layoutChangeController.stream;
+
+  /// Transient layout name shown briefly on the space bar after switching.
+  String? get spaceBarBanner => _spaceBarBanner;
 
   /// Modifier and lock state (Shift/Ctrl/Alt/AltGr/Meta, Caps/Num/Scroll Lock).
   final KeyboardModifierController modifiers = KeyboardModifierController();
@@ -73,7 +117,7 @@ class VKeyboardController extends ChangeNotifier {
   String get currentPage => _page;
 
   VKeyboardConfig get config => session?.config ?? _defaultConfig;
-  KeyboardLayout? get layout => session?.layout;
+  KeyboardLayout? get layout => session?.getLayout(_currentLayoutId);
 
   List<List<KeyData>>? get currentRows {
     final l = layout;
@@ -83,11 +127,79 @@ class VKeyboardController extends ChangeNotifier {
 
   @override
   void dispose() {
+    _spaceBarTimer?.cancel();
+    _layoutChangeController.close();
     modifiers.removeListener(notifyListeners);
     modifiers.dispose();
     clipboardHistory.removeListener(notifyListeners);
     clipboardHistory.dispose();
     super.dispose();
+  }
+
+  // ---- Layout switching ----------------------------------------------------
+
+  /// Switches the active layout to [id].
+  void setLayout(String id) {
+    if (_currentLayoutId == id && _page != '123' && _page != 'symbols') return;
+    _currentLayoutId = id;
+    if (config.persistLayoutSelection) {
+      _layoutStorage ??= LayoutSelectionStorage.defaultStorage();
+      _layoutStorage?.save(id);
+    }
+    _layoutChangeController.add(id);
+
+    // Switching while on symbols page returns to the new layout's main page
+    if (_page == '123' || _page == 'symbols') {
+      _page = layout?.initialPage ?? 'abc';
+    }
+
+    if (modifiers.shift) {
+      modifiers.toggleModifier(ModifierKey.shift);
+    }
+
+    final displayName = VKeyboardLayouts.getDisplayName(id);
+    _triggerSpaceBarAnnouncement(displayName);
+
+    try {
+      // ignore: deprecated_member_use
+      SemanticsService.announce('Switched to $displayName', TextDirection.ltr)
+          .catchError((_) {});
+    } catch (_) {}
+
+    notifyListeners();
+  }
+
+  /// Cycles to the next layout in [VKeyboardConfig.enabledLayouts].
+  void nextLayout() {
+    final enabled = config.enabledLayouts;
+    if (enabled.isEmpty) return;
+    final currentIndex = enabled.indexOf(_currentLayoutId);
+    final nextIndex =
+        currentIndex >= 0 ? (currentIndex + 1) % enabled.length : 0;
+    setLayout(enabled[nextIndex]);
+  }
+
+  void _triggerSpaceBarAnnouncement(String name) {
+    _spaceBarBanner = name;
+    _spaceBarTimer?.cancel();
+    _spaceBarTimer = Timer(const Duration(milliseconds: 1500), () {
+      _spaceBarBanner = null;
+      notifyListeners();
+    });
+  }
+
+  Future<void> _restorePersistedLayout() async {
+    try {
+      final saved = await _layoutStorage?.load();
+      if (saved != null && saved.isNotEmpty) {
+        if (_defaultConfig.enabledLayouts.contains(saved) ||
+            _defaultConfig.enabledLayouts.length == 1) {
+          _currentLayoutId = saved;
+          _layoutChangeController.add(saved);
+          notifyListeners();
+        }
+      }
+    } catch (_) {}
   }
 
   // ---- Session lifecycle ----------------------------------------------------
@@ -98,7 +210,7 @@ class VKeyboardController extends ChangeNotifier {
     _session = session;
     _targetSession = session;
     if (!sameField && _page != 'clipboard') {
-      _page = session.layout.initialPage;
+      _page = session.getLayout(_currentLayoutId).initialPage;
       modifiers.reset();
       if (session.allowsAutoShift && session.value.text.isEmpty) {
         modifiers.armShift();
@@ -139,8 +251,9 @@ class VKeyboardController extends ChangeNotifier {
   void openClipboardHistory() {
     if (!config.enableClipboardHistory) return;
     if (_page != 'clipboard') {
-      _previousPage =
-          _page.isNotEmpty ? _page : (session?.layout.initialPage ?? 'abc');
+      _previousPage = _page.isNotEmpty
+          ? _page
+          : (session?.getLayout(_currentLayoutId).initialPage ?? 'abc');
     }
     if (_session != null) {
       _targetSession = _session;
@@ -154,7 +267,7 @@ class VKeyboardController extends ChangeNotifier {
   void closeClipboardHistory() {
     final target = _previousPage.isNotEmpty
         ? _previousPage
-        : (session?.layout.initialPage ?? 'abc');
+        : (session?.getLayout(_currentLayoutId).initialPage ?? 'abc');
     _page = target;
     final s = _session ?? _targetSession;
     if (s != null && !s.focusNode.hasFocus) {
@@ -166,6 +279,16 @@ class VKeyboardController extends ChangeNotifier {
   /// Synchronizes clipboard history with the operating system clipboard.
   Future<bool> syncClipboardFromSystem() =>
       clipboardHistory.syncFromSystemClipboard();
+
+  /// Inserts [text] into the active text field using the input editing pipeline.
+  void insertText(String text) {
+    final s = _session ?? _targetSession;
+    if (s == null) return;
+    if (!s.focusNode.hasFocus) {
+      s.focusNode.requestFocus();
+    }
+    s.insertText(text);
+  }
 
   /// Pastes a saved [ClipboardHistoryItem] into the active text field.
   void pasteClipboardItem(ClipboardHistoryItem item) {
@@ -239,6 +362,16 @@ class VKeyboardController extends ChangeNotifier {
   }
 
   void _handleCharacter(KeyboardSession session, KeyData key) {
+    if (modifiers.altGr && !modifiers.control && !modifiers.meta) {
+      final keyChar = key.text ?? '';
+      final altChar = VKeyboardLayouts.getAltGr(_currentLayoutId)[keyChar];
+      if (altChar != null) {
+        _insert(session, altChar);
+        modifiers.clearMomentary();
+        return;
+      }
+    }
+
     final text = key.resolveText(shifted: isShiftedForKey(key)) ?? '';
     if (modifiers.hasCommandModifier) {
       // A command modifier (Ctrl/Alt/Meta) turns the key into a shortcut.

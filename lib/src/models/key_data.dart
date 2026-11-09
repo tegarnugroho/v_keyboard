@@ -82,16 +82,26 @@ class KeyData {
     this.media,
     this.logicalKey,
     this.optional = false,
+    this.alternates,
   });
 
   /// A character key. [shiftText] defaults to the upper-cased [char].
-  factory KeyData.char(String char, {String? shift, double flex = 1}) {
+  ///
+  /// [alternates] optionally defines accented or variant characters available
+  /// on long-press (e.g. `['é', 'è', 'ê', 'ë']` for `e`).
+  factory KeyData.char(
+    String char, {
+    String? shift,
+    double flex = 1,
+    List<String>? alternates,
+  }) {
     return KeyData(
       kind: KeyKind.character,
       text: char,
       shiftText: shift ?? char.toUpperCase(),
       flex: flex,
       repeatable: true,
+      alternates: alternates,
     );
   }
 
@@ -312,12 +322,18 @@ class KeyData {
   /// Whether holding the key repeats its action (chars + backspace).
   final bool repeatable;
 
-  /// Whether this is a single A–Z letter key (the only kind Caps Lock affects).
+  /// Optional list of alternate characters presented on long-press.
+  final List<String>? alternates;
+
+  static final RegExp _letterRegex = RegExp(r'^\p{L}$', unicode: true);
+
+  /// Whether this is a letter key (affected by Caps Lock).
   bool get isLetter {
     final t = text;
-    if (kind != KeyKind.character || t == null || t.length != 1) return false;
+    if (kind != KeyKind.character || t == null || t.isEmpty) return false;
     final c = t.codeUnitAt(0);
-    return (c >= 0x41 && c <= 0x5A) || (c >= 0x61 && c <= 0x7A);
+    if ((c >= 0x41 && c <= 0x5A) || (c >= 0x61 && c <= 0x7A)) return true;
+    return _letterRegex.hasMatch(t);
   }
 
   /// Resolves the label to render for the given shift state.

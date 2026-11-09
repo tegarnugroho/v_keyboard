@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../controller/v_keyboard_controller.dart';
 import '../models/key_data.dart';
+import '../models/keyboard_type.dart';
 import '../responsive/keyboard_metrics.dart';
 import '../theme/v_keyboard_theme.dart';
 import 'keyboard_key.dart';
+import 'layout_picker_dialog.dart';
 
 /// Renders the current keyboard page: a background, responsive key grid and a
 /// bottom safe-area / dismiss bar. Centred and width-limited on large viewports.
@@ -24,6 +26,10 @@ class KeyboardView extends StatelessWidget {
     this.showHideKeyboardButton,
     this.hideIcon,
     this.onHide,
+    this.showGlobeKey,
+    this.globeIcon,
+    this.onGlobeTap,
+    this.onGlobeLongPress,
   });
 
   final VKeyboardController controller;
@@ -44,6 +50,19 @@ class KeyboardView extends StatelessWidget {
   /// Optional custom callback invoked when the dismiss button is tapped.
   /// Defaults to [VKeyboardController.hide].
   final VoidCallback? onHide;
+
+  /// Whether to display the globe (layout switcher) button in the bottom bar.
+  /// When null, defaults to showing when 2+ layouts are enabled on text-like fields.
+  final bool? showGlobeKey;
+
+  /// Optional icon to use for the globe button. Defaults to [Icons.language].
+  final IconData? globeIcon;
+
+  /// Optional callback invoked when the globe switcher is tapped.
+  final VoidCallback? onGlobeTap;
+
+  /// Optional callback invoked when the globe switcher is long-pressed.
+  final VoidCallback? onGlobeLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +102,32 @@ class KeyboardView extends StatelessWidget {
     final shouldShowHide = showHideKeyboardButton ??
         (controller.config.showHideKeyboardButton &&
             metrics.formFactor != DeviceFormFactor.desktop);
-    final effectiveBottomBarHeight = shouldShowHide
+
+    final type = controller.session?.type;
+    final isTextLike = type == null ||
+        type == VKeyboardType.standard ||
+        type == VKeyboardType.text ||
+        type == VKeyboardType.email ||
+        type == VKeyboardType.url ||
+        type == VKeyboardType.password ||
+        type == VKeyboardType.multiline;
+    final isNumeric = type == VKeyboardType.number ||
+        type == VKeyboardType.decimal ||
+        type == VKeyboardType.phone ||
+        type == VKeyboardType.pin;
+    final isCustomExplicit = type == VKeyboardType.custom &&
+        (controller.session?.config.showGlobeKey == true &&
+            controller.config.showGlobeKey);
+    final isEligibleType = (isTextLike && !isNumeric) || isCustomExplicit;
+
+    final shouldShowGlobe = showGlobeKey ??
+        (controller.config.showGlobeKey &&
+            controller.config.enabledLayouts.length >= 2 &&
+            metrics.formFactor != DeviceFormFactor.desktop &&
+            isEligibleType);
+
+    final hasBottomBar = shouldShowHide || shouldShowGlobe;
+    final effectiveBottomBarHeight = hasBottomBar
         ? math.max(bottomSafeArea, 36.0)
         : bottomSafeArea;
 
@@ -104,8 +148,13 @@ class KeyboardView extends StatelessWidget {
                   ),
                   child: grid,
                 ),
-                if (shouldShowHide)
-                  _buildBottomBar(context, effectiveBottomBarHeight)
+                if (hasBottomBar)
+                  _buildBottomBar(
+                    context,
+                    effectiveBottomBarHeight,
+                    showHide: shouldShowHide,
+                    showGlobe: shouldShowGlobe,
+                  )
                 else if (effectiveBottomBarHeight > 0)
                   SizedBox(height: effectiveBottomBarHeight),
               ],
@@ -116,7 +165,12 @@ class KeyboardView extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomBar(BuildContext context, double height) {
+  Widget _buildBottomBar(
+    BuildContext context,
+    double height, {
+    required bool showHide,
+    required bool showGlobe,
+  }) {
     final hasOverlay = Overlay.maybeOf(context) != null;
     return Container(
       height: height,
@@ -124,29 +178,80 @@ class KeyboardView extends StatelessWidget {
         horizontal: metrics.horizontalPadding + 4,
       ),
       alignment: Alignment.centerLeft,
-      child: Semantics(
-        button: true,
-        label: 'Close keyboard',
-        child: Tooltip(
-          message: hasOverlay ? 'Close keyboard' : '',
-          child: Material(
-            color: Colors.transparent,
-            child: InkResponse(
-              onTap: onHide ?? controller.hide,
-              radius: 20,
-              highlightColor: theme.keyColor.withValues(alpha: 0.5),
-              splashColor: theme.accentColor.withValues(alpha: 0.2),
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Icon(
-                  hideIcon ?? Icons.keyboard_arrow_down_rounded,
-                  size: 24,
-                  color: theme.iconColor.withValues(alpha: 0.8),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (showHide)
+            Semantics(
+              button: true,
+              label: 'Close keyboard',
+              child: Tooltip(
+                message: hasOverlay ? 'Close keyboard' : '',
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkResponse(
+                    onTap: onHide ?? controller.hide,
+                    radius: 20,
+                    highlightColor: theme.keyColor.withValues(alpha: 0.5),
+                    splashColor: theme.accentColor.withValues(alpha: 0.2),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Icon(
+                        hideIcon ?? Icons.keyboard_arrow_down_rounded,
+                        size: 24,
+                        color: theme.iconColor.withValues(alpha: 0.8),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
+          if (showHide && showGlobe) const SizedBox(width: 4),
+          if (showGlobe)
+            Semantics(
+              button: true,
+              label: 'Switch keyboard language',
+              child: Tooltip(
+                message: hasOverlay ? 'Switch keyboard language' : '',
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkResponse(
+                    onTap: onGlobeTap ??
+                        () {
+                          if (controller.config.openPickerOnTap) {
+                            showVKeyboardLayoutPicker(
+                              context,
+                              controller: controller,
+                              theme: theme,
+                            );
+                          } else {
+                            controller.nextLayout();
+                          }
+                        },
+                    onLongPress: onGlobeLongPress ??
+                        () {
+                          showVKeyboardLayoutPicker(
+                            context,
+                            controller: controller,
+                            theme: theme,
+                          );
+                        },
+                    radius: 20,
+                    highlightColor: theme.keyColor.withValues(alpha: 0.5),
+                    splashColor: theme.accentColor.withValues(alpha: 0.2),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Icon(
+                        globeIcon ?? Icons.language,
+                        size: 24,
+                        color: theme.iconColor.withValues(alpha: 0.8),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

@@ -62,11 +62,13 @@ Production-ready clipboard history integrated directly into the virtual keyboard
 - Full respect for `inputFormatters`, `maxLength`, and `readOnly` configurations.
 
 ### Keyboard Layouts
-- **Alphabetic**: Standard QWERTY and Text (clean layout without emoji switch).
+- **Alphabetic & Multi-Language**: 9 built-in international layouts (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`).
+- **Runtime Layout Switching**: Gboard-style globe key (`Icons.language`), space bar preview banner, and quick layout picker (dialog / bottom sheet).
+- **Accented Characters**: Long-press letter callouts with customizable alternates.
 - **Specialized**: Number, decimal, phone, PIN, password, email, and URL layouts.
-- **Symbols**: Multi-page switching (`123`, `#+=`) with sticky shift and double-tap caps lock.
+- **Symbols**: Multi-page switching (`123`, `#+=`) with sticky shift, double-tap caps lock, and locale-specific currency keys (`€`, `£`, `₺`, `₽`).
 - **Emoji**: Built-in categorized emoji picker with zero external dependencies.
-- **Custom**: Declarative layout definition and custom key widget builders.
+- **Custom**: Declarative layout definition and global layout registry (`VKeyboardLayouts`).
 
 ### Desktop Experience
 - Windows On-Screen Keyboard style layout with function keys (F1–F12) and numpad.
@@ -100,7 +102,7 @@ Or add it manually under dependencies:
 
 ```yaml
 dependencies:
-  flutter_v_keyboard: ^0.2.4
+  flutter_v_keyboard: ^0.3.0
 ```
 
 ---
@@ -169,6 +171,104 @@ class _FormPageState extends State<FormPage> {
   }
 }
 ```
+
+---
+
+## Multi-Language Layouts
+
+`flutter_v_keyboard` includes 9 built-in international layouts and a runtime layout switcher inspired by Gboard and iOS.
+
+### Built-in Locales
+
+| Layout ID | Language | Type | Key Features |
+| :--- | :--- | :--- | :--- |
+| `en_US` | English (US) | QWERTY | Standard US keyboard, `$` currency symbol (default) |
+| `en_GB` | English (UK) | QWERTY | UK symbols with `£` currency symbol |
+| `de_DE` | Deutsch | QWERTZ | Swapped `Y`/`Z`, direct `ä`, `ö`, `ü`, `ß` keys, `€` symbol |
+| `fr_FR` | Français | AZERTY | Swapped `A`/`Q` and `Z`/`W`, `M` beside `L`, `é`, `è`, `à`, `ç`, `ù`, `€` symbol |
+| `es_ES` | Español | QWERTY | Dedicated `ñ` key, `¿`, `¡`, `€` symbol |
+| `nordic` | Nordic | QWERTY | Dedicated `å`, `ä`, `ö`, `æ`, `ø` keys, `€`/`kr` symbols |
+| `tr_TR` | Türkçe | Turkish Q | Dedicated `ğ`, `ü`, `ş`, `ı`, `ö`, `ç`, `₺`, strict dotted/dotless casing (`i ↔ İ`, `ı ↔ I`) |
+| `ru_RU` | Русский | ЙЦУКЕН | Full Cyrillic alphabet, `₽` currency symbol |
+| `el_GR` | Ελληνικά | Greek | Full Greek alphabet, `€` currency symbol |
+
+### Enabling Multi-Language Support
+
+Specify `enabledLayouts` in `VKeyboardConfig`. When two or more layouts are enabled, the globe key (`Icons.language`) appears automatically in the bottom bar beside the hide keyboard button on all text-like fields:
+
+```dart
+VKeyboardScope(
+  config: const VKeyboardConfig(
+    enabledLayouts: ['en_US', 'de_DE', 'fr_FR', 'es_ES'],
+    defaultLayout: 'en_US',
+    showGlobeKey: true,
+    persistLayoutSelection: true, // Remembers active layout across app restarts
+    openPickerOnTap: false,        // Tap cycles layouts; long-press opens dialog
+  ),
+  onLayoutChanged: (layoutId) {
+    debugPrint('Layout switched to: $layoutId');
+  },
+  child: child!,
+);
+```
+
+### Globe Key & Runtime Switcher
+
+- **Tap**: Cycles to the next enabled layout in sequence (or opens the picker modal directly if `openPickerOnTap: true`).
+- **Long-Press**: Opens a layout picker (bottom sheet on mobile, dialog on desktop/tablet) to select any enabled layout.
+- **Space Bar Banner**: Briefly flashes the active layout name (e.g., `Deutsch`) on the space bar (~1.5s fade out), matching native Gboard behavior.
+- **Accessibility**: Announces the new layout via `SemanticsService` and assigns `"Switch keyboard language"` to screen readers.
+- **Persistent State**: The user's chosen layout is automatically stored locally and restored on next application launch.
+
+### Programmatic Control
+
+Access layout controls from any widget using `VKeyboardController`:
+
+```dart
+final controller = VKeyboardController.of(context);
+
+// Read current active layout
+final current = controller.currentLayoutId;
+
+// Switch layout directly
+controller.setLayout('de_DE');
+
+// Cycle to next layout
+controller.nextLayout();
+
+// Listen to layout changes
+controller.onLayoutChanged.listen((id) {
+  debugPrint('New layout: $id');
+});
+
+// Open layout picker manually
+showVKeyboardLayoutPicker(context, controller);
+```
+
+### Custom Layout Registration
+
+Register your own custom language layouts globally with `VKeyboardLayouts`:
+
+```dart
+VKeyboardLayouts.register(
+  myCustomLayout,
+  displayName: 'Esperanto',
+  nativeName: 'Esperanto',
+  shortLabel: 'EO',
+);
+```
+
+Once registered, custom layouts can be referenced by ID in `enabledLayouts` and `defaultLayout`.
+
+### Long-Press Accents
+
+Character keys can define alternate accented characters via `KeyData.char`:
+
+```dart
+KeyData.char('e', alternates: ['é', 'è', 'ê', 'ë'])
+```
+
+Long-pressing the key reveals an interactive accent bubble callout above the key. Tapping an alternate inserts it directly into the active text field.
 
 ---
 
@@ -311,6 +411,8 @@ VTextField(
 | `ClipboardHistoryManager` | Records snippets, enforces storage limits, handles pinning, and syncs with system clipboard. |
 | `VKeyboardTheme` | Defines visual colors, elevation, border radii, and system font fallback stacks. |
 | `VKeyboardConfig` | Controls runtime keyboard behavior flags and feature toggles. |
+| `VKeyboardLayouts` | Global registry for built-in and custom locale layouts, AltGr character mappings, and locale metadata. |
+| `LayoutSelectionStorage` | Persists user's selected layout across app sessions (file-backed or in-memory). |
 
 ---
 

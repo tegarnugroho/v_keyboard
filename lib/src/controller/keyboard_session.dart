@@ -72,11 +72,17 @@ class KeyboardSession {
       type == VKeyboardType.pin;
 
   /// The resolved layout for this session.
-  late final KeyboardLayout layout = BuiltinLayouts.resolve(
-    type,
-    custom: customLayout,
-    numericAction: config.numericActionKey,
-  );
+  KeyboardLayout get layout => getLayout();
+
+  /// Resolves the layout for the given [layoutId].
+  KeyboardLayout getLayout([String? layoutId]) {
+    return BuiltinLayouts.resolve(
+      type,
+      custom: customLayout,
+      numericAction: config.numericActionKey,
+      layoutId: layoutId ?? config.defaultLayout ?? 'en_US',
+    );
+  }
 
   /// Whether the enter key inserts a newline rather than submitting.
   bool get insertsNewline =>

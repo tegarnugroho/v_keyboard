@@ -67,6 +67,19 @@ class _ExampleAppState extends State<ExampleApp> {
     const config = VKeyboardConfig(
       enableClipboardHistory: true,
       syncSystemClipboard: true,
+      enabledLayouts: [
+        'en_US',
+        'en_GB',
+        'de_DE',
+        'fr_FR',
+        'es_ES',
+        'nordic',
+        'tr_TR',
+        'ru_RU',
+        'el_GR',
+      ],
+      showGlobeKey: true,
+      openPickerOnTap: true,
     );
 
     return MaterialApp(
@@ -971,7 +984,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                     items: const [
                       DropdownMenuItem(
                           value: VKeyboardType.standard,
-                          child: Text('QWERTY')),
+                          child: Text('Standard')),
                       DropdownMenuItem(
                           value: VKeyboardType.email, child: Text('Email')),
                       DropdownMenuItem(
@@ -1085,7 +1098,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
     bool isDark,
   ) {
     if (_selectedType == VKeyboardType.desktop) {
-      final desktopRows = DesktopLayouts.rows(960);
+      final desktopRows =
+          DesktopLayouts.rows(960, layoutId: controller.currentLayoutId);
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: SizedBox(
@@ -1108,10 +1122,11 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
       );
     }
 
-    // Resolve rows based on selected type/layout
+    // Resolve rows based on selected type/layout and active layout ID
     final layout = BuiltinLayouts.resolve(
       _selectedType,
       custom: _selectedType == VKeyboardType.custom ? _greekLayout : null,
+      layoutId: controller.currentLayoutId,
     );
     final page = (controller.currentPage.isNotEmpty &&
             controller.currentPage != 'clipboard' &&
@@ -1782,6 +1797,73 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
           activeColor: widget.accentColor.color,
           onChanged: widget.onUpdateKeyBorderRadius,
         ),
+        const SizedBox(height: 24),
+
+        // Multi-Language Layout Switcher
+        const Text(
+          'Multi-Language Keyboard Layouts',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Switch active layout at runtime via the globe button or layout picker dialog.',
+          style: TextStyle(
+            fontSize: 12,
+            color: isDark ? Colors.white60 : Colors.black54,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Builder(
+          builder: (ctx) {
+            final scope = VKeyboardScope.maybeOf(ctx);
+            final activeId = scope?.controller.currentLayoutId ?? 'en_US';
+            final layouts = [
+              ('en_US', 'English (US)'),
+              ('en_GB', 'English (UK)'),
+              ('de_DE', 'Deutsch (QWERTZ)'),
+              ('fr_FR', 'Français (AZERTY)'),
+              ('es_ES', 'Español'),
+              ('nordic', 'Nordic'),
+              ('tr_TR', 'Türkçe (Turkish Q)'),
+              ('ru_RU', 'Русский (ЙЦУКЕН)'),
+              ('el_GR', 'Ελληνικά (Greek)'),
+            ];
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: layouts.map((item) {
+                    final isSelected = activeId == item.$1;
+                    return ChoiceChip(
+                      label: Text(item.$2),
+                      selected: isSelected,
+                      selectedColor: widget.accentColor.color.withValues(alpha: 0.25),
+                      onSelected: (_) {
+                        scope?.controller.setLayout(item.$1);
+                        setState(() {});
+                      },
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.language_rounded),
+                  label: const Text('Open Layout Picker Dialog'),
+                  onPressed: scope != null
+                      ? () => showVKeyboardLayoutPicker(
+                            ctx,
+                            controller: scope.controller,
+                            theme: scope.theme,
+                          )
+                      : null,
+                ),
+              ],
+            );
+          },
+        ),
       ],
     );
   }
@@ -1836,7 +1918,10 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                 final availableWidth = constraints.maxWidth;
                 final layoutWidth =
                     availableWidth < 1000 ? 1000.0 : availableWidth;
-                final rows = DesktopLayouts.rows(layoutWidth);
+                final rows = DesktopLayouts.rows(
+                  layoutWidth,
+                  layoutId: controller.currentLayoutId,
+                );
                 final rowCount = rows.length;
                 final keyboardHeight =
                     (rowCount * 46.0) + ((rowCount - 1) * 6.0) + 24.0;

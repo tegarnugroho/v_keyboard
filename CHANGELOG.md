@@ -1,3 +1,39 @@
+## 0.3.0
+
+- **Multi-Language Keyboard Layouts**:
+  - Add 9 built-in locale layouts with localized main and symbol pages:
+    - `en_US`: US English QWERTY (default, identical to previous releases).
+    - `en_GB`: UK English QWERTY with `£` currency symbol.
+    - `de_DE`: German QWERTZ with swapped `Y`/`Z`, `ä`, `ö`, `ü`, `ß`, and `€`.
+    - `fr_FR`: French AZERTY with swapped `A`/`Q` and `Z`/`W`, `M` adjacent to `L`, `é`, `è`, `à`, `ç`, `ù`, and `€`.
+    - `es_ES`: Spanish QWERTY with `ñ`, `¿`, `¡`, and `€`.
+    - `nordic`: Nordic QWERTY with `å`, `ä`, `ö`, `æ`, `ø`, and `€`/`kr`.
+    - `tr_TR`: Turkish Q with `ğ`, `ü`, `ş`, `ı`, `ö`, `ç`, `₺`, and strict dotted/dotless casing (`i ↔ İ`, `ı ↔ I`).
+    - `ru_RU`: Russian Cyrillic ЙЦУКЕН with `₽`.
+    - `el_GR`: Greek layout with Greek alphabet and `€`.
+  - Add declarative global registry `VKeyboardLayouts` (`register`, `getLayout`, `allLayouts`, `supportedLocales`, `altGrMapFor`, `isoLayoutIds`).
+- **Globe Key & Runtime Layout Switcher**:
+  - Gboard / iOS style globe key (`Icons.language`) positioned beside the dismiss keyboard button in the bottom bar.
+  - Tap cycles through `enabledLayouts` or opens picker modal dialog/bottom sheet (configurable via `openPickerOnTap`).
+  - Long-press triggers `showVKeyboardLayoutPicker` displaying active selection, display names, and short codes.
+  - Transient space bar announcement banner displaying active layout display name briefly (~1.5s fade out) upon switching.
+  - Screen-reader accessible with semantic label ("Switch keyboard language") and locale announcements via `SemanticsService`.
+  - Automatically shown only when 2+ layouts are enabled on text-like input fields (`standard`, `text`, `email`, `url`, `password`), hidden on numeric keyboards (`number`, `decimal`, `phone`, `pin`) and custom layouts by default.
+- **Long-Press Accents**:
+  - Character keys support `alternates` via `KeyData.char('e', alternates: ['é', 'è', 'ê', 'ë'])`.
+  - Long-pressing letter keys presents an interactive accent callout popup above the key.
+  - Fully compatible with key repeat and backspace deletion.
+- **Desktop Layout ISO & AltGr Support**:
+  - Full desktop keyboard (`VKeyboardType.desktop`) adapts to ISO layout standards with ISO Enter and the extra key beside Left Shift for ISO locales (`en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`).
+  - Locale-specific AltGr character mappings (e.g., `AltGr + Q` → `@`, `AltGr + E` → `€` in `de_DE`).
+- **Cross-Platform Layout Selection Persistence**:
+  - Saves user's selected keyboard layout across app restarts via `LayoutSelectionStorage` (file-backed on Android, iOS, Windows, macOS, Linux, and in-memory on Web).
+- **Public API Additions**:
+  - `VKeyboardConfig`: `enabledLayouts`, `defaultLayout`, `showGlobeKey`, `persistLayoutSelection`, `openPickerOnTap`.
+  - `VKeyboardController`: `currentLayoutId`, `setLayout(id)`, `nextLayout()`, `onLayoutChanged` stream, `insertText(text)`.
+  - `VKeyboardScope`: `onLayoutChanged` callback.
+  - `showVKeyboardLayoutPicker`: modal bottom sheet on mobile or centered dialog on desktop/tablet to pick active layout.
+
 ## 0.2.4
 
 - **Gboard-Style Dismiss Arrow**:

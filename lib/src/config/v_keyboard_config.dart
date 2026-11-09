@@ -28,7 +28,38 @@ class VKeyboardConfig {
     this.maxClipboardHistoryItems = 50,
     this.syncSystemClipboard = true,
     this.showHideKeyboardButton = true,
+    this.enabledLayouts = const ['en_US'],
+    this.defaultLayout,
+    this.showGlobeKey = false,
+    this.persistLayoutSelection = true,
+    this.openPickerOnTap = true,
   });
+
+  /// Enabled layout IDs for switching via space bar hold or the globe key.
+  ///
+  /// Defaults to `['en_US']`. When 2 or more layouts are enabled, holding
+  /// (long-pressing) the space bar opens the layout picker dialog/bottom sheet.
+  final List<String> enabledLayouts;
+
+  /// The initial layout to use before any selection is made.
+  ///
+  /// Defaults to the first layout in [enabledLayouts] or `'en_US'`.
+  final String? defaultLayout;
+
+  /// Whether to display the optional globe (layout switcher) key in the bottom bar.
+  ///
+  /// Defaults to `false`. By default, users switch layouts by holding
+  /// (long-pressing) the space bar, matching modern on-screen keyboard UX.
+  final bool showGlobeKey;
+
+  /// Whether to persist the selected layout across app restarts using local storage.
+  final bool persistLayoutSelection;
+
+  /// Whether tapping the globe key opens the layout picker dialog/bottom sheet
+  /// directly instead of cycling to the next layout.
+  ///
+  /// Defaults to `true`.
+  final bool openPickerOnTap;
 
   /// Whether clipboard history recording and the clipboard panel are enabled.
   final bool enableClipboardHistory;
@@ -121,6 +152,11 @@ class VKeyboardConfig {
     int? maxClipboardHistoryItems,
     bool? syncSystemClipboard,
     bool? showHideKeyboardButton,
+    List<String>? enabledLayouts,
+    String? defaultLayout,
+    bool? showGlobeKey,
+    bool? persistLayoutSelection,
+    bool? openPickerOnTap,
   }) {
     return VKeyboardConfig(
       hideOnDone: hideOnDone ?? this.hideOnDone,
@@ -151,6 +187,12 @@ class VKeyboardConfig {
       syncSystemClipboard: syncSystemClipboard ?? this.syncSystemClipboard,
       showHideKeyboardButton:
           showHideKeyboardButton ?? this.showHideKeyboardButton,
+      enabledLayouts: enabledLayouts ?? this.enabledLayouts,
+      defaultLayout: defaultLayout ?? this.defaultLayout,
+      showGlobeKey: showGlobeKey ?? this.showGlobeKey,
+      persistLayoutSelection:
+          persistLayoutSelection ?? this.persistLayoutSelection,
+      openPickerOnTap: openPickerOnTap ?? this.openPickerOnTap,
     );
   }
 }

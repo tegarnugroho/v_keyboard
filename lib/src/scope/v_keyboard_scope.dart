@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -29,9 +30,13 @@ class VKeyboardScope extends StatefulWidget {
     this.config = const VKeyboardConfig(),
     this.floating = false,
     this.renderKeyboard = true,
+    this.onLayoutChanged,
   });
 
   final Widget child;
+
+  /// Optional callback invoked when the keyboard layout changes.
+  final ValueChanged<String>? onLayoutChanged;
 
   /// Optionally supply your own controller (e.g. to drive the keyboard
   /// programmatically). One is created and disposed automatically otherwise.
@@ -73,6 +78,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
   late final AnimationController _anim;
   late final Animation<double> _curved;
   bool _ownsController = false;
+  StreamSubscription<String>? _layoutSub;
 
   /// Last computed height; reused while animating out (no session present).
   double _lastHeight = 280;
@@ -98,6 +104,17 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
       reverseCurve: widget.config.animationCurve.flipped,
     );
     _controller.addListener(_onControllerChanged);
+    _layoutSub = _controller.onLayoutChanged.listen((id) {
+      widget.onLayoutChanged?.call(id);
+    });
+  }
+
+  @override
+  void didUpdateWidget(VKeyboardScope oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.config != oldWidget.config) {
+      _controller.updateConfig(widget.config);
+    }
   }
 
   @override
@@ -138,6 +155,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _layoutSub?.cancel();
     _controller.removeListener(_onControllerChanged);
     _anim.dispose();
     if (_ownsController) _controller.dispose();
@@ -179,7 +197,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
       // Desktop layout is built responsively from the available width and is
       // centred + width-limited; rows collapse as the window narrows.
       final contentWidth = mq.size.width.clamp(320.0, 1320.0);
-      rows = DesktopLayouts.rows(contentWidth);
+      rows = DesktopLayouts.rows(contentWidth, layoutId: _controller.currentLayoutId);
       metrics = _desktopMetrics(mq, rows.length, contentWidth);
     } else {
       rows = _controller.currentRows;
@@ -196,9 +214,24 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     }
     if (metrics != null) _lastHeight = metrics.height;
 
+    final effectiveConfig = widget.controller?.config ?? widget.config;
+
+    final type = _controller.session?.type;
+    final isTextLike = type == VKeyboardType.standard ||
+        type == VKeyboardType.text ||
+        type == VKeyboardType.email ||
+        type == VKeyboardType.url ||
+        type == VKeyboardType.password ||
+        type == VKeyboardType.multiline;
+    final shouldShowGlobe = isTextLike &&
+        !isDesktopLayout &&
+        _controller.config.showGlobeKey &&
+        _controller.config.enabledLayouts.length >= 2;
+
     final showHideButton =
-        widget.config.showHideKeyboardButton && !isDesktopLayout;
-    final bottomInset = showHideButton
+        effectiveConfig.showHideKeyboardButton && !isDesktopLayout;
+    final hasBottomBar = showHideButton || shouldShowGlobe;
+    final bottomInset = hasBottomBar
         ? math.max(mq.padding.bottom, 36.0)
         : mq.padding.bottom;
     final fullHeight = _lastHeight + bottomInset;
@@ -207,7 +240,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
       data: VKeyboardScopeData(
         controller: _controller,
         theme: theme,
-        config: widget.config,
+        config: effectiveConfig,
         tapGroup: _tapGroup,
       ),
       child: Stack(
@@ -275,6 +308,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                 rows: rows ?? const [],
                                 bottomSafeArea: bottomInset,
                                 showHideKeyboardButton: showHideButton,
+                                showGlobeKey: shouldShowGlobe,
                               ),
                   ),
                 ),

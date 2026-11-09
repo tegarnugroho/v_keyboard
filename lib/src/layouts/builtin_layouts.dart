@@ -4,6 +4,7 @@ import '../models/key_data.dart';
 import '../models/keyboard_layout.dart';
 import '../models/keyboard_type.dart';
 import 'desktop_layouts.dart';
+import 'v_keyboard_layouts.dart';
 
 /// Built-in keyboard layouts and the resolver that maps a
 /// [VKeyboardType] to a [KeyboardLayout].
@@ -16,7 +17,35 @@ class BuiltinLayouts {
     VKeyboardType type, {
     KeyboardLayout? custom,
     bool numericAction = false,
+    String layoutId = 'en_US',
   }) {
+    if (type == VKeyboardType.custom) {
+      assert(custom != null, 'A custom layout must be provided.');
+      return custom ?? qwerty;
+    }
+
+    if (type == VKeyboardType.desktop) {
+      return custom ?? DesktopLayouts.layoutFor(layoutId);
+    }
+
+    if (type == VKeyboardType.number) {
+      return _number(action: numericAction);
+    }
+    if (type == VKeyboardType.decimal) {
+      return _decimal(action: numericAction);
+    }
+    if (type == VKeyboardType.phone) {
+      return _phone(action: numericAction);
+    }
+    if (type == VKeyboardType.pin) {
+      return _pin(action: numericAction);
+    }
+
+    if (layoutId != 'en_US') {
+      final loc = VKeyboardLayouts.getLayout(layoutId, type: type);
+      if (loc != null) return loc;
+    }
+
     switch (type) {
       case VKeyboardType.standard:
       case VKeyboardType.password:
@@ -29,19 +58,8 @@ class BuiltinLayouts {
         return url;
       case VKeyboardType.multiline:
         return multiline;
-      case VKeyboardType.desktop:
-        return custom ?? DesktopLayouts.layout;
-      case VKeyboardType.number:
-        return _number(action: numericAction);
-      case VKeyboardType.decimal:
-        return _decimal(action: numericAction);
-      case VKeyboardType.phone:
-        return _phone(action: numericAction);
-      case VKeyboardType.pin:
-        return _pin(action: numericAction);
-      case VKeyboardType.custom:
-        assert(custom != null, 'A custom layout must be provided.');
-        return custom ?? qwerty;
+      default:
+        return qwerty;
     }
   }
 
