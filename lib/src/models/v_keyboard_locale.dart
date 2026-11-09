@@ -1,7 +1,7 @@
 /// Built-in language and country keyboard layout locales.
 ///
 /// Provides type-safe enum constants for built-in layouts (`en_US`, `en_GB`,
-/// `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`).
+/// `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`, `ko_KR`).
 enum VKeyboardLocale {
   /// US English QWERTY with `$` currency.
   enUS('en_US', 'English (US)', 'EN'),
@@ -28,7 +28,10 @@ enum VKeyboardLocale {
   ruRU('ru_RU', 'Русский', 'RU'),
 
   /// Greek layout with Greek alphabet and `€` currency.
-  elGR('el_GR', 'Ελληνικά', 'GR');
+  elGR('el_GR', 'Ελληνικά', 'GR'),
+
+  /// Korean 2-Set Hangul (두벌식) with syllable composition and `₩` currency.
+  koKR('ko_KR', '한국어', 'KO');
 
   const VKeyboardLocale(this.id, this.displayName, this.shortLabel);
 

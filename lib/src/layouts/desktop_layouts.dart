@@ -138,6 +138,25 @@ class DesktopLayouts {
       ];
 
   static List<KeyData> _tabMain(String layoutId) {
+    if (layoutId == 'ko_KR') {
+      return [
+        KeyData.function('Tab', LogicalKeyboardKey.tab, insert: '\t', flex: 1.5),
+        KeyData.char('ㅂ', shift: 'ㅃ'),
+        KeyData.char('ㅈ', shift: 'ㅉ'),
+        KeyData.char('ㄷ', shift: 'ㄸ'),
+        KeyData.char('ㄱ', shift: 'ㄲ'),
+        KeyData.char('ㅅ', shift: 'ㅆ'),
+        KeyData.char('ㅛ'),
+        KeyData.char('ㅕ'),
+        KeyData.char('ㅑ'),
+        KeyData.char('ㅐ', shift: 'ㅒ'),
+        KeyData.char('ㅔ', shift: 'ㅖ'),
+        KeyData.char('[', shift: '{'),
+        KeyData.char(']', shift: '}'),
+        KeyData.char('\\', shift: '|', flex: 1.5),
+      ];
+    }
+
     final (letters, k1, k2, k3) = switch (layoutId) {
       'de_DE' => (
           'qwertzuiop',
@@ -207,6 +226,7 @@ class DesktopLayouts {
       'tr_TR' => ('asdfghjkl', KeyData.char('ş', shift: 'Ş'), KeyData.char('i', shift: 'İ')),
       'ru_RU' => ('фывапролд', KeyData.char('ж', shift: 'Ж'), KeyData.char('э', shift: 'Э')),
       'el_GR' => ('ασδφγηξκλ', KeyData.char('´', shift: '¨'), KeyData.char("'", shift: '"')),
+      'ko_KR' => ('ㅁㄴㅇㄹㅎㅗㅓㅏㅣ', KeyData.char(';', shift: ':'), KeyData.char("'", shift: '"')),
       _ => ('asdfghjkl', KeyData.char(';', shift: ':'), KeyData.char("'", shift: '"')),
     };
 
@@ -275,6 +295,13 @@ class DesktopLayouts {
       'el_GR' => (
           null,
           'ζχψωβνμ',
+          KeyData.char(',', shift: '<'),
+          KeyData.char('.', shift: '>'),
+          KeyData.char('/', shift: '?')
+        ),
+      'ko_KR' => (
+          null,
+          'ㅋㅌㅊㅍㅠㅜㅡ',
           KeyData.char(',', shift: '<'),
           KeyData.char('.', shift: '>'),
           KeyData.char('/', shift: '?')

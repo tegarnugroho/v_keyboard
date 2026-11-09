@@ -6,7 +6,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Multi-language Built-in Layouts', () {
-    test('all 9 built-in layouts are registered with metadata', () {
+    test('all 10 built-in layouts are registered with metadata', () {
       final expected = [
         'en_US',
         'en_GB',
@@ -17,6 +17,7 @@ void main() {
         'tr_TR',
         'ru_RU',
         'el_GR',
+        'ko_KR',
       ];
 
       for (final id in expected) {
@@ -187,6 +188,28 @@ void main() {
       final row3 = abcRows[2].map((k) => k.text).join();
       expect(row3, contains('ζχψωβνμ'));
     });
+
+    test('ko_KR renders 2-Set Hangul and ₩ currency', () {
+      final layout = VKeyboardLayouts.getLayout('ko_KR')!;
+      final abcRows = layout.rowsFor('abc');
+
+      final row1 = abcRows[0].map((k) => k.text).join();
+      expect(row1, 'ㅂㅈㄷㄱㅅㅛㅕㅑㅐㅔ');
+
+      // Shift alternates on row 1
+      final row1Shifted = abcRows[0].map((k) => k.resolveText(shifted: true)).join();
+      expect(row1Shifted, 'ㅃㅉㄸㄲㅆㅛㅕㅑㅒㅖ');
+
+      final row2 = abcRows[1].map((k) => k.text).join();
+      expect(row2, 'ㅁㄴㅇㄹㅎㅗㅓㅏㅣ');
+
+      final row3 = abcRows[2].map((k) => k.text).join();
+      expect(row3, contains('ㅋㅌㅊㅍㅠㅜㅡ'));
+
+      final numRows = layout.rowsFor('123');
+      final numRow2 = numRows[1].map((k) => k.text).join();
+      expect(numRow2, contains('₩'));
+    });
   });
 
   group('Caps Lock & Non-ASCII isLetter', () {
@@ -302,12 +325,16 @@ void main() {
     });
 
     test('VKeyboardLocale enum maps to built-in layouts correctly', () {
-      expect(VKeyboardLocale.values.length, 9);
+      expect(VKeyboardLocale.values.length, 10);
       expect(VKeyboardLocale.enUS.id, 'en_US');
       expect(VKeyboardLocale.deDE.id, 'de_DE');
       expect(VKeyboardLocale.ruRU.id, 'ru_RU');
+      expect(VKeyboardLocale.koKR.id, 'ko_KR');
+      expect(VKeyboardLocale.koKR.displayName, '한국어');
+      expect(VKeyboardLocale.koKR.shortLabel, 'KO');
 
       expect(VKeyboardLocale.fromId('de_DE'), VKeyboardLocale.deDE);
+      expect(VKeyboardLocale.fromId('ko_KR'), VKeyboardLocale.koKR);
       expect(VKeyboardLocale.fromId('unknown_id'), isNull);
     });
 
@@ -346,6 +373,162 @@ void main() {
       controller.setLocale(VKeyboardLocale.deDE);
       expect(controller.currentLocale, VKeyboardLocale.deDE);
       expect(controller.currentLayoutId, 'de_DE');
+    });
+  });
+
+  group('HangulComposer Engine', () {
+    test('composes basic syllables (초성 + 중성 + 종성)', () {
+      var val = const TextEditingValue(text: '');
+
+      // ㅎ + ㅏ + ㄴ = 한
+      val = HangulComposer.compose(value: val, jamo: 'ㅎ');
+      expect(val.text, 'ㅎ');
+      val = HangulComposer.compose(value: val, jamo: 'ㅏ');
+      expect(val.text, '하');
+      val = HangulComposer.compose(value: val, jamo: 'ㄴ');
+      expect(val.text, '한');
+
+      // ㄱ + ㅡ + ㄹ = 글
+      val = HangulComposer.compose(value: val, jamo: 'ㄱ');
+      expect(val.text, '한ㄱ');
+      val = HangulComposer.compose(value: val, jamo: 'ㅡ');
+      expect(val.text, '한그');
+      val = HangulComposer.compose(value: val, jamo: 'ㄹ');
+      expect(val.text, '한글');
+    });
+
+    test('composes compound vowels (ㅗ + ㅏ = ㅘ, 고 + ㅏ = 과)', () {
+      var val = const TextEditingValue(text: '');
+
+      // Standalone compound vowel: ㅗ + ㅏ = ㅘ
+      val = HangulComposer.compose(value: val, jamo: 'ㅗ');
+      val = HangulComposer.compose(value: val, jamo: 'ㅏ');
+      expect(val.text, 'ㅘ');
+
+      // Syllable compound vowel: ㄱ + ㅗ + ㅏ + ㄴ = 관
+      val = const TextEditingValue(text: '');
+      val = HangulComposer.compose(value: val, jamo: 'ㄱ');
+      val = HangulComposer.compose(value: val, jamo: 'ㅗ');
+      expect(val.text, '고');
+      val = HangulComposer.compose(value: val, jamo: 'ㅏ');
+      expect(val.text, '과');
+      val = HangulComposer.compose(value: val, jamo: 'ㄴ');
+      expect(val.text, '관');
+    });
+
+    test('composes compound batchim (달 + ㄱ = 닭)', () {
+      var val = const TextEditingValue(text: '');
+      for (final jamo in ['ㄷ', 'ㅏ', 'ㄹ', 'ㄱ']) {
+        val = HangulComposer.compose(value: val, jamo: jamo);
+      }
+      expect(val.text, '닭');
+    });
+
+    test('splits single batchim when a vowel follows (간 + ㅏ = 가나)', () {
+      var val = const TextEditingValue(text: '');
+      for (final jamo in ['ㄱ', 'ㅏ', 'ㄴ', 'ㅏ']) {
+        val = HangulComposer.compose(value: val, jamo: jamo);
+      }
+      expect(val.text, '가나');
+    });
+
+    test('splits compound batchim when a vowel follows (닭 + ㅣ = 달기)', () {
+      var val = const TextEditingValue(text: '');
+      for (final jamo in ['ㄷ', 'ㅏ', 'ㄹ', 'ㄱ', 'ㅣ']) {
+        val = HangulComposer.compose(value: val, jamo: jamo);
+      }
+      expect(val.text, '달기');
+    });
+
+    test('decomposes syllable level-by-level on backspace (닭 -> 달 -> 다 -> ㄷ -> empty)', () {
+      var val = const TextEditingValue(
+        text: '닭',
+        selection: TextSelection.collapsed(offset: 1),
+      );
+
+      val = HangulComposer.backspace(value: val);
+      expect(val.text, '달');
+
+      val = HangulComposer.backspace(value: val);
+      expect(val.text, '다');
+
+      val = HangulComposer.backspace(value: val);
+      expect(val.text, 'ㄷ');
+
+      val = HangulComposer.backspace(value: val);
+      expect(val.text, '');
+    });
+
+    test('decomposes compound vowel on backspace (과 -> 고 -> ㄱ -> empty)', () {
+      var val = const TextEditingValue(
+        text: '과',
+        selection: TextSelection.collapsed(offset: 1),
+      );
+
+      val = HangulComposer.backspace(value: val);
+      expect(val.text, '고');
+
+      val = HangulComposer.backspace(value: val);
+      expect(val.text, 'ㄱ');
+
+      val = HangulComposer.backspace(value: val);
+      expect(val.text, '');
+    });
+
+    test('types full Korean greeting 안녕하세요 seamlessly', () {
+      const keystrokes = ['ㅇ', 'ㅏ', 'ㄴ', 'ㄴ', 'ㅕ', 'ㅇ', 'ㅎ', 'ㅏ', 'ㅅ', 'ㅔ', 'ㅇ', 'ㅛ'];
+      var val = const TextEditingValue(text: '');
+      for (final k in keystrokes) {
+        val = HangulComposer.compose(value: val, jamo: k);
+      }
+      expect(val.text, '안녕하세요');
+    });
+
+    test('controller handles ko_KR keystrokes and decomposes backspace in session', () {
+      final textController = TextEditingController();
+      final focusNode = FocusNode();
+      final keyboardController = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLocales: [VKeyboardLocale.enUS, VKeyboardLocale.koKR],
+          defaultLocale: VKeyboardLocale.koKR,
+          persistLayoutSelection: false,
+        ),
+      );
+
+      final session = KeyboardSession(
+        id: 'test_korean_field',
+        editingController: textController,
+        focusNode: focusNode,
+        type: VKeyboardType.standard,
+        textInputAction: TextInputAction.done,
+        config: keyboardController.config,
+        contextRef: () => null,
+      );
+
+      keyboardController.attach(session);
+      keyboardController.setLayout('ko_KR');
+
+      // Type 'ㅎ' -> 'ㅏ' -> 'ㄴ'
+      keyboardController.handleKey(KeyData.char('ㅎ'));
+      expect(textController.text, 'ㅎ');
+
+      keyboardController.handleKey(KeyData.char('ㅏ'));
+      expect(textController.text, '하');
+
+      keyboardController.handleKey(KeyData.char('ㄴ'));
+      expect(textController.text, '한');
+
+      // Backspace decomposes '한' to '하'
+      keyboardController.handleKey(KeyData.backspace());
+      expect(textController.text, '하');
+
+      // Backspace decomposes '하' to 'ㅎ'
+      keyboardController.handleKey(KeyData.backspace());
+      expect(textController.text, 'ㅎ');
+
+      // Backspace deletes 'ㅎ'
+      keyboardController.handleKey(KeyData.backspace());
+      expect(textController.text, '');
     });
   });
 }

@@ -13,6 +13,7 @@ import '../desktop/keyboard_modifier_controller.dart';
 import '../desktop/keyboard_navigation.dart';
 import '../desktop/keyboard_shortcut_manager.dart';
 import '../desktop/native_print_screen.dart';
+import '../engine/hangul_composer.dart';
 import '../engine/text_input_engine.dart';
 import '../layouts/layout_selection_storage.dart';
 import '../layouts/v_keyboard_layouts.dart';
@@ -385,6 +386,25 @@ class VKeyboardController extends ChangeNotifier {
     if (modifiers.hasCommandModifier) {
       // A command modifier (Ctrl/Alt/Meta) turns the key into a shortcut.
       _handleCharCommand(session, key, text);
+    } else if (_currentLayoutId == 'ko_KR' &&
+        (HangulComposer.isChoseong(text) ||
+            HangulComposer.isJungseong(text) ||
+            HangulComposer.isHangulSyllable(text))) {
+      if (session.readOnly || !session.enabled) return;
+      final oldValue = session.value;
+      var newValue = HangulComposer.compose(
+        value: oldValue,
+        jamo: text,
+      );
+      if (session.inputFormatters != null && session.inputFormatters!.isNotEmpty) {
+        for (final formatter in session.inputFormatters!) {
+          newValue = formatter.formatEditUpdate(oldValue, newValue);
+        }
+      }
+      if (newValue != oldValue) {
+        session.value = newValue;
+        session.onChanged?.call(newValue.text);
+      }
     } else {
       _insert(session, text);
     }
@@ -420,8 +440,18 @@ class VKeyboardController extends ChangeNotifier {
   }
 
   void _handleBackspace(KeyboardSession session) {
+    if (session.readOnly || !session.enabled) return;
     if (modifiers.control) {
       session.value = _deleteWordBackward(session.value);
+    } else if (_currentLayoutId == 'ko_KR' &&
+        session.value.selection.isCollapsed) {
+      final offset = session.value.selection.baseOffset;
+      if (offset > 0 &&
+          HangulComposer.canDecompose(session.value.text[offset - 1])) {
+        session.value = HangulComposer.backspace(value: session.value);
+      } else {
+        session.value = TextInputEngine.deleteBackward(session.value);
+      }
     } else {
       session.value = TextInputEngine.deleteBackward(session.value);
     }

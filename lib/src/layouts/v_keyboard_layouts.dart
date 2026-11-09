@@ -7,6 +7,7 @@ import 'locales/layout_en_gb.dart';
 import 'locales/layout_en_us.dart';
 import 'locales/layout_es_es.dart';
 import 'locales/layout_fr_fr.dart';
+import 'locales/layout_ko_kr.dart';
 import 'locales/layout_nordic.dart';
 import 'locales/layout_ru_ru.dart';
 import 'locales/layout_tr_tr.dart';
@@ -211,6 +212,18 @@ class VKeyboardLayouts {
         altGrMap: const {
           'e': '€',
         },
+      ),
+    );
+
+    // 10. ko_KR
+    _registerInternal(
+      VKeyboardLayoutMetadata(
+        id: 'ko_KR',
+        displayName: '한국어',
+        shortLabel: 'KO',
+        layout: LayoutKoKr.build(),
+        builder: ({VKeyboardType type = VKeyboardType.standard}) =>
+            LayoutKoKr.build(type: type),
       ),
     );
   }

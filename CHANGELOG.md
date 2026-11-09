@@ -1,7 +1,7 @@
 ## 0.3.0
 
 - **Multi-Language Keyboard Layouts**:
-  - Add 9 built-in locale layouts with localized main and symbol pages:
+  - Add 10 built-in locale layouts with localized main and symbol pages:
     - `en_US`: US English QWERTY (default, identical to previous releases).
     - `en_GB`: UK English QWERTY with `£` currency symbol.
     - `de_DE`: German QWERTZ with swapped `Y`/`Z`, `ä`, `ö`, `ü`, `ß`, and `€`.
@@ -11,7 +11,15 @@
     - `tr_TR`: Turkish Q with `ğ`, `ü`, `ş`, `ı`, `ö`, `ç`, `₺`, and strict dotted/dotless casing (`i ↔ İ`, `ı ↔ I`).
     - `ru_RU`: Russian Cyrillic ЙЦУКЕН with `₽`.
     - `el_GR`: Greek layout with Greek alphabet and `€`.
+    - `ko_KR`: Korean 2-Set Hangul (두벌식) with syllable composition, compound vowels/batchim, and `₩`.
   - Add declarative global registry `VKeyboardLayouts` (`register`, `getLayout`, `allLayouts`, `supportedLocales`, `altGrMapFor`, `isoLayoutIds`).
+- **Hangul Syllable Composition Engine (`HangulComposer`)**:
+  - Pure algorithmic Unicode Hangul composition (UAX #29 / Hangul Syllable Composition standard: `0xAC00 + (cho * 21 + jung) * 28 + jong`) with zero external dependencies.
+  - Real-time syllable combination (e.g. `ㅎ` + `ㅏ` + `ㄴ` = `한`).
+  - Compound vowel merging (e.g. `ㅗ` + `ㅏ` = `ㅘ`, `고` + `ㅏ` = `과`).
+  - Compound batchim merging (e.g. `ㄹ` + `ㄱ` = `ㄺ`, `달` + `ㄱ` = `닭`).
+  - Batchim splitting when a vowel follows (e.g. `간` + `ㅏ` = `가나`, `닭` + `ㅣ` = `달기`).
+  - Step-by-step backspace decomposition (e.g. `닭` -> `달` -> `다` -> `ㄷ` -> delete).
 - **Space Bar Hold & Runtime Layout Switcher**:
   - Holding (long-pressing) the space bar opens `showVKeyboardLayoutPicker` displaying active selection, localized display names, and short codes (bottom sheet on mobile, dialog on desktop/tablet).
   - Space bar subtly displays the active language name (e.g. `English (US)`, `Deutsch`, `Русский`) when multiple layouts are enabled.

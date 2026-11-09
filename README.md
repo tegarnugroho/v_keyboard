@@ -62,7 +62,8 @@ Production-ready clipboard history integrated directly into the virtual keyboard
 - Full respect for `inputFormatters`, `maxLength`, and `readOnly` configurations.
 
 ### Keyboard Layouts
-- **Alphabetic & Multi-Language**: 9 built-in international layouts (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`).
+- **Alphabetic & Multi-Language**: 10 built-in international layouts (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`, `ko_KR`).
+- **Hangul Syllable Composition Engine**: Pure algorithmic Korean syllable composition (`ㅎ` + `ㅏ` + `ㄴ` = `한`), compound vowels (`ㅘ`, `ㅙ`, `ㅢ`), compound batchim (`닭`), batchim splitting (`간` + `ㅏ` = `가나`, `닭` + `ㅣ` = `달기`), and step-by-step backspace decomposition.
 - **Runtime Layout Switching**: Hold (long-press) the space bar to open the layout picker dialog / bottom sheet, with space bar active layout preview and persistent selection.
 - **Accented Characters**: Long-press letter callouts with customizable alternates.
 - **Specialized**: Number, decimal, phone, PIN, password, email, and URL layouts.
@@ -176,7 +177,7 @@ class _FormPageState extends State<FormPage> {
 
 ## Multi-Language Layouts
 
-`flutter_v_keyboard` includes 9 built-in international layouts and a runtime layout switcher inspired by Gboard and iOS.
+`flutter_v_keyboard` includes 10 built-in international layouts and a runtime layout switcher inspired by Gboard and iOS.
 
 ### Built-in Locales
 
@@ -191,6 +192,7 @@ class _FormPageState extends State<FormPage> {
 | `tr_TR` | Türkçe | Turkish Q | Dedicated `ğ`, `ü`, `ş`, `ı`, `ö`, `ç`, `₺`, strict dotted/dotless casing (`i ↔ İ`, `ı ↔ I`) |
 | `ru_RU` | Русский | ЙЦУКЕН | Full Cyrillic alphabet, `₽` currency symbol |
 | `el_GR` | Ελληνικά | Greek | Full Greek alphabet, `€` currency symbol |
+| `ko_KR` | 한국어 | 2-Set Hangul (두벌식) | Algorithmic syllable composition, compound vowels/batchim, `₩` currency symbol |
 
 ### Enabling Multi-Language Support
 
