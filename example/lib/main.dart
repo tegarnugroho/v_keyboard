@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' hide ModifierKey;
 import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
@@ -173,6 +175,9 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   late _ActiveTab _currentTab;
   VKeyboardType _selectedType = VKeyboardType.standard;
   bool _showClipboardInPreview = false;
+  double _splitRatio = 0.48;
+  bool _isHoveringSplitter = false;
+  bool _isDraggingSplitter = false;
 
   // Text controllers for playground & tabs
   final TextEditingController _playgroundController = TextEditingController();
@@ -346,56 +351,176 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
               const SizedBox(height: 12),
               // Main 3-column body
               Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Column 1: Left Sidebar
-                    SizedBox(
-                      width: 260,
-                      child: _buildSidebar(isDark, cardBg, borderColor),
-                    ),
-                    const SizedBox(width: 16),
-                    // Column 2: Center Content Panel
-                    Expanded(
-                      flex: _currentTab == _ActiveTab.desktop ? 1 : 5,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: cardBg,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: borderColor),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final totalWidth = constraints.maxWidth;
+                    const sidebarWidth = 260.0;
+                    const gap = 16.0;
+                    const dividerWidth = 14.0;
+                    final showPreview = _currentTab != _ActiveTab.desktop;
+
+                    final double leftWidth;
+                    if (showPreview) {
+                      final availableSplitWidth =
+                          totalWidth - sidebarWidth - gap - dividerWidth;
+                      const minWidth = 320.0;
+                      final maxLeft = math.max(
+                          minWidth, availableSplitWidth - minWidth);
+                      leftWidth = (availableSplitWidth * _splitRatio)
+                          .clamp(minWidth, maxLeft);
+                    } else {
+                      leftWidth = totalWidth - sidebarWidth - gap;
+                    }
+
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Column 1: Left Sidebar
+                        SizedBox(
+                          width: sidebarWidth,
+                          child: _buildSidebar(isDark, cardBg, borderColor),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: _buildMainContentArea(isDark),
-                        ),
-                      ),
-                    ),
-                    if (_currentTab != _ActiveTab.desktop) ...[
-                      const SizedBox(width: 16),
-                      // Column 3: Right Keyboard Preview Panel
-                      Expanded(
-                        flex: 6,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: cardBg,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: borderColor),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: _buildDesktopKeyboardPreview(
-                              isDark,
-                              cardBg,
-                              borderColor,
+                        const SizedBox(width: gap),
+
+                        // Column 2: Center Content Panel
+                        if (showPreview)
+                          SizedBox(
+                            width: leftWidth,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: cardBg,
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: borderColor),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: _buildMainContentArea(isDark),
+                              ),
+                            ),
+                          )
+                        else
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: cardBg,
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: borderColor),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: _buildMainContentArea(isDark),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ],
+
+                        if (showPreview) ...[
+                          // Column 2.5: Interactive Draggable Split Divider
+                          _buildSplitDivider(
+                            isDark: isDark,
+                            borderColor: borderColor,
+                            onDrag: (delta) {
+                              final availableSplitWidth = totalWidth -
+                                  sidebarWidth -
+                                  gap -
+                                  dividerWidth;
+                              if (availableSplitWidth > 0) {
+                                final minRatio = (300.0 / availableSplitWidth)
+                                    .clamp(0.15, 0.45);
+                                final maxRatio = ((availableSplitWidth - 300.0) /
+                                        availableSplitWidth)
+                                    .clamp(0.55, 0.85);
+                                setState(() {
+                                  _splitRatio = (_splitRatio +
+                                          (delta / availableSplitWidth))
+                                      .clamp(minRatio, maxRatio);
+                                });
+                              }
+                            },
+                            onReset: () {
+                              setState(() {
+                                _splitRatio = 0.48;
+                              });
+                            },
+                          ),
+
+                          // Column 3: Right Keyboard Preview Panel
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: cardBg,
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: borderColor),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: _buildDesktopKeyboardPreview(
+                                  isDark,
+                                  cardBg,
+                                  borderColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    );
+                  },
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSplitDivider({
+    required bool isDark,
+    required Color borderColor,
+    required ValueChanged<double> onDrag,
+    required VoidCallback onReset,
+  }) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.resizeColumn,
+      onEnter: (_) {
+        if (!_isHoveringSplitter) setState(() => _isHoveringSplitter = true);
+      },
+      onExit: (_) {
+        if (_isHoveringSplitter) setState(() => _isHoveringSplitter = false);
+      },
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onHorizontalDragStart: (_) {
+          if (!_isDraggingSplitter) setState(() => _isDraggingSplitter = true);
+        },
+        onHorizontalDragUpdate: (details) => onDrag(details.delta.dx),
+        onHorizontalDragEnd: (_) {
+          if (_isDraggingSplitter) setState(() => _isDraggingSplitter = false);
+        },
+        onHorizontalDragCancel: () {
+          if (_isDraggingSplitter) setState(() => _isDraggingSplitter = false);
+        },
+        onDoubleTap: onReset,
+        child: Tooltip(
+          message: 'Drag to resize · Double-click to reset',
+          waitDuration: const Duration(milliseconds: 600),
+          child: Container(
+            width: 18,
+            alignment: Alignment.center,
+            color: Colors.transparent,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 100),
+              width: (_isHoveringSplitter || _isDraggingSplitter) ? 4 : 2,
+              height: (_isHoveringSplitter || _isDraggingSplitter) ? 48 : 28,
+              decoration: BoxDecoration(
+                color: (_isHoveringSplitter || _isDraggingSplitter)
+                    ? widget.accentColor.color
+                    : (isDark
+                        ? Colors.white.withValues(alpha: 0.20)
+                        : Colors.black.withValues(alpha: 0.20)),
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
           ),
         ),
       ),
@@ -1010,73 +1135,67 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
         Expanded(
           child: controller == null
               ? const Center(child: CircularProgressIndicator())
-              : AnimatedBuilder(
-                  animation: controller,
-                  builder: (context, _) {
-                    final isClipboard = _showClipboardInPreview ||
-                        controller.currentPage == 'clipboard';
-                    final isEmoji = controller.currentPage == 'emoji';
+              : LayoutBuilder(
+                  builder: (context, constraints) {
+                    final availableWidth = constraints.maxWidth - 32.0;
                     final isDesktop = _selectedType == VKeyboardType.desktop;
-                    final bottomBarHeight = isDesktop ? 0.0 : 36.0;
+                    final targetWidth = isDesktop
+                        ? math.max(640.0, availableWidth)
+                        : math.min(760.0, math.max(280.0, availableWidth));
 
-                    final Widget content;
-                    if (isEmoji) {
-                      content = Container(
-                        constraints: const BoxConstraints(maxWidth: 640),
-                        child: Material(
-                          borderRadius: BorderRadius.circular(12),
-                          color: isDark
-                              ? const Color(0xFF181D2A)
-                              : Colors.white,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
+                    return AnimatedBuilder(
+                      animation: controller,
+                      builder: (context, _) {
+                        final isClipboard = _showClipboardInPreview ||
+                            controller.currentPage == 'clipboard';
+                        final isEmoji = controller.currentPage == 'emoji';
+                        final bottomBarHeight = isDesktop ? 0.0 : 36.0;
+
+                        final Widget content;
+                        if (isEmoji) {
+                          content = ConstrainedBox(
+                            constraints: BoxConstraints(maxWidth: targetWidth),
                             child: EmojiPanel(
                               controller: controller,
                               theme: theme,
                               height: 230,
-                              maxWidth: 640,
+                              maxWidth: targetWidth,
                               bottomSafeArea: bottomBarHeight,
                             ),
-                          ),
-                        ),
-                      );
-                    } else if (isClipboard) {
-                      content = Container(
-                        constraints: const BoxConstraints(maxWidth: 640),
-                        child: Material(
-                          borderRadius: BorderRadius.circular(12),
-                          color: isDark
-                              ? const Color(0xFF181D2A)
-                              : Colors.white,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
+                          );
+                        } else if (isClipboard) {
+                          content = ConstrainedBox(
+                            constraints: BoxConstraints(maxWidth: targetWidth),
                             child: ClipboardHistoryPanel(
                               controller: controller,
                               theme: theme,
                               height: 230,
-                              maxWidth: 640,
+                              maxWidth: targetWidth,
                               bottomSafeArea: bottomBarHeight,
                             ),
-                          ),
-                        ),
-                      );
-                    } else {
-                      content = _buildEmbeddedKeyboardView(
-                        controller,
-                        theme,
-                        isDark,
-                      );
-                    }
+                          );
+                        } else {
+                          content = _buildEmbeddedKeyboardView(
+                            controller,
+                            theme,
+                            isDark,
+                            availableWidth: availableWidth,
+                          );
+                        }
 
-                    return TapRegion(
-                      groupId: scope?.tapGroup ?? Object(),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: content,
-                        ),
-                      ),
+                        return TapRegion(
+                          groupId: scope?.tapGroup ?? Object(),
+                          child: ColoredBox(
+                            color: theme.backgroundColor,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: content,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
@@ -1088,28 +1207,39 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   Widget _buildEmbeddedKeyboardView(
     VKeyboardController controller,
     VKeyboardTheme theme,
-    bool isDark,
-  ) {
+    bool isDark, {
+    required double availableWidth,
+  }) {
     if (_selectedType == VKeyboardType.desktop) {
+      final layoutWidth = math.max(640.0, availableWidth);
       final desktopRows =
-          DesktopLayouts.rows(960, layoutId: controller.currentLayoutId);
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SizedBox(
-          width: 960,
-          child: KeyboardView(
-            controller: controller,
-            theme: theme,
-            metrics: const KeyboardMetrics(
-              height: 230,
-              maxWidth: 960,
-              horizontalPadding: 8,
-              rowSpacing: 5,
-              formFactor: DeviceFormFactor.desktop,
-              isLandscape: true,
+          DesktopLayouts.rows(layoutWidth, layoutId: controller.currentLayoutId);
+      final rowCount = desktopRows.length;
+      final keyboardHeight = (rowCount * 46.0) + ((rowCount - 1) * 5.0) + 24.0;
+
+      return Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          physics: availableWidth >= layoutWidth
+              ? const NeverScrollableScrollPhysics()
+              : const BouncingScrollPhysics(),
+          child: SizedBox(
+            width: layoutWidth,
+            height: keyboardHeight,
+            child: KeyboardView(
+              controller: controller,
+              theme: theme,
+              metrics: KeyboardMetrics(
+                height: keyboardHeight,
+                maxWidth: layoutWidth,
+                horizontalPadding: 8,
+                rowSpacing: 5,
+                formFactor: DeviceFormFactor.desktop,
+                isLandscape: true,
+              ),
+              rows: desktopRows,
+              bottomSafeArea: 0,
             ),
-            rows: desktopRows,
-            bottomSafeArea: 0,
           ),
         ),
       );
@@ -1128,9 +1258,11 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
         : layout.initialPage;
     final rows = layout.rowsFor(page);
 
-    const metrics = KeyboardMetrics(
+    final responsiveWidth = math.min(760.0, math.max(280.0, availableWidth));
+
+    final metrics = KeyboardMetrics(
       height: 230,
-      maxWidth: 640,
+      maxWidth: responsiveWidth,
       horizontalPadding: 8,
       rowSpacing: 6,
       formFactor: DeviceFormFactor.phone,

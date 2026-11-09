@@ -33,6 +33,10 @@
   - `VKeyboardController`: `currentLocale`, `setLocale(locale)`, `currentLayoutId`, `setLayout(id)`, `nextLayout()`, `onLayoutChanged` stream, `insertText(text)`.
   - `VKeyboardScope`: `onLayoutChanged` callback.
   - `showVKeyboardLayoutPicker`: modal bottom sheet on mobile or centered dialog on desktop/tablet to pick active layout.
+- **Example App & Preview Improvements**:
+  - Replace floating overlay stack in the embedded preview with in-place page switching for `EmojiPanel` and `ClipboardHistoryPanel`.
+  - Synchronize panel heights and bottom safe-area dismiss buttons to ensure smooth transitions with zero vertical shift when opening the emoji panel.
+  - Add interactive `VKeyboardLocale` selector chips.
 
 ## 0.2.4
 

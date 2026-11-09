@@ -75,8 +75,9 @@ Future<String?> showVKeyboardLayoutPicker(
                       borderRadius: BorderRadius.circular(8),
                     ),
                     leading: Container(
-                      width: 36,
+                      width: 44,
                       height: 28,
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: isSelected
@@ -84,14 +85,18 @@ Future<String?> showVKeyboardLayoutPicker(
                             : theme.keyColor,
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: Text(
-                        shortLabel,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: isSelected
-                              ? Colors.white
-                              : theme.textStyle.color,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          shortLabel,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: isSelected
+                                ? Colors.white
+                                : theme.textStyle.color,
+                          ),
                         ),
                       ),
                     ),

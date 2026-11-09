@@ -42,10 +42,10 @@ class _EmojiPanelState extends State<EmojiPanel> {
   Widget build(BuildContext context) {
     final theme = widget.theme;
     final onSurface = theme.iconColor;
-    // A picker reads best as a narrow, dense, centred column — so cap the width
-    // on large screens instead of stretching the grid full-width.
-    final panelWidth = (widget.maxWidth.isFinite ? widget.maxWidth : 480.0)
-        .clamp(280.0, 480.0);
+    final sidePadding = theme.contentPadding.horizontal / 2 +
+        8.0 +
+        theme.keyPadding.horizontal / 2;
+    final panelWidth = widget.maxWidth.isFinite ? widget.maxWidth : 640.0;
 
     return Material(
       color: theme.backgroundColor,
@@ -59,8 +59,10 @@ class _EmojiPanelState extends State<EmojiPanel> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: panelWidth),
                   child: GridView.builder(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: sidePadding,
+                      vertical: 4,
+                    ),
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 42,
@@ -71,7 +73,8 @@ class _EmojiPanelState extends State<EmojiPanel> {
                     itemBuilder: (context, i) {
                       final emoji = _emojis[i];
                       return InkWell(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius:
+                            theme.borderRadius.resolve(Directionality.maybeOf(context)),
                         onTap: () => _insert(emoji),
                         child: Center(
                           child:
@@ -87,104 +90,118 @@ class _EmojiPanelState extends State<EmojiPanel> {
             // Category tabs.
             SizedBox(
               height: 40,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: panelWidth),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  itemCount: _categories.length,
-                  itemBuilder: (context, i) {
-                    final selected = i == _category;
-                    final rep = EmojiData.categories[_categories[i]]!.first;
-                    return GestureDetector(
-                      onTap: () => setState(() => _category = i),
-                      child: Container(
-                        width: 44,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: selected
-                                  ? theme.accentColor
-                                  : Colors.transparent,
-                              width: 2.5,
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: panelWidth),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: sidePadding),
+                    itemCount: _categories.length,
+                    itemBuilder: (context, i) {
+                      final selected = i == _category;
+                      final rep = EmojiData.categories[_categories[i]]!.first;
+                      return GestureDetector(
+                        onTap: () => setState(() => _category = i),
+                        child: Container(
+                          width: 44,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: selected
+                                    ? theme.accentColor
+                                    : Colors.transparent,
+                                width: 2.5,
+                              ),
                             ),
                           ),
+                          child: Opacity(
+                            opacity: selected ? 1 : 0.6,
+                            child:
+                                Text(rep, style: const TextStyle(fontSize: 22)),
+                          ),
                         ),
-                        child: Opacity(
-                          opacity: selected ? 1 : 0.6,
-                          child:
-                              Text(rep, style: const TextStyle(fontSize: 22)),
-                        ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
 
             // Bottom bar: ABC · space · backspace.
-            Container(
-              height: 48,
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                children: [
-                  _barButton(
-                    label: 'ABC',
-                    onTap: () => widget.controller.switchPage('abc'),
+            Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: panelWidth),
+                child: Container(
+                  height: 48,
+                  padding: EdgeInsets.symmetric(horizontal: sidePadding),
+                  child: Row(
+                    children: [
+                      _barButton(
+                        label: 'ABC',
+                        onTap: () => widget.controller.switchPage('abc'),
+                      ),
+                      const SizedBox(width: 6),
+                      _barButton(
+                        icon: Icons.content_paste_outlined,
+                        onTap: () => widget.controller.openClipboardHistory(),
+                        color: onSurface,
+                      ),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: _barButton(
+                          onTap: () => widget.controller.handleKey(KeyData.space()),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      _barButton(
+                        icon: Icons.backspace_outlined,
+                        onTap: () =>
+                            widget.controller.handleKey(KeyData.backspace()),
+                        color: onSurface,
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 6),
-                  _barButton(
-                    icon: Icons.content_paste_outlined,
-                    onTap: () => widget.controller.openClipboardHistory(),
-                    color: onSurface,
-                  ),
-                  const SizedBox(width: 6),
-                  Expanded(
-                    child: _barButton(
-                      onTap: () => widget.controller.handleKey(KeyData.space()),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  _barButton(
-                    icon: Icons.backspace_outlined,
-                    onTap: () =>
-                        widget.controller.handleKey(KeyData.backspace()),
-                    color: onSurface,
-                  ),
-                ],
+                ),
               ),
             ),
             if (widget.bottomSafeArea > 0)
-              Container(
-                height: widget.bottomSafeArea,
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                alignment: Alignment.centerLeft,
-                child: widget.controller.config.showHideKeyboardButton
-                    ? Semantics(
-                        button: true,
-                        label: 'Close keyboard',
-                        child: Material(
-                          color: Colors.transparent,
-                          child: InkResponse(
-                            onTap: widget.controller.hide,
-                            radius: 20,
-                            highlightColor:
-                                theme.keyColor.withValues(alpha: 0.5),
-                            splashColor:
-                                theme.accentColor.withValues(alpha: 0.2),
-                            child: Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                size: 24,
-                                color: theme.iconColor.withValues(alpha: 0.8),
+              Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: panelWidth),
+                  child: Container(
+                    height: widget.bottomSafeArea,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: theme.contentPadding.horizontal / 2 + 8.0,
+                    ),
+                    alignment: Alignment.centerLeft,
+                    child: widget.controller.config.showHideKeyboardButton
+                        ? Semantics(
+                            button: true,
+                            label: 'Close keyboard',
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkResponse(
+                                onTap: widget.controller.hide,
+                                radius: 20,
+                                highlightColor:
+                                    theme.keyColor.withValues(alpha: 0.5),
+                                splashColor:
+                                    theme.accentColor.withValues(alpha: 0.2),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    size: 24,
+                                    color: theme.iconColor.withValues(alpha: 0.8),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      )
-                    : null,
+                          )
+                        : null,
+                  ),
+                ),
               ),
           ],
         ),
@@ -198,11 +215,13 @@ class _EmojiPanelState extends State<EmojiPanel> {
     required VoidCallback onTap,
     Color? color,
   }) {
+    final radius =
+        widget.theme.borderRadius.resolve(Directionality.maybeOf(context));
     return Material(
       color: widget.theme.specialKeyColor,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: radius,
       child: InkWell(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: radius,
         onTap: onTap,
         child: Container(
           height: 40,

@@ -19,7 +19,7 @@ enum VKeyboardLocale {
   esES('es_ES', 'Español', 'ES'),
 
   /// Nordic QWERTY with å, ä, ö, æ, ø, and `€`/`kr` currency.
-  nordic('nordic', 'Nordic', 'NO'),
+  nordic('nordic', 'Nordic', 'NO/SE'),
 
   /// Turkish Q with ğ, ü, ş, ı, ö, ç, ₺, and strict dotted/dotless I casing (`i ↔ İ`, `ı ↔ I`).
   trTR('tr_TR', 'Türkçe', 'TR'),
