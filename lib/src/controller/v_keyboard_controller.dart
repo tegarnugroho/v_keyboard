@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart' hide ModifierKey;
 import 'package:flutter/widgets.dart';
@@ -136,8 +137,15 @@ class VKeyboardController extends ChangeNotifier {
     return l.rowsFor(_page);
   }
 
+  bool _notificationScheduled = false;
+  bool _isDisposed = false;
+
+  /// Whether this controller has been disposed.
+  bool get isDisposed => _isDisposed;
+
   @override
   void dispose() {
+    _isDisposed = true;
     _spaceBarTimer?.cancel();
     _layoutChangeController.close();
     modifiers.removeListener(notifyListeners);
@@ -145,6 +153,29 @@ class VKeyboardController extends ChangeNotifier {
     clipboardHistory.removeListener(notifyListeners);
     clipboardHistory.dispose();
     super.dispose();
+  }
+
+  @override
+  void notifyListeners() {
+    if (_isDisposed) return;
+    try {
+      final binding = WidgetsBinding.instance;
+      if (binding.schedulerPhase == SchedulerPhase.persistentCallbacks) {
+        if (!_notificationScheduled) {
+          _notificationScheduled = true;
+          binding.addPostFrameCallback((_) {
+            _notificationScheduled = false;
+            if (!_isDisposed) {
+              super.notifyListeners();
+            }
+          });
+        }
+        return;
+      }
+    } catch (_) {
+      // Binding not initialized (e.g. pure Dart unit test).
+    }
+    super.notifyListeners();
   }
 
   // ---- Layout switching ----------------------------------------------------
@@ -216,15 +247,16 @@ class VKeyboardController extends ChangeNotifier {
   // ---- Session lifecycle ----------------------------------------------------
 
   void attach(KeyboardSession session) {
+    if (_isDisposed) return;
     final sameField =
         _session?.id == session.id || _targetSession?.id == session.id;
     _session = session;
     _targetSession = session;
     if (!sameField && _page != 'clipboard') {
       _page = session.getLayout(_currentLayoutId).initialPage;
-      modifiers.reset();
+      modifiers.reset(notify: false);
       if (session.allowsAutoShift && session.value.text.isEmpty) {
-        modifiers.armShift();
+        modifiers.armShift(notify: false);
       }
     }
     _visible = true;
@@ -232,6 +264,7 @@ class VKeyboardController extends ChangeNotifier {
   }
 
   void detach(KeyboardSession session) {
+    if (_isDisposed) return;
     if (_session?.id != session.id) return;
     if (_page == 'clipboard') {
       _targetSession = session;
@@ -242,16 +275,17 @@ class VKeyboardController extends ChangeNotifier {
     _session = null;
     _targetSession = null;
     _visible = false;
-    modifiers.reset();
+    modifiers.reset(notify: false);
     notifyListeners();
   }
 
   void hide() {
+    if (_isDisposed) return;
     final s = _session ?? _targetSession;
     _visible = false;
     _session = null;
     _targetSession = null;
-    modifiers.reset();
+    modifiers.reset(notify: false);
     notifyListeners();
     s?.focusNode.unfocus();
   }

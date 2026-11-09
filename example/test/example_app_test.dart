@@ -18,6 +18,19 @@ void main() {
     expect(find.text('Quick examples'), findsOneWidget);
   });
 
+  testWidgets('ExampleApp renders cleanly on compact desktop (1024x665)', (tester) async {
+    tester.view.physicalSize = const Size(1024 * 2, 665 * 2);
+    tester.view.devicePixelRatio = 2.0;
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(const ExampleApp());
+    await tester.pumpAndSettle();
+
+    expect(find.text('Virtual Keyboard'), findsWidgets);
+    expect(find.text('Try it out'), findsOneWidget);
+    expect(find.text('Quick examples'), findsOneWidget);
+  });
+
   testWidgets('ExampleApp renders cleanly on Tablet (820x1180)', (tester) async {
     tester.view.physicalSize = const Size(820, 1180);
     tester.view.devicePixelRatio = 1.0;
@@ -65,10 +78,39 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Live Customization & Theme'), findsOneWidget);
 
+    // Tap Examples tab
+    await tester.tap(find.text('Examples').first);
+    await tester.pumpAndSettle();
+    expect(find.text('Pre-built Scenarios & Examples'), findsOneWidget);
+    expect(find.text('Scenario 1: Checkout Form Flow'), findsOneWidget);
+
     // Tap Playground tab
     await tester.tap(find.text('Playground').first);
     await tester.pumpAndSettle();
     expect(find.text('Try it out'), findsOneWidget);
+  });
+
+  testWidgets('ExampleApp toggles sidebar hide and expand', (tester) async {
+    tester.view.physicalSize = const Size(1440, 900);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(const ExampleApp());
+    await tester.pumpAndSettle();
+
+    expect(find.text('Hide sidebar'), findsOneWidget);
+
+    // Tap Hide sidebar
+    await tester.tap(find.text('Hide sidebar'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Show sidebar'), findsOneWidget);
+
+    // Tap Show sidebar to re-expand
+    await tester.tap(find.text('Show sidebar'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Hide sidebar'), findsOneWidget);
   });
 }
 

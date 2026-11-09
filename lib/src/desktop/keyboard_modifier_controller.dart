@@ -1,5 +1,6 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' hide ModifierKey;
+import 'package:flutter/widgets.dart';
 
 import '../models/key_intents.dart';
 
@@ -15,6 +16,40 @@ import '../models/key_intents.dart';
 class KeyboardModifierController extends ChangeNotifier {
   final Set<ModifierKey> _active = <ModifierKey>{};
   final Set<LockKey> _locks = <LockKey>{};
+  bool _notificationScheduled = false;
+  bool _isDisposed = false;
+
+  /// Whether this controller has been disposed.
+  bool get isDisposed => _isDisposed;
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
+  }
+
+  @override
+  void notifyListeners() {
+    if (_isDisposed) return;
+    try {
+      final binding = WidgetsBinding.instance;
+      if (binding.schedulerPhase == SchedulerPhase.persistentCallbacks) {
+        if (!_notificationScheduled) {
+          _notificationScheduled = true;
+          binding.addPostFrameCallback((_) {
+            _notificationScheduled = false;
+            if (!_isDisposed) {
+              super.notifyListeners();
+            }
+          });
+        }
+        return;
+      }
+    } catch (_) {
+      // Binding not initialized (e.g. pure Dart unit test).
+    }
+    super.notifyListeners();
+  }
 
   bool isModifierActive(ModifierKey m) => _active.contains(m);
   bool isLocked(LockKey l) => _locks.contains(l);
@@ -52,22 +87,24 @@ class KeyboardModifierController extends ChangeNotifier {
   }
 
   /// Arms [m] if not already (used by auto-shift on empty fields).
-  void armShift() {
-    if (_active.add(ModifierKey.shift)) notifyListeners();
+  void armShift({bool notify = true}) {
+    if (_active.add(ModifierKey.shift)) {
+      if (notify) notifyListeners();
+    }
   }
 
   /// Clears momentary modifiers (kept: locks). Call after a committing key.
-  void clearMomentary() {
+  void clearMomentary({bool notify = true}) {
     if (_active.isEmpty) return;
     _active.clear();
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
   /// Resets everything (e.g. when detaching the session).
-  void reset() {
+  void reset({bool notify = true}) {
     if (_active.isEmpty && _locks.isEmpty) return;
     _active.clear();
     _locks.clear();
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 }

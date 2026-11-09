@@ -116,4 +116,45 @@ void main() {
     await tester.pumpAndSettle();
     expect(f2.hasFocus, isTrue);
   });
+
+  testWidgets(
+      'disposing focused VTextField when AnimatedBuilder listens to controller does not throw locked tree error',
+      (tester) async {
+    final controller = VKeyboardController();
+
+    Widget buildTree(bool showField) {
+      return MaterialApp(
+        home: Material(
+          child: VKeyboardScope(
+            controller: controller,
+            child: Column(
+              children: [
+                AnimatedBuilder(
+                  animation: controller,
+                  builder: (context, _) =>
+                      Text('Visible: ${controller.isVisible}'),
+                ),
+                if (showField)
+                  const VTextField(
+                    autofocus: true,
+                  ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    await tester.pumpWidget(buildTree(true));
+    await tester.pumpAndSettle();
+    expect(find.byType(VTextField), findsOneWidget);
+    expect(controller.isVisible, isTrue);
+
+    // Unmount VTextField directly while it is still focused!
+    await tester.pumpWidget(buildTree(false));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(VTextField), findsNothing);
+    expect(controller.isVisible, isFalse);
+  });
 }

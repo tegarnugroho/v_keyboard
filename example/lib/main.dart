@@ -178,6 +178,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   double _splitRatio = 0.48;
   bool _isHoveringSplitter = false;
   bool _isDraggingSplitter = false;
+  bool _isSidebarVisible = true;
 
   // Text controllers for playground & tabs
   final TextEditingController _playgroundController = TextEditingController();
@@ -354,33 +355,37 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     final totalWidth = constraints.maxWidth;
-                    const sidebarWidth = 260.0;
-                    const gap = 16.0;
+                    final effectiveSidebarWidth = _isSidebarVisible ? 260.0 : 0.0;
+                    final effectiveGap = _isSidebarVisible ? 16.0 : 0.0;
                     const dividerWidth = 14.0;
                     final showPreview = _currentTab != _ActiveTab.desktop;
 
                     final double leftWidth;
                     if (showPreview) {
-                      final availableSplitWidth =
-                          totalWidth - sidebarWidth - gap - dividerWidth;
+                      final availableSplitWidth = totalWidth -
+                          effectiveSidebarWidth -
+                          effectiveGap -
+                          dividerWidth;
                       const minWidth = 320.0;
                       final maxLeft = math.max(
                           minWidth, availableSplitWidth - minWidth);
                       leftWidth = (availableSplitWidth * _splitRatio)
                           .clamp(minWidth, maxLeft);
                     } else {
-                      leftWidth = totalWidth - sidebarWidth - gap;
+                      leftWidth = totalWidth - effectiveSidebarWidth - effectiveGap;
                     }
 
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         // Column 1: Left Sidebar
-                        SizedBox(
-                          width: sidebarWidth,
-                          child: _buildSidebar(isDark, cardBg, borderColor),
-                        ),
-                        const SizedBox(width: gap),
+                        if (_isSidebarVisible) ...[
+                          SizedBox(
+                            width: effectiveSidebarWidth,
+                            child: _buildSidebar(isDark, cardBg, borderColor),
+                          ),
+                          const SizedBox(width: 16.0),
+                        ],
 
                         // Column 2: Center Content Panel
                         if (showPreview)
@@ -420,8 +425,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                             borderColor: borderColor,
                             onDrag: (delta) {
                               final availableSplitWidth = totalWidth -
-                                  sidebarWidth -
-                                  gap -
+                                  effectiveSidebarWidth -
+                                  effectiveGap -
                                   dividerWidth;
                               if (availableSplitWidth > 0) {
                                 final minRatio = (300.0 / availableSplitWidth)
@@ -556,6 +561,116 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
             shape: BoxShape.circle,
           ),
         ),
+        const SizedBox(width: 16),
+        Tooltip(
+          message: _isSidebarVisible ? 'Hide sidebar' : 'Show sidebar',
+          child: InkWell(
+            borderRadius: BorderRadius.circular(6),
+            onTap: () => setState(() => _isSidebarVisible = !_isSidebarVisible),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: _isSidebarVisible
+                    ? (isDark ? const Color(0xFF1E2433) : const Color(0xFFE2E8F0))
+                    : (isDark ? const Color(0xFF161922) : Colors.white),
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(
+                  color: isDark ? const Color(0xFF283145) : const Color(0xFFCBD5E1),
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    _isSidebarVisible
+                        ? Icons.view_sidebar_rounded
+                        : Icons.view_sidebar_outlined,
+                    size: 14,
+                    color: _isSidebarVisible
+                        ? widget.accentColor.color
+                        : (isDark ? Colors.white70 : Colors.black87),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    _isSidebarVisible ? 'Hide sidebar' : 'Show sidebar',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: isDark ? Colors.white70 : Colors.black87,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        if (!_isSidebarVisible) ...[
+          const SizedBox(width: 12),
+          // Compact tab navigation when sidebar is hidden
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: _ActiveTab.values.map((tab) {
+                  final isSelected = _currentTab == tab;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: Tooltip(
+                      message: tab.title,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(6),
+                        onTap: () {
+                          setState(() {
+                            _currentTab = tab;
+                            if (tab == _ActiveTab.playground) {
+                              _selectedType = VKeyboardType.standard;
+                            } else if (tab == _ActiveTab.desktop) {
+                              _selectedType = VKeyboardType.desktop;
+                            }
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? (isDark ? const Color(0xFF1E2638) : const Color(0xFFE2E8F0))
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                tab.icon,
+                                size: 14,
+                                color: isSelected
+                                    ? widget.accentColor.color
+                                    : (isDark ? Colors.white60 : Colors.black54),
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                tab.title,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight:
+                                      isSelected ? FontWeight.bold : FontWeight.w500,
+                                  color: isSelected
+                                      ? (isDark ? Colors.white : Colors.black87)
+                                      : (isDark ? Colors.white60 : Colors.black54),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -609,6 +724,21 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
+                ),
+              ),
+              Tooltip(
+                message: 'Hide sidebar',
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(6),
+                  onTap: () => setState(() => _isSidebarVisible = false),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Icon(
+                      Icons.keyboard_double_arrow_left_rounded,
+                      size: 20,
+                      color: isDark ? Colors.white54 : Colors.black54,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -962,7 +1092,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
             crossAxisCount: isNarrow ? 1 : 2,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
-            childAspectRatio: isNarrow ? 3.8 : 2.5,
+            mainAxisExtent: isNarrow ? 72.0 : 76.0,
           ),
           itemCount: examples.length,
           itemBuilder: (context, index) {
@@ -972,64 +1102,66 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
               onTap: () => _onQuickExampleTapped(index),
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF181D2A) : const Color(0xFFF8FAFC),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color:
-                    isDark ? const Color(0xFF262E40) : const Color(0xFFE2E8F0),
+                decoration: BoxDecoration(
+                  color: isDark ? const Color(0xFF181D2A) : const Color(0xFFF8FAFC),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color:
+                        isDark ? const Color(0xFF262E40) : const Color(0xFFE2E8F0),
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: item.$4.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(item.$3, color: item.$4, size: 20),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            item.$1,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: isDark ? Colors.white : Colors.black87,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            item.$2,
+                            style: TextStyle(
+                              fontSize: 11,
+                              height: 1.25,
+                              color: isDark ? Colors.white54 : Colors.black54,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    color: item.$4.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(item.$3, color: item.$4, size: 20),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        item.$1,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? Colors.white : Colors.black87,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 3),
-                      Text(
-                        item.$2,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: isDark ? Colors.white54 : Colors.black54,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+            );
+          },
         );
       },
     );
-  },
-);
-}
+  }
 
   // ===========================================================================
   // Right Panel: Interactive Virtual Keyboard Preview
@@ -1943,10 +2075,15 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                   children: [
                     Icon(Icons.payment_rounded, color: Colors.blue),
                     SizedBox(width: 8),
-                    Text(
-                      'Scenario 1: Checkout Form Flow',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    Expanded(
+                      child: Text(
+                        'Scenario 1: Checkout Form Flow',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),
