@@ -6,7 +6,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Multi-language Built-in Layouts', () {
-    test('all 10 built-in layouts are registered with metadata', () {
+    test('all 13 built-in layouts are registered with metadata', () {
       final expected = [
         'en_US',
         'en_GB',
@@ -18,6 +18,9 @@ void main() {
         'ru_RU',
         'el_GR',
         'ko_KR',
+        'ja_JP',
+        'zh_CN',
+        'zh_TW',
       ];
 
       for (final id in expected) {
@@ -210,6 +213,60 @@ void main() {
       final numRow2 = numRows[1].map((k) => k.text).join();
       expect(numRow2, contains('₩'));
     });
+
+    test('ja_JP renders JIS Kana and ¥ currency with voicing marks', () {
+      final layout = VKeyboardLayouts.getLayout('ja_JP')!;
+      final abcRows = layout.rowsFor('abc');
+
+      final row1 = abcRows[0].map((k) => k.text).join();
+      expect(row1, contains('たていすかんなにらせ'));
+      expect(row1, contains('゛'));
+      expect(row1, contains('゜'));
+
+      final row2 = abcRows[1].map((k) => k.text).join();
+      expect(row2, contains('ちとしはきくまのりれけ'));
+
+      final row3 = abcRows[2].map((k) => k.text).join();
+      expect(row3, contains('つさそひこみもねるめろ'));
+
+      final bottomRow = abcRows[3].map((k) => k.text).join();
+      expect(bottomRow, contains('、'));
+      expect(bottomRow, contains('。'));
+
+      final numRows = layout.rowsFor('123');
+      final numRow2 = numRows[1].map((k) => k.text).join();
+      expect(numRow2, contains('¥'));
+    });
+
+    test('zh_CN renders Pinyin QWERTY with fullwidth punctuation and ¥ currency', () {
+      final layout = VKeyboardLayouts.getLayout('zh_CN')!;
+      final abcRows = layout.rowsFor('abc');
+
+      final row1 = abcRows[0].map((k) => k.text).join();
+      expect(row1, 'qwertyuiop');
+
+      final bottomRow = abcRows[3].map((k) => k.text).join();
+      expect(bottomRow, contains('，'));
+      expect(bottomRow, contains('。'));
+
+      final numRows = layout.rowsFor('123');
+      final numRow2 = numRows[1].map((k) => k.text).join();
+      expect(numRow2, contains('¥'));
+    });
+
+    test('zh_TW renders Bopomofo Zhuyin layout', () {
+      final layout = VKeyboardLayouts.getLayout('zh_TW')!;
+      final abcRows = layout.rowsFor('abc');
+
+      final row1 = abcRows[0].map((k) => k.text).join();
+      expect(row1, 'ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎ');
+
+      final row2 = abcRows[1].map((k) => k.text).join();
+      expect(row2, 'ㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ');
+
+      final row3 = abcRows[2].map((k) => k.text).join();
+      expect(row3, contains('ㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄢ'));
+    });
   });
 
   group('Caps Lock & Non-ASCII isLetter', () {
@@ -325,16 +382,28 @@ void main() {
     });
 
     test('VKeyboardLocale enum maps to built-in layouts correctly', () {
-      expect(VKeyboardLocale.values.length, 10);
+      expect(VKeyboardLocale.values.length, 13);
       expect(VKeyboardLocale.enUS.id, 'en_US');
       expect(VKeyboardLocale.deDE.id, 'de_DE');
       expect(VKeyboardLocale.ruRU.id, 'ru_RU');
       expect(VKeyboardLocale.koKR.id, 'ko_KR');
       expect(VKeyboardLocale.koKR.displayName, '한국어');
       expect(VKeyboardLocale.koKR.shortLabel, 'KO');
+      expect(VKeyboardLocale.jaJP.id, 'ja_JP');
+      expect(VKeyboardLocale.jaJP.displayName, '日本語');
+      expect(VKeyboardLocale.jaJP.shortLabel, 'JP');
+      expect(VKeyboardLocale.zhCN.id, 'zh_CN');
+      expect(VKeyboardLocale.zhCN.displayName, '简体中文');
+      expect(VKeyboardLocale.zhCN.shortLabel, 'CN');
+      expect(VKeyboardLocale.zhTW.id, 'zh_TW');
+      expect(VKeyboardLocale.zhTW.displayName, '繁體中文');
+      expect(VKeyboardLocale.zhTW.shortLabel, 'TW');
 
       expect(VKeyboardLocale.fromId('de_DE'), VKeyboardLocale.deDE);
       expect(VKeyboardLocale.fromId('ko_KR'), VKeyboardLocale.koKR);
+      expect(VKeyboardLocale.fromId('ja_JP'), VKeyboardLocale.jaJP);
+      expect(VKeyboardLocale.fromId('zh_CN'), VKeyboardLocale.zhCN);
+      expect(VKeyboardLocale.fromId('zh_TW'), VKeyboardLocale.zhTW);
       expect(VKeyboardLocale.fromId('unknown_id'), isNull);
     });
 
@@ -527,6 +596,81 @@ void main() {
       expect(textController.text, 'ㅎ');
 
       // Backspace deletes 'ㅎ'
+      keyboardController.handleKey(KeyData.backspace());
+      expect(textController.text, '');
+    });
+  });
+
+  group('KanaComposer Engine', () {
+    test('composes dakuten voicing marks (か + ゛ = が, は + ゛ = ば)', () {
+      var val = const TextEditingValue(text: 'か');
+      val = KanaComposer.compose(value: val, mark: '゛');
+      expect(val.text, 'が');
+
+      val = const TextEditingValue(text: 'は');
+      val = KanaComposer.compose(value: val, mark: '゛');
+      expect(val.text, 'ば');
+    });
+
+    test('composes handakuten semi-voicing marks (は + ゜ = ぱ)', () {
+      var val = const TextEditingValue(text: 'は');
+      val = KanaComposer.compose(value: val, mark: '゜');
+      expect(val.text, 'ぱ');
+    });
+
+    test('decomposes voiced kana back to base kana on backspace', () {
+      var val = const TextEditingValue(
+        text: 'が',
+        selection: TextSelection.collapsed(offset: 1),
+      );
+      val = KanaComposer.backspace(value: val);
+      expect(val.text, 'か');
+
+      val = const TextEditingValue(
+        text: 'ぱ',
+        selection: TextSelection.collapsed(offset: 1),
+      );
+      val = KanaComposer.backspace(value: val);
+      expect(val.text, 'は');
+    });
+
+    test('controller handles ja_JP voicing marks and backspace in session', () {
+      final textController = TextEditingController();
+      final focusNode = FocusNode();
+      final keyboardController = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLocales: [VKeyboardLocale.enUS, VKeyboardLocale.jaJP],
+          defaultLocale: VKeyboardLocale.jaJP,
+          persistLayoutSelection: false,
+        ),
+      );
+
+      final session = KeyboardSession(
+        id: 'test_japanese_field',
+        editingController: textController,
+        focusNode: focusNode,
+        type: VKeyboardType.standard,
+        textInputAction: TextInputAction.done,
+        config: keyboardController.config,
+        contextRef: () => null,
+      );
+
+      keyboardController.attach(session);
+      keyboardController.setLayout('ja_JP');
+
+      // Type 'か'
+      keyboardController.handleKey(KeyData.char('か'));
+      expect(textController.text, 'か');
+
+      // Type '゛' -> transforms to 'が'
+      keyboardController.handleKey(KeyData.char('゛'));
+      expect(textController.text, 'が');
+
+      // Backspace decomposes 'が' to 'か'
+      keyboardController.handleKey(KeyData.backspace());
+      expect(textController.text, 'か');
+
+      // Backspace deletes 'か'
       keyboardController.handleKey(KeyData.backspace());
       expect(textController.text, '');
     });

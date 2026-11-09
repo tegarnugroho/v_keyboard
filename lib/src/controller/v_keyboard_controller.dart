@@ -14,6 +14,7 @@ import '../desktop/keyboard_navigation.dart';
 import '../desktop/keyboard_shortcut_manager.dart';
 import '../desktop/native_print_screen.dart';
 import '../engine/hangul_composer.dart';
+import '../engine/kana_composer.dart';
 import '../engine/text_input_engine.dart';
 import '../layouts/layout_selection_storage.dart';
 import '../layouts/v_keyboard_layouts.dart';
@@ -405,6 +406,22 @@ class VKeyboardController extends ChangeNotifier {
         session.value = newValue;
         session.onChanged?.call(newValue.text);
       }
+    } else if (_currentLayoutId == 'ja_JP' && KanaComposer.isVoicingMark(text)) {
+      if (session.readOnly || !session.enabled) return;
+      final oldValue = session.value;
+      var newValue = KanaComposer.compose(
+        value: oldValue,
+        mark: text,
+      );
+      if (session.inputFormatters != null && session.inputFormatters!.isNotEmpty) {
+        for (final formatter in session.inputFormatters!) {
+          newValue = formatter.formatEditUpdate(oldValue, newValue);
+        }
+      }
+      if (newValue != oldValue) {
+        session.value = newValue;
+        session.onChanged?.call(newValue.text);
+      }
     } else {
       _insert(session, text);
     }
@@ -449,6 +466,15 @@ class VKeyboardController extends ChangeNotifier {
       if (offset > 0 &&
           HangulComposer.canDecompose(session.value.text[offset - 1])) {
         session.value = HangulComposer.backspace(value: session.value);
+      } else {
+        session.value = TextInputEngine.deleteBackward(session.value);
+      }
+    } else if (_currentLayoutId == 'ja_JP' &&
+        session.value.selection.isCollapsed) {
+      final offset = session.value.selection.baseOffset;
+      if (offset > 0 &&
+          KanaComposer.canDecompose(session.value.text[offset - 1])) {
+        session.value = KanaComposer.backspace(value: session.value);
       } else {
         session.value = TextInputEngine.deleteBackward(session.value);
       }

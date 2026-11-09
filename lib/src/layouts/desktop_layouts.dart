@@ -200,6 +200,18 @@ class DesktopLayouts {
           KeyData.char(']', shift: '}'),
           KeyData.char('\\', shift: '|', flex: 1.5)
         ),
+      'ja_JP' => (
+          'たていすかんなにらせ',
+          KeyData.char('゛'),
+          KeyData.char('゜'),
+          KeyData.char('\\', shift: '|', flex: 1.5)
+        ),
+      'zh_TW' => (
+          'ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎ',
+          KeyData.char('[', shift: '{'),
+          KeyData.char(']', shift: '}'),
+          KeyData.char('\\', shift: '|', flex: 1.5)
+        ),
       _ => (
           'qwertyuiop',
           KeyData.char('[', shift: '{'),
@@ -227,6 +239,8 @@ class DesktopLayouts {
       'ru_RU' => ('фывапролд', KeyData.char('ж', shift: 'Ж'), KeyData.char('э', shift: 'Э')),
       'el_GR' => ('ασδφγηξκλ', KeyData.char('´', shift: '¨'), KeyData.char("'", shift: '"')),
       'ko_KR' => ('ㅁㄴㅇㄹㅎㅗㅓㅏㅣ', KeyData.char(';', shift: ':'), KeyData.char("'", shift: '"')),
+      'ja_JP' => ('ちとしはきくまのりれけ', KeyData.char('む'), KeyData.char('ろ')),
+      'zh_TW' => ('ㄏㄐㄑㄒㄓㄔㄕㄖㄗ', KeyData.char('ㄘ'), KeyData.char('ㄙ')),
       _ => ('asdfghjkl', KeyData.char(';', shift: ':'), KeyData.char("'", shift: '"')),
     };
 
@@ -305,6 +319,20 @@ class DesktopLayouts {
           KeyData.char(',', shift: '<'),
           KeyData.char('.', shift: '>'),
           KeyData.char('/', shift: '?')
+        ),
+      'ja_JP' => (
+          null,
+          'つさそひこみもねるめ',
+          KeyData.char('ろ'),
+          KeyData.char('。'),
+          KeyData.char('、')
+        ),
+      'zh_TW' => (
+          null,
+          'ㄧㄨㄩㄚㄛㄜㄝㄞㄟ',
+          KeyData.char('ㄠ'),
+          KeyData.char('ㄢ'),
+          KeyData.char('ㄦ')
         ),
       _ => (
           null,

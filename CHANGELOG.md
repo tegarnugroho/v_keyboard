@@ -1,7 +1,7 @@
 ## 0.3.0
 
 - **Multi-Language Keyboard Layouts**:
-  - Add 10 built-in locale layouts with localized main and symbol pages:
+  - Add 13 built-in locale layouts with localized main and symbol pages:
     - `en_US`: US English QWERTY (default, identical to previous releases).
     - `en_GB`: UK English QWERTY with `£` currency symbol.
     - `de_DE`: German QWERTZ with swapped `Y`/`Z`, `ä`, `ö`, `ü`, `ß`, and `€`.
@@ -12,6 +12,9 @@
     - `ru_RU`: Russian Cyrillic ЙЦУКЕН with `₽`.
     - `el_GR`: Greek layout with Greek alphabet and `€`.
     - `ko_KR`: Korean 2-Set Hangul (두벌식) with syllable composition, compound vowels/batchim, and `₩`.
+    - `ja_JP`: Japanese JIS Kana with `¥` currency, voicing marks (`゛`, `゜`), and dakuten composition.
+    - `zh_CN`: Simplified Chinese Pinyin layout with fullwidth punctuation (`，`, `。`, `、`) and `¥`.
+    - `zh_TW`: Traditional Chinese Zhuyin (注音 / Bopomofo) layout with tone marks and Traditional punctuation.
   - Add declarative global registry `VKeyboardLayouts` (`register`, `getLayout`, `allLayouts`, `supportedLocales`, `altGrMapFor`, `isoLayoutIds`).
 - **Hangul Syllable Composition Engine (`HangulComposer`)**:
   - Pure algorithmic Unicode Hangul composition (UAX #29 / Hangul Syllable Composition standard: `0xAC00 + (cho * 21 + jung) * 28 + jong`) with zero external dependencies.
@@ -20,6 +23,9 @@
   - Compound batchim merging (e.g. `ㄹ` + `ㄱ` = `ㄺ`, `달` + `ㄱ` = `닭`).
   - Batchim splitting when a vowel follows (e.g. `간` + `ㅏ` = `가나`, `닭` + `ㅣ` = `달기`).
   - Step-by-step backspace decomposition (e.g. `닭` -> `달` -> `다` -> `ㄷ` -> delete).
+- **Kana Voicing Mark Engine (`KanaComposer`)**:
+  - Algorithmic dakuten (`゛`) and handakuten (`゜`) sound composer for Japanese typing (e.g. `か` + `゛` = `が`, `は` + `゜` = `ぱ`).
+  - Step-by-step backspace decomposition (`が` -> `か`, `ぱ` -> `は`).
 - **Space Bar Hold & Runtime Layout Switcher**:
   - Holding (long-pressing) the space bar opens `showVKeyboardLayoutPicker` displaying active selection, localized display names, and short codes (bottom sheet on mobile, dialog on desktop/tablet).
   - Space bar subtly displays the active language name (e.g. `English (US)`, `Deutsch`, `Русский`) when multiple layouts are enabled.

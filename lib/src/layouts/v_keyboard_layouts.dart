@@ -7,10 +7,13 @@ import 'locales/layout_en_gb.dart';
 import 'locales/layout_en_us.dart';
 import 'locales/layout_es_es.dart';
 import 'locales/layout_fr_fr.dart';
+import 'locales/layout_ja_jp.dart';
 import 'locales/layout_ko_kr.dart';
 import 'locales/layout_nordic.dart';
 import 'locales/layout_ru_ru.dart';
 import 'locales/layout_tr_tr.dart';
+import 'locales/layout_zh_cn.dart';
+import 'locales/layout_zh_tw.dart';
 
 /// Metadata for a registered keyboard layout.
 class VKeyboardLayoutMetadata {
@@ -224,6 +227,48 @@ class VKeyboardLayouts {
         layout: LayoutKoKr.build(),
         builder: ({VKeyboardType type = VKeyboardType.standard}) =>
             LayoutKoKr.build(type: type),
+      ),
+    );
+
+    // 11. ja_JP
+    _registerInternal(
+      VKeyboardLayoutMetadata(
+        id: 'ja_JP',
+        displayName: '日本語',
+        shortLabel: 'JP',
+        layout: LayoutJaJp.build(),
+        builder: ({VKeyboardType type = VKeyboardType.standard}) =>
+            LayoutJaJp.build(type: type),
+        altGrMap: const {
+          'y': '¥',
+        },
+      ),
+    );
+
+    // 12. zh_CN
+    _registerInternal(
+      VKeyboardLayoutMetadata(
+        id: 'zh_CN',
+        displayName: '简体中文',
+        shortLabel: 'CN',
+        layout: LayoutZhCn.build(),
+        builder: ({VKeyboardType type = VKeyboardType.standard}) =>
+            LayoutZhCn.build(type: type),
+        altGrMap: const {
+          'y': '¥',
+        },
+      ),
+    );
+
+    // 13. zh_TW
+    _registerInternal(
+      VKeyboardLayoutMetadata(
+        id: 'zh_TW',
+        displayName: '繁體中文',
+        shortLabel: 'TW',
+        layout: LayoutZhTw.build(),
+        builder: ({VKeyboardType type = VKeyboardType.standard}) =>
+            LayoutZhTw.build(type: type),
       ),
     );
   }

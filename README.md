@@ -62,8 +62,9 @@ Production-ready clipboard history integrated directly into the virtual keyboard
 - Full respect for `inputFormatters`, `maxLength`, and `readOnly` configurations.
 
 ### Keyboard Layouts
-- **Alphabetic & Multi-Language**: 10 built-in international layouts (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`, `ko_KR`).
+- **Alphabetic & Multi-Language**: 13 built-in international layouts (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`, `ko_KR`, `ja_JP`, `zh_CN`, `zh_TW`).
 - **Hangul Syllable Composition Engine**: Pure algorithmic Korean syllable composition (`ㅎ` + `ㅏ` + `ㄴ` = `한`), compound vowels (`ㅘ`, `ㅙ`, `ㅢ`), compound batchim (`닭`), batchim splitting (`간` + `ㅏ` = `가나`, `닭` + `ㅣ` = `달기`), and step-by-step backspace decomposition.
+- **Kana Voicing Mark Engine**: Algorithmic dakuten (`゛`) and handakuten (`゜`) sound composer for Japanese typing (`か` + `゛` = `が`, `は` + `゜` = `ぱ`).
 - **Runtime Layout Switching**: Hold (long-press) the space bar to open the layout picker dialog / bottom sheet, with space bar active layout preview and persistent selection.
 - **Accented Characters**: Long-press letter callouts with customizable alternates.
 - **Specialized**: Number, decimal, phone, PIN, password, email, and URL layouts.
@@ -177,7 +178,7 @@ class _FormPageState extends State<FormPage> {
 
 ## Multi-Language Layouts
 
-`flutter_v_keyboard` includes 10 built-in international layouts and a runtime layout switcher inspired by Gboard and iOS.
+`flutter_v_keyboard` includes 13 built-in international layouts and a runtime layout switcher inspired by Gboard and iOS.
 
 ### Built-in Locales
 
@@ -193,6 +194,9 @@ class _FormPageState extends State<FormPage> {
 | `ru_RU` | Русский | ЙЦУКЕН | Full Cyrillic alphabet, `₽` currency symbol |
 | `el_GR` | Ελληνικά | Greek | Full Greek alphabet, `€` currency symbol |
 | `ko_KR` | 한국어 | 2-Set Hangul (두벌식) | Algorithmic syllable composition, compound vowels/batchim, `₩` currency symbol |
+| `ja_JP` | 日本語 | JIS Kana | Full Kana alphabet, `¥` currency symbol, voicing marks (`゛`, `゜`) |
+| `zh_CN` | 简体中文 | Pinyin | Pinyin QWERTY with fullwidth Chinese punctuation (`，`, `。`, `、`), `¥` symbol |
+| `zh_TW` | 繁體中文 | Zhuyin (注音) | Complete Bopomofo phonetic alphabet with tone marks and Traditional punctuation |
 
 ### Enabling Multi-Language Support
 
