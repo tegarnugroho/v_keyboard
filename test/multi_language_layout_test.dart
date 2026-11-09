@@ -300,5 +300,52 @@ void main() {
       final deRow1 = controller.currentRows![0].map((k) => k.text).join();
       expect(deRow1, contains('qwertz'));
     });
+
+    test('VKeyboardLocale enum maps to built-in layouts correctly', () {
+      expect(VKeyboardLocale.values.length, 9);
+      expect(VKeyboardLocale.enUS.id, 'en_US');
+      expect(VKeyboardLocale.deDE.id, 'de_DE');
+      expect(VKeyboardLocale.ruRU.id, 'ru_RU');
+
+      expect(VKeyboardLocale.fromId('de_DE'), VKeyboardLocale.deDE);
+      expect(VKeyboardLocale.fromId('unknown_id'), isNull);
+    });
+
+    test('VKeyboardConfig enabledLocales and defaultLocale support enum configuration', () {
+      const config = VKeyboardConfig(
+        enabledLocales: [
+          VKeyboardLocale.enUS,
+          VKeyboardLocale.deDE,
+          VKeyboardLocale.ruRU,
+        ],
+        defaultLocale: VKeyboardLocale.deDE,
+      );
+
+      expect(config.enabledLayouts, ['en_US', 'de_DE', 'ru_RU']);
+      expect(config.defaultLayout, 'de_DE');
+    });
+
+    test('controller setLocale and currentLocale work seamlessly with VKeyboardLocale', () {
+      final controller = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLocales: [
+            VKeyboardLocale.enUS,
+            VKeyboardLocale.deDE,
+            VKeyboardLocale.ruRU,
+          ],
+          persistLayoutSelection: false,
+        ),
+      );
+
+      expect(controller.currentLocale, VKeyboardLocale.enUS);
+
+      controller.setLocale(VKeyboardLocale.ruRU);
+      expect(controller.currentLocale, VKeyboardLocale.ruRU);
+      expect(controller.currentLayoutId, 'ru_RU');
+
+      controller.setLocale(VKeyboardLocale.deDE);
+      expect(controller.currentLocale, VKeyboardLocale.deDE);
+      expect(controller.currentLayoutId, 'de_DE');
+    });
   });
 }

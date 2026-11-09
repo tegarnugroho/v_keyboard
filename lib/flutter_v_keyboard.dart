@@ -11,6 +11,7 @@ export 'src/theme/v_keyboard_theme.dart';
 export 'src/models/key_data.dart';
 export 'src/models/key_intents.dart';
 export 'src/models/keyboard_type.dart';
+export 'src/models/v_keyboard_locale.dart';
 export 'src/models/keyboard_layout.dart';
 export 'src/layouts/builtin_layouts.dart';
 export 'src/layouts/desktop_layouts.dart';

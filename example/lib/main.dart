@@ -67,19 +67,8 @@ class _ExampleAppState extends State<ExampleApp> {
     const config = VKeyboardConfig(
       enableClipboardHistory: true,
       syncSystemClipboard: true,
-      enabledLayouts: [
-        'en_US',
-        'en_GB',
-        'de_DE',
-        'fr_FR',
-        'es_ES',
-        'nordic',
-        'tr_TR',
-        'ru_RU',
-        'el_GR',
-      ],
-      showGlobeKey: true,
-      openPickerOnTap: true,
+      enabledLocales: VKeyboardLocale.values,
+      showGlobeKey: false,
     );
 
     return MaterialApp(
@@ -1027,62 +1016,66 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                     final isClipboard = _showClipboardInPreview ||
                         controller.currentPage == 'clipboard';
                     final isEmoji = controller.currentPage == 'emoji';
+                    final isDesktop = _selectedType == VKeyboardType.desktop;
+                    final bottomBarHeight = isDesktop ? 0.0 : 36.0;
+
+                    final Widget content;
+                    if (isEmoji) {
+                      content = Container(
+                        constraints: const BoxConstraints(maxWidth: 640),
+                        child: Material(
+                          borderRadius: BorderRadius.circular(12),
+                          color: isDark
+                              ? const Color(0xFF181D2A)
+                              : Colors.white,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: EmojiPanel(
+                              controller: controller,
+                              theme: theme,
+                              height: 230,
+                              maxWidth: 640,
+                              bottomSafeArea: bottomBarHeight,
+                            ),
+                          ),
+                        ),
+                      );
+                    } else if (isClipboard) {
+                      content = Container(
+                        constraints: const BoxConstraints(maxWidth: 640),
+                        child: Material(
+                          borderRadius: BorderRadius.circular(12),
+                          color: isDark
+                              ? const Color(0xFF181D2A)
+                              : Colors.white,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: ClipboardHistoryPanel(
+                              controller: controller,
+                              theme: theme,
+                              height: 230,
+                              maxWidth: 640,
+                              bottomSafeArea: bottomBarHeight,
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      content = _buildEmbeddedKeyboardView(
+                        controller,
+                        theme,
+                        isDark,
+                      );
+                    }
 
                     return TapRegion(
                       groupId: scope?.tapGroup ?? Object(),
-                      child: Stack(
-                        children: [
-                          // Virtual Keyboard
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: _buildEmbeddedKeyboardView(
-                                controller,
-                                theme,
-                                isDark,
-                              ),
-                            ),
-                          ),
-
-                          // Floating Clipboard Panel (shown when clipboard icon is active)
-                          if (isClipboard)
-                            Positioned(
-                              left: 20,
-                              right: 20,
-                              bottom: 250,
-                              child: _buildFloatingClipboardPanel(
-                                controller,
-                                theme,
-                                isDark,
-                              ),
-                            ),
-
-                          // Floating Emoji Panel (shown when emoji icon is active)
-                          if (isEmoji)
-                            Positioned(
-                              left: 20,
-                              right: 20,
-                              bottom: 250,
-                              height: 220,
-                              child: Material(
-                                elevation: 8,
-                                borderRadius: BorderRadius.circular(12),
-                                color: isDark
-                                    ? const Color(0xFF181D2A)
-                                    : Colors.white,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: EmojiPanel(
-                                    controller: controller,
-                                    theme: theme,
-                                    height: 220,
-                                    maxWidth: 600,
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: content,
+                        ),
                       ),
                     );
                   },
@@ -1150,221 +1143,6 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
       metrics: metrics,
       rows: rows,
       bottomSafeArea: 0,
-    );
-  }
-
-  Widget _buildFloatingClipboardPanel(
-    VKeyboardController controller,
-    VKeyboardTheme theme,
-    bool isDark,
-  ) {
-    final history = controller.clipboardHistory;
-    final items = history.items;
-    final activeColor = widget.accentColor.color;
-
-    return Material(
-      elevation: 12,
-      borderRadius: BorderRadius.circular(12),
-      color: isDark ? const Color(0xFF131722) : Colors.white,
-      child: Container(
-        height: 280,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isDark ? const Color(0xFF283247) : const Color(0xFFCBD5E1),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Clipboard Header
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.content_paste_rounded,
-                    size: 16,
-                    color: activeColor,
-                  ),
-                  const SizedBox(width: 8),
-                  const Text(
-                    'Clipboard',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(Icons.close_rounded, size: 16),
-                    visualDensity: VisualDensity.compact,
-                    onPressed: () {
-                      setState(() => _showClipboardInPreview = false);
-                      controller.closeClipboardHistory();
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const Divider(height: 1),
-
-            // Search Bar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              child: Container(
-                height: 36,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: isDark
-                      ? const Color(0xFF192030)
-                      : const Color(0xFFF1F5F9),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: isDark
-                        ? const Color(0xFF263045)
-                        : const Color(0xFFE2E8F0),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.search_rounded,
-                      size: 16,
-                      color: isDark ? Colors.white54 : Colors.black54,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        'Search clipboard...',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: isDark ? Colors.white38 : Colors.black38,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // Snippets List
-            Expanded(
-              child: items.isEmpty
-                  ? Center(
-                      child: Text(
-                        'Clipboard history is empty',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: isDark ? Colors.white54 : Colors.black54,
-                        ),
-                      ),
-                    )
-                  : ListView.separated(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 4,
-                      ),
-                      itemCount: items.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 6),
-                      itemBuilder: (context, index) {
-                        final item = items[index];
-                        final isUrl = item.text.startsWith('http://') ||
-                            item.text.startsWith('https://');
-
-                        return InkWell(
-                          borderRadius: BorderRadius.circular(8),
-                          onTap: () {
-                            controller.pasteClipboardItem(item);
-                            _playgroundFocusNode.requestFocus();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isDark
-                                  ? const Color(0xFF181F2E)
-                                  : const Color(0xFFF8FAFC),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: isDark
-                                    ? const Color(0xFF242F44)
-                                    : const Color(0xFFE2E8F0),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 28,
-                                  height: 28,
-                                  decoration: BoxDecoration(
-                                    color: activeColor.withValues(alpha: 0.15),
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: Icon(
-                                    isUrl
-                                        ? Icons.link_rounded
-                                        : Icons.description_outlined,
-                                    size: 16,
-                                    color: activeColor,
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.text,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          color: isDark
-                                              ? Colors.white
-                                              : Colors.black87,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 2),
-                                      Text(
-                                        item.isPinned ? 'Just now' : 'Recent',
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          color: isDark
-                                              ? Colors.white38
-                                              : Colors.black38,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: Icon(
-                                    item.isPinned
-                                        ? Icons.push_pin_rounded
-                                        : Icons.push_pin_outlined,
-                                    size: 15,
-                                    color: item.isPinned
-                                        ? activeColor
-                                        : (isDark
-                                            ? Colors.white38
-                                            : Colors.black38),
-                                  ),
-                                  visualDensity: VisualDensity.compact,
-                                  onPressed: () =>
-                                      history.togglePin(item.id),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -1817,17 +1595,6 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
           builder: (ctx) {
             final scope = VKeyboardScope.maybeOf(ctx);
             final activeId = scope?.controller.currentLayoutId ?? 'en_US';
-            final layouts = [
-              ('en_US', 'English (US)'),
-              ('en_GB', 'English (UK)'),
-              ('de_DE', 'Deutsch (QWERTZ)'),
-              ('fr_FR', 'Français (AZERTY)'),
-              ('es_ES', 'Español'),
-              ('nordic', 'Nordic'),
-              ('tr_TR', 'Türkçe (Turkish Q)'),
-              ('ru_RU', 'Русский (ЙЦУКЕН)'),
-              ('el_GR', 'Ελληνικά (Greek)'),
-            ];
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1835,14 +1602,15 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: layouts.map((item) {
-                    final isSelected = activeId == item.$1;
+                  children: VKeyboardLocale.values.map((loc) {
+                    final isSelected = activeId == loc.id;
                     return ChoiceChip(
-                      label: Text(item.$2),
+                      label: Text('${loc.displayName} (${loc.shortLabel})'),
                       selected: isSelected,
-                      selectedColor: widget.accentColor.color.withValues(alpha: 0.25),
+                      selectedColor:
+                          widget.accentColor.color.withValues(alpha: 0.25),
                       onSelected: (_) {
-                        scope?.controller.setLayout(item.$1);
+                        scope?.controller.setLocale(loc);
                         setState(() {});
                       },
                     );

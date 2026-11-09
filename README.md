@@ -63,7 +63,7 @@ Production-ready clipboard history integrated directly into the virtual keyboard
 
 ### Keyboard Layouts
 - **Alphabetic & Multi-Language**: 9 built-in international layouts (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`).
-- **Runtime Layout Switching**: Gboard-style globe key (`Icons.language`), space bar preview banner, and quick layout picker (dialog / bottom sheet).
+- **Runtime Layout Switching**: Hold (long-press) the space bar to open the layout picker dialog / bottom sheet, with space bar active layout preview and persistent selection.
 - **Accented Characters**: Long-press letter callouts with customizable alternates.
 - **Specialized**: Number, decimal, phone, PIN, password, email, and URL layouts.
 - **Symbols**: Multi-page switching (`123`, `#+=`) with sticky shift, double-tap caps lock, and locale-specific currency keys (`€`, `£`, `₺`, `₽`).
@@ -194,16 +194,21 @@ class _FormPageState extends State<FormPage> {
 
 ### Enabling Multi-Language Support
 
-Specify `enabledLayouts` in `VKeyboardConfig`. When two or more layouts are enabled, the globe key (`Icons.language`) appears automatically in the bottom bar beside the hide keyboard button on all text-like fields:
+Specify `enabledLocales` using the type-safe `VKeyboardLocale` enum in `VKeyboardConfig` (or use `enabledLayouts` for custom registered layout IDs). When two or more layouts are enabled, holding (long-pressing) the space bar opens the layout picker dialog / bottom sheet:
 
 ```dart
 VKeyboardScope(
   config: const VKeyboardConfig(
-    enabledLayouts: ['en_US', 'de_DE', 'fr_FR', 'es_ES'],
-    defaultLayout: 'en_US',
-    showGlobeKey: true,
+    // Type-safe enum list (use VKeyboardLocale.values to enable all built-in layouts)
+    enabledLocales: [
+      VKeyboardLocale.enUS,
+      VKeyboardLocale.deDE,
+      VKeyboardLocale.frFR,
+      VKeyboardLocale.esES,
+    ],
+    defaultLocale: VKeyboardLocale.enUS,
     persistLayoutSelection: true, // Remembers active layout across app restarts
-    openPickerOnTap: false,        // Tap cycles layouts; long-press opens dialog
+    showGlobeKey: false,          // Optional bottom-bar globe icon (default: false)
   ),
   onLayoutChanged: (layoutId) {
     debugPrint('Layout switched to: $layoutId');
@@ -212,12 +217,12 @@ VKeyboardScope(
 );
 ```
 
-### Globe Key & Runtime Switcher
+### Space Bar & Layout Switcher
 
-- **Tap**: Cycles to the next enabled layout in sequence (or opens the picker modal directly if `openPickerOnTap: true`).
-- **Long-Press**: Opens a layout picker (bottom sheet on mobile, dialog on desktop/tablet) to select any enabled layout.
-- **Space Bar Banner**: Briefly flashes the active layout name (e.g., `Deutsch`) on the space bar (~1.5s fade out), matching native Gboard behavior.
-- **Accessibility**: Announces the new layout via `SemanticsService` and assigns `"Switch keyboard language"` to screen readers.
+- **Hold Space Bar**: Holding (long-pressing) the space bar opens a layout picker (bottom sheet on mobile, dialog on desktop/tablet) to select any enabled layout.
+- **Space Bar Active Preview**: When multiple layouts are enabled, the space bar subtly displays the active language name (e.g. `English (US)`, `Deutsch`, `Русский`), matching modern keyboard UX.
+- **Switch Banner**: Briefly flashes the new layout name on the space bar (~1.5s) upon switching.
+- **Optional Globe Key**: Can be enabled via `showGlobeKey: true` if a dedicated bottom-bar button is desired.
 - **Persistent State**: The user's chosen layout is automatically stored locally and restored on next application launch.
 
 ### Programmatic Control
@@ -229,9 +234,11 @@ final controller = VKeyboardController.of(context);
 
 // Read current active layout
 final current = controller.currentLayoutId;
+final locale = controller.currentLocale; // VKeyboardLocale?
 
-// Switch layout directly
-controller.setLayout('de_DE');
+// Switch layout directly using enum or string ID
+controller.setLocale(VKeyboardLocale.deDE);
+// or: controller.setLayout('de_DE');
 
 // Cycle to next layout
 controller.nextLayout();

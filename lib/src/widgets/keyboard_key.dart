@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../controller/v_keyboard_controller.dart';
+import '../layouts/v_keyboard_layouts.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
 import '../scope/v_keyboard_scope.dart';
 import '../theme/v_keyboard_theme.dart';
+import 'layout_picker_dialog.dart';
 
 /// A single rendered key.
 ///
@@ -199,6 +201,24 @@ class _VirtualKeyState extends State<VirtualKey> {
     });
   }
 
+  VoidCallback? get _onLongPressHandler {
+    if (_data.kind == KeyKind.space &&
+        _controller.config.enabledLayouts.length >= 2) {
+      return _onSpaceLongPress;
+    }
+    return null;
+  }
+
+  void _onSpaceLongPress() {
+    _cancelRepeat();
+    _pressed.value = false;
+    showVKeyboardLayoutPicker(
+      context,
+      controller: _controller,
+      theme: widget.theme,
+    );
+  }
+
   void _onTap() {
     _cancelRepeat();
     if (!_isEnabled) return;
@@ -312,6 +332,7 @@ class _VirtualKeyState extends State<VirtualKey> {
               onTapUp: _onTapUp,
               onTapCancel: _onTapCancel,
               onTap: _onTap,
+              onLongPress: _onLongPressHandler,
               child: ValueListenableBuilder<bool>(
                 valueListenable: _pressed,
                 builder: (context, pressed, child) {
@@ -374,24 +395,24 @@ class _VirtualKeyState extends State<VirtualKey> {
 
     if (_data.kind == KeyKind.space) {
       final banner = _controller.spaceBarBanner;
-      if (banner != null && banner.isNotEmpty) {
-        return AnimatedOpacity(
-          opacity: 1.0,
-          duration: const Duration(milliseconds: 300),
-          child: Text(
-            banner,
-            maxLines: 1,
-            overflow: TextOverflow.fade,
-            style: theme.textStyle.copyWith(
-              fontSize: (theme.textStyle.fontSize! * 0.72).clamp(12.0, 15.0),
-              fontWeight: FontWeight.w500,
-              color: theme.textStyle.color?.withValues(alpha: 0.7),
+      final showActiveName = _controller.config.enabledLayouts.length >= 2;
+      final spaceText = banner ??
+          (showActiveName
+              ? VKeyboardLayouts.getDisplayName(_controller.currentLayoutId)
+              : (_data.label ?? ''));
+      if (spaceText.isNotEmpty) {
+        return Text(
+          spaceText,
+          maxLines: 1,
+          overflow: TextOverflow.fade,
+          style: theme.textStyle.copyWith(
+            fontSize: (theme.textStyle.fontSize! * 0.72).clamp(12.0, 15.0),
+            fontWeight: FontWeight.w500,
+            color: theme.textStyle.color?.withValues(
+              alpha: banner != null ? 0.9 : 0.45,
             ),
           ),
         );
-      }
-      if (_data.label != null && _data.label!.isNotEmpty) {
-        return Text(_data.label!, style: theme.textStyle);
       }
       return const SizedBox.shrink();
     }

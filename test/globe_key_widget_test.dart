@@ -28,7 +28,7 @@ void main() {
       expect(find.bySemanticsLabel('Switch keyboard language'), findsNothing);
     });
 
-    testWidgets('globe key is shown when 2+ layouts are enabled on text-like fields',
+    testWidgets('globe key is omitted by default even when 2+ layouts are enabled',
         (tester) async {
       final textController = TextEditingController();
 
@@ -38,6 +38,31 @@ void main() {
             body: VKeyboardScope(
               config: const VKeyboardConfig(
                 enabledLayouts: ['en_US', 'de_DE', 'fr_FR'],
+              ),
+              child: VTextField(controller: textController),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(VTextField));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(KeyboardView), findsOneWidget);
+      expect(find.byIcon(Icons.language), findsNothing);
+    });
+
+    testWidgets('globe key is shown when explicitly enabled via showGlobeKey: true',
+        (tester) async {
+      final textController = TextEditingController();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: VKeyboardScope(
+              config: const VKeyboardConfig(
+                enabledLayouts: ['en_US', 'de_DE', 'fr_FR'],
+                showGlobeKey: true,
               ),
               child: VTextField(controller: textController),
             ),
@@ -160,6 +185,8 @@ void main() {
       final controller = VKeyboardController(
         config: const VKeyboardConfig(
           enabledLayouts: ['en_US', 'de_DE', 'fr_FR'],
+          showGlobeKey: true,
+          openPickerOnTap: false,
           persistLayoutSelection: false,
         ),
       );
@@ -220,6 +247,8 @@ void main() {
             body: VKeyboardScope(
               config: const VKeyboardConfig(
                 enabledLayouts: ['en_US', 'de_DE'],
+                showGlobeKey: true,
+                openPickerOnTap: false,
                 persistLayoutSelection: false,
               ),
               onLayoutChanged: (id) => changedLayout = id,
@@ -245,6 +274,7 @@ void main() {
       final controller = VKeyboardController(
         config: const VKeyboardConfig(
           enabledLayouts: ['en_US', 'de_DE', 'tr_TR'],
+          showGlobeKey: true,
           persistLayoutSelection: false,
         ),
       );
@@ -278,6 +308,86 @@ void main() {
 
       expect(controller.currentLayoutId, 'tr_TR');
       await tester.pump(const Duration(seconds: 2));
+    });
+  });
+
+  group('Space Bar Hold Layout Picker', () {
+    testWidgets('holding (long-pressing) space bar opens layout picker and switches layout',
+        (tester) async {
+      final controller = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLayouts: ['en_US', 'de_DE', 'tr_TR'],
+          persistLayoutSelection: false,
+        ),
+      );
+      final textController = TextEditingController();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: VKeyboardScope(
+            controller: controller,
+            child: Scaffold(
+              body: VTextField(controller: textController),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(VTextField));
+      await tester.pumpAndSettle();
+
+      // Find the space bar key
+      final spaceFinder = find.byWidgetPredicate(
+          (w) => w is VirtualKey && w.data.kind == KeyKind.space);
+      expect(spaceFinder, findsOneWidget);
+
+      // Long press the space bar
+      await tester.longPress(spaceFinder);
+      await tester.pumpAndSettle();
+
+      // Picker dialog should be visible with Deutsch and Türkçe
+      expect(find.textContaining('Türkçe'), findsOneWidget);
+      expect(find.textContaining('Deutsch'), findsOneWidget);
+
+      // Tap Deutsch
+      await tester.tap(find.textContaining('Deutsch'));
+      await tester.pumpAndSettle();
+
+      expect(controller.currentLayoutId, 'de_DE');
+      await tester.pump(const Duration(seconds: 2));
+    });
+
+    testWidgets('tapping space bar normally inserts space character and does not open picker',
+        (tester) async {
+      final controller = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLayouts: ['en_US', 'de_DE'],
+          persistLayoutSelection: false,
+        ),
+      );
+      final textController = TextEditingController();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: VKeyboardScope(
+            controller: controller,
+            child: Scaffold(
+              body: VTextField(controller: textController),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(VTextField));
+      await tester.pumpAndSettle();
+
+      final spaceFinder = find.byWidgetPredicate(
+          (w) => w is VirtualKey && w.data.kind == KeyKind.space);
+      await tester.tap(spaceFinder);
+      await tester.pumpAndSettle();
+
+      expect(textController.text, ' ');
+      expect(find.textContaining('Deutsch'), findsNothing);
     });
   });
 

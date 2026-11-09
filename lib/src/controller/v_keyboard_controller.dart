@@ -19,6 +19,7 @@ import '../layouts/v_keyboard_layouts.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
 import '../models/keyboard_layout.dart';
+import '../models/v_keyboard_locale.dart';
 import '../widgets/v_keyboard_shortcuts.dart';
 import 'keyboard_session.dart';
 
@@ -81,6 +82,14 @@ class VKeyboardController extends ChangeNotifier {
 
   /// The identifier of the currently active keyboard layout (e.g. 'en_US', 'de_DE').
   String get currentLayoutId => _currentLayoutId;
+
+  /// The currently active locale enum if it is one of the built-in [VKeyboardLocale]s,
+  /// or null if a custom layout is active.
+  VKeyboardLocale? get currentLocale =>
+      VKeyboardLocale.fromId(_currentLayoutId);
+
+  /// Switches the active layout using a type-safe [VKeyboardLocale].
+  void setLocale(VKeyboardLocale locale) => setLayout(locale.id);
 
   /// Stream emitting the layout id whenever the active layout changes.
   Stream<String> get onLayoutChanged => _layoutChangeController.stream;

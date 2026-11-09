@@ -12,13 +12,12 @@
     - `ru_RU`: Russian Cyrillic ЙЦУКЕН with `₽`.
     - `el_GR`: Greek layout with Greek alphabet and `€`.
   - Add declarative global registry `VKeyboardLayouts` (`register`, `getLayout`, `allLayouts`, `supportedLocales`, `altGrMapFor`, `isoLayoutIds`).
-- **Globe Key & Runtime Layout Switcher**:
-  - Gboard / iOS style globe key (`Icons.language`) positioned beside the dismiss keyboard button in the bottom bar.
-  - Tap cycles through `enabledLayouts` or opens picker modal dialog/bottom sheet (configurable via `openPickerOnTap`).
-  - Long-press triggers `showVKeyboardLayoutPicker` displaying active selection, display names, and short codes.
+- **Space Bar Hold & Runtime Layout Switcher**:
+  - Holding (long-pressing) the space bar opens `showVKeyboardLayoutPicker` displaying active selection, localized display names, and short codes (bottom sheet on mobile, dialog on desktop/tablet).
+  - Space bar subtly displays the active language name (e.g. `English (US)`, `Deutsch`, `Русский`) when multiple layouts are enabled.
   - Transient space bar announcement banner displaying active layout display name briefly (~1.5s fade out) upon switching.
-  - Screen-reader accessible with semantic label ("Switch keyboard language") and locale announcements via `SemanticsService`.
-  - Automatically shown only when 2+ layouts are enabled on text-like input fields (`standard`, `text`, `email`, `url`, `password`), hidden on numeric keyboards (`number`, `decimal`, `phone`, `pin`) and custom layouts by default.
+  - Optional globe key (`Icons.language`) in the bottom bar, configurable via `VKeyboardConfig.showGlobeKey` (defaults to `false`).
+  - Screen-reader accessible with semantic announcements via `SemanticsService`.
 - **Long-Press Accents**:
   - Character keys support `alternates` via `KeyData.char('e', alternates: ['é', 'è', 'ê', 'ë'])`.
   - Long-pressing letter keys presents an interactive accent callout popup above the key.
@@ -29,8 +28,9 @@
 - **Cross-Platform Layout Selection Persistence**:
   - Saves user's selected keyboard layout across app restarts via `LayoutSelectionStorage` (file-backed on Android, iOS, Windows, macOS, Linux, and in-memory on Web).
 - **Public API Additions**:
-  - `VKeyboardConfig`: `enabledLayouts`, `defaultLayout`, `showGlobeKey`, `persistLayoutSelection`, `openPickerOnTap`.
-  - `VKeyboardController`: `currentLayoutId`, `setLayout(id)`, `nextLayout()`, `onLayoutChanged` stream, `insertText(text)`.
+  - `VKeyboardLocale` enum: Type-safe enum for all 9 built-in locale layouts (`enUS`, `enGB`, `deDE`, `frFR`, `esES`, `nordic`, `trTR`, `ruRU`, `elGR`) with `id`, `displayName`, `shortLabel`, and `fromId()`.
+  - `VKeyboardConfig`: `enabledLocales`, `defaultLocale`, `enabledLayouts`, `defaultLayout`, `showGlobeKey`, `persistLayoutSelection`, `openPickerOnTap`.
+  - `VKeyboardController`: `currentLocale`, `setLocale(locale)`, `currentLayoutId`, `setLayout(id)`, `nextLayout()`, `onLayoutChanged` stream, `insertText(text)`.
   - `VKeyboardScope`: `onLayoutChanged` callback.
   - `showVKeyboardLayoutPicker`: modal bottom sheet on mobile or centered dialog on desktop/tablet to pick active layout.
 

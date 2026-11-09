@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+import '../models/v_keyboard_locale.dart';
+
 /// Behavioural configuration for the virtual keyboard.
 ///
 /// Applied at the [VKeyboardScope] level and overridable per
@@ -28,23 +30,42 @@ class VKeyboardConfig {
     this.maxClipboardHistoryItems = 50,
     this.syncSystemClipboard = true,
     this.showHideKeyboardButton = true,
-    this.enabledLayouts = const ['en_US'],
-    this.defaultLayout,
+    List<String>? enabledLayouts,
+    this.enabledLocales,
+    String? defaultLayout,
+    this.defaultLocale,
     this.showGlobeKey = false,
     this.persistLayoutSelection = true,
     this.openPickerOnTap = true,
-  });
+  })  : _enabledLayouts = enabledLayouts,
+        _defaultLayout = defaultLayout;
+
+  final List<String>? _enabledLayouts;
+  final String? _defaultLayout;
+
+  /// Type-safe enum list of enabled built-in locales (e.g. `[VKeyboardLocale.enUS, VKeyboardLocale.deDE]`).
+  ///
+  /// When provided, this automatically populates [enabledLayouts] with their corresponding layout IDs.
+  final List<VKeyboardLocale>? enabledLocales;
+
+  /// Type-safe initial built-in locale.
+  final VKeyboardLocale? defaultLocale;
 
   /// Enabled layout IDs for switching via space bar hold or the globe key.
   ///
-  /// Defaults to `['en_US']`. When 2 or more layouts are enabled, holding
-  /// (long-pressing) the space bar opens the layout picker dialog/bottom sheet.
-  final List<String> enabledLayouts;
+  /// Defaults to `['en_US']`. If [enabledLocales] is specified, it returns the IDs
+  /// of those locales.
+  List<String> get enabledLayouts {
+    if (enabledLocales != null && enabledLocales!.isNotEmpty) {
+      return enabledLocales!.map((l) => l.id).toList();
+    }
+    return _enabledLayouts ?? const ['en_US'];
+  }
 
   /// The initial layout to use before any selection is made.
   ///
-  /// Defaults to the first layout in [enabledLayouts] or `'en_US'`.
-  final String? defaultLayout;
+  /// Defaults to [defaultLocale]'s ID, [defaultLayout], the first layout in [enabledLayouts], or `'en_US'`.
+  String? get defaultLayout => defaultLocale?.id ?? _defaultLayout;
 
   /// Whether to display the optional globe (layout switcher) key in the bottom bar.
   ///
@@ -153,7 +174,9 @@ class VKeyboardConfig {
     bool? syncSystemClipboard,
     bool? showHideKeyboardButton,
     List<String>? enabledLayouts,
+    List<VKeyboardLocale>? enabledLocales,
     String? defaultLayout,
+    VKeyboardLocale? defaultLocale,
     bool? showGlobeKey,
     bool? persistLayoutSelection,
     bool? openPickerOnTap,
@@ -187,8 +210,10 @@ class VKeyboardConfig {
       syncSystemClipboard: syncSystemClipboard ?? this.syncSystemClipboard,
       showHideKeyboardButton:
           showHideKeyboardButton ?? this.showHideKeyboardButton,
-      enabledLayouts: enabledLayouts ?? this.enabledLayouts,
-      defaultLayout: defaultLayout ?? this.defaultLayout,
+      enabledLayouts: enabledLayouts ?? _enabledLayouts,
+      enabledLocales: enabledLocales ?? this.enabledLocales,
+      defaultLayout: defaultLayout ?? _defaultLayout,
+      defaultLocale: defaultLocale ?? this.defaultLocale,
       showGlobeKey: showGlobeKey ?? this.showGlobeKey,
       persistLayoutSelection:
           persistLayoutSelection ?? this.persistLayoutSelection,
