@@ -195,8 +195,11 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   final TextEditingController _passController = TextEditingController();
   final TextEditingController _multiController = TextEditingController();
 
-  // Desktop tab controller
+  // Desktop tab controller & state
   final TextEditingController _desktopController = TextEditingController();
+  final FocusNode _desktopFocusNode = FocusNode();
+  String _desktopLastEvent = 'None';
+  bool _desktopShowFnRow = true;
 
   // Custom layout definition (Math & Scientific symbols example)
   static final KeyboardLayout _customLayout = KeyboardLayout(
@@ -279,6 +282,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
     _passController.dispose();
     _multiController.dispose();
     _desktopController.dispose();
+    _desktopFocusNode.dispose();
     super.dispose();
   }
 
@@ -1905,143 +1909,215 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   }
 
   Widget _buildDesktopTab(bool isDark) {
-    return ListView(
-      padding: const EdgeInsets.all(24),
+    final scope = VKeyboardScope.maybeOf(context);
+    final controller = scope?.controller;
+    final desktopTheme = isDark
+        ? DesktopKeyboardThemeData.dark(accentColor: widget.accentColor.color)
+        : DesktopKeyboardThemeData.light(accentColor: widget.accentColor.color);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
-          'Full Desktop Keyboard (OSK Style)',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'Includes function row (F1-F12), navigation cluster, numpad, and modifier handling.',
-          style: TextStyle(
-            fontSize: 13,
-            color: isDark ? Colors.white60 : Colors.black54,
-          ),
-        ),
-        const SizedBox(height: 20),
-        VTextField(
-          controller: _desktopController,
-          keyboardType: VKeyboardType.desktop,
-          textInputAction: TextInputAction.newline,
-          maxLines: 4,
-          minLines: 3,
-          decoration: InputDecoration(
-            hintText: 'Type with desktop shortcuts (Ctrl+A, Ctrl+C, Ctrl+V, Shift+arrows)...',
-            filled: true,
-            fillColor:
-                isDark ? const Color(0xFF11141E) : const Color(0xFFF8FAFC),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          ),
-        ),
-        const SizedBox(height: 16),
-        const Text(
-          'Desktop Keyboard Layout (Interactive)',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        Builder(
-          builder: (context) {
-            final scope = VKeyboardScope.maybeOf(context);
-            final controller = scope?.controller;
-            final theme = scope?.theme ??
-                (isDark ? VKeyboardTheme.dark() : VKeyboardTheme.light());
-            if (controller == null) return const SizedBox.shrink();
-
-            return LayoutBuilder(
-              builder: (context, constraints) {
-                final availableWidth = constraints.maxWidth;
-                final layoutWidth =
-                    availableWidth < 1000 ? 1000.0 : availableWidth;
-                final rows = DesktopLayouts.rows(
-                  layoutWidth,
-                  layoutId: controller.currentLayoutId,
-                );
-                final rowCount = rows.length;
-                final keyboardHeight =
-                    (rowCount * 46.0) + ((rowCount - 1) * 6.0) + 24.0;
-
-                return Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: isDark
-                        ? const Color(0xFF11141E)
-                        : const Color(0xFFF8FAFC),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: isDark
-                          ? const Color(0xFF263248)
-                          : const Color(0xFFE2E8F0),
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Full Desktop Keyboard (OSK Style)',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Edge-to-edge 100% full-size ANSI desktop grid with Function row, Navigation cluster, and Numpad.',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: isDark ? Colors.white60 : Colors.black54,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: SizedBox(
-                      width: layoutWidth,
-                      height: keyboardHeight,
-                      child: KeyboardView(
-                        controller: controller,
-                        theme: theme,
-                        metrics: KeyboardMetrics(
-                          height: keyboardHeight,
-                          maxWidth: layoutWidth,
-                          horizontalPadding: 8,
-                          rowSpacing: 6,
-                          formFactor: DeviceFormFactor.desktop,
-                          isLandscape: true,
+                  const SizedBox(width: 12),
+                  FilterChip(
+                    label: const Text('Function Row'),
+                    selected: _desktopShowFnRow,
+                    onSelected: (v) => setState(() => _desktopShowFnRow = v),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              // Live Typing Preview Card (inspired by OSK Engine preview)
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: isDark ? const Color(0xFF13161F) : Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: isDark
+                        ? const Color(0xFF23293A)
+                        : const Color(0xFFE2E8F0),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.terminal_rounded,
+                          size: 16,
+                          color: widget.accentColor.color,
                         ),
-                        rows: rows,
-                        bottomSafeArea: 0,
+                        const SizedBox(width: 8),
+                        const Text(
+                          'Live Typing Preview',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        ValueListenableBuilder<TextEditingValue>(
+                          valueListenable: _desktopController,
+                          builder: (context, val, _) {
+                            return Text(
+                              '• ${val.text.length} chars',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: isDark ? Colors.white54 : Colors.black45,
+                              ),
+                            );
+                          },
+                        ),
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: widget.accentColor.color
+                                .withValues(alpha: 0.16),
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(
+                              color: widget.accentColor.color
+                                  .withValues(alpha: 0.4),
+                            ),
+                          ),
+                          child: Text(
+                            'Last Event: $_desktopLastEvent',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              color: widget.accentColor.color,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    VTextField(
+                      controller: _desktopController,
+                      focusNode: _desktopFocusNode,
+                      keyboardType: VKeyboardType.desktop,
+                      textInputAction: TextInputAction.newline,
+                      maxLines: 4,
+                      minLines: 3,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 14,
+                      ),
+                      decoration: InputDecoration(
+                        hintText:
+                            'Click keyboard keys below or type with physical keyboard (Ctrl+A, Ctrl+C, Tab, Arrows, Numpad)...',
+                        filled: true,
+                        fillColor: isDark
+                            ? const Color(0xFF0B0E14)
+                            : const Color(0xFFF8FAFC),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
+                            color: isDark
+                                ? const Color(0xFF23293A)
+                                : const Color(0xFFCBD5E1),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            );
+                    const SizedBox(height: 10),
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 6,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: 7,
+                              height: 7,
+                              decoration: const BoxDecoration(
+                                color: Color(0xFF10B981),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              'OSK Engine Active',
+                              style: TextStyle(
+                                fontSize: 11.5,
+                                color: isDark ? Colors.white60 : Colors.black54,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          'Ctrl + S (Save)  •  Ctrl + P (Print)  •  Win + V (Clipboard)',
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            color: isDark ? Colors.white54 : Colors.black45,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Edge-to-Edge Full-Width Responsive Desktop Virtual Keyboard
+        DesktopFullKeyboard(
+          controller: controller,
+          themeData: desktopTheme,
+          showFunctionRow: _desktopShowFnRow,
+          maxKeyboardHeightRatio: 0.44,
+          onKeyPressed: (char) {
+            if (!_desktopFocusNode.hasFocus) {
+              _desktopFocusNode.requestFocus();
+              if (controller?.session == null) {
+                final text = _desktopController.text;
+                _desktopController.text = '$text$char';
+                _desktopController.selection = TextSelection.collapsed(
+                    offset: _desktopController.text.length);
+              }
+            }
+            setState(() => _desktopLastEvent =
+                char == ' ' ? 'Spacebar' : 'Key: $char');
+          },
+          onSpecialKeyPressed: (action) {
+            setState(() => _desktopLastEvent = 'Special: ${action.name}');
+          },
+          onShortcutTriggered: (shortcut) {
+            setState(() => _desktopLastEvent = 'Shortcut: $shortcut');
           },
         ),
-        const SizedBox(height: 20),
-        const Text(
-          'Supported Shortcuts',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 8),
-        _buildShortcutTile('Ctrl + S', 'Quick save callback', isDark),
-        _buildShortcutTile('Ctrl + P', 'Print document callback', isDark),
-        _buildShortcutTile('Win + V / Ctrl+Shift+V', 'Open Clipboard History', isDark),
       ],
-    );
-  }
-
-  Widget _buildShortcutTile(String keyCombo, String description, bool isDark) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF222B3D) : const Color(0xFFE2E8F0),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(
-              keyCombo,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              description,
-              style: TextStyle(
-                fontSize: 12,
-                color: isDark ? Colors.white70 : Colors.black87,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
