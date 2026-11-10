@@ -190,7 +190,10 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
   /// Height of a headerless, full-width [DesktopFullKeyboard] — mirrors its
   /// own sizing so the simulated viewInsets match what it paints.
   KeyboardMetrics _fullKeyboardMetrics(
-      MediaQueryData mq, KeyboardLayoutType formFactor) {
+    MediaQueryData mq,
+    KeyboardLayoutType formFactor, {
+    bool hasBottomBar = false,
+  }) {
     final width = mq.size.width;
     final totalUnits = switch (formFactor) {
       KeyboardLayoutType.layout60 => 15,
@@ -205,11 +208,12 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     final unitWidth = (width - hPadding * 2) / totalUnits;
     final rowHeight = (unitWidth * 0.85).clamp(32.0, 54.0);
     final vPadding = (rowHeight * 0.24).clamp(6.0, 12.0);
+    final verticalOuterPadding = vPadding + (hasBottomBar ? 0.0 : vPadding);
     final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
     final cap =
         (screenH * _fullKeyboardHeightRatio).clamp(190.0, screenH * 0.65);
     final height =
-        math.min(rowCount * rowHeight + vPadding * 2, cap).toDouble();
+        math.min(rowCount * rowHeight + verticalOuterPadding, cap).toDouble();
     return KeyboardMetrics(
       height: height,
       maxWidth: width,
@@ -231,6 +235,16 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
         _controller.session?.type == VKeyboardType.desktop &&
             _controller.session?.customLayout == null;
 
+    final isFullDesktopOverlay =
+        isDesktopLayout && effectiveConfig.desktopFormFactor != null;
+    final showFullDesktopHide = effectiveConfig.showHideKeyboardButton;
+    final showFullDesktopClipboard = effectiveConfig.enableClipboardHistory &&
+        effectiveConfig.showClipboardButton;
+    final showFullDesktopGlobe = effectiveConfig.showGlobeKey &&
+        _controller.config.enabledLayouts.length >= 2;
+    final fullDesktopHasBottomBar =
+        showFullDesktopHide || showFullDesktopClipboard || showFullDesktopGlobe;
+
     final List<List<KeyData>>? rows;
     final KeyboardMetrics? metrics;
     if (isDesktopLayout) {
@@ -240,7 +254,11 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
       if (formFactor != null) {
         // Rendered by DesktopFullKeyboard; rows are unused but non-null.
         rows = const [];
-        metrics = _fullKeyboardMetrics(mq, formFactor);
+        metrics = _fullKeyboardMetrics(
+          mq,
+          formFactor,
+          hasBottomBar: fullDesktopHasBottomBar,
+        );
       } else {
         final contentWidth = mq.size.width.clamp(320.0, 1320.0);
         rows = DesktopLayouts.rows(contentWidth,
@@ -274,13 +292,15 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
         _controller.config.showGlobeKey &&
         _controller.config.enabledLayouts.length >= 2;
 
-    final showHideButton =
-        effectiveConfig.showHideKeyboardButton && !isDesktopLayout;
+    final showHideButton = effectiveConfig.showHideKeyboardButton &&
+        (!isDesktopLayout || isFullDesktopOverlay);
     final showClipboardButton = effectiveConfig.enableClipboardHistory &&
         effectiveConfig.showClipboardButton &&
-        !isDesktopLayout;
-    final hasBottomBar =
-        showHideButton || shouldShowGlobe || showClipboardButton;
+        (!isDesktopLayout || isFullDesktopOverlay);
+    final hasBottomBar = showHideButton ||
+        shouldShowGlobe ||
+        showClipboardButton ||
+        (isFullDesktopOverlay && showFullDesktopGlobe);
     final bottomInset =
         hasBottomBar ? math.max(mq.padding.bottom, 36.0) : mq.padding.bottom;
     final fullHeight = _lastHeight + bottomInset;
@@ -373,6 +393,12 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                             : DesktopKeyboardThemeData.dark(),
                                         showHeader: false,
                                         showPlatformToggle: false,
+                                        showHideKeyboardButton: showHideButton,
+                                        showGlobeKey: showFullDesktopGlobe,
+                                        showClipboardButton:
+                                            showClipboardButton,
+                                        bottomSafeArea: bottomInset,
+                                        onDismiss: _controller.hide,
                                         maxKeyboardHeightRatio:
                                             _fullKeyboardHeightRatio,
                                       ),

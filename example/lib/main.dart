@@ -201,6 +201,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   String _desktopLastEvent = 'None';
   bool _desktopShowFnRow = true;
   bool _desktopIsFullWidth = true;
+  bool _desktopKeyboardVisible = true;
   KeyboardLayoutType _desktopLayoutType = KeyboardLayoutType.layout100;
   DesktopKeyboardPlatform _desktopPlatform = DesktopKeyboardPlatform.windows;
   String? _desktopFallbackLayoutId;
@@ -250,9 +251,16 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
     if (_currentTab == _ActiveTab.desktop) {
       _selectedType = VKeyboardType.desktop;
     }
+    _desktopFocusNode.addListener(_onDesktopFocusChanged);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _seedSampleClipboardItems();
     });
+  }
+
+  void _onDesktopFocusChanged() {
+    if (_desktopFocusNode.hasFocus && !_desktopKeyboardVisible && mounted) {
+      setState(() => _desktopKeyboardVisible = true);
+    }
   }
 
   void _seedSampleClipboardItems() {
@@ -286,6 +294,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
     _passController.dispose();
     _multiController.dispose();
     _desktopController.dispose();
+    _desktopFocusNode.removeListener(_onDesktopFocusChanged);
     _desktopFocusNode.dispose();
     super.dispose();
   }
@@ -2187,43 +2196,83 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
           ),
         ),
         // Edge-to-Edge Full-Width Responsive Desktop Virtual Keyboard
-        DesktopFullKeyboard(
-          layoutType: _desktopLayoutType,
-          platform: _desktopPlatform,
-          layoutId: controller == null ? activeLayoutId : null,
-          onPlatformChanged: (os) => setState(() => _desktopPlatform = os),
-          onLayoutChanged: (id) {
-            setState(() {
-              if (controller == null) _desktopFallbackLayoutId = id;
-              _desktopLastEvent =
-                  'Language: ${VKeyboardLayouts.getDisplayName(id)}';
-            });
-          },
-          isFullWidth: _desktopIsFullWidth,
-          controller: controller,
-          themeData: desktopTheme,
-          showFunctionRow: _desktopShowFnRow,
-          maxKeyboardHeightRatio: 0.44,
-          onKeyPressed: (char) {
-            if (!_desktopFocusNode.hasFocus) {
-              _desktopFocusNode.requestFocus();
-              if (controller?.session == null) {
-                final text = _desktopController.text;
-                _desktopController.text = '$text$char';
-                _desktopController.selection = TextSelection.collapsed(
-                    offset: _desktopController.text.length);
+        if (_desktopKeyboardVisible)
+          DesktopFullKeyboard(
+            layoutType: _desktopLayoutType,
+            platform: _desktopPlatform,
+            layoutId: controller == null ? activeLayoutId : null,
+            onPlatformChanged: (os) => setState(() => _desktopPlatform = os),
+            onLayoutChanged: (id) {
+              setState(() {
+                if (controller == null) _desktopFallbackLayoutId = id;
+                _desktopLastEvent =
+                    'Language: ${VKeyboardLayouts.getDisplayName(id)}';
+              });
+            },
+            isFullWidth: _desktopIsFullWidth,
+            controller: controller,
+            themeData: desktopTheme,
+            showFunctionRow: _desktopShowFnRow,
+            showHideKeyboardButton: true,
+            showClipboardButton: true,
+            maxKeyboardHeightRatio: 0.44,
+            onDismiss: () {
+              _desktopFocusNode.unfocus();
+              setState(() {
+                _desktopKeyboardVisible = false;
+                _desktopLastEvent = 'Keyboard hidden';
+              });
+            },
+            onKeyPressed: (char) {
+              if (!_desktopFocusNode.hasFocus) {
+                _desktopFocusNode.requestFocus();
+                if (controller?.session == null) {
+                  final text = _desktopController.text;
+                  _desktopController.text = '$text$char';
+                  _desktopController.selection = TextSelection.collapsed(
+                      offset: _desktopController.text.length);
+                }
               }
-            }
-            setState(() => _desktopLastEvent =
-                char == ' ' ? 'Spacebar' : 'Key: $char');
-          },
-          onSpecialKeyPressed: (action) {
-            setState(() => _desktopLastEvent = 'Special: ${action.name}');
-          },
-          onShortcutTriggered: (shortcut) {
-            setState(() => _desktopLastEvent = 'Shortcut: $shortcut');
-          },
-        ),
+              setState(() => _desktopLastEvent =
+                  char == ' ' ? 'Spacebar' : 'Key: $char');
+            },
+            onSpecialKeyPressed: (action) {
+              setState(() => _desktopLastEvent = 'Special: ${action.name}');
+            },
+            onShortcutTriggered: (shortcut) {
+              setState(() => _desktopLastEvent = 'Shortcut: $shortcut');
+            },
+          )
+        else
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            decoration: BoxDecoration(
+              color: desktopTheme.backgroundColor,
+              border: Border(
+                top: BorderSide(color: desktopTheme.containerBorderColor),
+              ),
+            ),
+            child: Center(
+              child: TextButton.icon(
+                onPressed: () {
+                  setState(() {
+                    _desktopKeyboardVisible = true;
+                    _desktopLastEvent = 'Keyboard shown';
+                  });
+                  _desktopFocusNode.requestFocus();
+                },
+                icon: Icon(
+                  Icons.keyboard_arrow_up_rounded,
+                  color: desktopTheme.ledActiveColor,
+                ),
+                label: Text(
+                  'Show Desktop Keyboard',
+                  style: TextStyle(color: desktopTheme.headerTextColor),
+                ),
+              ),
+            ),
+          ),
       ],
     );
   }

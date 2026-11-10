@@ -426,7 +426,7 @@ VTextField(
 );
 ```
 
-When `desktopFormFactor` is `null` (default), `VKeyboardScope` renders the built-in OSK desktop grid via `KeyboardView`.
+When `desktopFormFactor` is `null` (default), `VKeyboardScope` renders the built-in OSK desktop grid via `KeyboardView`. When `desktopFormFactor` is set, the bottom utility bar automatically mirrors the non-desktop keyboard (`showHideKeyboardButton` down-arrow close button on the bottom-left and `showClipboardButton` clipboard trigger on the bottom-right).
 
 #### 2. Embedded or Standalone `DesktopFullKeyboard`
 
@@ -444,6 +444,8 @@ DesktopFullKeyboard(
   showPlatformToggle: true, // Shows live [Windows | macOS] switcher in header
   showLocaleSelector: true, // Shows 🌐 picker pill in header + Spacebar long-press
   showCandidateBar: true, // Auto-renders CJK CandidateBar when composing with VKeyboardController
+  showHideKeyboardButton: true, // Bottom-left down-arrow dismiss button (like non-desktop)
+  showClipboardButton: true, // Bottom-right clipboard history button (like non-desktop)
   themeData: DesktopKeyboardThemeData.dark(), // Also supports .light() and .fromVKeyboardTheme(...)
   controller: controller, // Optional: links directly to VTextField & IME engines
   onPlatformChanged: (os) => debugPrint('OS switched: $os'),
@@ -451,6 +453,7 @@ DesktopFullKeyboard(
   onKeyPressed: (key) => debugPrint('Typed: $key'),
   onSpecialKeyPressed: (action) => debugPrint('Action: $action'),
   onShortcutTriggered: (combo) => debugPrint('Shortcut: $combo'), // e.g. Ctrl+A, Cmd+Shift+Z
+  onDismiss: controller.hide, // Optional custom dismiss callback
 );
 ```
 

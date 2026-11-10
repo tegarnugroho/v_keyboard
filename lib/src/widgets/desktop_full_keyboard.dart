@@ -11,6 +11,7 @@ import '../models/key_intents.dart';
 import '../scope/v_keyboard_scope.dart';
 import '../theme/v_keyboard_theme.dart';
 import 'candidate_bar.dart';
+import 'clipboard_history_panel.dart';
 import 'layout_picker_dialog.dart';
 import 'virtual_key_button.dart';
 
@@ -47,6 +48,14 @@ class DesktopFullKeyboard extends StatefulWidget {
     this.onSpecialKeyPressed,
     this.onShortcutTriggered,
     this.onDismiss,
+    this.showHideKeyboardButton,
+    this.hideIcon,
+    this.showGlobeKey,
+    this.globeIcon,
+    this.showClipboardButton,
+    this.clipboardIcon,
+    this.onClipboardTap,
+    this.bottomSafeArea = 0.0,
     this.controller,
   });
 
@@ -146,8 +155,52 @@ class DesktopFullKeyboard extends StatefulWidget {
   /// `'Ctrl+Shift+Z'`, `'Alt+F4'`).
   final ValueChanged<String>? onShortcutTriggered;
 
-  /// Optional callback invoked when the bottom dismiss button is tapped.
+  /// Optional callback invoked when the bottom-left dismiss arrow button is
+  /// tapped. When [showHideKeyboardButton] is null, providing [onDismiss]
+  /// automatically shows the close arrow in the bottom bar; when null, tapping
+  /// the arrow falls back to `controller.hide()`.
   final VoidCallback? onDismiss;
+
+  /// Whether to render the non-desktop-style bottom utility bar close arrow
+  /// (`Icons.keyboard_arrow_down_rounded`) on the far left below the keys.
+  ///
+  /// When null, defaults to `true` if [onDismiss] is provided or an attached
+  /// [VKeyboardController] has `config.showHideKeyboardButton` enabled.
+  final bool? showHideKeyboardButton;
+
+  /// Optional custom icon for the bottom-left dismiss button. Defaults to
+  /// [Icons.keyboard_arrow_down_rounded].
+  final IconData? hideIcon;
+
+  /// Whether to show the globe language switcher button next to the close arrow
+  /// in the bottom utility bar.
+  ///
+  /// When null, defaults to `true` only when [showHeader] is `false` and the
+  /// attached [VKeyboardController] enables `config.showGlobeKey` with 2+ layouts.
+  final bool? showGlobeKey;
+
+  /// Optional custom icon for the bottom-bar globe button. Defaults to
+  /// [Icons.language].
+  final IconData? globeIcon;
+
+  /// Whether to show the clipboard history button on the far right of the
+  /// bottom utility bar (matching mobile [KeyboardView]).
+  ///
+  /// When null, defaults to `true` when an attached [VKeyboardController] has
+  /// `config.enableClipboardHistory` and `config.showClipboardButton` enabled.
+  final bool? showClipboardButton;
+
+  /// Optional custom icon for the bottom-right clipboard button. Defaults to
+  /// [Icons.content_paste_rounded].
+  final IconData? clipboardIcon;
+
+  /// Optional callback invoked when the bottom-right clipboard button is tapped.
+  /// Defaults to `controller.openClipboardHistory()`.
+  final VoidCallback? onClipboardTap;
+
+  /// Bottom safe-area / bar height (matching [KeyboardView.bottomSafeArea]).
+  /// When any bottom utility button is visible, the bar is at least `36.0` px tall.
+  final double bottomSafeArea;
 
   /// Optional [VKeyboardController] for direct integration with [VTextField]
   /// sessions and hardware shortcut dispatch.
@@ -897,8 +950,28 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               hasImeCandidates ? candidateBarHeight + 6.0 : 0.0;
           final spaceLabel = _resolveSpaceLabel();
 
+          final shouldShowHide = widget.showHideKeyboardButton ??
+              (widget.onDismiss != null ||
+                  (controller != null &&
+                      controller.config.showHideKeyboardButton));
+          final shouldShowBottomGlobe = widget.showGlobeKey ??
+              (controller != null &&
+                  !widget.showHeader &&
+                  controller.config.showGlobeKey &&
+                  controller.config.enabledLayouts.length >= 2);
+          final shouldShowClipboard = widget.showClipboardButton ??
+              (controller != null &&
+                  controller.config.enableClipboardHistory &&
+                  controller.config.showClipboardButton);
+          final hasBottomBar =
+              shouldShowHide || shouldShowBottomGlobe || shouldShowClipboard;
+          final bottomBarHeight = hasBottomBar
+              ? math.max(widget.bottomSafeArea, 36.0)
+              : widget.bottomSafeArea;
+
           final ratioCap = (screenH * widget.maxKeyboardHeightRatio)
-              .clamp(190.0, screenH * 0.65);
+                  .clamp(190.0, screenH * 0.65) +
+              (widget.bottomSafeArea > 0 ? widget.bottomSafeArea : 0.0);
           final maxAllowedH = constraints.hasBoundedHeight
               ? math.min(constraints.maxHeight, ratioCap)
               : ratioCap;
@@ -907,14 +980,15 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           final idealRowHeight = (unitWidth * 0.85).clamp(32.0, 54.0);
           final headerHeight =
               widget.showHeader ? (idealRowHeight * 0.72).clamp(26.0, 36.0) : 0.0;
-          final dismissHeight = widget.onDismiss != null ? 24.0 : 0.0;
           final vPadding = (idealRowHeight * 0.24).clamp(6.0, 12.0);
+          final verticalOuterPadding =
+              vPadding + (bottomBarHeight > 0 ? 0.0 : vPadding);
           final idealTotalH = headerHeight +
               (widget.showHeader ? 6.0 : 0.0) +
               candidateSectionHeight +
               rowCount * idealRowHeight +
-              vPadding * 2 +
-              dismissHeight;
+              verticalOuterPadding +
+              bottomBarHeight;
 
           final totalHeight = math
               .min(idealTotalH, maxAllowedH)
@@ -927,8 +1001,8 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
                 headerHeight -
                 (widget.showHeader ? 6.0 : 0.0) -
                 candidateSectionHeight -
-                vPadding * 2 -
-                dismissHeight,
+                verticalOuterPadding -
+                bottomBarHeight,
           );
           final actualRowHeight = actualGridHeight / rowCount;
           final baseFontSize = math
@@ -936,10 +1010,28 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               .clamp(9.5, 20.0);
 
           final resolvedPadding = widget.padding ??
-              EdgeInsets.symmetric(
-                horizontal: hPadding,
-                vertical: vPadding,
+              EdgeInsets.fromLTRB(
+                hPadding,
+                vPadding,
+                hPadding,
+                bottomBarHeight > 0 ? 0.0 : vPadding,
               );
+
+          if (controller != null &&
+              controller.currentPage == 'clipboard' &&
+              widget.onClipboardTap == null) {
+            final clipTotalH = math
+                .max(totalHeight, math.min(280.0, maxAllowedH))
+                .clamp(math.min(180.0, maxAllowedH), maxAllowedH)
+                .toDouble();
+            return ClipboardHistoryPanel(
+              controller: controller,
+              theme: _toVKeyboardTheme(theme),
+              height: math.max(120.0, clipTotalH - bottomBarHeight),
+              maxWidth: effectiveGridWidth,
+              bottomSafeArea: bottomBarHeight,
+            );
+          }
 
           return Container(
             width: double.infinity,
@@ -1001,32 +1093,17 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
                         spaceLabel: spaceLabel,
                       ),
                     ),
-                    if (widget.onDismiss != null)
-                      SizedBox(
-                        height: dismissHeight,
-                        child: Center(
-                          child: InkWell(
-                            onTap: widget.onDismiss,
-                            borderRadius: BorderRadius.circular(14),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 14,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: theme.specialKeyColor,
-                                borderRadius: BorderRadius.circular(14),
-                                border: Border.all(color: theme.keyBorderColor),
-                              ),
-                              child: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                size: 18,
-                                color: theme.secondaryTextColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                    if (hasBottomBar)
+                      _buildBottomUtilityBar(
+                        context,
+                        theme: theme,
+                        height: bottomBarHeight,
+                        showHide: shouldShowHide,
+                        showGlobe: shouldShowBottomGlobe,
+                        showClipboard: shouldShowClipboard,
+                      )
+                    else if (bottomBarHeight > 0)
+                      SizedBox(height: bottomBarHeight),
                   ],
                 ),
               ),
@@ -1039,6 +1116,119 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       content = TapRegion(groupId: tapGroup, child: content);
     }
     return content;
+  }
+
+  Widget _buildBottomUtilityBar(
+    BuildContext context, {
+    required DesktopKeyboardThemeData theme,
+    required double height,
+    required bool showHide,
+    required bool showGlobe,
+    required bool showClipboard,
+  }) {
+    final hasOverlay = Overlay.maybeOf(context) != null;
+    final iconColor = theme.headerTextColor.withValues(alpha: 0.8);
+    final dismissAction = widget.onDismiss ?? _boundController?.hide;
+    final clipboardAction =
+        widget.onClipboardTap ?? _boundController?.openClipboardHistory;
+
+    return Container(
+      height: height,
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (showHide)
+                Semantics(
+                  button: true,
+                  label: 'Close keyboard',
+                  child: Tooltip(
+                    message: hasOverlay ? 'Close keyboard' : '',
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkResponse(
+                        key: const ValueKey('dk_bottom_bar_close'),
+                        onTap: dismissAction,
+                        radius: 20,
+                        highlightColor: theme.keyColor.withValues(alpha: 0.5),
+                        splashColor:
+                            theme.ledActiveColor.withValues(alpha: 0.2),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Icon(
+                            widget.hideIcon ??
+                                Icons.keyboard_arrow_down_rounded,
+                            size: 24,
+                            color: iconColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (showHide && showGlobe) const SizedBox(width: 4),
+              if (showGlobe)
+                Semantics(
+                  button: true,
+                  label: 'Switch keyboard language',
+                  child: Tooltip(
+                    message: hasOverlay ? 'Switch keyboard language' : '',
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkResponse(
+                        key: const ValueKey('dk_bottom_bar_globe'),
+                        onTap: () => _openLocalePicker(theme),
+                        onLongPress: () => _openLocalePicker(theme),
+                        radius: 20,
+                        highlightColor: theme.keyColor.withValues(alpha: 0.5),
+                        splashColor:
+                            theme.ledActiveColor.withValues(alpha: 0.2),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Icon(
+                            widget.globeIcon ?? Icons.language,
+                            size: 24,
+                            color: iconColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          if (showClipboard)
+            Semantics(
+              button: true,
+              label: 'Clipboard History',
+              child: Tooltip(
+                message: hasOverlay ? 'Clipboard History' : '',
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkResponse(
+                    key: const ValueKey('dk_bottom_bar_clipboard'),
+                    onTap: clipboardAction,
+                    radius: 20,
+                    highlightColor: theme.keyColor.withValues(alpha: 0.5),
+                    splashColor: theme.ledActiveColor.withValues(alpha: 0.2),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Icon(
+                        widget.clipboardIcon ?? Icons.content_paste_rounded,
+                        size: 22,
+                        color: iconColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   // ---- Preset Builder Dispatch & Helpers ------------------------------------

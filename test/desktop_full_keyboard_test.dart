@@ -921,5 +921,115 @@ void main() {
       textController.dispose();
       focusNode.dispose();
     });
+
+    testWidgets(
+        'renders non-desktop style bottom utility bar with close, globe, and clipboard buttons',
+        (tester) async {
+      tester.view.physicalSize = const Size(1440, 900);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      var dismissed = false;
+      var clipboardOpened = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: DesktopFullKeyboard(
+              showHeader: false,
+              showHideKeyboardButton: true,
+              showGlobeKey: true,
+              showClipboardButton: true,
+              onDismiss: () => dismissed = true,
+              onClipboardTap: () => clipboardOpened = true,
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final closeBtn = find.byKey(const ValueKey('dk_bottom_bar_close'));
+      final globeBtn = find.byKey(const ValueKey('dk_bottom_bar_globe'));
+      final clipBtn = find.byKey(const ValueKey('dk_bottom_bar_clipboard'));
+
+      expect(closeBtn, findsOneWidget);
+      expect(globeBtn, findsOneWidget);
+      expect(clipBtn, findsOneWidget);
+
+      // Verify bottom-left alignment for close/globe vs bottom-right clipboard
+      expect(
+        tester.getTopLeft(closeBtn).dx,
+        lessThan(tester.getTopLeft(globeBtn).dx),
+      );
+      expect(
+        tester.getTopRight(globeBtn).dx,
+        lessThan(tester.getTopLeft(clipBtn).dx),
+      );
+
+      await tester.tap(closeBtn);
+      await tester.pump();
+      expect(dismissed, isTrue);
+
+      await tester.tap(clipBtn);
+      await tester.pump();
+      expect(clipboardOpened, isTrue);
+
+      // Tapping bottom globe opens language picker
+      await tester.tap(globeBtn);
+      await tester.pumpAndSettle();
+      expect(find.text('Desktop Input Language'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets(
+        'controller-backed DesktopFullKeyboard derives bottom bar from config & opens ClipboardHistoryPanel inline',
+        (tester) async {
+      tester.view.physicalSize = const Size(1440, 900);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final vkController = VKeyboardController(
+        config: const VKeyboardConfig(
+          persistLayoutSelection: false,
+          syncSystemClipboard: false,
+        ),
+        clipboardHistory: ClipboardHistoryManager(
+          storage: InMemoryClipboardHistoryStorage(),
+          syncSystemClipboard: false,
+        ),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: DesktopFullKeyboard(controller: vkController),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Defaults automatically from controller.config
+      expect(find.byKey(const ValueKey('dk_bottom_bar_close')), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('dk_bottom_bar_clipboard')),
+        findsOneWidget,
+      );
+
+      // Tapping clipboard switches inline to ClipboardHistoryPanel
+      await tester.tap(find.byKey(const ValueKey('dk_bottom_bar_clipboard')));
+      await tester.pumpAndSettle();
+      expect(find.byType(ClipboardHistoryPanel), findsOneWidget);
+
+      // Tapping ABC returns to desktop keys
+      await tester.tap(find.text('ABC'));
+      await tester.pumpAndSettle();
+      expect(find.byType(ClipboardHistoryPanel), findsNothing);
+      expect(
+        find.byKey(const ValueKey('dk_layout100_spacebar')),
+        findsOneWidget,
+      );
+
+      vkController.dispose();
+    });
   });
 }

@@ -53,6 +53,73 @@ void main() {
     expect(keyText.style?.decoration ?? style.style.decoration,
         isNot(TextDecoration.underline));
     expect(style.style.decoration, isNot(TextDecoration.underline));
+
+    // Down-arrow close button renders like non-desktop KeyboardView and hides
+    // the desktop keyboard when tapped.
+    final closeFinder = find.byIcon(Icons.keyboard_arrow_down_rounded);
+    expect(closeFinder, findsOneWidget);
+    expect(find.bySemanticsLabel('Close keyboard'), findsOneWidget);
+
+    await tester.tap(closeFinder);
+    await tester.pumpAndSettle();
+    expect(find.byType(DesktopFullKeyboard), findsNothing);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets(
+      'desktopFormFactor bottom utility bar supports clipboard button and respects showHideKeyboardButton: false',
+      (tester) async {
+    tester.view.physicalSize = const Size(1470, 956);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+
+    final text = TextEditingController();
+    final kbController = VKeyboardController(
+      config: const VKeyboardConfig(
+        desktopFormFactor: KeyboardLayoutType.layout100,
+        showHideKeyboardButton: false,
+        enableClipboardHistory: true,
+        showClipboardButton: true,
+        syncSystemClipboard: false,
+        persistLayoutSelection: false,
+      ),
+      clipboardHistory: ClipboardHistoryManager(
+        storage: InMemoryClipboardHistoryStorage(),
+        syncSystemClipboard: false,
+      ),
+    );
+    await tester.pumpWidget(
+      MaterialApp(
+        builder: (context, child) => VKeyboardScope(
+          controller: kbController,
+          config: kbController.config,
+          child: child!,
+        ),
+        home: Scaffold(
+          body: VTextField(
+            controller: text,
+            keyboardType: VKeyboardType.desktop,
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.byType(VTextField));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(DesktopFullKeyboard), findsOneWidget);
+    expect(find.bySemanticsLabel('Close keyboard'), findsNothing);
+    expect(
+      find.byKey(const ValueKey('dk_bottom_bar_clipboard')),
+      findsOneWidget,
+    );
+
+    // Tapping bottom-right clipboard opens ClipboardHistoryPanel cleanly.
+    await tester.tap(find.byKey(const ValueKey('dk_bottom_bar_clipboard')));
+    await tester.pumpAndSettle();
+    expect(find.byType(ClipboardHistoryPanel), findsOneWidget);
+    expect(tester.takeException(), isNull);
+
+    kbController.dispose();
+    text.dispose();
   });
 }
