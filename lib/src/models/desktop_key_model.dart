@@ -4,6 +4,56 @@ import 'package:flutter/services.dart' show LogicalKeyboardKey;
 import 'key_data.dart';
 import 'key_intents.dart';
 
+/// Standard mechanical / OSK form-factor presets supported by [DesktopFullKeyboard].
+enum KeyboardLayoutType {
+  /// 60% compact layout: pure number row + alphanumeric block with `Fn` layer
+  /// for Function keys, navigation, and arrows (15u wide, 5 rows).
+  layout60('60% Compact', '60%'),
+
+  /// 65% compact layout: number row + alphanumeric + integrated arrows +
+  /// 1-column navigation strip, without top F-row or Numpad (16u wide, 5 rows).
+  layout65('65% Compact', '65%'),
+
+  /// 75% compact layout: includes top F-row + 1-column right navigation strip +
+  /// tucked arrow keys, without Numpad (16u wide, 6 rows).
+  layout75('75% Compact', '75%'),
+
+  /// 87% Tenkeyless (TKL) layout: full alphanumeric + F-row + separated 3x2
+  /// navigation block + Inverted-T arrows, without Numpad (15u + 3u).
+  layout87TKL('87% TKL', '87% TKL'),
+
+  /// 98% (1800-compact) layout: full alphanumeric + F-row + tightly tucked
+  /// arrows + 4-column Numpad with zero inter-cluster gap (19u unified).
+  layout98('98% Compact', '98%'),
+
+  /// 100% Full-Size layout: Main alphanumeric (15u) + Navigation cluster (3u) +
+  /// Standard 4-column Numpad (4u) with clear cluster spacing.
+  layout100('100% Full-Size', '100%');
+
+  const KeyboardLayoutType(this.label, this.shortLabel);
+
+  /// Descriptive human-readable name (e.g. `'100% Full-Size'`).
+  final String label;
+
+  /// Compact badge label (e.g. `'60%'`, `'87% TKL'`).
+  final String shortLabel;
+
+  /// Whether this form-factor natively includes a 4-column Numpad cluster.
+  bool get hasNumpad =>
+      this == KeyboardLayoutType.layout98 || this == KeyboardLayoutType.layout100;
+
+  /// Whether this form-factor natively includes the top Function row (`Esc`, `F1`–`F12`).
+  bool get hasFunctionRow =>
+      this == KeyboardLayoutType.layout75 ||
+      this == KeyboardLayoutType.layout87TKL ||
+      this == KeyboardLayoutType.layout98 ||
+      this == KeyboardLayoutType.layout100;
+
+  /// Whether this form-factor uses an `Fn` secondary layer prominently for missing keys.
+  bool get hasFnLayer =>
+      this == KeyboardLayoutType.layout60 || this == KeyboardLayoutType.layout65;
+}
+
 /// Semantic classification for a key inside [DesktopFullKeyboard].
 enum KeyType {
   /// Standard printable character key (letters, numbers, punctuation, numpad digits).
@@ -113,15 +163,28 @@ class KeyModel {
     this.lockKey,
     this.logicalKey,
     this.isNumpadDigit = false,
+    this.fnLabel,
+    this.fnIcon,
+    this.fnAction,
+    this.fnNavIntent,
+    this.fnLogicalKey,
+    this.fnShortcutKey,
   });
 
-  /// Creates a printable character key with optional [shiftLabel]/[shiftValue].
+  /// Creates a printable character key with optional [shiftLabel]/[shiftValue]
+  /// and optional `Fn`-layer overrides (used on compact 60%/65% presets).
   factory KeyModel.char(
     String value, {
     String? shift,
     String? id,
     double flex = 1.0,
     String? shortcutKey,
+    String? fnLabel,
+    IconData? fnIcon,
+    VirtualKeyAction? fnAction,
+    NavIntent? fnNavIntent,
+    LogicalKeyboardKey? fnLogicalKey,
+    String? fnShortcutKey,
   }) {
     return KeyModel(
       id: id ?? 'char_$value',
@@ -133,6 +196,12 @@ class KeyModel {
       flex: flex,
       repeatable: true,
       shortcutKey: shortcutKey ?? value.toUpperCase(),
+      fnLabel: fnLabel,
+      fnIcon: fnIcon,
+      fnAction: fnAction,
+      fnNavIntent: fnNavIntent,
+      fnLogicalKey: fnLogicalKey,
+      fnShortcutKey: fnShortcutKey,
     );
   }
 
@@ -192,7 +261,13 @@ class KeyModel {
         modifierKey = null,
         lockKey = null,
         logicalKey = null,
-        isNumpadDigit = false;
+        isNumpadDigit = false,
+        fnLabel = null,
+        fnIcon = null,
+        fnAction = null,
+        fnNavIntent = null,
+        fnLogicalKey = null,
+        fnShortcutKey = null;
 
   final String id;
   final String label;
@@ -229,7 +304,28 @@ class KeyModel {
   final LogicalKeyboardKey? logicalKey;
   final bool isNumpadDigit;
 
+  /// Secondary `Fn`-layer label displayed when the `Fn` modifier is active.
+  final String? fnLabel;
+
+  /// Secondary `Fn`-layer icon (e.g. arrow icons on `W`/`A`/`S`/`D`).
+  final IconData? fnIcon;
+
+  /// Semantic action triggered instead of normal output when `Fn` is active.
+  final VirtualKeyAction? fnAction;
+
+  /// Navigation intent executed in [VKeyboardController] when `Fn` is active.
+  final NavIntent? fnNavIntent;
+
+  /// Logical key executed in [VKeyboardController] when `Fn` is active.
+  final LogicalKeyboardKey? fnLogicalKey;
+
+  /// Shortcut token used if combined with Ctrl/Alt while `Fn` is active.
+  final String? fnShortcutKey;
+
   bool get isSpacer => type == KeyType.spacer;
+
+  bool get hasFnMapping =>
+      fnAction != null || fnNavIntent != null || fnLogicalKey != null;
 
   /// Whether this key is a single ASCII letter (`a`–`z`).
   bool get isLetter {
@@ -261,6 +357,22 @@ class KeyModel {
       return upper ? value!.toUpperCase() : value!.toLowerCase();
     }
     return label;
+  }
+
+  /// Resolves the active [KeyData] for its `Fn`-layer action, if configured.
+  KeyData? toFnKeyData() {
+    if (fnNavIntent != null) {
+      return KeyData.nav(fnNavIntent!, label: fnLabel, flex: flex);
+    }
+    if (fnLogicalKey != null) {
+      return KeyData.function(
+        fnLabel ?? label,
+        fnLogicalKey!,
+        flex: flex,
+        repeatable: fnAction == VirtualKeyAction.delete || repeatable,
+      );
+    }
+    return null;
   }
 
   /// Converts this desktop key into a package [KeyData] when routing through
@@ -331,15 +443,57 @@ class KeyModel {
   }
 }
 
-/// Provides the full 100% ANSI Desktop OSK row definitions across the 3 clusters
-/// (Main Alphanumeric 15u, Navigation 3u, Numpad 4u).
+/// Provides modular, mathematically verified keycap row factories across all 6
+/// desktop form factors (`layout60`, `layout65`, `layout75`, `layout87TKL`,
+/// `layout98`, `layout100`).
 class DesktopFullLayoutData {
   const DesktopFullLayoutData._();
 
-  // ---- Main Alphanumeric Cluster (each row sums to 15.0u) -------------------
+  // ---- Shared Reusable Cluster Keys -----------------------------------------
 
-  static List<KeyModel> functionRow() => const [
-        KeyModel(
+  static KeyModel _fKey(int n) {
+    final actions = [
+      VirtualKeyAction.f1,
+      VirtualKeyAction.f2,
+      VirtualKeyAction.f3,
+      VirtualKeyAction.f4,
+      VirtualKeyAction.f5,
+      VirtualKeyAction.f6,
+      VirtualKeyAction.f7,
+      VirtualKeyAction.f8,
+      VirtualKeyAction.f9,
+      VirtualKeyAction.f10,
+      VirtualKeyAction.f11,
+      VirtualKeyAction.f12,
+    ];
+    final logicals = [
+      LogicalKeyboardKey.f1,
+      LogicalKeyboardKey.f2,
+      LogicalKeyboardKey.f3,
+      LogicalKeyboardKey.f4,
+      LogicalKeyboardKey.f5,
+      LogicalKeyboardKey.f6,
+      LogicalKeyboardKey.f7,
+      LogicalKeyboardKey.f8,
+      LogicalKeyboardKey.f9,
+      LogicalKeyboardKey.f10,
+      LogicalKeyboardKey.f11,
+      LogicalKeyboardKey.f12,
+    ];
+    return KeyModel(
+      id: 'f$n',
+      label: 'F$n',
+      type: KeyType.function,
+      action: actions[n - 1],
+      logicalKey: logicals[n - 1],
+      shortcutKey: 'F$n',
+    );
+  }
+
+  // ---- Main Alphanumeric Cluster (100% / 87% TKL: 15.0u each row) -----------
+
+  static List<KeyModel> functionRow() => [
+        const KeyModel(
           id: 'esc',
           label: 'Esc',
           type: KeyType.function,
@@ -348,122 +502,85 @@ class DesktopFullLayoutData {
           shortcutKey: 'Esc',
           flex: 1.4,
         ),
-        KeyModel.spacer(flex: 0.6, id: 'fn_gap_1'),
-        KeyModel(
-          id: 'f1',
-          label: 'F1',
-          type: KeyType.function,
-          action: VirtualKeyAction.f1,
-          logicalKey: LogicalKeyboardKey.f1,
-          shortcutKey: 'F1',
-        ),
-        KeyModel(
-          id: 'f2',
-          label: 'F2',
-          type: KeyType.function,
-          action: VirtualKeyAction.f2,
-          logicalKey: LogicalKeyboardKey.f2,
-          shortcutKey: 'F2',
-        ),
-        KeyModel(
-          id: 'f3',
-          label: 'F3',
-          type: KeyType.function,
-          action: VirtualKeyAction.f3,
-          logicalKey: LogicalKeyboardKey.f3,
-          shortcutKey: 'F3',
-        ),
-        KeyModel(
-          id: 'f4',
-          label: 'F4',
-          type: KeyType.function,
-          action: VirtualKeyAction.f4,
-          logicalKey: LogicalKeyboardKey.f4,
-          shortcutKey: 'F4',
-        ),
-        KeyModel.spacer(flex: 0.5, id: 'fn_gap_2'),
-        KeyModel(
-          id: 'f5',
-          label: 'F5',
-          type: KeyType.function,
-          action: VirtualKeyAction.f5,
-          logicalKey: LogicalKeyboardKey.f5,
-          shortcutKey: 'F5',
-        ),
-        KeyModel(
-          id: 'f6',
-          label: 'F6',
-          type: KeyType.function,
-          action: VirtualKeyAction.f6,
-          logicalKey: LogicalKeyboardKey.f6,
-          shortcutKey: 'F6',
-        ),
-        KeyModel(
-          id: 'f7',
-          label: 'F7',
-          type: KeyType.function,
-          action: VirtualKeyAction.f7,
-          logicalKey: LogicalKeyboardKey.f7,
-          shortcutKey: 'F7',
-        ),
-        KeyModel(
-          id: 'f8',
-          label: 'F8',
-          type: KeyType.function,
-          action: VirtualKeyAction.f8,
-          logicalKey: LogicalKeyboardKey.f8,
-          shortcutKey: 'F8',
-        ),
-        KeyModel.spacer(flex: 0.5, id: 'fn_gap_3'),
-        KeyModel(
-          id: 'f9',
-          label: 'F9',
-          type: KeyType.function,
-          action: VirtualKeyAction.f9,
-          logicalKey: LogicalKeyboardKey.f9,
-          shortcutKey: 'F9',
-        ),
-        KeyModel(
-          id: 'f10',
-          label: 'F10',
-          type: KeyType.function,
-          action: VirtualKeyAction.f10,
-          logicalKey: LogicalKeyboardKey.f10,
-          shortcutKey: 'F10',
-        ),
-        KeyModel(
-          id: 'f11',
-          label: 'F11',
-          type: KeyType.function,
-          action: VirtualKeyAction.f11,
-          logicalKey: LogicalKeyboardKey.f11,
-          shortcutKey: 'F11',
-        ),
-        KeyModel(
-          id: 'f12',
-          label: 'F12',
-          type: KeyType.function,
-          action: VirtualKeyAction.f12,
-          logicalKey: LogicalKeyboardKey.f12,
-          shortcutKey: 'F12',
-        ),
+        const KeyModel.spacer(flex: 0.6, id: 'fn_gap_1'),
+        for (var i = 1; i <= 4; i++) _fKey(i),
+        const KeyModel.spacer(flex: 0.5, id: 'fn_gap_2'),
+        for (var i = 5; i <= 8; i++) _fKey(i),
+        const KeyModel.spacer(flex: 0.5, id: 'fn_gap_3'),
+        for (var i = 9; i <= 12; i++) _fKey(i),
       ];
 
-  static List<KeyModel> numberRow() => [
-        KeyModel.char('`', shift: '~', id: 'grave'),
-        KeyModel.char('1', shift: '!', id: 'digit_1'),
-        KeyModel.char('2', shift: '@', id: 'digit_2'),
-        KeyModel.char('3', shift: '#', id: 'digit_3'),
-        KeyModel.char('4', shift: r'$', id: 'digit_4'),
-        KeyModel.char('5', shift: '%', id: 'digit_5'),
-        KeyModel.char('6', shift: '^', id: 'digit_6'),
-        KeyModel.char('7', shift: '&', id: 'digit_7'),
-        KeyModel.char('8', shift: '*', id: 'digit_8'),
-        KeyModel.char('9', shift: '(', id: 'digit_9'),
-        KeyModel.char('0', shift: ')', id: 'digit_0'),
-        KeyModel.char('-', shift: '_', id: 'minus'),
-        KeyModel.char('=', shift: '+', id: 'equal'),
-        const KeyModel(
+  static List<KeyModel> numberRow({bool includeFnLayer = false}) => [
+        KeyModel.char(
+          '`',
+          shift: '~',
+          id: 'grave',
+          fnLabel: includeFnLayer ? 'Esc' : null,
+          fnAction: includeFnLayer ? VirtualKeyAction.escape : null,
+          fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.escape : null,
+          fnShortcutKey: includeFnLayer ? 'Esc' : null,
+        ),
+        KeyModel.char('1', shift: '!', id: 'digit_1',
+            fnLabel: includeFnLayer ? 'F1' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f1 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f1 : null,
+            fnShortcutKey: includeFnLayer ? 'F1' : null),
+        KeyModel.char('2', shift: '@', id: 'digit_2',
+            fnLabel: includeFnLayer ? 'F2' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f2 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f2 : null,
+            fnShortcutKey: includeFnLayer ? 'F2' : null),
+        KeyModel.char('3', shift: '#', id: 'digit_3',
+            fnLabel: includeFnLayer ? 'F3' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f3 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f3 : null,
+            fnShortcutKey: includeFnLayer ? 'F3' : null),
+        KeyModel.char('4', shift: r'$', id: 'digit_4',
+            fnLabel: includeFnLayer ? 'F4' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f4 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f4 : null,
+            fnShortcutKey: includeFnLayer ? 'F4' : null),
+        KeyModel.char('5', shift: '%', id: 'digit_5',
+            fnLabel: includeFnLayer ? 'F5' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f5 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f5 : null,
+            fnShortcutKey: includeFnLayer ? 'F5' : null),
+        KeyModel.char('6', shift: '^', id: 'digit_6',
+            fnLabel: includeFnLayer ? 'F6' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f6 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f6 : null,
+            fnShortcutKey: includeFnLayer ? 'F6' : null),
+        KeyModel.char('7', shift: '&', id: 'digit_7',
+            fnLabel: includeFnLayer ? 'F7' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f7 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f7 : null,
+            fnShortcutKey: includeFnLayer ? 'F7' : null),
+        KeyModel.char('8', shift: '*', id: 'digit_8',
+            fnLabel: includeFnLayer ? 'F8' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f8 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f8 : null,
+            fnShortcutKey: includeFnLayer ? 'F8' : null),
+        KeyModel.char('9', shift: '(', id: 'digit_9',
+            fnLabel: includeFnLayer ? 'F9' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f9 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f9 : null,
+            fnShortcutKey: includeFnLayer ? 'F9' : null),
+        KeyModel.char('0', shift: ')', id: 'digit_0',
+            fnLabel: includeFnLayer ? 'F10' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f10 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f10 : null,
+            fnShortcutKey: includeFnLayer ? 'F10' : null),
+        KeyModel.char('-', shift: '_', id: 'minus',
+            fnLabel: includeFnLayer ? 'F11' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f11 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f11 : null,
+            fnShortcutKey: includeFnLayer ? 'F11' : null),
+        KeyModel.char('=', shift: '+', id: 'equal',
+            fnLabel: includeFnLayer ? 'F12' : null,
+            fnAction: includeFnLayer ? VirtualKeyAction.f12 : null,
+            fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f12 : null,
+            fnShortcutKey: includeFnLayer ? 'F12' : null),
+        KeyModel(
           id: 'backspace',
           label: 'Backspace',
           type: KeyType.action,
@@ -472,10 +589,14 @@ class DesktopFullLayoutData {
           repeatable: true,
           flex: 2.0,
           shortcutKey: 'Backspace',
+          fnLabel: includeFnLayer ? 'Del' : null,
+          fnAction: includeFnLayer ? VirtualKeyAction.delete : null,
+          fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.delete : null,
+          fnShortcutKey: includeFnLayer ? 'Del' : null,
         ),
       ];
 
-  static List<KeyModel> topAlphaRow() => [
+  static List<KeyModel> topAlphaRow({bool includeFnArrows = false}) => [
         const KeyModel(
           id: 'tab',
           label: 'Tab',
@@ -485,14 +606,47 @@ class DesktopFullLayoutData {
           flex: 1.5,
           shortcutKey: 'Tab',
         ),
-        for (final c in const ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'])
-          KeyModel.char(c),
+        KeyModel.char('q'),
+        KeyModel.char(
+          'w',
+          fnLabel: includeFnArrows ? '▲' : null,
+          fnIcon: includeFnArrows ? Icons.keyboard_arrow_up_rounded : null,
+          fnAction: includeFnArrows ? VirtualKeyAction.arrowUp : null,
+          fnNavIntent: includeFnArrows ? NavIntent.up : null,
+          fnShortcutKey: includeFnArrows ? 'Up' : null,
+        ),
+        KeyModel.char('e'),
+        KeyModel.char('r'),
+        KeyModel.char('t'),
+        KeyModel.char('y'),
+        KeyModel.char(
+          'u',
+          fnLabel: includeFnArrows ? 'Home' : null,
+          fnAction: includeFnArrows ? VirtualKeyAction.home : null,
+          fnNavIntent: includeFnArrows ? NavIntent.home : null,
+          fnShortcutKey: includeFnArrows ? 'Home' : null,
+        ),
+        KeyModel.char(
+          'i',
+          fnLabel: includeFnArrows ? 'PgUp' : null,
+          fnAction: includeFnArrows ? VirtualKeyAction.pageUp : null,
+          fnNavIntent: includeFnArrows ? NavIntent.pageUp : null,
+          fnShortcutKey: includeFnArrows ? 'PgUp' : null,
+        ),
+        KeyModel.char(
+          'o',
+          fnLabel: includeFnArrows ? 'End' : null,
+          fnAction: includeFnArrows ? VirtualKeyAction.end : null,
+          fnNavIntent: includeFnArrows ? NavIntent.end : null,
+          fnShortcutKey: includeFnArrows ? 'End' : null,
+        ),
+        KeyModel.char('p'),
         KeyModel.char('[', shift: '{', id: 'bracket_left'),
         KeyModel.char(']', shift: '}', id: 'bracket_right'),
         KeyModel.char(r'\', shift: '|', id: 'backslash', flex: 1.5),
       ];
 
-  static List<KeyModel> homeAlphaRow() => [
+  static List<KeyModel> homeAlphaRow({bool includeFnArrows = false}) => [
         const KeyModel(
           id: 'caps_lock',
           label: 'Caps',
@@ -502,8 +656,42 @@ class DesktopFullLayoutData {
           hasLed: true,
           flex: 1.75,
         ),
-        for (final c in const ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'])
-          KeyModel.char(c),
+        KeyModel.char(
+          'a',
+          fnLabel: includeFnArrows ? '◀' : null,
+          fnIcon: includeFnArrows ? Icons.keyboard_arrow_left_rounded : null,
+          fnAction: includeFnArrows ? VirtualKeyAction.arrowLeft : null,
+          fnNavIntent: includeFnArrows ? NavIntent.left : null,
+          fnShortcutKey: includeFnArrows ? 'Left' : null,
+        ),
+        KeyModel.char(
+          's',
+          fnLabel: includeFnArrows ? '▼' : null,
+          fnIcon: includeFnArrows ? Icons.keyboard_arrow_down_rounded : null,
+          fnAction: includeFnArrows ? VirtualKeyAction.arrowDown : null,
+          fnNavIntent: includeFnArrows ? NavIntent.down : null,
+          fnShortcutKey: includeFnArrows ? 'Down' : null,
+        ),
+        KeyModel.char(
+          'd',
+          fnLabel: includeFnArrows ? '▶' : null,
+          fnIcon: includeFnArrows ? Icons.keyboard_arrow_right_rounded : null,
+          fnAction: includeFnArrows ? VirtualKeyAction.arrowRight : null,
+          fnNavIntent: includeFnArrows ? NavIntent.right : null,
+          fnShortcutKey: includeFnArrows ? 'Right' : null,
+        ),
+        KeyModel.char('f'),
+        KeyModel.char('g'),
+        KeyModel.char('h'),
+        KeyModel.char('j'),
+        KeyModel.char(
+          'k',
+          fnLabel: includeFnArrows ? 'PgDn' : null,
+          fnAction: includeFnArrows ? VirtualKeyAction.pageDown : null,
+          fnNavIntent: includeFnArrows ? NavIntent.pageDown : null,
+          fnShortcutKey: includeFnArrows ? 'PgDn' : null,
+        ),
+        KeyModel.char('l'),
         KeyModel.char(';', shift: ':', id: 'semicolon'),
         KeyModel.char("'", shift: '"', id: 'quote'),
         const KeyModel(
@@ -618,7 +806,7 @@ class DesktopFullLayoutData {
         ),
       ];
 
-  // ---- Navigation Cluster (each row sums to 3.0u) ---------------------------
+  // ---- Navigation Cluster (100% / 87% TKL: 3.0u each row) -----------------
 
   static List<KeyModel> navSystemRow() => const [
         KeyModel(
@@ -874,4 +1062,484 @@ class DesktopFullLayoutData {
         isAccent: true,
         flex: 1.0,
       );
+
+  // ---- Factory Builders for Compact Presets (60%, 65%, 75%, 98%) ------------
+
+  static const _arrowUpKey = KeyModel(
+    id: 'arrow_up',
+    label: 'Up',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.arrowUp,
+    navIntent: NavIntent.up,
+    icon: Icons.keyboard_arrow_up_rounded,
+    repeatable: true,
+    shortcutKey: 'Up',
+  );
+
+  static const _arrowDownKey = KeyModel(
+    id: 'arrow_down',
+    label: 'Down',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.arrowDown,
+    navIntent: NavIntent.down,
+    icon: Icons.keyboard_arrow_down_rounded,
+    repeatable: true,
+    shortcutKey: 'Down',
+  );
+
+  static const _arrowLeftKey = KeyModel(
+    id: 'arrow_left',
+    label: 'Left',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.arrowLeft,
+    navIntent: NavIntent.left,
+    icon: Icons.keyboard_arrow_left_rounded,
+    repeatable: true,
+    shortcutKey: 'Left',
+  );
+
+  static const _arrowRightKey = KeyModel(
+    id: 'arrow_right',
+    label: 'Right',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.arrowRight,
+    navIntent: NavIntent.right,
+    icon: Icons.keyboard_arrow_right_rounded,
+    repeatable: true,
+    shortcutKey: 'Right',
+  );
+
+  static const _delKey = KeyModel(
+    id: 'delete',
+    label: 'Del',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.delete,
+    logicalKey: LogicalKeyboardKey.delete,
+    repeatable: true,
+    isDanger: true,
+    shortcutKey: 'Del',
+  );
+
+  static const _homeKey = KeyModel(
+    id: 'home',
+    label: 'Home',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.home,
+    navIntent: NavIntent.home,
+    shortcutKey: 'Home',
+  );
+
+  static const _endKey = KeyModel(
+    id: 'end',
+    label: 'End',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.end,
+    navIntent: NavIntent.end,
+    shortcutKey: 'End',
+  );
+
+  static const _pgUpKey = KeyModel(
+    id: 'pgup',
+    label: 'PgUp',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.pageUp,
+    navIntent: NavIntent.pageUp,
+    shortcutKey: 'PgUp',
+  );
+
+  static const _pgDnKey = KeyModel(
+    id: 'pgdn',
+    label: 'PgDn',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.pageDown,
+    navIntent: NavIntent.pageDown,
+    shortcutKey: 'PgDn',
+  );
+
+  static const _insKey = KeyModel(
+    id: 'insert',
+    label: 'Ins',
+    type: KeyType.navigation,
+    action: VirtualKeyAction.insert,
+    logicalKey: LogicalKeyboardKey.insert,
+    shortcutKey: 'Ins',
+  );
+
+  /// **60% Compact Layout (15.0u, 5 rows)**: Pure alphanumeric rows + `Fn` layer
+  /// supporting `Esc`, `F1`–`F12`, `Del`, navigation, and directional arrows.
+  static List<List<KeyModel>> layout60Rows() => [
+        numberRow(includeFnLayer: true),
+        topAlphaRow(includeFnArrows: true),
+        homeAlphaRow(includeFnArrows: true),
+        bottomAlphaRow(),
+        bottomControlRow(),
+      ];
+
+  /// **65% Compact Layout (16.0u, 5 rows)**: Hides top F-row and Numpad; integrates
+  /// directional arrows and a 1-column right navigation rail (`Del`, `PgUp`, `PgDn`, `End`).
+  static List<List<KeyModel>> layout65Rows() => [
+        [...numberRow(includeFnLayer: true), _delKey],
+        [...topAlphaRow(includeFnArrows: false), _pgUpKey],
+        [...homeAlphaRow(includeFnArrows: false), _pgDnKey],
+        [
+          const KeyModel(
+            id: 'shift_left',
+            label: 'Shift',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.leftShift,
+            modifierKey: ModifierKey.shift,
+            icon: Icons.north_rounded,
+            iconBeforeLabel: true,
+            flex: 2.25,
+          ),
+          for (final c in const ['z', 'x', 'c', 'v', 'b', 'n', 'm'])
+            KeyModel.char(c),
+          KeyModel.char(',', shift: '<', id: 'comma'),
+          KeyModel.char('.', shift: '>', id: 'period'),
+          KeyModel.char('/', shift: '?', id: 'slash'),
+          const KeyModel(
+            id: 'shift_right',
+            label: 'Shift',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.rightShift,
+            modifierKey: ModifierKey.shift,
+            icon: Icons.north_rounded,
+            iconAfterLabel: true,
+            flex: 1.75,
+          ),
+          _arrowUpKey,
+          _homeKey,
+        ],
+        [
+          const KeyModel(
+            id: 'ctrl_left',
+            label: 'Ctrl',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.leftCtrl,
+            modifierKey: ModifierKey.control,
+            flex: 1.25,
+          ),
+          const KeyModel(
+            id: 'win_super',
+            label: 'Win',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.winSuper,
+            modifierKey: ModifierKey.meta,
+            icon: Icons.window_rounded,
+            flex: 1.25,
+          ),
+          const KeyModel(
+            id: 'alt_left',
+            label: 'Alt',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.leftAlt,
+            modifierKey: ModifierKey.alt,
+            flex: 1.25,
+          ),
+          const KeyModel(
+            id: 'spacebar',
+            label: 'SPACEBAR',
+            value: ' ',
+            shiftValue: ' ',
+            type: KeyType.space,
+            action: VirtualKeyAction.space,
+            repeatable: true,
+            flex: 6.25,
+            shortcutKey: 'Space',
+          ),
+          const KeyModel(
+            id: 'alt_gr',
+            label: 'AltGr',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.altGr,
+            modifierKey: ModifierKey.altGr,
+            flex: 1.0,
+          ),
+          const KeyModel(
+            id: 'fn_key',
+            label: 'Fn',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.fn,
+            flex: 1.0,
+          ),
+          const KeyModel(
+            id: 'ctrl_right',
+            label: 'Ctrl',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.rightCtrl,
+            modifierKey: ModifierKey.control,
+            flex: 1.0,
+          ),
+          _arrowLeftKey,
+          _arrowDownKey,
+          _arrowRightKey,
+        ],
+      ];
+
+  /// **75% Compact Layout (16.0u, 6 rows)**: Keeps top F-row, hides Numpad,
+  /// compresses nav into a single right column (`Del`, `Home`, `PgUp`, `PgDn`, `End`),
+  /// and tucks arrows tightly under Right Shift.
+  static List<List<KeyModel>> layout75Rows({bool includeFunctionRow = true}) => [
+        if (includeFunctionRow)
+          [
+            const KeyModel(
+              id: 'esc',
+              label: 'Esc',
+              type: KeyType.function,
+              action: VirtualKeyAction.escape,
+              logicalKey: LogicalKeyboardKey.escape,
+              shortcutKey: 'Esc',
+              flex: 1.0,
+            ),
+            const KeyModel.spacer(flex: 0.25, id: 'fn75_gap_1'),
+            for (var i = 1; i <= 4; i++) _fKey(i),
+            const KeyModel.spacer(flex: 0.25, id: 'fn75_gap_2'),
+            for (var i = 5; i <= 8; i++) _fKey(i),
+            const KeyModel.spacer(flex: 0.25, id: 'fn75_gap_3'),
+            for (var i = 9; i <= 12; i++) _fKey(i),
+            const KeyModel(
+              id: 'prtsc',
+              label: 'PrtSc',
+              type: KeyType.function,
+              action: VirtualKeyAction.printScreen,
+              logicalKey: LogicalKeyboardKey.printScreen,
+              shortcutKey: 'PrtSc',
+              flex: 1.25,
+            ),
+            _delKey,
+          ],
+        [...numberRow(), _homeKey],
+        [...topAlphaRow(), _pgUpKey],
+        [...homeAlphaRow(), _pgDnKey],
+        [
+          const KeyModel(
+            id: 'shift_left',
+            label: 'Shift',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.leftShift,
+            modifierKey: ModifierKey.shift,
+            icon: Icons.north_rounded,
+            iconBeforeLabel: true,
+            flex: 2.25,
+          ),
+          for (final c in const ['z', 'x', 'c', 'v', 'b', 'n', 'm'])
+            KeyModel.char(c),
+          KeyModel.char(',', shift: '<', id: 'comma'),
+          KeyModel.char('.', shift: '>', id: 'period'),
+          KeyModel.char('/', shift: '?', id: 'slash'),
+          const KeyModel(
+            id: 'shift_right',
+            label: 'Shift',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.rightShift,
+            modifierKey: ModifierKey.shift,
+            icon: Icons.north_rounded,
+            iconAfterLabel: true,
+            flex: 1.75,
+          ),
+          _arrowUpKey,
+          _endKey,
+        ],
+        [
+          const KeyModel(
+            id: 'ctrl_left',
+            label: 'Ctrl',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.leftCtrl,
+            modifierKey: ModifierKey.control,
+            flex: 1.25,
+          ),
+          const KeyModel(
+            id: 'win_super',
+            label: 'Win',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.winSuper,
+            modifierKey: ModifierKey.meta,
+            icon: Icons.window_rounded,
+            flex: 1.25,
+          ),
+          const KeyModel(
+            id: 'alt_left',
+            label: 'Alt',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.leftAlt,
+            modifierKey: ModifierKey.alt,
+            flex: 1.25,
+          ),
+          const KeyModel(
+            id: 'spacebar',
+            label: 'SPACEBAR',
+            value: ' ',
+            shiftValue: ' ',
+            type: KeyType.space,
+            action: VirtualKeyAction.space,
+            repeatable: true,
+            flex: 6.25,
+            shortcutKey: 'Space',
+          ),
+          const KeyModel(
+            id: 'alt_gr',
+            label: 'AltGr',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.altGr,
+            modifierKey: ModifierKey.altGr,
+            flex: 1.0,
+          ),
+          const KeyModel(
+            id: 'fn_key',
+            label: 'Fn',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.fn,
+            flex: 1.0,
+          ),
+          const KeyModel(
+            id: 'ctrl_right',
+            label: 'Ctrl',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.rightCtrl,
+            modifierKey: ModifierKey.control,
+            flex: 1.0,
+          ),
+          _arrowLeftKey,
+          _arrowDownKey,
+          _arrowRightKey,
+        ],
+      ];
+
+  /// **98% Compact 1800-Style Left Block (15.0u)**: Compact arrows tucked tightly
+  /// flush next to the 4-column Numpad (zero inter-cluster gap).
+  static List<List<KeyModel>> layout98MainRows({bool includeFunctionRow = true}) => [
+        if (includeFunctionRow)
+          [
+            const KeyModel(
+              id: 'esc',
+              label: 'Esc',
+              type: KeyType.function,
+              action: VirtualKeyAction.escape,
+              logicalKey: LogicalKeyboardKey.escape,
+              shortcutKey: 'Esc',
+              flex: 1.2,
+            ),
+            const KeyModel.spacer(flex: 0.3, id: 'fn98_gap_1'),
+            for (var i = 1; i <= 4; i++) _fKey(i),
+            const KeyModel.spacer(flex: 0.25, id: 'fn98_gap_2'),
+            for (var i = 5; i <= 8; i++) _fKey(i),
+            const KeyModel.spacer(flex: 0.25, id: 'fn98_gap_3'),
+            for (var i = 9; i <= 12; i++) _fKey(i),
+            const KeyModel(
+              id: 'prtsc',
+              label: 'PrtSc',
+              type: KeyType.function,
+              action: VirtualKeyAction.printScreen,
+              logicalKey: LogicalKeyboardKey.printScreen,
+              shortcutKey: 'PrtSc',
+              flex: 1.0,
+            ),
+          ],
+        numberRow(),
+        topAlphaRow(),
+        homeAlphaRow(),
+        [
+          const KeyModel(
+            id: 'shift_left',
+            label: 'Shift',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.leftShift,
+            modifierKey: ModifierKey.shift,
+            icon: Icons.north_rounded,
+            iconBeforeLabel: true,
+            flex: 1.75,
+          ),
+          for (final c in const ['z', 'x', 'c', 'v', 'b', 'n', 'm'])
+            KeyModel.char(c),
+          KeyModel.char(',', shift: '<', id: 'comma'),
+          KeyModel.char('.', shift: '>', id: 'period'),
+          KeyModel.char('/', shift: '?', id: 'slash'),
+          const KeyModel(
+            id: 'shift_right',
+            label: 'Shift',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.rightShift,
+            modifierKey: ModifierKey.shift,
+            icon: Icons.north_rounded,
+            iconAfterLabel: true,
+            flex: 1.25,
+          ),
+          _arrowUpKey,
+          _pgDnKey,
+        ],
+        [
+          const KeyModel(
+            id: 'ctrl_left',
+            label: 'Ctrl',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.leftCtrl,
+            modifierKey: ModifierKey.control,
+            flex: 1.25,
+          ),
+          const KeyModel(
+            id: 'win_super',
+            label: 'Win',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.winSuper,
+            modifierKey: ModifierKey.meta,
+            icon: Icons.window_rounded,
+            flex: 1.0,
+          ),
+          const KeyModel(
+            id: 'alt_left',
+            label: 'Alt',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.leftAlt,
+            modifierKey: ModifierKey.alt,
+            flex: 1.0,
+          ),
+          const KeyModel(
+            id: 'spacebar',
+            label: 'SPACEBAR',
+            value: ' ',
+            shiftValue: ' ',
+            type: KeyType.space,
+            action: VirtualKeyAction.space,
+            repeatable: true,
+            flex: 5.75,
+            shortcutKey: 'Space',
+          ),
+          const KeyModel(
+            id: 'alt_gr',
+            label: 'AltGr',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.altGr,
+            modifierKey: ModifierKey.altGr,
+            flex: 1.0,
+          ),
+          const KeyModel(
+            id: 'fn_key',
+            label: 'Fn',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.fn,
+            flex: 1.0,
+          ),
+          const KeyModel(
+            id: 'ctrl_right',
+            label: 'Ctrl',
+            type: KeyType.modifier,
+            action: VirtualKeyAction.rightCtrl,
+            modifierKey: ModifierKey.control,
+            flex: 1.0,
+          ),
+          _arrowLeftKey,
+          _arrowDownKey,
+          _arrowRightKey,
+        ],
+      ];
+
+  /// **98% Top Utility Strip (4.0u)**: Compact navigation/edit keys positioned
+  /// directly above the 4-column Numpad (`Ins`, `Del`, `Home`, `PgUp`).
+  static List<KeyModel> layout98NumpadUtilityRow() => const [
+        _insKey,
+        _delKey,
+        _homeKey,
+        _pgUpKey,
+      ];
 }

@@ -10,27 +10,24 @@ import '../models/key_intents.dart';
 import '../scope/v_keyboard_scope.dart';
 import 'virtual_key_button.dart';
 
-/// A full-size 100% ANSI Desktop On-Screen Keyboard widget engineered for
-/// edge-to-edge wide-screen monitors (Windows, macOS, Linux, Web).
+/// A full-featured, edge-to-edge responsive Desktop On-Screen Keyboard widget
+/// supporting multiple hardware form factors (`60%`, `65%`, `75%`, `87% TKL`,
+/// `98%`, and `100% Full-Size`).
 ///
-/// Renders 3 proportionally-sized clusters side-by-side (`15 : 3 : 4` flex ratio):
-/// 1. **Main Alphanumeric Cluster**: Function row (`Esc`, `F1`–`F12`), dual-legend
-///    number row, QWERTY rows, modifiers (`Shift`, `Ctrl`, `Win`, `Alt`, `AltGr`,
-///    `Fn`, `Menu`), and wide `SPACEBAR`.
-/// 2. **Navigation Cluster**: System keys (`PrtSc`, `ScrLk`, `Pause`), edit block
-///    (`Ins`, `Home`, `PgUp`, `Del`, `End`, `PgDn`), and Inverted-T arrows.
-/// 3. **Numpad Cluster**: `NumLock`, operators (`/`, `*`, `-`), 4x3 keypad with
-///    double-wide `0`, and double-height spanning `+` and `Enter` keys.
-///
-/// Works both standalone via [onKeyPressed], [onSpecialKeyPressed], and
-/// [onShortcutTriggered] callbacks, or connected to a [VKeyboardController].
+/// Keys use proportional `Expanded(flex: N)` sizing so any preset expands smoothly
+/// across full monitor widths when [isFullWidth] is true, or can be capped cleanly
+/// on ultra-wide screens via [maxWidth] / [isFullWidth].
 class DesktopFullKeyboard extends StatefulWidget {
   const DesktopFullKeyboard({
     super.key,
+    this.layoutType = KeyboardLayoutType.layout100,
     this.themeData,
     this.showNumpad = true,
     this.showFunctionRow = true,
     this.showHeader = true,
+    this.isFullWidth = true,
+    this.maxWidth,
+    this.padding,
     this.maxKeyboardHeightRatio = 0.38,
     this.initialCapsLock = false,
     this.initialNumLock = true,
@@ -41,20 +38,40 @@ class DesktopFullKeyboard extends StatefulWidget {
     this.controller,
   });
 
+  /// Physical layout form-factor preset (`layout60`, `layout65`, `layout75`,
+  /// `layout87TKL`, `layout98`, `layout100`). Defaults to [KeyboardLayoutType.layout100].
+  final KeyboardLayoutType layoutType;
+
   /// Visual theme data for background, keycaps, borders, and active LEDs.
   /// Defaults to [DesktopKeyboardThemeData.dark()].
   final DesktopKeyboardThemeData? themeData;
 
-  /// Initial visibility of the right-hand Numpad cluster. Can also be toggled
-  /// interactively via the top header button when [showHeader] is true.
+  /// Initial visibility of the Numpad on Numpad-capable presets (`layout98`,
+  /// `layout100`). Can also be toggled live via the header button.
   final bool showNumpad;
 
-  /// Whether to render the top function row (`Esc`, `F1`–`F12`, `PrtSc`, `ScrLk`, `Pause`).
+  /// Whether to show the top Function row on presets that include it (`layout75`,
+  /// `layout87TKL`, `layout98`, `layout100`). Compact `layout60`/`layout65` always
+  /// omit the F-row in favor of the `Fn` layer.
   final bool showFunctionRow;
 
-  /// Whether to render the OSK status header bar (`Full Desktop 100% Grid`,
-  /// `Hide Numpad` toggle button, and `CAPS` / `NUM` LED status indicators).
+  /// Whether to render the OSK status header bar (active layout label,
+  /// `Hide Numpad` toggle button, and `FN` / `CAPS` / `NUM` LED status indicators).
   final bool showHeader;
+
+  /// When `true` (default), the keyboard spans edge-to-edge across the entire
+  /// available width (`width: double.infinity`), even in compact `60%`/`65%` modes.
+  /// Set `false` to apply natural aspect-proportioned width limits centered on
+  /// wide desktop monitors.
+  final bool isFullWidth;
+
+  /// Optional upper bound on keyboard grid width (in logical pixels) to prevent
+  /// compact presets like `60%` or `65%` from stretching overly wide on ultrawide monitors.
+  final double? maxWidth;
+
+  /// Optional custom outer padding around the keyboard clusters. When omitted,
+  /// dynamic viewport-proportional horizontal padding is calculated automatically.
+  final EdgeInsetsGeometry? padding;
 
   /// Maximum fraction of the total viewport height this keyboard may occupy
   /// (e.g. `0.38` = max 38% of screen height).
@@ -67,18 +84,17 @@ class DesktopFullKeyboard extends StatefulWidget {
   final bool initialNumLock;
 
   /// Invoked when a printable character (or space `' '`) is typed without
-  /// a command shortcut modifier held.
+  /// a command shortcut or `Fn` override active.
   final ValueChanged<String>? onKeyPressed;
 
-  /// Invoked when a special, modifier, lock, function, or navigation key is pressed.
+  /// Invoked when a special, modifier, lock, function, navigation, or `Fn`-layer key is pressed.
   final ValueChanged<VirtualKeyAction>? onSpecialKeyPressed;
 
   /// Invoked when a modifier shortcut combo is triggered (e.g. `'Ctrl+A'`,
-  /// `'Ctrl+Shift+Z'`, `'Alt+Tab'`).
+  /// `'Ctrl+Shift+Z'`, `'Alt+F4'`).
   final ValueChanged<String>? onShortcutTriggered;
 
   /// Optional callback invoked when the bottom dismiss button is tapped.
-  /// When non-null, a subtle circular chevron button appears centered at the bottom.
   final VoidCallback? onDismiss;
 
   /// Optional [VKeyboardController] for direct integration with [VTextField]
@@ -176,7 +192,32 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       return;
     }
 
-    // 2. Numpad digit / decimal when Num Lock is OFF behaves as navigation/edit.
+    // 2. Active Fn-Layer Override (F1-F12, Esc, Del, Arrows, Home/End/PgUp/PgDn on 60%/65%).
+    if (_isFnActive && key.hasFnMapping) {
+      if (_hasShortcutModifier) {
+        final token = key.fnShortcutKey ?? key.fnLabel ?? key.label;
+        final combo = _buildShortcutCombo(token);
+        widget.onShortcutTriggered?.call(combo);
+        final fnKeyData = key.toFnKeyData();
+        if (controller != null && fnKeyData != null) {
+          controller.handleKey(fnKeyData);
+        }
+        _clearMomentaryModifiers();
+        return;
+      }
+
+      if (key.fnAction != null) {
+        widget.onSpecialKeyPressed?.call(key.fnAction!);
+      }
+      final fnKeyData = key.toFnKeyData();
+      if (controller != null && fnKeyData != null) {
+        controller.handleKey(fnKeyData);
+      }
+      _clearMomentaryModifiers();
+      return;
+    }
+
+    // 3. Numpad digit / decimal when Num Lock is OFF behaves as navigation/edit.
     if (key.isNumpadDigit && !_isNumLockActive) {
       final secAction = key.secondaryAction;
       if (secAction != null) {
@@ -201,11 +242,10 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       return;
     }
 
-    // 3. Check for shortcut combo (Ctrl / Alt / Win held + target key).
+    // 4. Check for shortcut combo (Ctrl / Alt / Win held + target key).
     if (_hasShortcutModifier) {
-      final shortcutToken = key.shortcutKey ??
-          key.value?.toUpperCase() ??
-          key.label;
+      final shortcutToken =
+          key.shortcutKey ?? key.value?.toUpperCase() ?? key.label;
       final combo = _buildShortcutCombo(shortcutToken);
       widget.onShortcutTriggered?.call(combo);
 
@@ -219,7 +259,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       return;
     }
 
-    // 4. Spacebar: invokes onKeyPressed(' ') (plus optional onSpecialKeyPressed).
+    // 5. Spacebar: invokes onKeyPressed(' ').
     if (key.type == KeyType.space) {
       widget.onKeyPressed?.call(' ');
       if (controller != null) {
@@ -229,7 +269,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       return;
     }
 
-    // 5. Printable characters (Alphanumeric, Dual-Legend symbols, Numpad active digits/ops).
+    // 6. Printable characters (Alphanumeric, Dual-Legend symbols, Numpad active digits/ops).
     if (key.type == KeyType.character) {
       final output = key.resolveOutput(
         shifted: _isShiftActive,
@@ -250,7 +290,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       return;
     }
 
-    // 6. Special / Action / Function / Navigation keys (Enter, Backspace, Tab, Del, Arrows, etc.).
+    // 7. Special / Action / Function / Navigation keys (Enter, Backspace, Tab, Del, Arrows, etc.).
     if (action != null) {
       widget.onSpecialKeyPressed?.call(action);
     }
@@ -268,6 +308,10 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     if (key.action == VirtualKeyAction.numLock) {
       setState(() => _isNumLockActive = !_isNumLockActive);
       controller?.modifiers.toggleLock(LockKey.numLock);
+      return;
+    }
+    if (key.action == VirtualKeyAction.fn) {
+      setState(() => _isFnActive = !_isFnActive);
       return;
     }
     if (controller != null) {
@@ -288,8 +332,6 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           _isShiftActive = !_isShiftActive;
         case VirtualKeyAction.capsLock:
           _isCapsLockActive = !_isCapsLockActive;
-        case VirtualKeyAction.numLock:
-          _isNumLockActive = !_isNumLockActive;
         case VirtualKeyAction.scrollLock:
           _isScrollLockActive = !_isScrollLockActive;
         case VirtualKeyAction.leftCtrl:
@@ -301,8 +343,6 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           _isAltGrActive = !_isAltGrActive;
         case VirtualKeyAction.winSuper:
           _isWinActive = !_isWinActive;
-        case VirtualKeyAction.fn:
-          _isFnActive = !_isFnActive;
         default:
           break;
       }
@@ -339,6 +379,17 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     return parts.join('+');
   }
 
+  double _naturalMaxWidthFor(KeyboardLayoutType preset) {
+    return switch (preset) {
+      KeyboardLayoutType.layout60 => 860.0,
+      KeyboardLayoutType.layout65 => 920.0,
+      KeyboardLayoutType.layout75 => 960.0,
+      KeyboardLayoutType.layout87TKL => 1140.0,
+      KeyboardLayoutType.layout98 => 1220.0,
+      KeyboardLayoutType.layout100 => 1380.0,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = widget.themeData ?? DesktopKeyboardThemeData.dark();
@@ -354,30 +405,48 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               ? constraints.maxWidth
               : mq.size.width;
 
-          // Responsive collapse thresholds for unusually narrow panes.
+          // Resolve effective width respecting isFullWidth & optional maxWidth.
+          double effectiveGridWidth = availW;
+          if (widget.maxWidth != null) {
+            effectiveGridWidth = math.min(availW, widget.maxWidth!);
+          } else if (!widget.isFullWidth) {
+            effectiveGridWidth =
+                math.min(availW, _naturalMaxWidthFor(widget.layoutType));
+          }
+
           final canShowNav = availW >= 540;
           final canShowNumpad = availW >= 720;
-          final effectiveShowNumpad = _showNumpad && canShowNumpad;
+          final effectiveShowNumpad = widget.layoutType.hasNumpad &&
+              _showNumpad &&
+              canShowNumpad;
+          final includeFnRow =
+              widget.layoutType.hasFunctionRow && widget.showFunctionRow;
 
-          // Proportional units across active clusters (15 : 3 : 4).
-          final totalUnits = 15 +
-              (canShowNav ? 3 : 0) +
-              (effectiveShowNumpad ? 4 : 0);
+          final totalUnits = switch (widget.layoutType) {
+            KeyboardLayoutType.layout60 => 15,
+            KeyboardLayoutType.layout65 => 16,
+            KeyboardLayoutType.layout75 => 16,
+            KeyboardLayoutType.layout87TKL => 15 + (canShowNav ? 3 : 0),
+            KeyboardLayoutType.layout98 => 15 + (effectiveShowNumpad ? 4 : 0),
+            KeyboardLayoutType.layout100 =>
+              15 + (canShowNav ? 3 : 0) + (effectiveShowNumpad ? 4 : 0),
+          };
 
-          final rowCount = widget.showFunctionRow ? 6 : 5;
-          final keyGap = (availW * 0.004).clamp(2.5, 7.0);
+          final rowCount = includeFnRow ? 6 : 5;
+          final keyGap = (effectiveGridWidth * 0.004).clamp(2.5, 7.0);
           final keyMargin = keyGap / 2;
-          final clusterGap = (availW * 0.011).clamp(6.0, 20.0);
-          final hPadding = (availW * 0.008).clamp(6.0, 16.0);
+          final clusterGap = widget.layoutType == KeyboardLayoutType.layout98
+              ? 0.0
+              : (effectiveGridWidth * 0.011).clamp(6.0, 20.0);
+          final hPadding = (effectiveGridWidth * 0.008).clamp(6.0, 16.0);
 
-          // Derive clean proportional row height from screen dimensions & ratio cap.
           final ratioCap = (screenH * widget.maxKeyboardHeightRatio)
               .clamp(190.0, screenH * 0.65);
           final maxAllowedH = constraints.hasBoundedHeight
               ? math.min(constraints.maxHeight, ratioCap)
               : ratioCap;
 
-          final unitWidth = (availW - hPadding * 2) / totalUnits;
+          final unitWidth = (effectiveGridWidth - hPadding * 2) / totalUnits;
           final idealRowHeight = (unitWidth * 0.85).clamp(32.0, 54.0);
           final headerHeight =
               widget.showHeader ? (idealRowHeight * 0.72).clamp(26.0, 36.0) : 0.0;
@@ -391,7 +460,8 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
 
           final totalHeight = math
               .min(idealTotalH, maxAllowedH)
-              .clamp(math.min(180.0, maxAllowedH), maxAllowedH).toDouble();
+              .clamp(math.min(180.0, maxAllowedH), maxAllowedH)
+              .toDouble();
 
           final actualGridHeight = math.max(
             100.0,
@@ -406,13 +476,16 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               .min(actualRowHeight * 0.36, unitWidth * 0.34)
               .clamp(9.5, 20.0);
 
+          final resolvedPadding = widget.padding ??
+              EdgeInsets.symmetric(
+                horizontal: hPadding,
+                vertical: vPadding,
+              );
+
           return Container(
             width: double.infinity,
             height: totalHeight,
-            padding: EdgeInsets.symmetric(
-              horizontal: hPadding,
-              vertical: vPadding,
-            ),
+            alignment: Alignment.center,
             decoration: BoxDecoration(
               color: theme.backgroundColor,
               borderRadius: theme.containerBorderRadius,
@@ -429,89 +502,66 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
                     : BorderSide.none,
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (widget.showHeader) ...[
-                  SizedBox(
-                    height: headerHeight,
-                    child: _buildHeaderBar(
-                      theme: theme,
-                      availW: availW,
-                      canShowNumpad: canShowNumpad,
-                      effectiveShowNumpad: effectiveShowNumpad,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                ],
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // Cluster 1: Main Alphanumeric (flex 15)
-                      Expanded(
-                        flex: 15,
-                        child: _buildMainCluster(
+            child: SizedBox(
+              width: effectiveGridWidth,
+              child: Padding(
+                padding: resolvedPadding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (widget.showHeader) ...[
+                      SizedBox(
+                        height: headerHeight,
+                        child: _buildHeaderBar(
                           theme: theme,
-                          baseFontSize: baseFontSize,
-                          keyMargin: keyMargin,
+                          availW: effectiveGridWidth,
+                          canShowNumpad: canShowNumpad,
+                          effectiveShowNumpad: effectiveShowNumpad,
                         ),
                       ),
-                      if (canShowNav) ...[
-                        SizedBox(width: clusterGap),
-                        // Cluster 2: Navigation & Arrows (flex 3)
-                        Expanded(
-                          flex: 3,
-                          child: _buildNavigationCluster(
-                            theme: theme,
-                            baseFontSize: baseFontSize,
-                            keyMargin: keyMargin,
-                          ),
-                        ),
-                      ],
-                      if (effectiveShowNumpad) ...[
-                        SizedBox(width: clusterGap),
-                        // Cluster 3: Numpad (flex 4)
-                        Expanded(
-                          flex: 4,
-                          child: _buildNumpadCluster(
-                            theme: theme,
-                            baseFontSize: baseFontSize,
-                            keyMargin: keyMargin,
-                            mainRowCount: rowCount,
-                          ),
-                        ),
-                      ],
+                      const SizedBox(height: 6),
                     ],
-                  ),
-                ),
-                if (widget.onDismiss != null)
-                  SizedBox(
-                    height: dismissHeight,
-                    child: Center(
-                      child: InkWell(
-                        onTap: widget.onDismiss,
-                        borderRadius: BorderRadius.circular(14),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: theme.specialKeyColor,
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(color: theme.keyBorderColor),
-                          ),
-                          child: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            size: 18,
-                            color: theme.secondaryTextColor,
-                          ),
-                        ),
+                    Expanded(
+                      child: _buildLayoutGrid(
+                        theme: theme,
+                        baseFontSize: baseFontSize,
+                        keyMargin: keyMargin,
+                        clusterGap: clusterGap,
+                        canShowNav: canShowNav,
+                        effectiveShowNumpad: effectiveShowNumpad,
+                        includeFnRow: includeFnRow,
+                        rowCount: rowCount,
                       ),
                     ),
-                  ),
-              ],
+                    if (widget.onDismiss != null)
+                      SizedBox(
+                        height: dismissHeight,
+                        child: Center(
+                          child: InkWell(
+                            onTap: widget.onDismiss,
+                            borderRadius: BorderRadius.circular(14),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: theme.specialKeyColor,
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(color: theme.keyBorderColor),
+                              ),
+                              child: Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                size: 18,
+                                color: theme.secondaryTextColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
           );
         },
@@ -523,13 +573,241 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     return content;
   }
 
+  // ---- Preset Builder Dispatch & Helpers ------------------------------------
+
+  Widget _buildLayoutGrid({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+    required double clusterGap,
+    required bool canShowNav,
+    required bool effectiveShowNumpad,
+    required bool includeFnRow,
+    required int rowCount,
+  }) {
+    return switch (widget.layoutType) {
+      KeyboardLayoutType.layout60 => _buildLayout60(
+          theme: theme,
+          baseFontSize: baseFontSize,
+          keyMargin: keyMargin,
+        ),
+      KeyboardLayoutType.layout65 => _buildLayout65(
+          theme: theme,
+          baseFontSize: baseFontSize,
+          keyMargin: keyMargin,
+        ),
+      KeyboardLayoutType.layout75 => _buildLayout75(
+          theme: theme,
+          baseFontSize: baseFontSize,
+          keyMargin: keyMargin,
+          includeFnRow: includeFnRow,
+        ),
+      KeyboardLayoutType.layout87TKL => _buildLayout87TKL(
+          theme: theme,
+          baseFontSize: baseFontSize,
+          keyMargin: keyMargin,
+          clusterGap: clusterGap,
+          canShowNav: canShowNav,
+          includeFnRow: includeFnRow,
+        ),
+      KeyboardLayoutType.layout98 => _buildLayout98(
+          theme: theme,
+          baseFontSize: baseFontSize,
+          keyMargin: keyMargin,
+          effectiveShowNumpad: effectiveShowNumpad,
+          includeFnRow: includeFnRow,
+          rowCount: rowCount,
+        ),
+      KeyboardLayoutType.layout100 => _buildLayout100(
+          theme: theme,
+          baseFontSize: baseFontSize,
+          keyMargin: keyMargin,
+          clusterGap: clusterGap,
+          canShowNav: canShowNav,
+          effectiveShowNumpad: effectiveShowNumpad,
+          includeFnRow: includeFnRow,
+          rowCount: rowCount,
+        ),
+    };
+  }
+
+  /// Renders **60% Compact**: 5 pure alphanumeric rows (15u) with `Fn` layer.
+  Widget _buildLayout60({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+  }) {
+    return _buildUnifiedRows(
+      DesktopFullLayoutData.layout60Rows(),
+      theme: theme,
+      baseFontSize: baseFontSize,
+      keyMargin: keyMargin,
+    );
+  }
+
+  /// Renders **65% Compact**: 5 rows (16u) with number row, integrated arrows, and right nav rail.
+  Widget _buildLayout65({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+  }) {
+    return _buildUnifiedRows(
+      DesktopFullLayoutData.layout65Rows(),
+      theme: theme,
+      baseFontSize: baseFontSize,
+      keyMargin: keyMargin,
+    );
+  }
+
+  /// Renders **75% Compact**: F-row on top, 1-column nav rail (`Del`, `Home`, `PgUp`, `PgDn`, `End`), tucked arrows.
+  Widget _buildLayout75({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+    required bool includeFnRow,
+  }) {
+    return _buildUnifiedRows(
+      DesktopFullLayoutData.layout75Rows(includeFunctionRow: includeFnRow),
+      theme: theme,
+      baseFontSize: baseFontSize,
+      keyMargin: keyMargin,
+    );
+  }
+
+  /// Renders **87% TKL**: Alphanumeric (15u) + gap + Nav Cluster (3u), no Numpad.
+  Widget _buildLayout87TKL({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+    required double clusterGap,
+    required bool canShowNav,
+    required bool includeFnRow,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          flex: 15,
+          child: _buildMainCluster(
+            theme: theme,
+            baseFontSize: baseFontSize,
+            keyMargin: keyMargin,
+            includeFnRow: includeFnRow,
+          ),
+        ),
+        if (canShowNav) ...[
+          SizedBox(width: clusterGap),
+          Expanded(
+            flex: 3,
+            child: _buildNavigationCluster(
+              theme: theme,
+              baseFontSize: baseFontSize,
+              keyMargin: keyMargin,
+              includeFnRow: includeFnRow,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  /// Renders **98% Compact (1800-style)**: Zero inter-cluster gap, tucked arrows + 4-col Numpad.
+  Widget _buildLayout98({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+    required bool effectiveShowNumpad,
+    required bool includeFnRow,
+    required int rowCount,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          flex: 15,
+          child: _buildUnifiedRows(
+            DesktopFullLayoutData.layout98MainRows(
+                includeFunctionRow: includeFnRow),
+            theme: theme,
+            baseFontSize: baseFontSize,
+            keyMargin: keyMargin,
+          ),
+        ),
+        if (effectiveShowNumpad)
+          Expanded(
+            flex: 4,
+            child: _buildCompact98Numpad(
+              theme: theme,
+              baseFontSize: baseFontSize,
+              keyMargin: keyMargin,
+              includeUtilityRow: includeFnRow,
+            ),
+          ),
+      ],
+    );
+  }
+
+  /// Renders **100% Full-Size**: Main (15u) + gap + NavCluster (3u) + gap + Numpad (4u).
+  Widget _buildLayout100({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+    required double clusterGap,
+    required bool canShowNav,
+    required bool effectiveShowNumpad,
+    required bool includeFnRow,
+    required int rowCount,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          flex: 15,
+          child: _buildMainCluster(
+            theme: theme,
+            baseFontSize: baseFontSize,
+            keyMargin: keyMargin,
+            includeFnRow: includeFnRow,
+          ),
+        ),
+        if (canShowNav) ...[
+          SizedBox(width: clusterGap),
+          Expanded(
+            flex: 3,
+            child: _buildNavigationCluster(
+              theme: theme,
+              baseFontSize: baseFontSize,
+              keyMargin: keyMargin,
+              includeFnRow: includeFnRow,
+            ),
+          ),
+        ],
+        if (effectiveShowNumpad) ...[
+          SizedBox(width: clusterGap),
+          Expanded(
+            flex: 4,
+            child: _buildNumpadCluster(
+              theme: theme,
+              baseFontSize: baseFontSize,
+              keyMargin: keyMargin,
+              mainRowCount: rowCount,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
   Widget _buildHeaderBar({
     required DesktopKeyboardThemeData theme,
     required double availW,
     required bool canShowNumpad,
     required bool effectiveShowNumpad,
   }) {
-    final showSubtitle = availW >= 780;
+    final showSubtitle = availW >= 820;
+    final showNumpadToggle = widget.layoutType.hasNumpad && canShowNumpad;
+    final showFnLed = _isFnActive || widget.layoutType.hasFnLayer;
+
     return Row(
       children: [
         Icon(
@@ -543,7 +821,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Full Desktop 100% Grid',
+                'Desktop ${widget.layoutType.label}',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 12,
@@ -564,7 +842,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
                 ),
                 Flexible(
                   child: Text(
-                    'Proportional Key Sizing (Flex-Grow Engine)',
+                    'Proportional Flex-Grow Grid',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 11.5,
@@ -577,14 +855,15 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           ),
         ),
         const SizedBox(width: 8),
-        if (canShowNumpad)
+        if (showNumpadToggle)
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: InkWell(
               onTap: () => setState(() => _showNumpad = !_showNumpad),
               borderRadius: BorderRadius.circular(6),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: theme.specialKeyColor,
                   borderRadius: BorderRadius.circular(6),
@@ -612,17 +891,27 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               ),
             ),
           ),
+        if (showFnLed) ...[
+          _buildStatusLed(
+            label: 'FN',
+            active: _isFnActive,
+            theme: theme,
+          ),
+          const SizedBox(width: 10),
+        ],
         _buildStatusLed(
           label: 'CAPS',
           active: _isCapsLockActive,
           theme: theme,
         ),
-        const SizedBox(width: 10),
-        _buildStatusLed(
-          label: 'NUM',
-          active: _isNumLockActive,
-          theme: theme,
-        ),
+        if (effectiveShowNumpad) ...[
+          const SizedBox(width: 10),
+          _buildStatusLed(
+            label: 'NUM',
+            active: _isNumLockActive,
+            theme: theme,
+          ),
+        ],
       ],
     );
   }
@@ -673,13 +962,14 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required double keyMargin,
   }) {
     return VirtualKeyButton(
-      key: ValueKey('dk_${model.id}'),
+      key: ValueKey('dk_${widget.layoutType.name}_${model.id}'),
       model: model,
       theme: theme,
       baseFontSize: baseFontSize,
       isShiftActive: _isShiftActive,
       isCapsLockActive: _isCapsLockActive,
       isNumLockActive: _isNumLockActive,
+      isFnActive: _isFnActive,
       isEngaged: _isKeyEngaged(model),
       horizontalMargin: keyMargin,
       verticalMargin: keyMargin,
@@ -710,7 +1000,8 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     );
   }
 
-  Widget _buildMainCluster({
+  Widget _buildUnifiedRows(
+    List<List<KeyModel>> rows, {
     required DesktopKeyboardThemeData theme,
     required double baseFontSize,
     required double keyMargin,
@@ -718,7 +1009,27 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (widget.showFunctionRow)
+        for (final row in rows)
+          _buildRow(
+            row,
+            theme: theme,
+            baseFontSize: baseFontSize,
+            keyMargin: keyMargin,
+          ),
+      ],
+    );
+  }
+
+  Widget _buildMainCluster({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+    required bool includeFnRow,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (includeFnRow)
           _buildRow(
             DesktopFullLayoutData.functionRow(),
             theme: theme,
@@ -763,11 +1074,12 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required DesktopKeyboardThemeData theme,
     required double baseFontSize,
     required double keyMargin,
+    required bool includeFnRow,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (widget.showFunctionRow)
+        if (includeFnRow)
           _buildRow(
             DesktopFullLayoutData.navSystemRow(),
             theme: theme,
@@ -808,6 +1120,74 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     );
   }
 
+  Widget _buildNumpadGridBody({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+    required int flex,
+  }) {
+    return Expanded(
+      flex: flex,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildRow(
+                  DesktopFullLayoutData.numpadRow789(),
+                  theme: theme,
+                  baseFontSize: baseFontSize,
+                  keyMargin: keyMargin,
+                ),
+                _buildRow(
+                  DesktopFullLayoutData.numpadRow456(),
+                  theme: theme,
+                  baseFontSize: baseFontSize,
+                  keyMargin: keyMargin,
+                ),
+                _buildRow(
+                  DesktopFullLayoutData.numpadRow123(),
+                  theme: theme,
+                  baseFontSize: baseFontSize,
+                  keyMargin: keyMargin,
+                ),
+                _buildRow(
+                  DesktopFullLayoutData.numpadRow0Dot(),
+                  theme: theme,
+                  baseFontSize: baseFontSize,
+                  keyMargin: keyMargin,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildKeyButton(
+                  DesktopFullLayoutData.numpadPlusKey(),
+                  theme: theme,
+                  baseFontSize: baseFontSize,
+                  keyMargin: keyMargin,
+                ),
+                _buildKeyButton(
+                  DesktopFullLayoutData.numpadEnterKey(),
+                  theme: theme,
+                  baseFontSize: baseFontSize,
+                  keyMargin: keyMargin,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildNumpadCluster({
     required DesktopKeyboardThemeData theme,
     required double baseFontSize,
@@ -817,75 +1197,51 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // Row 0 (`Num`, `/`, `*`, `-`) aligns cleanly with Main's top row.
         _buildRow(
           DesktopFullLayoutData.numpadTopRow(),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
-        // Remaining 4 Numpad rows fill the exact height of the remaining Main rows
-        // (5 rows when Function row is shown, 4 rows when hidden), with `+` and `Enter`
-        // each spanning 2 rows vertically.
-        Expanded(
+        _buildNumpadGridBody(
+          theme: theme,
+          baseFontSize: baseFontSize,
+          keyMargin: keyMargin,
           flex: mainRowCount - 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildRow(
-                      DesktopFullLayoutData.numpadRow789(),
-                      theme: theme,
-                      baseFontSize: baseFontSize,
-                      keyMargin: keyMargin,
-                    ),
-                    _buildRow(
-                      DesktopFullLayoutData.numpadRow456(),
-                      theme: theme,
-                      baseFontSize: baseFontSize,
-                      keyMargin: keyMargin,
-                    ),
-                    _buildRow(
-                      DesktopFullLayoutData.numpadRow123(),
-                      theme: theme,
-                      baseFontSize: baseFontSize,
-                      keyMargin: keyMargin,
-                    ),
-                    _buildRow(
-                      DesktopFullLayoutData.numpadRow0Dot(),
-                      theme: theme,
-                      baseFontSize: baseFontSize,
-                      keyMargin: keyMargin,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildKeyButton(
-                      DesktopFullLayoutData.numpadPlusKey(),
-                      theme: theme,
-                      baseFontSize: baseFontSize,
-                      keyMargin: keyMargin,
-                    ),
-                    _buildKeyButton(
-                      DesktopFullLayoutData.numpadEnterKey(),
-                      theme: theme,
-                      baseFontSize: baseFontSize,
-                      keyMargin: keyMargin,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+        ),
+      ],
+    );
+  }
+
+  /// **98% Compact 1800 Numpad**: Adds top utility row (`Ins`, `Del`, `Home`, `PgUp`)
+  /// aligned with Row 0 (`Esc..F12`), followed by `Num / * -` and the 4-row Numpad.
+  Widget _buildCompact98Numpad({
+    required DesktopKeyboardThemeData theme,
+    required double baseFontSize,
+    required double keyMargin,
+    required bool includeUtilityRow,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (includeUtilityRow)
+          _buildRow(
+            DesktopFullLayoutData.layout98NumpadUtilityRow(),
+            theme: theme,
+            baseFontSize: baseFontSize,
+            keyMargin: keyMargin,
           ),
+        _buildRow(
+          DesktopFullLayoutData.numpadTopRow(),
+          theme: theme,
+          baseFontSize: baseFontSize,
+          keyMargin: keyMargin,
+        ),
+        _buildNumpadGridBody(
+          theme: theme,
+          baseFontSize: baseFontSize,
+          keyMargin: keyMargin,
+          flex: 4,
         ),
       ],
     );

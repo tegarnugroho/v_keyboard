@@ -201,6 +201,7 @@ class VirtualKeyButton extends StatefulWidget {
     this.isShiftActive = false,
     this.isCapsLockActive = false,
     this.isNumLockActive = true,
+    this.isFnActive = false,
     this.isEngaged = false,
     this.horizontalMargin = 2.0,
     this.verticalMargin = 2.0,
@@ -214,6 +215,7 @@ class VirtualKeyButton extends StatefulWidget {
   final bool isShiftActive;
   final bool isCapsLockActive;
   final bool isNumLockActive;
+  final bool isFnActive;
   final bool isEngaged;
   final double horizontalMargin;
   final double verticalMargin;
@@ -314,6 +316,9 @@ class _VirtualKeyButtonState extends State<VirtualKeyButton> {
 
     Color resolveBorderColor(bool pressed, bool hovered) {
       if (engaged) return theme.activeBorderColor;
+      if (widget.isFnActive && _model.hasFnMapping) {
+        return theme.ledActiveColor.withValues(alpha: 0.75);
+      }
       if (isAccent) return theme.accentKeyBorderColor;
       if (isDanger) return theme.dangerKeyBorderColor;
       if (pressed || hovered) {
@@ -408,6 +413,44 @@ class _VirtualKeyButtonState extends State<VirtualKeyButton> {
             : (_model.id == 'num_lock' && widget.isNumLockActive
                 ? theme.ledActiveColor
                 : theme.textColor));
+
+    // Active Fn-layer keycap visualization (`F1`–`F12`, `Esc`, `Del`, arrows, nav).
+    if (widget.isFnActive && _model.hasFnMapping) {
+      return FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (_model.fnIcon != null)
+              Icon(
+                _model.fnIcon,
+                size: (baseFont * 1.1).clamp(12.0, 20.0),
+                color: theme.ledActiveColor,
+              )
+            else if (_model.fnLabel != null)
+              Text(
+                _model.fnLabel!,
+                style: TextStyle(
+                  fontSize: specialFont,
+                  fontWeight: FontWeight.w700,
+                  color: _model.fnAction == VirtualKeyAction.delete
+                      ? theme.dangerTextColor
+                      : theme.ledActiveColor,
+                ),
+              ),
+            const SizedBox(height: 1),
+            Text(
+              _model.label,
+              style: TextStyle(
+                fontSize: (subFont * 0.8).clamp(7.5, 11.0),
+                height: 1.0,
+                color: theme.secondaryTextColor.withValues(alpha: 0.75),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
 
     // Spacebar with subtle centered text + horizontal grip bar.
     if (_model.type == KeyType.space) {

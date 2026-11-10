@@ -200,6 +200,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   final FocusNode _desktopFocusNode = FocusNode();
   String _desktopLastEvent = 'None';
   bool _desktopShowFnRow = true;
+  bool _desktopIsFullWidth = true;
+  KeyboardLayoutType _desktopLayoutType = KeyboardLayoutType.layout100;
 
   // Custom layout definition (Math & Scientific symbols example)
   static final KeyboardLayout _customLayout = KeyboardLayout(
@@ -1946,10 +1948,39 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                   ),
                   const SizedBox(width: 12),
                   FilterChip(
+                    label: const Text('Full Width'),
+                    selected: _desktopIsFullWidth,
+                    onSelected: (v) => setState(() => _desktopIsFullWidth = v),
+                  ),
+                  const SizedBox(width: 8),
+                  FilterChip(
                     label: const Text('Function Row'),
                     selected: _desktopShowFnRow,
                     onSelected: (v) => setState(() => _desktopShowFnRow = v),
                   ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Text(
+                    'Form Factor:',
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.white70 : Colors.black87,
+                    ),
+                  ),
+                  for (final preset in KeyboardLayoutType.values)
+                    ChoiceChip(
+                      label: Text(preset.label),
+                      selected: _desktopLayoutType == preset,
+                      onSelected: (_) =>
+                          setState(() => _desktopLayoutType = preset),
+                    ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -2093,6 +2124,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
         ),
         // Edge-to-Edge Full-Width Responsive Desktop Virtual Keyboard
         DesktopFullKeyboard(
+          layoutType: _desktopLayoutType,
+          isFullWidth: _desktopIsFullWidth,
           controller: controller,
           themeData: desktopTheme,
           showFunctionRow: _desktopShowFnRow,
