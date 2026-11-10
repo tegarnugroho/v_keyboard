@@ -1,3 +1,21 @@
+## 0.3.5
+
+- **Large & High-Resolution Display Scaling (24", 27", 32" POS / Kiosk / Desktop Monitors)**:
+  - Replaced the hardcoded `54.0px` row height ceiling in `KeyboardMetrics.desktopBaselineHeight`, `DesktopFullKeyboard`, and `KeyboardMetrics.resolve` with dynamic viewport scaling up to `92.0px` on screens with height $\ge 900$px (1080p, 1440p, 4K), preventing keys from squishing into thin horizontal ribbons on large displays.
+  - Increased the default desktop baseline height to ~400px–480px (~38%–44% of a 1080p display) for comfortable touch targets and well-proportioned keycaps in retail POS, kiosk, and desktop environments.
+  - Proportional 6-row layouts with Function row (`layout75`, `layout87TKL`, `layout98`, `layout100`) scale harmoniously from the shared desktop baseline (`scaled = baseline * (6.0 / 5.0)`).
+  - Increased `KeyboardView` row height ceiling to `120.0px` and `DesktopFullKeyboard` key font size clamp to `26.0px`.
+- **Touch-Friendly Numeric & Compact Layout Sizing on Wide Displays**:
+  - Automatically expanded the default maximum width for compact layouts (`VKeyboardType.number`, `pin`, `decimal`, `phone`) on wide displays ($\ge 1200$px width) from `360.0px` to `480.0px`, providing large, comfortable number keys for cashier and kiosk workflows.
+- **Custom Sizing & Geometry Controls in `VKeyboardConfig`**:
+  - Added `keyboardHeight`: Explicit fixed keyboard content height in logical pixels overriding dynamic fraction and row-height calculations.
+  - Added `keyboardHeightFactor`: Fraction of total viewport height (e.g. `0.40` for 40%) occupied by the keyboard.
+  - Added `minKeyboardHeight` & `maxKeyboardHeight`: Explicit lower and upper bounds for keyboard content height.
+  - Added `keyHeight`: Preferred individual key row height in logical pixels.
+  - Added `maxKeyboardWidth`: Upper bound on keyboard content width; centers the keyboard horizontally when the window is wider.
+  - Added `numericPadMaxWidth`: Upper bound for numeric and compact keyboards (defaults to `480.0px` on wide screens).
+  - Added `height` and `keyHeight` properties to `DesktopFullKeyboard` widget for standalone usage.
+
 ## 0.3.4
 
 - **Consistent Keyboard Height Across Layouts (`KeyboardMetrics.desktopBaselineHeight`)**:

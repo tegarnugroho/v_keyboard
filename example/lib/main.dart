@@ -404,18 +404,31 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Column 1: Left Sidebar
-                        if (_isSidebarVisible) ...[
-                          SizedBox(
-                            width: effectiveSidebarWidth,
-                            child: _buildSidebar(isDark, cardBg, borderColor),
+                        // Column 1: Animated Left Sidebar
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 240),
+                          curve: Curves.easeInOutCubic,
+                          width: effectiveSidebarWidth,
+                          child: ClipRect(
+                            child: OverflowBox(
+                              minWidth: 260.0,
+                              maxWidth: 260.0,
+                              alignment: Alignment.topLeft,
+                              child: _buildSidebar(isDark, cardBg, borderColor),
+                            ),
                           ),
-                          const SizedBox(width: 16.0),
-                        ],
+                        ),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 240),
+                          curve: Curves.easeInOutCubic,
+                          width: effectiveGap,
+                        ),
 
                         // Column 2: Center Content Panel
                         if (showPreview)
-                          SizedBox(
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 240),
+                            curve: Curves.easeInOutCubic,
                             width: leftWidth,
                             child: Container(
                               decoration: BoxDecoration(
@@ -693,6 +706,43 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                     ),
                   );
                 }).toList(),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Tooltip(
+            message: isDark ? 'Switch to light mode' : 'Switch to dark mode',
+            child: InkWell(
+              borderRadius: BorderRadius.circular(6),
+              onTap: () => widget.onToggleDarkMode(!isDark),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: isDark ? const Color(0xFF1E2433) : const Color(0xFFE2E8F0),
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(
+                    color: isDark ? const Color(0xFF283145) : const Color(0xFFCBD5E1),
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                      size: 14,
+                      color: isDark ? const Color(0xFFFFD166) : const Color(0xFF475569),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      isDark ? 'Light' : 'Dark',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        color: isDark ? Colors.white70 : Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -1954,47 +2004,50 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(24, 16, 24, 12),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Full Desktop Keyboard (OSK Style)',
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Edge-to-edge 100% full-size ANSI desktop grid with Function row, Navigation cluster, and Numpad.',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: isDark ? Colors.white60 : Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              FilterChip(
+                label: const Text('Full Width'),
+                selected: _desktopIsFullWidth,
+                onSelected: (v) => setState(() => _desktopIsFullWidth = v),
+              ),
+              const SizedBox(width: 8),
+              FilterChip(
+                label: const Text('Function Row'),
+                selected: _desktopShowFnRow,
+                onSelected: (v) => setState(() => _desktopShowFnRow = v),
+              ),
+            ],
+          ),
+        ),
+        const Divider(height: 1),
         Expanded(
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+            padding: const EdgeInsets.fromLTRB(24, 12, 24, 16),
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Full Desktop Keyboard (OSK Style)',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Edge-to-edge 100% full-size ANSI desktop grid with Function row, Navigation cluster, and Numpad.',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: isDark ? Colors.white60 : Colors.black54,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  FilterChip(
-                    label: const Text('Full Width'),
-                    selected: _desktopIsFullWidth,
-                    onSelected: (v) => setState(() => _desktopIsFullWidth = v),
-                  ),
-                  const SizedBox(width: 8),
-                  FilterChip(
-                    label: const Text('Function Row'),
-                    selected: _desktopShowFnRow,
-                    onSelected: (v) => setState(() => _desktopShowFnRow = v),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
                 runSpacing: 8,

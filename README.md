@@ -108,7 +108,7 @@ Or add it manually under dependencies:
 
 ```yaml
 dependencies:
-  flutter_v_keyboard: ^0.3.4
+  flutter_v_keyboard: ^0.3.5
 ```
 
 ---
@@ -324,7 +324,7 @@ VKeyboardScope(
 
 ### Runtime Configuration
 
-Adjust keyboard behavior and clipboard limits through `VKeyboardConfig`:
+Adjust keyboard behavior, dimensions, and clipboard limits through `VKeyboardConfig`:
 
 ```dart
 VKeyboardScope(
@@ -336,6 +336,11 @@ VKeyboardScope(
     enableKeyRepeat: true,
     enableClipboardHistory: true,
     maxClipboardHistoryItems: 50,
+    // Optional sizing customization (ideal for large monitors / POS terminals):
+    keyboardHeight: 450.0,            // Fixed keyboard height in logical pixels
+    keyboardHeightFactor: 0.40,       // Or ratio of total screen height (e.g. 40%)
+    numericPadMaxWidth: 480.0,        // Max width for numeric/PIN pads (defaults to 480 on wide screens)
+    maxKeyboardWidth: 1200.0,         // Max width to prevent excessive stretching on ultrawide monitors
   ),
   child: child!,
 );
