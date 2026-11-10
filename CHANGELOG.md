@@ -1,3 +1,18 @@
+## 0.3.2
+
+- **`DesktopFullKeyboard` Widget (Edge-to-Edge Responsive Desktop OSK)**:
+  - Added the edge-to-edge desktop virtual keyboard widget powered by proportional `Expanded(flex: N)` keycaps and `LayoutBuilder` height/typography scaling from narrow windows (`480x800`) to ultrawide & 4K monitors (`3440x1440`, `3840x2160`).
+  - Added 6 hardware form-factor presets via `KeyboardLayoutType`: `layout60` (pure alphanumeric + `Fn` layer for F-keys, Delete, and arrows), `layout65`, `layout75`, `layout87TKL`, `layout98` (1800-compact with zero inter-cluster gap), and `layout100` (Full-Size with Main `15u`, Navigation `3u`, and 4-column Numpad `4u`).
+  - Exposed modular building blocks (`KeyModel`, `KeyType`, `VirtualKeyAction`, `DesktopFullLayoutData`, `VirtualKeyButton`, and `DesktopKeyboardThemeData` with `.dark()`, `.light()`, and `.fromVKeyboardTheme()` presets).
+  - Supports LED status indicators (`FN`, `CAPS`, `NUM`), key-repeat, hover/press visual feedback, `isFullWidth` / `maxWidth` / `maxKeyboardHeightRatio` constraints, `onKeyPressed`, `onSpecialKeyPressed`, `onShortcutTriggered`, and optional `VKeyboardController` / `VKeyboardScope` binding.
+- **Windows & macOS Desktop Conventions (`DesktopKeyboardPlatform`)**:
+  - Switch between `DesktopKeyboardPlatform.windows` (`Ctrl`, `Win`, `Alt`, `AltGr`, `Menu`, `Backspace`, `Enter`, `PrtSc`, `Num`) and `DesktopKeyboardPlatform.macos` (`fn`, `⌃ control`, `⌥ option`, `⌘ command`, `delete`, `return`, `F13`–`F15`, `clear`) via `platform`, `showPlatformToggle`, and `onPlatformChanged`.
+  - Dispatches macOS `Cmd+A/C/X/V` clipboard shortcuts alongside standard `Ctrl`/`Alt`/`Shift` shortcut combos.
+- **Multi-Language Desktop Layouts & CJK IME Integration**:
+  - Enabled all 15 built-in locales (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`, `ko_KR`, `ja_JP`, `zh_CN`, `zh_TW`, `th_TH`, `vi_VN`) across all 6 form-factor presets (`60%`–`100%`) and both OS platforms, including `AltGr` mappings and Unicode cased Shift/CapsLock support.
+  - Added a taskbar/menubar-style `🌐` locale picker pill (`showLocaleSelector`, `availableLayouts`, `layoutId`, `onLayoutChanged`) with a 2-column desktop selector modal and IME hints, plus active locale Spacebar labels and Spacebar long-press language switching.
+  - Integrated automatic `CandidateBar` rendering (`showCandidateBar`) for `zh_CN` (Pinyin), `zh_TW` (Zhuyin), and `ja_JP` (Kana) composition alongside `ko_KR` Hangul and `vi_VN` Telex when connected to `VKeyboardController` / `VTextField`.
+
 ## 0.3.1
 
 - **Fix: layout picker did nothing when `VKeyboardScope` sits in `MaterialApp.builder`**:
