@@ -76,12 +76,13 @@ Production-ready clipboard history integrated directly into the virtual keyboard
 - **Custom**: Declarative layout definition and global layout registry (`VKeyboardLayouts`).
 
 ### Desktop Experience
-- Windows On-Screen Keyboard style layout with function keys (F1–F12) and numpad.
-- Full modifier handling: Shift, Ctrl, Alt, AltGr, Meta, Caps Lock, Num Lock, and Scroll Lock.
-- Navigation clusters: Arrow keys, Home, End, Page Up, and Page Down.
-- Word-by-word navigation (`Ctrl + Arrow`) and word deletion (`Ctrl + Backspace`).
-- Hardware keyboard fallback on desktop and web targets.
-- Desktop shortcut registration via `VKeyboardShortcuts`.
+- Edge-to-edge proportional Desktop On-Screen Keyboard (`DesktopFullKeyboard`) powered by dynamic `Expanded(flex: N)` sizing from compact windows to ultrawide and 4K monitors.
+- **6 Hardware Form-Factor Presets** (`KeyboardLayoutType`): `layout60` (`Fn` layer), `layout65`, `layout75`, `layout87TKL`, `layout98` (1800-compact), and `layout100` (Full-Size).
+- **Windows & macOS Conventions** (`DesktopKeyboardPlatform`): Live OS switcher between Windows (`Ctrl`, `Win`, `AltGr`, `Menu`, `PrtSc`, `Num`) and macOS (`fn`, `⌃ control`, `⌥ option`, `⌘ command`, `F13`–`F15`, `clear`) with `Ctrl` and `Cmd+A/C/X/V` shortcuts.
+- **Multi-Language Desktop & CJK IME**: Switch across all 15 built-in locales from the header `🌐` pill or Spacebar long-press, with automatic `CandidateBar` support for Pinyin, Zhuyin, and Kana.
+- Full modifier & lock handling: Shift, Ctrl, Alt, AltGr, Meta/Cmd, Fn, Caps Lock, Num Lock, and Scroll Lock with status LEDs.
+- Navigation & Numpad clusters: Arrow keys (Inverted-T), Home, End, Page Up, Page Down, Insert, Delete, word navigation (`Ctrl + Arrow`), and word deletion (`Ctrl + Backspace`).
+- Hardware keyboard fallback on desktop and web targets, plus custom global shortcuts via `VKeyboardShortcuts`.
 
 ### Clipboard History
 - Automatic recording of copied and cut text snippets within the virtual keyboard pipeline.
@@ -390,9 +391,75 @@ KeyData.custom(
 );
 ```
 
-### Desktop Keyboard and Shortcuts
+### Desktop Keyboard & Form Factors
 
-Render a full physical keyboard layout with `VKeyboardType.desktop` and bind custom global shortcuts with `VKeyboardShortcuts`:
+`flutter_v_keyboard` supports both an overlay desktop keyboard via `VKeyboardType.desktop` and the edge-to-edge `DesktopFullKeyboard` widget with 6 physical form-factor presets.
+
+#### Form-Factor Presets (`KeyboardLayoutType`)
+
+| Preset | Label | Rows / Width | Layout & Key Features |
+| :--- | :--- | :--- | :--- |
+| `KeyboardLayoutType.layout60` | `60% Compact` | 5 rows (`15u`) | Pure number + alphanumeric cluster with `Fn` layer for `Esc`, `F1`–`F12`, `Del`, navigation, and `W`/`A`/`S`/`D` arrows |
+| `KeyboardLayoutType.layout65` | `65% Compact` | 5 rows (`16u`) | Number row + alphanumeric + right 1-column navigation strip (`Del`, `PgUp`, `PgDn`, `Home`) + integrated arrows |
+| `KeyboardLayoutType.layout75` | `75% Compact` | 6 rows (`16u`) | Top F-row + right 1-column navigation strip + arrows tucked cleanly under Right Shift (no Numpad) |
+| `KeyboardLayoutType.layout87TKL` | `87% TKL` | 6 rows (`18u`) | Tenkeyless layout with full alphanumeric, F-row, 3×2 navigation cluster, and Inverted-T arrows (no Numpad) |
+| `KeyboardLayoutType.layout98` | `98% Compact` | 6 rows (`19u`) | Compact 1800-style layout with zero inter-cluster gap, tucked arrows, and 4-column Numpad |
+| `KeyboardLayoutType.layout100` | `100% Full-Size` | 6 rows (`22u`) | Full desktop ANSI grid: Alphanumeric (`15u`) + Navigation (`3u`) + 4-column Numpad (`4u`) |
+
+#### 1. Automatic via `VKeyboardScope` (`desktopFormFactor`)
+
+Set `desktopFormFactor` in `VKeyboardConfig` to automatically render `DesktopFullKeyboard` whenever a `VTextField(keyboardType: VKeyboardType.desktop)` gains focus:
+
+```dart
+VKeyboardScope(
+  config: const VKeyboardConfig(
+    desktopFormFactor: KeyboardLayoutType.layout87TKL,
+    enabledLocales: VKeyboardLocale.values,
+  ),
+  child: child!,
+);
+
+// Inside a page:
+VTextField(
+  controller: _desktopTextController,
+  keyboardType: VKeyboardType.desktop,
+);
+```
+
+When `desktopFormFactor` is `null` (default), `VKeyboardScope` renders the built-in OSK desktop grid via `KeyboardView`.
+
+#### 2. Embedded or Standalone `DesktopFullKeyboard`
+
+Embed `DesktopFullKeyboard` directly inside any desktop page (with optional `VKeyboardController` binding, or standalone using key callbacks):
+
+```dart
+DesktopFullKeyboard(
+  layoutType: KeyboardLayoutType.layout100,
+  platform: DesktopKeyboardPlatform.fromTargetPlatform(Theme.of(context).platform),
+  layoutId: 'en_US', // Switchable at runtime across all 15 built-in locales
+  isFullWidth: true, // Stretches edge-to-edge across the monitor; set false for natural width
+  maxWidth: 1200, // Optional width cap for compact presets on ultrawide monitors
+  showNumpad: true,
+  showFunctionRow: true,
+  showPlatformToggle: true, // Shows live [Windows | macOS] switcher in header
+  showLocaleSelector: true, // Shows 🌐 picker pill in header + Spacebar long-press
+  showCandidateBar: true, // Auto-renders CJK CandidateBar when composing with VKeyboardController
+  themeData: DesktopKeyboardThemeData.dark(), // Also supports .light() and .fromVKeyboardTheme(...)
+  controller: controller, // Optional: links directly to VTextField & IME engines
+  onPlatformChanged: (os) => debugPrint('OS switched: $os'),
+  onLayoutChanged: (id) => debugPrint('Locale switched: $id'),
+  onKeyPressed: (key) => debugPrint('Typed: $key'),
+  onSpecialKeyPressed: (action) => debugPrint('Action: $action'),
+  onShortcutTriggered: (combo) => debugPrint('Shortcut: $combo'), // e.g. Ctrl+A, Cmd+Shift+Z
+);
+```
+
+- **Windows vs macOS (`DesktopKeyboardPlatform`)**: Switch between `DesktopKeyboardPlatform.windows` (`Ctrl`, `Win`, `Alt`, `AltGr`, `Menu`, `Backspace`, `Enter`, `PrtSc`, `Num`) and `DesktopKeyboardPlatform.macos` (`fn`, `⌃ control`, `⌥ option`, `⌘ command`, `delete`, `return`, `F13`–`F15`, `clear`). Built-in shortcuts include `Ctrl+...` and `Cmd+A/C/X/V`.
+- **Edge-to-Edge & Ultrawide Sizing**: Every key uses `Expanded(flex: N)` proportional units, while `maxKeyboardHeightRatio` (default `0.38`) bounds vertical height cleanly on 1080p, 1440p, and 4K screens.
+
+#### Desktop Shortcuts (`VKeyboardShortcuts`)
+
+Bind custom global shortcuts and OS-level key callbacks for desktop targets:
 
 ```dart
 VKeyboardShortcuts(
@@ -403,6 +470,7 @@ VKeyboardShortcuts(
   },
   onMedia: (intent) => debugPrint('Media key: $intent'),
   onMetaKey: () => debugPrint('Meta / Windows key tapped'),
+  onMenuKey: () => debugPrint('Context menu key tapped'),
   child: child!,
 );
 ```
@@ -431,7 +499,9 @@ VTextField(
 | `VKeyboardController` | Coordinates keyboard state, page switches, active modifiers, and clipboard history. |
 | `KeyboardSession` | Links the focused `VTextField` to the controller, synchronizing selection and cursor updates. |
 | `TextInputEngine` | Core text manipulation engine handling insertions, deletions, formatters, and length constraints. |
-| `KeyboardView` | Computes responsive layout metrics and renders keys with per-key repaint boundaries. |
+| `KeyboardView` | Computes responsive layout metrics and renders mobile/compact keys with per-key repaint boundaries. |
+| `DesktopFullKeyboard` | Renders edge-to-edge proportional desktop presets (`60%`–`100%`) with Windows/macOS conventions and desktop locale switching. |
+| `CandidateBar` | Displays live offline IME candidate suggestions (`zh_CN`, `zh_TW`, `ja_JP`) above the keyboard during CJK composition. |
 | `ClipboardHistoryManager` | Records snippets, enforces storage limits, handles pinning, and syncs with system clipboard. |
 | `VKeyboardTheme` | Defines visual colors, elevation, border radii, and system font fallback stacks. |
 | `VKeyboardConfig` | Controls runtime keyboard behavior flags and feature toggles. |
