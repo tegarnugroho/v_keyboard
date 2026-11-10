@@ -20,6 +20,8 @@ class VKeyboardTheme {
     required this.accentColor,
     Color? functionKeyColor,
     Color? modifierKeyColor,
+    Color? activeKeyColor,
+    Color? activeForegroundColor,
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.elevation = 0,
     this.shadowColor = const Color(0x33000000),
@@ -28,7 +30,12 @@ class VKeyboardTheme {
         const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
     this.keySpacing = 0,
   })  : functionKeyColor = functionKeyColor ?? specialKeyColor,
-        modifierKeyColor = modifierKeyColor ?? specialKeyColor;
+        modifierKeyColor = modifierKeyColor ?? specialKeyColor,
+        activeKeyColor = activeKeyColor ?? accentColor,
+        activeForegroundColor = activeForegroundColor ??
+            ((activeKeyColor ?? accentColor).computeLuminance() > 0.5
+                ? const Color(0xFF1F2937)
+                : Colors.white);
 
   /// Built-in light keyboard theme preset.
   factory VKeyboardTheme.light({
@@ -81,6 +88,16 @@ class VKeyboardTheme {
   /// Accent used for active modifiers, engaged locks and focus/hover hints.
   final Color accentColor;
 
+  /// Background color for actively engaged keys (e.g. active Shift, Caps Lock, held modifiers).
+  ///
+  /// Defaults to [accentColor].
+  final Color activeKeyColor;
+
+  /// Text and icon color for actively engaged keys.
+  ///
+  /// Defaults to [Colors.white] (or dark gray if [activeKeyColor] has high luminance).
+  final Color activeForegroundColor;
+
   /// Whether this theme is dark (based on background color luminance).
   bool get isDark => backgroundColor.computeLuminance() < 0.5;
 
@@ -103,6 +120,8 @@ class VKeyboardTheme {
     Color? functionKeyColor,
     Color? modifierKeyColor,
     Color? accentColor,
+    Color? activeKeyColor,
+    Color? activeForegroundColor,
     Color? disabledKeyColor,
     TextStyle? textStyle,
     TextStyle? subLabelStyle,
@@ -122,6 +141,9 @@ class VKeyboardTheme {
       functionKeyColor: functionKeyColor ?? this.functionKeyColor,
       modifierKeyColor: modifierKeyColor ?? this.modifierKeyColor,
       accentColor: accentColor ?? this.accentColor,
+      activeKeyColor: activeKeyColor ?? this.activeKeyColor,
+      activeForegroundColor:
+          activeForegroundColor ?? this.activeForegroundColor,
       disabledKeyColor: disabledKeyColor ?? this.disabledKeyColor,
       textStyle: textStyle ?? this.textStyle,
       subLabelStyle: subLabelStyle ?? this.subLabelStyle,
@@ -166,6 +188,10 @@ class VKeyboardTheme {
           isDark ? const Color(0xFF2A2A30) : const Color(0xFFADB3BD),
       disabledKeyColor: surfaceColor.withValues(alpha: 0.12),
       accentColor: accentColor,
+      activeKeyColor: accentColor,
+      activeForegroundColor: accentColor.computeLuminance() > 0.5
+          ? const Color(0xFF1F2937)
+          : Colors.white,
       functionKeyColor:
           isDark ? const Color(0xFF26262B) : const Color(0xFFBCC1CB),
       modifierKeyColor:

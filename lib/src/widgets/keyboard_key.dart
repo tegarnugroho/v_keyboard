@@ -287,8 +287,7 @@ class _VirtualKeyState extends State<VirtualKey> {
     final enabled = _isEnabled;
     final engaged = _isEngaged;
     Color baseColor = engaged
-        ? Color.alphaBlend(
-            theme.accentColor.withValues(alpha: 0.35), theme.keyColor)
+        ? theme.activeKeyColor
         : _baseColor(theme);
     if (!enabled) {
       baseColor = baseColor.withValues(alpha: 0.5);
@@ -339,7 +338,13 @@ class _VirtualKeyState extends State<VirtualKey> {
                   return ValueListenableBuilder<bool>(
                     valueListenable: _hovered,
                     builder: (context, hovered, _) {
-                      Color color = pressed ? theme.pressedKeyColor : baseColor;
+                      Color color = pressed
+                          ? (engaged
+                              ? Color.alphaBlend(
+                                  Colors.black.withValues(alpha: 0.2),
+                                  theme.activeKeyColor)
+                              : theme.pressedKeyColor)
+                          : baseColor;
                       if (!pressed && hovered && enabled) {
                         color = Color.alphaBlend(
                             theme.accentColor.withValues(alpha: 0.12), color);
@@ -382,7 +387,8 @@ class _VirtualKeyState extends State<VirtualKey> {
 
   Widget _buildContent(VKeyboardTheme theme, bool engaged) {
     final enabled = _isEnabled;
-    final baseIconColor = engaged ? theme.accentColor : theme.iconColor;
+    final baseIconColor =
+        engaged ? theme.activeForegroundColor : theme.iconColor;
     final iconColor =
         enabled ? baseIconColor : baseIconColor.withValues(alpha: 0.38);
 
@@ -420,6 +426,15 @@ class _VirtualKeyState extends State<VirtualKey> {
     final shifted = _controller.isShiftedForKey(_data);
     final label = _data.resolveLabel(shifted: shifted) ?? _data.label ?? '';
 
+    final textStyle = engaged
+        ? theme.textStyle.copyWith(color: theme.activeForegroundColor)
+        : theme.textStyle;
+    final subLabelStyle = engaged
+        ? theme.subLabelStyle.copyWith(
+            color: theme.activeForegroundColor.withValues(alpha: 0.8),
+          )
+        : theme.subLabelStyle;
+
     if (_data.subLabel != null) {
       // Scale down so the two-line label always fits short keys (no overflow).
       return FittedBox(
@@ -427,8 +442,8 @@ class _VirtualKeyState extends State<VirtualKey> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(label, style: theme.textStyle),
-            Text(_data.subLabel!, style: theme.subLabelStyle),
+            Text(label, style: textStyle),
+            Text(_data.subLabel!, style: subLabelStyle),
           ],
         ),
       );
@@ -446,11 +461,10 @@ class _VirtualKeyState extends State<VirtualKey> {
       maxLines: 1,
       overflow: TextOverflow.fade,
       softWrap: false,
-      style: theme.textStyle.copyWith(
+      style: textStyle.copyWith(
         fontSize: fontSize,
         fontWeight: fontWeight,
         letterSpacing: isWordKey ? -0.2 : 0.1,
-        color: engaged ? theme.accentColor : null,
       ),
     );
   }
