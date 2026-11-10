@@ -21,6 +21,9 @@ class DesktopFullKeyboard extends StatefulWidget {
   const DesktopFullKeyboard({
     super.key,
     this.layoutType = KeyboardLayoutType.layout100,
+    this.platform = DesktopKeyboardPlatform.windows,
+    this.showPlatformToggle = true,
+    this.onPlatformChanged,
     this.themeData,
     this.showNumpad = true,
     this.showFunctionRow = true,
@@ -41,6 +44,18 @@ class DesktopFullKeyboard extends StatefulWidget {
   /// Physical layout form-factor preset (`layout60`, `layout65`, `layout75`,
   /// `layout87TKL`, `layout98`, `layout100`). Defaults to [KeyboardLayoutType.layout100].
   final KeyboardLayoutType layoutType;
+
+  /// Hardware OS layout convention (`windows` or `macos`). Defaults to
+  /// [DesktopKeyboardPlatform.windows]. Users can also switch live via the
+  /// header toggle when [showPlatformToggle] is true.
+  final DesktopKeyboardPlatform platform;
+
+  /// Whether to render a compact `[Win | Mac]` OS toggle chip inside the
+  /// status header bar when [showHeader] is true. Defaults to `true`.
+  final bool showPlatformToggle;
+
+  /// Invoked when the user switches the platform preset via the header toggle.
+  final ValueChanged<DesktopKeyboardPlatform>? onPlatformChanged;
 
   /// Visual theme data for background, keycaps, borders, and active LEDs.
   /// Defaults to [DesktopKeyboardThemeData.dark()].
@@ -107,6 +122,7 @@ class DesktopFullKeyboard extends StatefulWidget {
 
 class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
   late bool _showNumpad = widget.showNumpad;
+  late DesktopKeyboardPlatform _platform = widget.platform;
   bool _isShiftActive = false;
   late bool _isCapsLockActive = widget.initialCapsLock;
   late bool _isNumLockActive = widget.initialNumLock;
@@ -131,6 +147,9 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     super.didUpdateWidget(oldWidget);
     if (widget.showNumpad != oldWidget.showNumpad) {
       _showNumpad = widget.showNumpad;
+    }
+    if (widget.platform != oldWidget.platform) {
+      _platform = widget.platform;
     }
     if (widget.controller != oldWidget.controller) {
       oldWidget.controller?.modifiers.removeListener(_syncFromController);
@@ -171,9 +190,12 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       VirtualKeyAction.numLock => _isNumLockActive,
       VirtualKeyAction.scrollLock => _isScrollLockActive,
       VirtualKeyAction.leftCtrl || VirtualKeyAction.rightCtrl => _isCtrlActive,
-      VirtualKeyAction.leftAlt => _isAltActive,
+      VirtualKeyAction.leftAlt || VirtualKeyAction.rightOption => _isAltActive,
       VirtualKeyAction.altGr => _isAltGrActive,
-      VirtualKeyAction.winSuper => _isWinActive,
+      VirtualKeyAction.winSuper ||
+      VirtualKeyAction.leftCommand ||
+      VirtualKeyAction.rightCommand =>
+        _isWinActive,
       VirtualKeyAction.fn => _isFnActive,
       _ => false,
     };
@@ -242,7 +264,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       return;
     }
 
-    // 4. Check for shortcut combo (Ctrl / Alt / Win held + target key).
+    // 4. Check for shortcut combo (Ctrl / Alt / Win / Cmd held + target key).
     if (_hasShortcutModifier) {
       final shortcutToken =
           key.shortcutKey ?? key.value?.toUpperCase() ?? key.label;
@@ -250,9 +272,29 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       widget.onShortcutTriggered?.call(combo);
 
       if (controller != null) {
-        final keyData = key.toKeyData();
-        if (keyData != null) {
-          controller.handleKey(keyData);
+        final isMacPureCmd = _platform == DesktopKeyboardPlatform.macos &&
+            _isWinActive &&
+            !_isCtrlActive &&
+            !_isAltActive &&
+            !_isShiftActive;
+        final lowerChar = key.value?.toLowerCase();
+        if (isMacPureCmd &&
+            (lowerChar == 'a' ||
+                lowerChar == 'c' ||
+                lowerChar == 'x' ||
+                lowerChar == 'v')) {
+          final intent = switch (lowerChar) {
+            'a' => ClipboardIntent.selectAll,
+            'c' => ClipboardIntent.copy,
+            'x' => ClipboardIntent.cut,
+            _ => ClipboardIntent.paste,
+          };
+          controller.handleKey(KeyData.clipboard(intent));
+        } else {
+          final keyData = key.toKeyData();
+          if (keyData != null) {
+            controller.handleKey(keyData);
+          }
         }
       }
       _clearMomentaryModifiers();
@@ -338,10 +380,13 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
         case VirtualKeyAction.rightCtrl:
           _isCtrlActive = !_isCtrlActive;
         case VirtualKeyAction.leftAlt:
+        case VirtualKeyAction.rightOption:
           _isAltActive = !_isAltActive;
         case VirtualKeyAction.altGr:
           _isAltGrActive = !_isAltGrActive;
         case VirtualKeyAction.winSuper:
+        case VirtualKeyAction.leftCommand:
+        case VirtualKeyAction.rightCommand:
           _isWinActive = !_isWinActive;
         default:
           break;
@@ -369,10 +414,11 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
   }
 
   String _buildShortcutCombo(String target) {
+    final isMac = _platform == DesktopKeyboardPlatform.macos;
     final parts = <String>[
       if (_isCtrlActive) 'Ctrl',
-      if (_isWinActive) 'Win',
-      if (_isAltActive) 'Alt',
+      if (_isWinActive) (isMac ? 'Cmd' : 'Win'),
+      if (_isAltActive) (isMac ? 'Opt' : 'Alt'),
       if (_isShiftActive) 'Shift',
       target,
     ];
@@ -638,7 +684,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required double keyMargin,
   }) {
     return _buildUnifiedRows(
-      DesktopFullLayoutData.layout60Rows(),
+      DesktopFullLayoutData.layout60Rows(platform: _platform),
       theme: theme,
       baseFontSize: baseFontSize,
       keyMargin: keyMargin,
@@ -652,7 +698,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required double keyMargin,
   }) {
     return _buildUnifiedRows(
-      DesktopFullLayoutData.layout65Rows(),
+      DesktopFullLayoutData.layout65Rows(platform: _platform),
       theme: theme,
       baseFontSize: baseFontSize,
       keyMargin: keyMargin,
@@ -667,7 +713,10 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required bool includeFnRow,
   }) {
     return _buildUnifiedRows(
-      DesktopFullLayoutData.layout75Rows(includeFunctionRow: includeFnRow),
+      DesktopFullLayoutData.layout75Rows(
+        platform: _platform,
+        includeFunctionRow: includeFnRow,
+      ),
       theme: theme,
       baseFontSize: baseFontSize,
       keyMargin: keyMargin,
@@ -727,7 +776,9 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           flex: 15,
           child: _buildUnifiedRows(
             DesktopFullLayoutData.layout98MainRows(
-                includeFunctionRow: includeFnRow),
+              platform: _platform,
+              includeFunctionRow: includeFnRow,
+            ),
             theme: theme,
             baseFontSize: baseFontSize,
             keyMargin: keyMargin,
@@ -804,7 +855,8 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required bool canShowNumpad,
     required bool effectiveShowNumpad,
   }) {
-    final showSubtitle = availW >= 820;
+    final showSubtitle = availW >= 920;
+    final showPlatformBar = widget.showPlatformToggle && availW >= 620;
     final showNumpadToggle = widget.layoutType.hasNumpad && canShowNumpad;
     final showFnLed = _isFnActive || widget.layoutType.hasFnLayer;
 
@@ -855,6 +907,62 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           ),
         ),
         const SizedBox(width: 8),
+        if (showPlatformBar) ...[
+          Container(
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              color: theme.specialKeyColor,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: theme.keyBorderColor),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (final os in DesktopKeyboardPlatform.values)
+                  InkWell(
+                    key: ValueKey('dk_os_${os.name}'),
+                    onTap: () {
+                      if (_platform == os) return;
+                      setState(() => _platform = os);
+                      widget.onPlatformChanged?.call(os);
+                    },
+                    borderRadius: BorderRadius.circular(4),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 120),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: _platform == os
+                            ? theme.activeKeyColor
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(4),
+                        border: _platform == os
+                            ? Border.all(
+                                color: theme.activeBorderColor
+                                    .withValues(alpha: 0.7),
+                                width: 0.8,
+                              )
+                            : null,
+                      ),
+                      child: Text(
+                        os.label,
+                        style: TextStyle(
+                          fontSize: 10.5,
+                          fontWeight: FontWeight.w600,
+                          color: _platform == os
+                              ? theme.activeTextColor
+                              : theme.headerSubtitleColor,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
         if (showNumpadToggle)
           Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -1031,37 +1139,37 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       children: [
         if (includeFnRow)
           _buildRow(
-            DesktopFullLayoutData.functionRow(),
+            DesktopFullLayoutData.functionRow(platform: _platform),
             theme: theme,
             baseFontSize: baseFontSize,
             keyMargin: keyMargin,
           ),
         _buildRow(
-          DesktopFullLayoutData.numberRow(),
+          DesktopFullLayoutData.numberRow(platform: _platform),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
         _buildRow(
-          DesktopFullLayoutData.topAlphaRow(),
+          DesktopFullLayoutData.topAlphaRow(platform: _platform),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
         _buildRow(
-          DesktopFullLayoutData.homeAlphaRow(),
+          DesktopFullLayoutData.homeAlphaRow(platform: _platform),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
         _buildRow(
-          DesktopFullLayoutData.bottomAlphaRow(),
+          DesktopFullLayoutData.bottomAlphaRow(platform: _platform),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
         _buildRow(
-          DesktopFullLayoutData.bottomControlRow(),
+          DesktopFullLayoutData.bottomControlRow(platform: _platform),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
@@ -1081,19 +1189,19 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       children: [
         if (includeFnRow)
           _buildRow(
-            DesktopFullLayoutData.navSystemRow(),
+            DesktopFullLayoutData.navSystemRow(platform: _platform),
             theme: theme,
             baseFontSize: baseFontSize,
             keyMargin: keyMargin,
           ),
         _buildRow(
-          DesktopFullLayoutData.navTopEditRow(),
+          DesktopFullLayoutData.navTopEditRow(platform: _platform),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
         _buildRow(
-          DesktopFullLayoutData.navBottomEditRow(),
+          DesktopFullLayoutData.navBottomEditRow(platform: _platform),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
@@ -1198,7 +1306,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildRow(
-          DesktopFullLayoutData.numpadTopRow(),
+          DesktopFullLayoutData.numpadTopRow(platform: _platform),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
@@ -1226,13 +1334,13 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       children: [
         if (includeUtilityRow)
           _buildRow(
-            DesktopFullLayoutData.layout98NumpadUtilityRow(),
+            DesktopFullLayoutData.layout98NumpadUtilityRow(platform: _platform),
             theme: theme,
             baseFontSize: baseFontSize,
             keyMargin: keyMargin,
           ),
         _buildRow(
-          DesktopFullLayoutData.numpadTopRow(),
+          DesktopFullLayoutData.numpadTopRow(platform: _platform),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,

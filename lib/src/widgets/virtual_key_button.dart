@@ -459,22 +459,58 @@ class _VirtualKeyButtonState extends State<VirtualKeyButton> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              _model.label,
-              style: TextStyle(
-                fontSize: (specialFont * 0.86).clamp(9.0, 13.0),
-                letterSpacing: 1.6,
-                fontWeight: FontWeight.w500,
-                color: theme.secondaryTextColor,
+            if (_model.label.isNotEmpty) ...[
+              Text(
+                _model.label,
+                style: TextStyle(
+                  fontSize: (specialFont * 0.86).clamp(9.0, 13.0),
+                  letterSpacing: 1.6,
+                  fontWeight: FontWeight.w500,
+                  color: theme.secondaryTextColor,
+                ),
               ),
-            ),
-            const SizedBox(height: 3),
+              const SizedBox(height: 3),
+            ],
             Container(
               width: 56,
               height: 1.5,
               decoration: BoxDecoration(
                 color: theme.secondaryTextColor.withValues(alpha: 0.45),
                 borderRadius: BorderRadius.circular(1),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // macOS modifier keycaps displaying symbol glyph (`⌘`, `⌥`, `⌃`) above label.
+    if (_model.hasModifierGlyph) {
+      return FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              _model.shiftLabel!,
+              style: TextStyle(
+                fontSize: (specialFont * 1.02).clamp(10.0, 16.0),
+                height: 1.05,
+                fontWeight: FontWeight.w500,
+                color: engaged
+                    ? theme.activeTextColor
+                    : theme.navigationIconColor.withValues(alpha: 0.9),
+              ),
+            ),
+            const SizedBox(height: 1),
+            Text(
+              _model.label,
+              style: TextStyle(
+                fontSize: (subFont * 0.92).clamp(8.0, 12.0),
+                height: 1.05,
+                fontWeight: FontWeight.w600,
+                color: primaryFg,
               ),
             ),
           ],

@@ -202,6 +202,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   bool _desktopShowFnRow = true;
   bool _desktopIsFullWidth = true;
   KeyboardLayoutType _desktopLayoutType = KeyboardLayoutType.layout100;
+  DesktopKeyboardPlatform _desktopPlatform = DesktopKeyboardPlatform.windows;
 
   // Custom layout definition (Math & Scientific symbols example)
   static final KeyboardLayout _customLayout = KeyboardLayout(
@@ -1981,6 +1982,21 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                       onSelected: (_) =>
                           setState(() => _desktopLayoutType = preset),
                     ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'OS:',
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.white70 : Colors.black87,
+                    ),
+                  ),
+                  for (final os in DesktopKeyboardPlatform.values)
+                    ChoiceChip(
+                      label: Text(os.label),
+                      selected: _desktopPlatform == os,
+                      onSelected: (_) => setState(() => _desktopPlatform = os),
+                    ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -2125,6 +2141,8 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
         // Edge-to-Edge Full-Width Responsive Desktop Virtual Keyboard
         DesktopFullKeyboard(
           layoutType: _desktopLayoutType,
+          platform: _desktopPlatform,
+          onPlatformChanged: (os) => setState(() => _desktopPlatform = os),
           isFullWidth: _desktopIsFullWidth,
           controller: controller,
           themeData: desktopTheme,

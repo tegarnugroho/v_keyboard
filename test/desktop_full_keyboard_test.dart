@@ -54,6 +54,26 @@ void main() {
             .fold<double>(0, (s, k) => s + k.flex),
         closeTo(4.0, 0.001),
       );
+
+      // Verify macOS variants maintain exact proportional flex sums across all presets
+      const mac = DesktopKeyboardPlatform.macos;
+      for (final row in DesktopFullLayoutData.layout60Rows(platform: mac)) {
+        expect(row.fold<double>(0, (s, k) => s + k.flex), closeTo(15.0, 0.001));
+      }
+      for (final row in DesktopFullLayoutData.layout65Rows(platform: mac)) {
+        expect(row.fold<double>(0, (s, k) => s + k.flex), closeTo(16.0, 0.001));
+      }
+      for (final row in DesktopFullLayoutData.layout75Rows(platform: mac)) {
+        expect(row.fold<double>(0, (s, k) => s + k.flex), closeTo(16.0, 0.001));
+      }
+      for (final row in DesktopFullLayoutData.layout98MainRows(platform: mac)) {
+        expect(row.fold<double>(0, (s, k) => s + k.flex), closeTo(15.0, 0.001));
+      }
+      expect(
+        DesktopFullLayoutData.layout98NumpadUtilityRow(platform: mac)
+            .fold<double>(0, (s, k) => s + k.flex),
+        closeTo(4.0, 0.001),
+      );
     });
 
     test('KeyModel.resolveOutput handles Shift XOR CapsLock correctly', () {
@@ -551,6 +571,107 @@ void main() {
 
       expect(textController.selection.baseOffset, 0);
       expect(textController.selection.extentOffset, 4);
+
+      vkController.dispose();
+      textController.dispose();
+      focusNode.dispose();
+    });
+
+    testWidgets('switches between Windows and macOS platform conventions cleanly',
+        (tester) async {
+      tester.view.physicalSize = const Size(1440, 900);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final shortcuts = <String>[];
+      final changedPlatforms = <DesktopKeyboardPlatform>[];
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: DesktopFullKeyboard(
+              platform: DesktopKeyboardPlatform.windows,
+              onPlatformChanged: changedPlatforms.add,
+              onShortcutTriggered: shortcuts.add,
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Initially Windows: Win, Ctrl, Backspace, Enter, PrtSc present
+      expect(find.byKey(const ValueKey('dk_layout100_win_super')), findsOneWidget);
+      expect(find.text('PrtSc'), findsOneWidget);
+      expect(find.text('command'), findsNothing);
+
+      // Toggle directly to macOS via header pill
+      await tester.tap(find.byKey(const ValueKey('dk_os_macos')));
+      await tester.pumpAndSettle();
+
+      expect(changedPlatforms, [DesktopKeyboardPlatform.macos]);
+      expect(find.text('command'), findsNWidgets(2));
+      expect(find.text('option'), findsNWidgets(2));
+      expect(find.text('return'), findsOneWidget);
+      expect(find.text('delete'), findsOneWidget);
+      expect(find.text('F13'), findsOneWidget);
+      expect(find.byKey(const ValueKey('dk_layout100_win_super')), findsNothing);
+
+      // Cmd + Shift + Z formats cleanly as macOS combo
+      await tester.tap(find.byKey(const ValueKey('dk_layout100_cmd_left')));
+      await tester.tap(find.byKey(const ValueKey('dk_layout100_shift_left')));
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('dk_layout100_char_z')));
+      await tester.pump();
+      expect(shortcuts.last, 'Cmd+Shift+Z');
+    });
+
+    testWidgets('macOS Cmd+A selects all text in connected VTextField',
+        (tester) async {
+      tester.view.physicalSize = const Size(1440, 900);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final textController = TextEditingController(text: 'apple');
+      final focusNode = FocusNode();
+      final vkController = VKeyboardController();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: VKeyboardScope(
+            controller: vkController,
+            renderKeyboard: false,
+            child: Scaffold(
+              body: Column(
+                children: [
+                  Expanded(
+                    child: VTextField(
+                      controller: textController,
+                      focusNode: focusNode,
+                      keyboardType: VKeyboardType.desktop,
+                      autofocus: true,
+                    ),
+                  ),
+                  DesktopFullKeyboard(
+                    platform: DesktopKeyboardPlatform.macos,
+                    controller: vkController,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      textController.selection = const TextSelection.collapsed(offset: 5);
+
+      await tester.tap(find.byKey(const ValueKey('dk_layout100_cmd_left')));
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('dk_layout100_char_a')));
+      await tester.pump();
+
+      expect(textController.selection.baseOffset, 0);
+      expect(textController.selection.extentOffset, 5);
 
       vkController.dispose();
       textController.dispose();
