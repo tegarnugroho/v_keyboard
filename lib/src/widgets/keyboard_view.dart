@@ -7,6 +7,7 @@ import '../models/key_data.dart';
 import '../models/keyboard_type.dart';
 import '../responsive/keyboard_metrics.dart';
 import '../theme/v_keyboard_theme.dart';
+import 'candidate_bar.dart';
 import 'keyboard_key.dart';
 import 'layout_picker_dialog.dart';
 
@@ -142,6 +143,12 @@ class KeyboardView extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                if (controller.config.enableImeCandidates)
+                  CandidateBar(
+                    controller: controller,
+                    theme: theme,
+                    height: controller.config.candidateBarHeight,
+                  ),
                 Padding(
                   padding: theme.contentPadding.add(
                     EdgeInsets.symmetric(horizontal: metrics.horizontalPadding),

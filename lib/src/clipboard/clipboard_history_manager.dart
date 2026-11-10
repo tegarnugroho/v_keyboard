@@ -29,6 +29,19 @@ class ClipboardHistoryManager extends ChangeNotifier {
   List<ClipboardHistoryItem> _items = [];
   bool _isLoading = true;
   Object? _error;
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  void notifyListeners() {
+    if (_disposed) return;
+    super.notifyListeners();
+  }
 
   /// Whether storage initialization is in progress.
   bool get isLoading => _isLoading;

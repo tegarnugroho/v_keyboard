@@ -642,6 +642,7 @@ void main() {
           enabledLocales: [VKeyboardLocale.enUS, VKeyboardLocale.jaJP],
           defaultLocale: VKeyboardLocale.jaJP,
           persistLayoutSelection: false,
+          enableImeCandidates: false,
         ),
       );
 

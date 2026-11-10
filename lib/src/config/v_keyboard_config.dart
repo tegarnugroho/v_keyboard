@@ -37,6 +37,9 @@ class VKeyboardConfig {
     this.showGlobeKey = false,
     this.persistLayoutSelection = true,
     this.openPickerOnTap = true,
+    this.enableImeCandidates = true,
+    this.maxImeCandidates = 8,
+    this.candidateBarHeight = 38.0,
   })  : _enabledLayouts = enabledLayouts,
         _defaultLayout = defaultLayout;
 
@@ -81,6 +84,15 @@ class VKeyboardConfig {
   ///
   /// Defaults to `true`.
   final bool openPickerOnTap;
+
+  /// Whether IME candidate suggestion bars are displayed for CJK layouts.
+  final bool enableImeCandidates;
+
+  /// Maximum number of candidate suggestions displayed in the candidate bar.
+  final int maxImeCandidates;
+
+  /// The height of the candidate bar strip displayed above the keyboard.
+  final double candidateBarHeight;
 
   /// Whether clipboard history recording and the clipboard panel are enabled.
   final bool enableClipboardHistory;
@@ -180,6 +192,9 @@ class VKeyboardConfig {
     bool? showGlobeKey,
     bool? persistLayoutSelection,
     bool? openPickerOnTap,
+    bool? enableImeCandidates,
+    int? maxImeCandidates,
+    double? candidateBarHeight,
   }) {
     return VKeyboardConfig(
       hideOnDone: hideOnDone ?? this.hideOnDone,
@@ -218,6 +233,9 @@ class VKeyboardConfig {
       persistLayoutSelection:
           persistLayoutSelection ?? this.persistLayoutSelection,
       openPickerOnTap: openPickerOnTap ?? this.openPickerOnTap,
+      enableImeCandidates: enableImeCandidates ?? this.enableImeCandidates,
+      maxImeCandidates: maxImeCandidates ?? this.maxImeCandidates,
+      candidateBarHeight: candidateBarHeight ?? this.candidateBarHeight,
     );
   }
 }

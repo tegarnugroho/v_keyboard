@@ -81,6 +81,9 @@ class VKeyboardTheme {
   /// Accent used for active modifiers, engaged locks and focus/hover hints.
   final Color accentColor;
 
+  /// Whether this theme is dark (based on background color luminance).
+  bool get isDark => backgroundColor.computeLuminance() < 0.5;
+
   final Color disabledKeyColor;
   final TextStyle textStyle;
   final TextStyle subLabelStyle;

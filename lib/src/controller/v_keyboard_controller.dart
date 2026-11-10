@@ -15,8 +15,12 @@ import '../desktop/keyboard_navigation.dart';
 import '../desktop/keyboard_shortcut_manager.dart';
 import '../desktop/native_print_screen.dart';
 import '../engine/hangul_composer.dart';
+import '../engine/ime_engine.dart';
+import '../engine/japanese_ime_engine.dart';
 import '../engine/kana_composer.dart';
+import '../engine/pinyin_ime_engine.dart';
 import '../engine/text_input_engine.dart';
+import '../engine/zhuyin_ime_engine.dart';
 import '../layouts/layout_selection_storage.dart';
 import '../layouts/v_keyboard_layouts.dart';
 import '../models/key_data.dart';
@@ -128,6 +132,57 @@ class VKeyboardController extends ChangeNotifier {
 
   String get currentPage => _page;
 
+  static const Map<String, ImeEngine> _imeEngines = {
+    'zh_CN': PinyinImeEngine(),
+    'zh_TW': ZhuyinImeEngine(),
+    'ja_JP': JapaneseImeEngine(),
+  };
+
+  /// The active [ImeEngine] for the current layout, if IME candidate handling is enabled.
+  ImeEngine? get activeImeEngine {
+    if (!config.enableImeCandidates) return null;
+    return _imeEngines[_currentLayoutId];
+  }
+
+  String _composingText = '';
+  List<String> _candidates = const [];
+
+  /// Current composing buffer for IME (e.g. Pinyin or Kana sequence).
+  String get composingText => _composingText;
+
+  /// Current candidate suggestions for the active [composingText].
+  List<String> get candidates => _candidates;
+
+  /// Whether candidate suggestions are available for selection.
+  bool get hasCandidates => _candidates.isNotEmpty;
+
+  void _clearComposingInternal() {
+    _composingText = '';
+    _candidates = const [];
+  }
+
+  /// Clears the current IME composing text and candidate suggestions.
+  void clearComposing() {
+    if (_composingText.isEmpty && _candidates.isEmpty) return;
+    _clearComposingInternal();
+    notifyListeners();
+  }
+
+  /// Commits a selected candidate string to the active text field,
+  /// clearing the active composing text and candidates.
+  void commitCandidate(String candidate) {
+    final s = _session ?? _targetSession;
+    _clearComposingInternal();
+    if (s != null) {
+      if (!s.focusNode.hasFocus) {
+        s.focusNode.requestFocus();
+      }
+      _insert(s, candidate);
+      modifiers.clearMomentary();
+    }
+    notifyListeners();
+  }
+
   VKeyboardConfig get config => session?.config ?? _defaultConfig;
   KeyboardLayout? get layout => session?.getLayout(_currentLayoutId);
 
@@ -183,6 +238,7 @@ class VKeyboardController extends ChangeNotifier {
   /// Switches the active layout to [id].
   void setLayout(String id) {
     if (_currentLayoutId == id && _page != '123' && _page != 'symbols') return;
+    _clearComposingInternal();
     _currentLayoutId = id;
     if (config.persistLayoutSelection) {
       _layoutStorage ??= LayoutSelectionStorage.defaultStorage();
@@ -253,6 +309,7 @@ class VKeyboardController extends ChangeNotifier {
     _session = session;
     _targetSession = session;
     if (!sameField && _page != 'clipboard') {
+      _clearComposingInternal();
       _page = session.getLayout(_currentLayoutId).initialPage;
       modifiers.reset(notify: false);
       if (session.allowsAutoShift && session.value.text.isEmpty) {
@@ -266,6 +323,7 @@ class VKeyboardController extends ChangeNotifier {
   void detach(KeyboardSession session) {
     if (_isDisposed) return;
     if (_session?.id != session.id) return;
+    _clearComposingInternal();
     if (_page == 'clipboard') {
       _targetSession = session;
       _session = null;
@@ -285,6 +343,7 @@ class VKeyboardController extends ChangeNotifier {
     _visible = false;
     _session = null;
     _targetSession = null;
+    _clearComposingInternal();
     modifiers.reset(notify: false);
     notifyListeners();
     s?.focusNode.unfocus();
@@ -361,11 +420,67 @@ class VKeyboardController extends ChangeNotifier {
       case KeyKind.character:
         _handleCharacter(session, key);
       case KeyKind.space:
+        if (_composingText.isNotEmpty) {
+          final engine = activeImeEngine;
+          if (_candidates.isNotEmpty && (engine?.commitOnSpace ?? true)) {
+            commitCandidate(_candidates.first);
+            return;
+          } else {
+            final raw = _composingText;
+            _clearComposingInternal();
+            _insert(session, raw);
+            notifyListeners();
+            modifiers.clearMomentary();
+            return;
+          }
+        }
         _insert(session, ' ');
         modifiers.clearMomentary();
       case KeyKind.backspace:
+        if (_composingText.isNotEmpty) {
+          final engine = activeImeEngine;
+          if (_currentLayoutId == 'ja_JP' &&
+              KanaComposer.canDecompose(
+                  _composingText[_composingText.length - 1])) {
+            final lastChar = _composingText[_composingText.length - 1];
+            final decomp = KanaComposer.dakutenMap.entries
+                    .where((e) => e.value == lastChar)
+                    .map((e) => e.key)
+                    .firstOrNull ??
+                KanaComposer.handakutenMap.entries
+                    .where((e) => e.value == lastChar)
+                    .map((e) => e.key)
+                    .firstOrNull;
+            if (decomp != null) {
+              _composingText =
+                  _composingText.substring(0, _composingText.length - 1) + decomp;
+            } else {
+              _composingText =
+                  _composingText.substring(0, _composingText.length - 1);
+            }
+          } else {
+            _composingText =
+                _composingText.substring(0, _composingText.length - 1);
+          }
+          if (_composingText.isNotEmpty && engine != null) {
+            _candidates = engine.getCandidates(_composingText,
+                maxCandidates: config.maxImeCandidates);
+          } else {
+            _candidates = const [];
+          }
+          notifyListeners();
+          return;
+        }
         _handleBackspace(session);
       case KeyKind.enter:
+        if (_composingText.isNotEmpty) {
+          final raw = _composingText;
+          _clearComposingInternal();
+          _insert(session, raw);
+          notifyListeners();
+          modifiers.clearMomentary();
+          return;
+        }
         if (session.insertsNewline) {
           session.value = TextInputEngine.newline(session.value);
           session.onChanged?.call(session.value.text);
@@ -421,7 +536,56 @@ class VKeyboardController extends ChangeNotifier {
     if (modifiers.hasCommandModifier) {
       // A command modifier (Ctrl/Alt/Meta) turns the key into a shortcut.
       _handleCharCommand(session, key, text);
-    } else if (_currentLayoutId == 'ko_KR' &&
+      return;
+    }
+
+    final engine = activeImeEngine;
+    if (engine != null && engine.isValidInput(text)) {
+      if (session.readOnly || !session.enabled) return;
+      final normalized = engine.normalizeInput(text);
+
+      if (_currentLayoutId == 'ja_JP' && KanaComposer.isVoicingMark(text)) {
+        if (_composingText.isNotEmpty) {
+          final lastChar = _composingText[_composingText.length - 1];
+          final voiced = KanaComposer.composeMark(lastChar, text);
+          if (voiced != null) {
+            _composingText =
+                _composingText.substring(0, _composingText.length - 1) + voiced;
+            _candidates = engine.getCandidates(_composingText,
+                maxCandidates: config.maxImeCandidates);
+            notifyListeners();
+            modifiers.clearMomentary();
+            return;
+          }
+        } else {
+          final oldValue = session.value;
+          final newValue = KanaComposer.compose(value: oldValue, mark: text);
+          if (newValue != oldValue) {
+            session.value = newValue;
+            session.onChanged?.call(newValue.text);
+            modifiers.clearMomentary();
+            return;
+          }
+        }
+      }
+
+      _composingText += normalized;
+      _candidates = engine.getCandidates(_composingText,
+          maxCandidates: config.maxImeCandidates);
+      notifyListeners();
+      modifiers.clearMomentary();
+      return;
+    }
+
+    if (_composingText.isNotEmpty) {
+      final commitText =
+          _candidates.isNotEmpty ? _candidates.first : _composingText;
+      _insert(session, commitText);
+      _clearComposingInternal();
+      notifyListeners();
+    }
+
+    if (_currentLayoutId == 'ko_KR' &&
         (HangulComposer.isChoseong(text) ||
             HangulComposer.isJungseong(text) ||
             HangulComposer.isHangulSyllable(text))) {
@@ -693,6 +857,13 @@ class VKeyboardController extends ChangeNotifier {
 
   void switchPage(String pageId) {
     if (_page == pageId) return;
+    if (_composingText.isNotEmpty) {
+      final commit =
+          _candidates.isNotEmpty ? _candidates.first : _composingText;
+      final s = _session ?? _targetSession;
+      if (s != null) _insert(s, commit);
+      _clearComposingInternal();
+    }
     if (pageId == 'clipboard') {
       openClipboardHistory();
       return;
