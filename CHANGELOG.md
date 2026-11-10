@@ -1,3 +1,17 @@
+## 0.3.3
+
+- **Unified Dark Theme Across Desktop & Mobile Layouts**:
+  - Updated `VKeyboardTheme.dark()` (and dark presets via `VKeyboardTheme.fromTheme`) to share the same deep-slate palette as `DesktopFullKeyboard` (`#13151B` background, `#21242D` character keycaps, `#1A1D26` special/modifier keycaps, `#2B3140` 1px key borders, `#1E2330` top hairline border, `#353C4E` pressed highlight, `#2B303E` hover color, `#94A3B8` sub-labels, and `BorderRadius.circular(6)`).
+  - Added optional `keyBorderColor`, `containerBorderColor`, `hoverKeyColor`, and `enterKeyColor` tokens to `VKeyboardTheme` and updated `VirtualKey`, `KeyboardView`, `EmojiPanel`, `ClipboardHistoryPanel`, and `VKeyboardLayoutPickerPanel` to render crisp borders, accent-tinted Enter/Action keys, and hairline top borders via `foregroundDecoration`.
+  - Updated `VKeyboardScope` to derive `DesktopKeyboardThemeData.fromVKeyboardTheme(theme)` so `accentColor` and `borderRadius` stay synchronized between desktop and non-desktop layouts.
+- **Desktop Bottom Utility Bar (Non-Desktop Parity) & Inline Clipboard**:
+  - Replaced the standalone dismiss pill on `DesktopFullKeyboard` with a bottom utility bar matching `KeyboardView`: bottom-left close arrow (`showHideKeyboardButton`), optional bottom-left language globe (`showGlobeKey`), and bottom-right clipboard trigger (`showClipboardButton`), plus `hideIcon`, `globeIcon`, `clipboardIcon`, `onClipboardTap`, and `bottomSafeArea`.
+  - Derives bottom-bar defaults automatically from `VKeyboardController.config` and switches cleanly in-place to `ClipboardHistoryPanel` when opening clipboard history in embedded layouts.
+  - Wired `VKeyboardScope` (`VKeyboardConfig.desktopFormFactor`) to display the bottom utility bar (`onDismiss: controller.hide`, clipboard trigger, and `_fullKeyboardMetrics` height parity).
+- **Documentation & Example App**:
+  - Documented `DesktopFullKeyboard`, the 6 `KeyboardLayoutType` presets (`layout60`–`layout100`), `DesktopKeyboardPlatform` (Windows/macOS), `VKeyboardConfig.desktopFormFactor`, and the bottom utility bar in `README.md`.
+  - Updated the example app's Desktop Keyboard tab with interactive hide/reopen and inline clipboard history switching.
+
 ## 0.3.2
 
 - **`DesktopFullKeyboard` Widget (Edge-to-Edge Responsive Desktop OSK)**:
@@ -5,7 +19,7 @@
   - Added 6 hardware form-factor presets via `KeyboardLayoutType`: `layout60` (pure alphanumeric + `Fn` layer for F-keys, Delete, and arrows), `layout65`, `layout75`, `layout87TKL`, `layout98` (1800-compact with zero inter-cluster gap), and `layout100` (Full-Size with Main `15u`, Navigation `3u`, and 4-column Numpad `4u`).
   - Exposed modular building blocks (`KeyModel`, `KeyType`, `VirtualKeyAction`, `DesktopFullLayoutData`, `VirtualKeyButton`, and `DesktopKeyboardThemeData` with `.dark()`, `.light()`, and `.fromVKeyboardTheme()` presets).
   - Supports LED status indicators (`FN`, `CAPS`, `NUM`), key-repeat, hover/press visual feedback, `isFullWidth` / `maxWidth` / `maxKeyboardHeightRatio` constraints, `onKeyPressed`, `onSpecialKeyPressed`, `onShortcutTriggered`, and optional `VKeyboardController` / `VKeyboardScope` binding.
-  - Added `VKeyboardConfig.desktopFormFactor` so `VKeyboardScope` can automatically render `DesktopFullKeyboard` with the chosen preset when `VKeyboardType.desktop` fields are focused, including the non-desktop-style bottom utility bar (`showHideKeyboardButton` down-arrow close button on the bottom-left, optional `showGlobeKey`, and `showClipboardButton` on the bottom-right).
+  - Added `VKeyboardConfig.desktopFormFactor` so `VKeyboardScope` can automatically render `DesktopFullKeyboard` with the chosen preset when `VKeyboardType.desktop` fields are focused.
 - **Windows & macOS Desktop Conventions (`DesktopKeyboardPlatform`)**:
   - Switch between `DesktopKeyboardPlatform.windows` (`Ctrl`, `Win`, `Alt`, `AltGr`, `Menu`, `Backspace`, `Enter`, `PrtSc`, `Num`) and `DesktopKeyboardPlatform.macos` (`fn`, `⌃ control`, `⌥ option`, `⌘ command`, `delete`, `return`, `F13`–`F15`, `clear`) via `platform`, `showPlatformToggle`, and `onPlatformChanged`.
   - Dispatches macOS `Cmd+A/C/X/V` clipboard shortcuts alongside standard `Ctrl`/`Alt`/`Shift` shortcut combos.
@@ -13,10 +27,6 @@
   - Enabled all 15 built-in locales (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`, `ko_KR`, `ja_JP`, `zh_CN`, `zh_TW`, `th_TH`, `vi_VN`) across all 6 form-factor presets (`60%`–`100%`) and both OS platforms, including `AltGr` mappings and Unicode cased Shift/CapsLock support.
   - Added a taskbar/menubar-style `🌐` locale picker pill (`showLocaleSelector`, `availableLayouts`, `layoutId`, `onLayoutChanged`) with a 2-column desktop selector modal and IME hints, plus active locale Spacebar labels and Spacebar long-press language switching.
   - Integrated automatic `CandidateBar` rendering (`showCandidateBar`) for `zh_CN` (Pinyin), `zh_TW` (Zhuyin), and `ja_JP` (Kana) composition alongside `ko_KR` Hangul and `vi_VN` Telex when connected to `VKeyboardController` / `VTextField`.
-
-- **Unified Dark Theme Across Desktop & Mobile Layouts**:
-  - Updated `VKeyboardTheme.dark()` (and dark presets via `VKeyboardTheme.fromTheme`) to share the same deep-slate palette as `DesktopFullKeyboard` (`#13151B` background, `#21242D` character keycaps, `#1A1D26` special/modifier keycaps, `#2B3140` key borders, `#1E2330` top hairline border, `#353C4E` pressed highlight, and accent-tinted Enter/Action keys via `enterKeyColor`).
-  - Added optional `keyBorderColor`, `containerBorderColor`, `hoverKeyColor`, and `enterKeyColor` tokens to `VKeyboardTheme` for `VirtualKey`, `KeyboardView`, `EmojiPanel`, `ClipboardHistoryPanel`, and `VKeyboardLayoutPickerPanel`.
 
 ## 0.3.1
 
