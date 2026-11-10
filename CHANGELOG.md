@@ -1,7 +1,7 @@
 ## 0.3.0
 
 - **Multi-Language Keyboard Layouts**:
-  - Add 13 built-in locale layouts with localized main and symbol pages:
+  - Add 15 built-in locale layouts with localized main and symbol pages:
     - `en_US`: US English QWERTY (default, identical to previous releases).
     - `en_GB`: UK English QWERTY with `£` currency symbol.
     - `de_DE`: German QWERTZ with swapped `Y`/`Z`, `ä`, `ö`, `ü`, `ß`, and `€`.
@@ -10,28 +10,46 @@
     - `nordic`: Nordic QWERTY with `å`, `ä`, `ö`, `æ`, `ø`, and `€`/`kr`.
     - `tr_TR`: Turkish Q with `ğ`, `ü`, `ş`, `ı`, `ö`, `ç`, `₺`, and strict dotted/dotless casing (`i ↔ İ`, `ı ↔ I`).
     - `ru_RU`: Russian Cyrillic ЙЦУКЕН with `₽`.
-    - `el_GR`: Greek layout with Greek alphabet and `€`.
+    - `el_GR`: Greek layout with Greek alphabet, `€`, and `Ελληνικά (Greek) · GR` label.
     - `ko_KR`: Korean 2-Set Hangul (두벌식) with syllable composition, compound vowels/batchim, and `₩`.
     - `ja_JP`: Japanese JIS Kana with `¥` currency, voicing marks (`゛`, `゜`), and dakuten composition.
     - `zh_CN`: Simplified Chinese Pinyin layout with fullwidth punctuation (`，`, `。`, `、`) and `¥`.
     - `zh_TW`: Traditional Chinese Zhuyin (注音 / Bopomofo) layout with tone marks and Traditional punctuation.
-  - Add declarative global registry `VKeyboardLayouts` (`register`, `getLayout`, `allLayouts`, `supportedLocales`, `altGrMapFor`, `isoLayoutIds`).
+    - `th_TH`: Thai Kedmanee (เกษมณี) layout with independent/dependent vowels, tone marks, Thai numerals, and `฿`.
+    - `vi_VN`: Vietnamese Telex QWERTY layout with diacritic alternates, `₫` currency, and Telex composition.
+  - Add declarative global registry `VKeyboardLayouts` (`register`, `getLayout`, `allLayouts`, `supportedLocales`, `altGrMapFor`, `isoLayoutIds`, `isLatin`).
+- **CJK Offline IME Engines & Candidate Bar**:
+  - Pure offline dictionary engines for Simplified Chinese Pinyin (`zh_CN`), Traditional Chinese Zhuyin (`zh_TW`), and Japanese JIS Kana/Kanji (`ja_JP`).
+  - Real-time `CandidateBar` widget rendered above the keyboard for candidate selection with numbered shortcuts, tap selection, and space bar commit.
+  - Configurable via `VKeyboardConfig.enableImeCandidates` and `maxImeCandidates`.
 - **Hangul Syllable Composition Engine (`HangulComposer`)**:
   - Pure algorithmic Unicode Hangul composition (UAX #29 / Hangul Syllable Composition standard: `0xAC00 + (cho * 21 + jung) * 28 + jong`) with zero external dependencies.
   - Real-time syllable combination (e.g. `ㅎ` + `ㅏ` + `ㄴ` = `한`).
   - Compound vowel merging (e.g. `ㅗ` + `ㅏ` = `ㅘ`, `고` + `ㅏ` = `과`).
   - Compound batchim merging (e.g. `ㄹ` + `ㄱ` = `ㄺ`, `달` + `ㄱ` = `닭`).
-  - Batchim splitting when a vowel follows (e.g. `간` + `ㅏ` = `가나`, `닭` + `ㅣ` = `달기`).
+  - Batchim splitting when a vowel follows (e.g. `간` + `ㅏ` = `가na`, `닭` + `ㅣ` = `달기`).
   - Step-by-step backspace decomposition (e.g. `닭` -> `달` -> `다` -> `ㄷ` -> delete).
 - **Kana Voicing Mark Engine (`KanaComposer`)**:
   - Algorithmic dakuten (`゛`) and handakuten (`゜`) sound composer for Japanese typing (e.g. `か` + `゛` = `が`, `は` + `゜` = `ぱ`).
   - Step-by-step backspace decomposition (`が` -> `か`, `ぱ` -> `は`).
+- **Vietnamese Telex Engine (`VietnameseTelexComposer`)**:
+  - Pure algorithmic Telex syllable composer with circumflex (`aa` -> `â`, `ee` -> `ê`, `oo` -> `ô`), breve/horn (`aw` -> `ă`, `ow` -> `ơ`, `uw`/`w` -> `ư`, `uow` -> `ươ`), and stroke (`dd` -> `đ`).
+  - Full tone mark support (`s` sắc, `f` huyền, `r` hỏi, `x` ngã, `j` nặng, `z` remove tone).
+  - Modern orthographic tone placement on diphthongs/triphthongs and step-by-step backspace decomposition.
+- **Smart Latin Fallback for Email, URL, and Password Fields**:
+  - Automatically switches non-Latin layouts (Korean, Japanese, Chinese, Thai, Russian, Greek) to standard Latin QWERTY when typing into `Email`, `URL`, or `Password` fields.
+  - Explicit `'English'` space bar label on fallback layouts.
+  - Automatic suppression of IME engines and diacritic composers on sensitive and ASCII fields.
 - **Space Bar Hold & Runtime Layout Switcher**:
   - Holding (long-pressing) the space bar opens `showVKeyboardLayoutPicker` displaying active selection, localized display names, and short codes (bottom sheet on mobile, dialog on desktop/tablet).
-  - Space bar subtly displays the active language name (e.g. `English (US)`, `Deutsch`, `Русский`) when multiple layouts are enabled.
+  - Space bar subtly displays the active language name (e.g. `English (US)`, `Deutsch`, `Русский`, `한국어`, `日本語`) when multiple layouts are enabled.
   - Transient space bar announcement banner displaying active layout display name briefly (~1.5s fade out) upon switching.
   - Optional globe key (`Icons.language`) in the bottom bar, configurable via `VKeyboardConfig.showGlobeKey` (defaults to `false`).
   - Screen-reader accessible with semantic announcements via `SemanticsService`.
+- **Theming Enhancements**:
+  - Added `activeKeyColor` and `activeForegroundColor` to `VKeyboardTheme` for high-contrast active modifier / engaged lock keys (active Shift, Caps Lock, held modifiers) in both light and dark themes.
+- **Bottom Bar Clipboard History Button**:
+  - Dedicated clipboard history trigger button placed on the far right of the bottom safe-area bar, aligned with the dismiss button, configurable via `VKeyboardConfig.showClipboardButton`.
 - **Long-Press Accents**:
   - Character keys support `alternates` via `KeyData.char('e', alternates: ['é', 'è', 'ê', 'ë'])`.
   - Long-pressing letter keys presents an interactive accent callout popup above the key.
@@ -41,16 +59,22 @@
   - Locale-specific AltGr character mappings (e.g., `AltGr + Q` → `@`, `AltGr + E` → `€` in `de_DE`).
 - **Cross-Platform Layout Selection Persistence**:
   - Saves user's selected keyboard layout across app restarts via `LayoutSelectionStorage` (file-backed on Android, iOS, Windows, macOS, Linux, and in-memory on Web).
+- **Reactive Focus & Dynamic Keyboard Type Handling**:
+  - `VTextField.didUpdateWidget` dynamically rebuilds and re-attaches `KeyboardSession` when `keyboardType` or other field attributes change while focused.
+  - `VKeyboardController.attach` resets the active keyboard page when input types change on the same field.
+  - Space bar display name accurately reads from the active layout, resolving stale fallback states.
 - **Public API Additions**:
-  - `VKeyboardLocale` enum: Type-safe enum for all 9 built-in locale layouts (`enUS`, `enGB`, `deDE`, `frFR`, `esES`, `nordic`, `trTR`, `ruRU`, `elGR`) with `id`, `displayName`, `shortLabel`, and `fromId()`.
-  - `VKeyboardConfig`: `enabledLocales`, `defaultLocale`, `enabledLayouts`, `defaultLayout`, `showGlobeKey`, `persistLayoutSelection`, `openPickerOnTap`.
-  - `VKeyboardController`: `currentLocale`, `setLocale(locale)`, `currentLayoutId`, `setLayout(id)`, `nextLayout()`, `onLayoutChanged` stream, `insertText(text)`.
+  - `VKeyboardLocale` enum: Type-safe enum for all 15 built-in locale layouts (`enUS`, `enGB`, `deDE`, `frFR`, `esES`, `nordic`, `trTR`, `ruRU`, `elGR`, `koKR`, `jaJP`, `zhCN`, `zhTW`, `thTH`, `viVN`) with `isLatin`, `id`, `displayName`, `shortLabel`, and `fromId()`.
+  - `VKeyboardConfig`: `enabledLocales`, `defaultLocale`, `enabledLayouts`, `defaultLayout`, `showGlobeKey`, `showClipboardButton`, `enableImeCandidates`, `maxImeCandidates`, `persistLayoutSelection`, `openPickerOnTap`.
+  - `VKeyboardController`: `currentLocale`, `setLocale(locale)`, `currentLayoutId`, `setLayout(id)`, `nextLayout()`, `onLayoutChanged` stream, `insertText(text)`, `composingText`, `candidates`, `commitCandidate(text)`.
+  - `VKeyboardTheme`: `activeKeyColor`, `activeForegroundColor`.
+  - `CandidateBar`: Horizontal candidate bar widget for IME suggestion selection.
   - `VKeyboardScope`: `onLayoutChanged` callback.
   - `showVKeyboardLayoutPicker`: modal bottom sheet on mobile or centered dialog on desktop/tablet to pick active layout.
 - **Example App & Preview Improvements**:
   - Replace floating overlay stack in the embedded preview with in-place page switching for `EmojiPanel` and `ClipboardHistoryPanel`.
   - Synchronize panel heights and bottom safe-area dismiss buttons to ensure smooth transitions with zero vertical shift when opening the emoji panel.
-  - Add interactive `VKeyboardLocale` selector chips.
+  - Add interactive `VKeyboardLocale` selector chips and demonstration of custom math layout.
 
 ## 0.2.4
 
