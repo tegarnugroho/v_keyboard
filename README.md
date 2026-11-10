@@ -62,13 +62,16 @@ Production-ready clipboard history integrated directly into the virtual keyboard
 - Full respect for `inputFormatters`, `maxLength`, and `readOnly` configurations.
 
 ### Keyboard Layouts
-- **Alphabetic & Multi-Language**: 13 built-in international layouts (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`, `ko_KR`, `ja_JP`, `zh_CN`, `zh_TW`).
+- **Alphabetic & Multi-Language**: 15 built-in international layouts (`en_US`, `en_GB`, `de_DE`, `fr_FR`, `es_ES`, `nordic`, `tr_TR`, `ru_RU`, `el_GR`, `ko_KR`, `ja_JP`, `zh_CN`, `zh_TW`, `th_TH`, `vi_VN`).
+- **CJK IME & Candidate Bar**: Pure offline algorithmic dictionary engines for Simplified Chinese Pinyin (`zh_CN`), Traditional Chinese Zhuyin/Bopomofo (`zh_TW`), and Japanese Kana/Kanji (`ja_JP`), with an on-screen `CandidateBar` for selecting candidates.
 - **Hangul Syllable Composition Engine**: Pure algorithmic Korean syllable composition (`ㅎ` + `ㅏ` + `ㄴ` = `한`), compound vowels (`ㅘ`, `ㅙ`, `ㅢ`), compound batchim (`닭`), batchim splitting (`간` + `ㅏ` = `가나`, `닭` + `ㅣ` = `달기`), and step-by-step backspace decomposition.
 - **Kana Voicing Mark Engine**: Algorithmic dakuten (`゛`) and handakuten (`゜`) sound composer for Japanese typing (`か` + `゛` = `が`, `は` + `゜` = `ぱ`).
+- **Vietnamese Telex Engine**: Algorithmic Telex syllable composer (`aa` $\rightarrow$ `â`, `aw` $\rightarrow$ `ă`, `ee` $\rightarrow$ `ê`, `oo` $\rightarrow$ `ô`, `ow` $\rightarrow$ `ơ`, `uw`/`w` $\rightarrow$ `ư`, `uow` $\rightarrow$ `ươ`, `dd` $\rightarrow$ `đ`), tone marks (`s, f, r, x, j, z`), modern orthographic tone placement, and backspace decomposition.
+- **Smart Latin Auto-Fallback**: Automatically switches non-Latin layouts (Korean, Japanese, Thai, Taiwan Zhuyin, Russian, Greek) to standard Latin QWERTY when typing into `Email`, `URL`, and `Password` fields, while keeping IME engines and diacritic composers suppressed in sensitive fields.
 - **Runtime Layout Switching**: Hold (long-press) the space bar to open the layout picker dialog / bottom sheet, with space bar active layout preview and persistent selection.
 - **Accented Characters**: Long-press letter callouts with customizable alternates.
 - **Specialized**: Number, decimal, phone, PIN, password, email, and URL layouts.
-- **Symbols**: Multi-page switching (`123`, `#+=`) with sticky shift, double-tap caps lock, and locale-specific currency keys (`€`, `£`, `₺`, `₽`).
+- **Symbols**: Multi-page switching (`123`, `#+=`) with sticky shift, double-tap caps lock, and locale-specific currency keys (`€`, `£`, `₺`, `₽`, `₩`, `¥`, `฿`, `₫`).
 - **Emoji**: Built-in categorized emoji picker with zero external dependencies.
 - **Custom**: Declarative layout definition and global layout registry (`VKeyboardLayouts`).
 
@@ -178,7 +181,7 @@ class _FormPageState extends State<FormPage> {
 
 ## Multi-Language Layouts
 
-`flutter_v_keyboard` includes 13 built-in international layouts and a runtime layout switcher inspired by Gboard and iOS.
+`flutter_v_keyboard` includes 15 built-in international layouts and a runtime layout switcher inspired by Gboard and iOS.
 
 ### Built-in Locales
 
@@ -197,6 +200,8 @@ class _FormPageState extends State<FormPage> {
 | `ja_JP` | 日本語 | JIS Kana | Full Kana alphabet, `¥` currency symbol, voicing marks (`゛`, `゜`) |
 | `zh_CN` | 简体中文 | Pinyin | Pinyin QWERTY with fullwidth Chinese punctuation (`，`, `。`, `、`), `¥` symbol |
 | `zh_TW` | 繁體中文 | Zhuyin (注音) | Complete Bopomofo phonetic alphabet with tone marks and Traditional punctuation |
+| `th_TH` | ภาษาไทย | Kedmanee (เกษมณี) | Full Thai alphabet, independent/dependent vowels, tone marks, Thai numerals, `฿` currency |
+| `vi_VN` | Tiếng Việt | Telex QWERTY | Standard QWERTY with built-in algorithmic Telex composer, diacritic alternates, `₫` currency |
 
 ### Enabling Multi-Language Support
 
@@ -298,8 +303,12 @@ VKeyboardScope(
   child: child!,
 );
 
+// Built-in dark preset with custom active modifier styling
 VKeyboardScope(
-  theme: VKeyboardTheme.dark(accentColor: Colors.deepOrange),
+  theme: VKeyboardTheme.dark(accentColor: Colors.blue).copyWith(
+    activeKeyColor: Colors.blue,
+    activeForegroundColor: Colors.white,
+  ),
   child: child!,
 );
 
