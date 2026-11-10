@@ -41,7 +41,13 @@ enum VKeyboardLocale {
   zhCN('zh_CN', '简体中文', 'CN'),
 
   /// Traditional Chinese Zhuyin (注音 / Bopomofo) layout with tone marks.
-  zhTW('zh_TW', '繁體中文', 'TW');
+  zhTW('zh_TW', '繁體中文', 'TW'),
+
+  /// Thai Kedmanee (เกษมณี) layout with `฿` (Thai Baht) currency and Thai numerals.
+  thTH('th_TH', 'ภาษาไทย', 'TH'),
+
+  /// Vietnamese Telex layout with `₫` (Vietnamese Đồng) currency and Telex input engine.
+  viVN('vi_VN', 'Tiếng Việt', 'VN');
 
   const VKeyboardLocale(this.id, this.displayName, this.shortLabel);
 

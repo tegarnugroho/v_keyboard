@@ -6,7 +6,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Multi-language Built-in Layouts', () {
-    test('all 13 built-in layouts are registered with metadata', () {
+    test('all 15 built-in layouts are registered with metadata', () {
       final expected = [
         'en_US',
         'en_GB',
@@ -21,6 +21,8 @@ void main() {
         'ja_JP',
         'zh_CN',
         'zh_TW',
+        'th_TH',
+        'vi_VN',
       ];
 
       for (final id in expected) {
@@ -382,7 +384,7 @@ void main() {
     });
 
     test('VKeyboardLocale enum maps to built-in layouts correctly', () {
-      expect(VKeyboardLocale.values.length, 13);
+      expect(VKeyboardLocale.values.length, 15);
       expect(VKeyboardLocale.enUS.id, 'en_US');
       expect(VKeyboardLocale.deDE.id, 'de_DE');
       expect(VKeyboardLocale.ruRU.id, 'ru_RU');
@@ -398,12 +400,20 @@ void main() {
       expect(VKeyboardLocale.zhTW.id, 'zh_TW');
       expect(VKeyboardLocale.zhTW.displayName, '繁體中文');
       expect(VKeyboardLocale.zhTW.shortLabel, 'TW');
+      expect(VKeyboardLocale.thTH.id, 'th_TH');
+      expect(VKeyboardLocale.thTH.displayName, 'ภาษาไทย');
+      expect(VKeyboardLocale.thTH.shortLabel, 'TH');
+      expect(VKeyboardLocale.viVN.id, 'vi_VN');
+      expect(VKeyboardLocale.viVN.displayName, 'Tiếng Việt');
+      expect(VKeyboardLocale.viVN.shortLabel, 'VN');
 
       expect(VKeyboardLocale.fromId('de_DE'), VKeyboardLocale.deDE);
       expect(VKeyboardLocale.fromId('ko_KR'), VKeyboardLocale.koKR);
       expect(VKeyboardLocale.fromId('ja_JP'), VKeyboardLocale.jaJP);
       expect(VKeyboardLocale.fromId('zh_CN'), VKeyboardLocale.zhCN);
       expect(VKeyboardLocale.fromId('zh_TW'), VKeyboardLocale.zhTW);
+      expect(VKeyboardLocale.fromId('th_TH'), VKeyboardLocale.thTH);
+      expect(VKeyboardLocale.fromId('vi_VN'), VKeyboardLocale.viVN);
       expect(VKeyboardLocale.fromId('unknown_id'), isNull);
     });
 

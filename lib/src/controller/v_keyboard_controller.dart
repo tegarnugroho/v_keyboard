@@ -19,6 +19,7 @@ import '../engine/ime_engine.dart';
 import '../engine/japanese_ime_engine.dart';
 import '../engine/kana_composer.dart';
 import '../engine/pinyin_ime_engine.dart';
+import '../engine/telex_composer.dart';
 import '../engine/text_input_engine.dart';
 import '../engine/zhuyin_ime_engine.dart';
 import '../layouts/layout_selection_storage.dart';
@@ -620,6 +621,22 @@ class VKeyboardController extends ChangeNotifier {
         session.value = newValue;
         session.onChanged?.call(newValue.text);
       }
+    } else if (_currentLayoutId == 'vi_VN' && TelexComposer.isTelexKey(text)) {
+      if (session.readOnly || !session.enabled) return;
+      final oldValue = session.value;
+      var newValue = TelexComposer.compose(
+        value: oldValue,
+        char: text,
+      );
+      if (session.inputFormatters != null && session.inputFormatters!.isNotEmpty) {
+        for (final formatter in session.inputFormatters!) {
+          newValue = formatter.formatEditUpdate(oldValue, newValue);
+        }
+      }
+      if (newValue != oldValue) {
+        session.value = newValue;
+        session.onChanged?.call(newValue.text);
+      }
     } else {
       _insert(session, text);
     }
@@ -673,6 +690,15 @@ class VKeyboardController extends ChangeNotifier {
       if (offset > 0 &&
           KanaComposer.canDecompose(session.value.text[offset - 1])) {
         session.value = KanaComposer.backspace(value: session.value);
+      } else {
+        session.value = TextInputEngine.deleteBackward(session.value);
+      }
+    } else if (_currentLayoutId == 'vi_VN' &&
+        session.value.selection.isCollapsed) {
+      final offset = session.value.selection.baseOffset;
+      if (offset > 0 &&
+          TelexComposer.canDecompose(session.value.text[offset - 1])) {
+        session.value = TelexComposer.backspace(value: session.value);
       } else {
         session.value = TextInputEngine.deleteBackward(session.value);
       }

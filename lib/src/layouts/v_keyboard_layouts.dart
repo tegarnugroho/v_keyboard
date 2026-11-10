@@ -11,7 +11,9 @@ import 'locales/layout_ja_jp.dart';
 import 'locales/layout_ko_kr.dart';
 import 'locales/layout_nordic.dart';
 import 'locales/layout_ru_ru.dart';
+import 'locales/layout_th_th.dart';
 import 'locales/layout_tr_tr.dart';
+import 'locales/layout_vi_vn.dart';
 import 'locales/layout_zh_cn.dart';
 import 'locales/layout_zh_tw.dart';
 
@@ -269,6 +271,30 @@ class VKeyboardLayouts {
         layout: LayoutZhTw.build(),
         builder: ({VKeyboardType type = VKeyboardType.standard}) =>
             LayoutZhTw.build(type: type),
+      ),
+    );
+
+    // 14. th_TH
+    _registerInternal(
+      VKeyboardLayoutMetadata(
+        id: 'th_TH',
+        displayName: 'ภาษาไทย',
+        shortLabel: 'TH',
+        layout: LayoutThTh.build(),
+        builder: ({VKeyboardType type = VKeyboardType.standard}) =>
+            LayoutThTh.build(type: type),
+      ),
+    );
+
+    // 15. vi_VN
+    _registerInternal(
+      VKeyboardLayoutMetadata(
+        id: 'vi_VN',
+        displayName: 'Tiếng Việt',
+        shortLabel: 'VN',
+        layout: LayoutViVn.build(),
+        builder: ({VKeyboardType type = VKeyboardType.standard}) =>
+            LayoutViVn.build(type: type),
       ),
     );
   }
