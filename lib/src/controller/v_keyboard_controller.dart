@@ -316,9 +316,10 @@ class VKeyboardController extends ChangeNotifier {
     if (_isDisposed) return;
     final sameField =
         _session?.id == session.id || _targetSession?.id == session.id;
+    final typeChanged = _session != null && _session!.type != session.type;
     _session = session;
     _targetSession = session;
-    if (!sameField && _page != 'clipboard') {
+    if ((!sameField || typeChanged) && _page != 'clipboard') {
       _clearComposingInternal();
       _page = session.getLayout(_currentLayoutId).initialPage;
       modifiers.reset(notify: false);

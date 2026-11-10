@@ -56,6 +56,14 @@ class BuiltinLayouts {
       if (loc != null) return loc;
     }
 
+    if (requiresLatin && !isLayoutLatin) {
+      return switch (type) {
+        VKeyboardType.email => emailFallback,
+        VKeyboardType.url => urlFallback,
+        _ => qwertyFallback,
+      };
+    }
+
     switch (type) {
       case VKeyboardType.standard:
       case VKeyboardType.password:
@@ -163,51 +171,59 @@ class BuiltinLayouts {
   static List<KeyData> _emojis(List<String> emojis) =>
       emojis.map((e) => KeyData.symbol(e)).toList();
 
-  static List<List<KeyData>> _numericSymbolPage(String moreTarget,
-          {bool includeEmoji = true}) =>
+  static List<List<KeyData>> _numericSymbolPage(String targetPage,
+      {bool includeEmoji = true}) {
+    return [
+      _symbols('1234567890'),
+      _symbols('-/:;()\$&@"'),
       [
-        _symbols('1234567890'),
-        _symbols('-/:;()\$&@"'),
-        [
-          KeyData.switchTo(moreTarget, label: '#+=', flex: 1.5),
-          ..._symbols('.,?!\''),
-          KeyData.backspace(flex: 1.5),
-        ],
-        [
-          KeyData.switchTo('abc', label: 'ABC', flex: 1.4),
-          if (includeEmoji)
-            KeyData.switchTo('emoji',
-                label: '☺',
-                icon: Icons.sentiment_satisfied_alt_rounded,
-                flex: 1.1),
-          KeyData.space(flex: includeEmoji ? 5.1 : 5.6),
-          KeyData.symbol('.', flex: 1),
-          KeyData.enter(flex: 1.8),
-        ],
-      ];
+        KeyData.switchTo(targetPage, label: '#+=', flex: 1.5),
+        KeyData.symbol('.', flex: 1.0),
+        KeyData.symbol(',', flex: 1.0),
+        KeyData.symbol('?', flex: 1.0),
+        KeyData.symbol('!', flex: 1.0),
+        KeyData.symbol("'", flex: 1.0),
+        KeyData.backspace(flex: 1.5),
+      ],
+      [
+        KeyData.switchTo('abc', label: 'ABC', flex: 1.3),
+        if (includeEmoji)
+          KeyData.switchTo('emoji',
+              label: '☺',
+              icon: Icons.sentiment_satisfied_alt_rounded,
+              flex: 1.0),
+        KeyData.space(flex: includeEmoji ? 5.1 : 5.6),
+        KeyData.enter(flex: 1.6),
+      ],
+    ];
+  }
 
-  static List<List<KeyData>> _symbolPage(String backTarget,
-          {bool includeEmoji = true}) =>
+  static List<List<KeyData>> _symbolPage(String targetPage,
+      {bool includeEmoji = true}) {
+    return [
+      _symbols('[]{}#%^*+='),
+      _symbols('_\\|~<>€£¥•'),
       [
-        _symbols('[]{}#%^*+='),
-        _symbols('_\\|~<>€£¥•'),
-        [
-          KeyData.switchTo(backTarget, label: '123', flex: 1.5),
-          ..._symbols('.,?!\''),
-          KeyData.backspace(flex: 1.5),
-        ],
-        [
-          KeyData.switchTo('abc', label: 'ABC', flex: 1.4),
-          if (includeEmoji)
-            KeyData.switchTo('emoji',
-                label: '☺',
-                icon: Icons.sentiment_satisfied_alt_rounded,
-                flex: 1.1),
-          KeyData.space(flex: includeEmoji ? 5.1 : 5.6),
-          KeyData.symbol('.', flex: 1),
-          KeyData.enter(flex: 1.8),
-        ],
-      ];
+        KeyData.switchTo(targetPage, label: '123', flex: 1.5),
+        KeyData.symbol('.', flex: 1.0),
+        KeyData.symbol(',', flex: 1.0),
+        KeyData.symbol('?', flex: 1.0),
+        KeyData.symbol('!', flex: 1.0),
+        KeyData.symbol("'", flex: 1.0),
+        KeyData.backspace(flex: 1.5),
+      ],
+      [
+        KeyData.switchTo('abc', label: 'ABC', flex: 1.3),
+        if (includeEmoji)
+          KeyData.switchTo('emoji',
+              label: '☺',
+              icon: Icons.sentiment_satisfied_alt_rounded,
+              flex: 1.0),
+        KeyData.space(flex: includeEmoji ? 5.1 : 5.6),
+        KeyData.enter(flex: 1.6),
+      ],
+    ];
+  }
 
   static List<KeyData> _symbols(String chars) =>
       chars.split('').map((c) => KeyData.symbol(c)).toList();
@@ -266,6 +282,31 @@ class BuiltinLayouts {
       'symbols': _symbolPage('123', includeEmoji: false),
     },
   );
+
+  static KeyboardLayout _withEnglishSpace(KeyboardLayout layout) {
+    final updatedPages = <String, List<List<KeyData>>>{};
+    for (final entry in layout.pages.entries) {
+      final updatedRows = entry.value.map((row) {
+        return row.map((key) {
+          if (key.kind == KeyKind.space) {
+            return KeyData.space(label: 'English', flex: key.flex);
+          }
+          return key;
+        }).toList();
+      }).toList();
+      updatedPages[entry.key] = updatedRows;
+    }
+    return KeyboardLayout(
+      id: layout.id,
+      pages: updatedPages,
+      initialPage: layout.initialPage,
+    );
+  }
+
+  /// Latin fallback variants for non-Latin locales with 'English' on space bar.
+  static final KeyboardLayout emailFallback = _withEnglishSpace(email);
+  static final KeyboardLayout urlFallback = _withEnglishSpace(url);
+  static final KeyboardLayout qwertyFallback = _withEnglishSpace(qwerty);
 
   // ---- Multiline ------------------------------------------------------------
 

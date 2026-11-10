@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
 
@@ -823,6 +823,76 @@ void main() {
       keyboardController.dispose();
       textController.dispose();
       focusNode.dispose();
+    });
+
+    test('space bar label reflects Latin fallback for email but shows native language for standard', () {
+      final ruStandard = BuiltinLayouts.resolve(VKeyboardType.standard, layoutId: 'ru_RU');
+      final ruEmail = BuiltinLayouts.resolve(VKeyboardType.email, layoutId: 'ru_RU');
+
+      // In Russian Standard, the space bar has no explicit label so it defaults to Russian display name
+      final standardSpace = ruStandard.rowsFor('abc')[3].firstWhere((k) => k.kind == KeyKind.space);
+      expect(standardSpace.label, isNull);
+
+      // In Russian Email, Latin fallback layout has explicit 'English' label
+      final emailSpace = ruEmail.rowsFor('abc')[3].firstWhere((k) => k.kind == KeyKind.space);
+      expect(emailSpace.label, 'English');
+    });
+
+    testWidgets('switching keyboardType on focused VTextField updates session and space text', (tester) async {
+      final controller = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLocales: [VKeyboardLocale.enUS, VKeyboardLocale.ruRU],
+          defaultLocale: VKeyboardLocale.ruRU,
+        ),
+      );
+
+      final textController = TextEditingController();
+      final focusNode = FocusNode();
+      final typeNotifier = ValueNotifier<VKeyboardType>(VKeyboardType.email);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: VKeyboardScope(
+            controller: controller,
+            child: Scaffold(
+              body: Column(
+                children: [
+                  ValueListenableBuilder<VKeyboardType>(
+                    valueListenable: typeNotifier,
+                    builder: (context, type, _) {
+                      return VTextField(
+                        controller: textController,
+                        focusNode: focusNode,
+                        keyboardType: type,
+                        autofocus: true,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(focusNode.hasFocus, isTrue);
+
+      // Initially on email field: Latin fallback, space bar shows 'English'
+      expect(find.text('English'), findsOneWidget);
+      expect(find.text('Русский'), findsNothing);
+
+      // Switch keyboardType to standard: Russian layout active, space bar shows 'Русский'
+      typeNotifier.value = VKeyboardType.standard;
+      await tester.pumpAndSettle();
+
+      expect(find.text('Русский'), findsOneWidget);
+      expect(find.text('English'), findsNothing);
+
+      controller.dispose();
+      textController.dispose();
+      focusNode.dispose();
+      typeNotifier.dispose();
     });
   });
 }

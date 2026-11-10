@@ -153,6 +153,22 @@ class _VTextFieldState extends State<VTextField> {
       _ownsFocusNode = widget.focusNode == null;
       _focusNode.addListener(_onFocusChanged);
     }
+    if (_focusNode.hasFocus && _session != null) {
+      if (widget.keyboardType != old.keyboardType ||
+          widget.obscureText != old.obscureText ||
+          widget.readOnly != old.readOnly ||
+          widget.enabled != old.enabled ||
+          widget.maxLength != old.maxLength ||
+          widget.customLayout != old.customLayout ||
+          widget.inputFormatters != old.inputFormatters ||
+          widget.sensitive != old.sensitive ||
+          widget.textInputAction != old.textInputAction ||
+          widget.config != old.config) {
+        final session = _buildSession();
+        _session = session;
+        _scope?.controller.attach(session);
+      }
+    }
   }
 
   @override

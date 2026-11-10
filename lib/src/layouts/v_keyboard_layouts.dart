@@ -218,8 +218,8 @@ class VKeyboardLayouts {
     _registerInternal(
       VKeyboardLayoutMetadata(
         id: 'el_GR',
-        displayName: 'Ελληνικά',
-        shortLabel: 'EL',
+        displayName: 'Ελληνικά (Greek)',
+        shortLabel: 'GR',
         isLatin: false,
         layout: LayoutElGr.build(),
         builder: ({VKeyboardType type = VKeyboardType.standard}) =>

@@ -29,7 +29,7 @@ enum VKeyboardLocale {
   ruRU('ru_RU', 'Русский', 'RU'),
 
   /// Greek layout with Greek alphabet and `€` currency.
-  elGR('el_GR', 'Ελληνικά', 'GR'),
+  elGR('el_GR', 'Ελληνικά (Greek)', 'GR'),
 
   /// Korean 2-Set Hangul (두벌식) with syllable composition and `₩` currency.
   koKR('ko_KR', '한국어', 'KO'),
