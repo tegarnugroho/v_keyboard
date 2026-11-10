@@ -56,6 +56,8 @@ class DesktopFullKeyboard extends StatefulWidget {
     this.clipboardIcon,
     this.onClipboardTap,
     this.bottomSafeArea = 0.0,
+    this.height,
+    this.keyHeight,
     this.controller,
   });
 
@@ -201,6 +203,13 @@ class DesktopFullKeyboard extends StatefulWidget {
   /// Bottom safe-area / bar height (matching [KeyboardView.bottomSafeArea]).
   /// When any bottom utility button is visible, the bar is at least `36.0` px tall.
   final double bottomSafeArea;
+
+  /// Optional explicit fixed height for the keyboard content. When provided,
+  /// overrides dynamic ratio and row-height calculations.
+  final double? height;
+
+  /// Optional preferred height for key rows in logical pixels.
+  final double? keyHeight;
 
   /// Optional [VKeyboardController] for direct integration with [VTextField]
   /// sessions and hardware shortcut dispatch.
@@ -969,7 +978,11 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               ? math.max(widget.bottomSafeArea, 36.0)
               : widget.bottomSafeArea;
 
-          final ratioCap = (screenH * widget.maxKeyboardHeightRatio)
+          final effectiveRatio = (widget.maxKeyboardHeightRatio != 0.38)
+              ? widget.maxKeyboardHeightRatio
+              : (controller?.config.keyboardHeightFactor ??
+                  widget.maxKeyboardHeightRatio);
+          final ratioCap = (screenH * effectiveRatio)
                   .clamp(190.0, screenH * 0.65) +
               (widget.bottomSafeArea > 0 ? widget.bottomSafeArea : 0.0);
           final maxAllowedH = constraints.hasBoundedHeight
@@ -977,13 +990,22 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               : ratioCap;
 
           final unitWidth = (effectiveGridWidth - hPadding * 2) / totalUnits;
-          final heightUnits = !includeFnRow ? 15 : totalUnits;
+          const heightUnits = 15;
           final idealUnitWidth =
               (effectiveGridWidth - hPadding * 2) / heightUnits;
-          final idealRowHeight = (idealUnitWidth * 0.85).clamp(32.0, 54.0);
+
+          // On large desktop monitors (e.g. 24", 27", 32" screens), dynamically
+          // allow row heights up to 92.0 so keys remain comfortable for touch.
+          final maxRowCeiling = (screenH >= 900)
+              ? math.min(92.0, screenH * 0.085)
+              : 64.0;
+          final preferredKeyH =
+              widget.keyHeight ?? controller?.config.keyHeight;
+          final idealRowHeight = preferredKeyH ??
+              (idealUnitWidth * 0.85).clamp(32.0, maxRowCeiling);
           final headerHeight =
               widget.showHeader ? (idealRowHeight * 0.72).clamp(26.0, 36.0) : 0.0;
-          final vPadding = (idealRowHeight * 0.24).clamp(6.0, 12.0);
+          final vPadding = (idealRowHeight * 0.24).clamp(6.0, 14.0);
           final verticalOuterPadding =
               vPadding + (bottomBarHeight > 0 ? 0.0 : vPadding);
           final idealTotalH = headerHeight +
@@ -993,8 +1015,13 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               verticalOuterPadding +
               bottomBarHeight;
 
+          final preferredTotalH =
+              widget.height ?? controller?.config.keyboardHeight;
+          final rawTotalH = preferredTotalH != null
+              ? (preferredTotalH + bottomBarHeight)
+              : idealTotalH;
           final totalHeight = math
-              .min(idealTotalH, maxAllowedH)
+              .min(rawTotalH, maxAllowedH)
               .clamp(math.min(180.0, maxAllowedH), maxAllowedH)
               .toDouble();
 
@@ -1010,7 +1037,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           final actualRowHeight = actualGridHeight / rowCount;
           final baseFontSize = math
               .min(actualRowHeight * 0.36, unitWidth * 0.34)
-              .clamp(9.5, 20.0);
+              .clamp(9.5, 26.0);
 
           final resolvedPadding = widget.padding ??
               EdgeInsets.fromLTRB(

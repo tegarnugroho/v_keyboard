@@ -86,7 +86,7 @@ class KeyboardView extends StatelessWidget {
     final contentHeight = metrics.height -
         theme.contentPadding.vertical -
         metrics.rowSpacing * (rowCount - 1);
-    final rowHeight = (contentHeight / rowCount).clamp(36.0, 88.0);
+    final rowHeight = (contentHeight / rowCount).clamp(36.0, 120.0);
 
     final grid = Column(
       mainAxisSize: MainAxisSize.min,

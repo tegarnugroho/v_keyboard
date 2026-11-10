@@ -43,6 +43,13 @@ class VKeyboardConfig {
     this.maxImeCandidates = 8,
     this.candidateBarHeight = 38.0,
     this.desktopFormFactor,
+    this.keyboardHeight,
+    this.keyboardHeightFactor,
+    this.minKeyboardHeight,
+    this.maxKeyboardHeight,
+    this.keyHeight,
+    this.maxKeyboardWidth,
+    this.numericPadMaxWidth,
   })  : _enabledLayouts = enabledLayouts,
         _defaultLayout = defaultLayout;
 
@@ -162,6 +169,39 @@ class VKeyboardConfig {
   /// desktop layout is used.
   final KeyboardLayoutType? desktopFormFactor;
 
+  /// Optional explicit fixed height (in logical pixels) for the keyboard content
+  /// area (excluding bottom utility bar or safe-area inset).
+  ///
+  /// When provided, this overrides dynamic viewport fraction and row-height
+  /// calculations across all form factors.
+  final double? keyboardHeight;
+
+  /// Optional fraction of the total viewport height (e.g. `0.40` for 40% of screen height)
+  /// that the keyboard content area should occupy.
+  ///
+  /// Particularly useful on large desktop/kiosk/POS monitors (such as 24", 27", 32" screens)
+  /// where the default desktop height may otherwise feel too short.
+  final double? keyboardHeightFactor;
+
+  /// Optional minimum bound on keyboard content height in logical pixels.
+  final double? minKeyboardHeight;
+
+  /// Optional maximum bound on keyboard content height in logical pixels.
+  final double? maxKeyboardHeight;
+
+  /// Optional preferred height for key rows in logical pixels.
+  final double? keyHeight;
+
+  /// Optional upper bound on keyboard content width in logical pixels. On viewports
+  /// wider than this value, the keyboard is horizontally centered.
+  final double? maxKeyboardWidth;
+
+  /// Optional upper bound on numeric/compact keyboards (`number`, `pin`, `decimal`, `phone`).
+  ///
+  /// Defaults to `480.0` on wide desktop/POS screens (>= 1200px width), `420.0` on tablets,
+  /// and `360.0` on phones.
+  final double? numericPadMaxWidth;
+
   final Duration longPressDeleteDelay;
 
   /// Delay before a held character key starts repeating.
@@ -210,6 +250,13 @@ class VKeyboardConfig {
     int? maxImeCandidates,
     double? candidateBarHeight,
     KeyboardLayoutType? desktopFormFactor,
+    double? keyboardHeight,
+    double? keyboardHeightFactor,
+    double? minKeyboardHeight,
+    double? maxKeyboardHeight,
+    double? keyHeight,
+    double? maxKeyboardWidth,
+    double? numericPadMaxWidth,
   }) {
     return VKeyboardConfig(
       hideOnDone: hideOnDone ?? this.hideOnDone,
@@ -253,6 +300,13 @@ class VKeyboardConfig {
       maxImeCandidates: maxImeCandidates ?? this.maxImeCandidates,
       candidateBarHeight: candidateBarHeight ?? this.candidateBarHeight,
       desktopFormFactor: desktopFormFactor ?? this.desktopFormFactor,
+      keyboardHeight: keyboardHeight ?? this.keyboardHeight,
+      keyboardHeightFactor: keyboardHeightFactor ?? this.keyboardHeightFactor,
+      minKeyboardHeight: minKeyboardHeight ?? this.minKeyboardHeight,
+      maxKeyboardHeight: maxKeyboardHeight ?? this.maxKeyboardHeight,
+      keyHeight: keyHeight ?? this.keyHeight,
+      maxKeyboardWidth: maxKeyboardWidth ?? this.maxKeyboardWidth,
+      numericPadMaxWidth: numericPadMaxWidth ?? this.numericPadMaxWidth,
     );
   }
 }

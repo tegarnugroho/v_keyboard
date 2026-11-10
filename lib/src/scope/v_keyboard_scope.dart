@@ -169,15 +169,24 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
   /// Sizing for the desktop layout: key height scales with width, total height
   /// follows the (responsive) row count, and the grid is centred + width-capped.
   KeyboardMetrics _desktopMetrics(
-      MediaQueryData mq, int rowCount, double contentWidth) {
-    final rowHeight = (contentWidth / 24).clamp(34.0, 58.0);
+    MediaQueryData mq,
+    int rowCount,
+    double contentWidth, {
+    VKeyboardConfig? config,
+  }) {
+    final maxRowCeiling = (mq.size.height >= 900)
+        ? math.min(92.0, mq.size.height * 0.085)
+        : 64.0;
+    final rowHeight = config?.keyHeight ??
+        (contentWidth / 24).clamp(34.0, maxRowCeiling);
     const rowSpacing = 6.0;
     const contentVertical = 16.0; // KeyboardView contentPadding.vertical
-    final height =
+    final idealHeight =
         rowCount * rowHeight + rowSpacing * (rowCount - 1) + contentVertical;
+    final height = config?.keyboardHeight ?? idealHeight;
     return KeyboardMetrics(
       height: height,
-      maxWidth: contentWidth,
+      maxWidth: config?.maxKeyboardWidth ?? contentWidth,
       horizontalPadding: 8,
       rowSpacing: rowSpacing,
       formFactor: DeviceFormFactor.desktop,
@@ -193,6 +202,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     MediaQueryData mq,
     KeyboardLayoutType formFactor, {
     bool hasBottomBar = false,
+    VKeyboardConfig? config,
   }) {
     final width = mq.size.width;
     final totalUnits = switch (formFactor) {
@@ -206,26 +216,37 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     final rowCount = formFactor.hasFunctionRow ? 6 : 5;
     final hPadding = (width * 0.008).clamp(6.0, 16.0);
     final double height;
-    if (!formFactor.hasFunctionRow) {
+    if (config?.keyboardHeight != null) {
+      height = config!.keyboardHeight!;
+    } else if (!formFactor.hasFunctionRow) {
       height = KeyboardMetrics.desktopBaselineHeight(
         mq,
         hasBottomBar: hasBottomBar,
-        maxHeightRatio: _fullKeyboardHeightRatio,
+        maxHeightRatio:
+            config?.keyboardHeightFactor ?? _fullKeyboardHeightRatio,
+        config: config,
       );
     } else {
-      final unitWidth = (width - hPadding * 2) / totalUnits;
-      final rowHeight = (unitWidth * 0.85).clamp(32.0, 54.0);
-      final vPadding = (rowHeight * 0.24).clamp(6.0, 12.0);
-      final verticalOuterPadding = vPadding + (hasBottomBar ? 0.0 : vPadding);
+      final baseline = KeyboardMetrics.desktopBaselineHeight(
+        mq,
+        hasBottomBar: hasBottomBar,
+        maxHeightRatio:
+            config?.keyboardHeightFactor ?? _fullKeyboardHeightRatio,
+        config: config,
+      );
+      // F-row layouts have 6 rows (Fn row + 5 alpha rows). Scaling by (6 / 5)
+      // preserves consistent row heights while accommodating the extra row.
       final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
-      final cap =
-          (screenH * _fullKeyboardHeightRatio).clamp(190.0, screenH * 0.65);
-      height =
-          math.min(rowCount * rowHeight + verticalOuterPadding, cap).toDouble();
+      final ratio = config?.keyboardHeightFactor ?? 0.55;
+      final cap = (screenH * ratio).clamp(baseline, screenH * 0.65);
+      final scaled = baseline * (6.0 / 5.0);
+      final minH = config?.minKeyboardHeight ?? baseline;
+      final maxH = config?.maxKeyboardHeight ?? cap;
+      height = scaled.clamp(minH, maxH).toDouble();
     }
     return KeyboardMetrics(
       height: height,
-      maxWidth: width,
+      maxWidth: config?.maxKeyboardWidth ?? width,
       horizontalPadding: hPadding,
       rowSpacing: 0,
       formFactor: DeviceFormFactor.desktop,
@@ -267,12 +288,15 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
           mq,
           formFactor,
           hasBottomBar: fullDesktopHasBottomBar,
+          config: effectiveConfig,
         );
       } else {
-        final contentWidth = mq.size.width.clamp(320.0, 1320.0);
+        final maxW = effectiveConfig.maxKeyboardWidth ?? 1320.0;
+        final contentWidth = mq.size.width.clamp(320.0, maxW);
         rows = DesktopLayouts.rows(contentWidth,
             layoutId: _controller.currentLayoutId);
-        metrics = _desktopMetrics(mq, rows.length, contentWidth);
+        metrics = _desktopMetrics(mq, rows.length, contentWidth,
+            config: effectiveConfig);
       }
     } else {
       rows = _controller.currentRows;
@@ -282,9 +306,11 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
           type == VKeyboardType.pin ||
           type == VKeyboardType.phone;
       metrics = isClipboard
-          ? KeyboardMetrics.resolve(mq, rows: 6, compact: false)
+          ? KeyboardMetrics.resolve(mq,
+              rows: 6, compact: false, config: effectiveConfig)
           : (rows != null
-              ? KeyboardMetrics.resolve(mq, rows: rows.length, compact: compact)
+              ? KeyboardMetrics.resolve(mq,
+                  rows: rows.length, compact: compact, config: effectiveConfig)
               : null);
     }
     if (metrics != null) _lastHeight = metrics.height;
@@ -404,7 +430,11 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                         bottomSafeArea: bottomInset,
                                         onDismiss: _controller.hide,
                                         maxKeyboardHeightRatio:
-                                            _fullKeyboardHeightRatio,
+                                            effectiveConfig.keyboardHeightFactor ??
+                                                _fullKeyboardHeightRatio,
+                                        maxWidth: effectiveConfig.maxKeyboardWidth,
+                                        height: effectiveConfig.keyboardHeight,
+                                        keyHeight: effectiveConfig.keyHeight,
                                       ),
                                     ),
                                   )
