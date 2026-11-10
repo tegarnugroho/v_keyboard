@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../models/desktop_key_model.dart';
 import '../models/v_keyboard_locale.dart';
 
 /// Behavioural configuration for the virtual keyboard.
@@ -41,6 +42,7 @@ class VKeyboardConfig {
     this.enableImeCandidates = true,
     this.maxImeCandidates = 8,
     this.candidateBarHeight = 38.0,
+    this.desktopFormFactor,
   })  : _enabledLayouts = enabledLayouts,
         _defaultLayout = defaultLayout;
 
@@ -154,6 +156,12 @@ class VKeyboardConfig {
   final bool scrollFocusedIntoView;
 
   /// Delay before long-press delete begins repeating.
+  /// Form factor for `VKeyboardType.desktop` fields. When set, the scope
+  /// renders [DesktopFullKeyboard] with this preset (e.g.
+  /// [KeyboardLayoutType.layout60]); when null, the built-in OSK-style
+  /// desktop layout is used.
+  final KeyboardLayoutType? desktopFormFactor;
+
   final Duration longPressDeleteDelay;
 
   /// Delay before a held character key starts repeating.
@@ -201,6 +209,7 @@ class VKeyboardConfig {
     bool? enableImeCandidates,
     int? maxImeCandidates,
     double? candidateBarHeight,
+    KeyboardLayoutType? desktopFormFactor,
   }) {
     return VKeyboardConfig(
       hideOnDone: hideOnDone ?? this.hideOnDone,
@@ -231,8 +240,7 @@ class VKeyboardConfig {
       syncSystemClipboard: syncSystemClipboard ?? this.syncSystemClipboard,
       showHideKeyboardButton:
           showHideKeyboardButton ?? this.showHideKeyboardButton,
-      showClipboardButton:
-          showClipboardButton ?? this.showClipboardButton,
+      showClipboardButton: showClipboardButton ?? this.showClipboardButton,
       enabledLayouts: enabledLayouts ?? _enabledLayouts,
       enabledLocales: enabledLocales ?? this.enabledLocales,
       defaultLayout: defaultLayout ?? _defaultLayout,
@@ -244,6 +252,7 @@ class VKeyboardConfig {
       enableImeCandidates: enableImeCandidates ?? this.enableImeCandidates,
       maxImeCandidates: maxImeCandidates ?? this.maxImeCandidates,
       candidateBarHeight: candidateBarHeight ?? this.candidateBarHeight,
+      desktopFormFactor: desktopFormFactor ?? this.desktopFormFactor,
     );
   }
 }

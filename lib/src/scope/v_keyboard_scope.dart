@@ -7,11 +7,14 @@ import 'package:flutter/scheduler.dart';
 import '../config/v_keyboard_config.dart';
 import '../controller/v_keyboard_controller.dart';
 import '../layouts/desktop_layouts.dart';
+import '../models/desktop_key_model.dart';
 import '../models/key_data.dart';
 import '../models/keyboard_type.dart';
 import '../responsive/keyboard_metrics.dart';
 import '../theme/v_keyboard_theme.dart';
 import '../widgets/clipboard_history_panel.dart';
+import '../widgets/desktop_full_keyboard.dart';
+import '../widgets/virtual_key_button.dart';
 import '../widgets/emoji_panel.dart';
 import '../widgets/keyboard_view.dart';
 import '../widgets/layout_picker_dialog.dart';
@@ -182,11 +185,47 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     );
   }
 
+  static const double _fullKeyboardHeightRatio = 0.44;
+
+  /// Height of a headerless, full-width [DesktopFullKeyboard] — mirrors its
+  /// own sizing so the simulated viewInsets match what it paints.
+  KeyboardMetrics _fullKeyboardMetrics(
+      MediaQueryData mq, KeyboardLayoutType formFactor) {
+    final width = mq.size.width;
+    final totalUnits = switch (formFactor) {
+      KeyboardLayoutType.layout60 => 15,
+      KeyboardLayoutType.layout65 || KeyboardLayoutType.layout75 => 16,
+      KeyboardLayoutType.layout87TKL => width >= 540 ? 18 : 15,
+      KeyboardLayoutType.layout98 => width >= 720 ? 19 : 15,
+      KeyboardLayoutType.layout100 =>
+        15 + (width >= 540 ? 3 : 0) + (width >= 720 ? 4 : 0),
+    };
+    final rowCount = formFactor.hasFunctionRow ? 6 : 5;
+    final hPadding = (width * 0.008).clamp(6.0, 16.0);
+    final unitWidth = (width - hPadding * 2) / totalUnits;
+    final rowHeight = (unitWidth * 0.85).clamp(32.0, 54.0);
+    final vPadding = (rowHeight * 0.24).clamp(6.0, 12.0);
+    final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
+    final cap =
+        (screenH * _fullKeyboardHeightRatio).clamp(190.0, screenH * 0.65);
+    final height =
+        math.min(rowCount * rowHeight + vPadding * 2, cap).toDouble();
+    return KeyboardMetrics(
+      height: height,
+      maxWidth: width,
+      horizontalPadding: hPadding,
+      rowSpacing: 0,
+      formFactor: DeviceFormFactor.desktop,
+      isLandscape: mq.size.width >= mq.size.height,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     final theme = widget.theme ?? VKeyboardTheme.fromTheme(Theme.of(context));
 
+    final effectiveConfig = widget.controller?.config ?? widget.config;
     final isClipboard = _controller.currentPage == 'clipboard';
     final isDesktopLayout =
         _controller.session?.type == VKeyboardType.desktop &&
@@ -197,9 +236,17 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     if (isDesktopLayout) {
       // Desktop layout is built responsively from the available width and is
       // centred + width-limited; rows collapse as the window narrows.
-      final contentWidth = mq.size.width.clamp(320.0, 1320.0);
-      rows = DesktopLayouts.rows(contentWidth, layoutId: _controller.currentLayoutId);
-      metrics = _desktopMetrics(mq, rows.length, contentWidth);
+      final formFactor = effectiveConfig.desktopFormFactor;
+      if (formFactor != null) {
+        // Rendered by DesktopFullKeyboard; rows are unused but non-null.
+        rows = const [];
+        metrics = _fullKeyboardMetrics(mq, formFactor);
+      } else {
+        final contentWidth = mq.size.width.clamp(320.0, 1320.0);
+        rows = DesktopLayouts.rows(contentWidth,
+            layoutId: _controller.currentLayoutId);
+        metrics = _desktopMetrics(mq, rows.length, contentWidth);
+      }
     } else {
       rows = _controller.currentRows;
       final type = _controller.session?.type;
@@ -214,8 +261,6 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
               : null);
     }
     if (metrics != null) _lastHeight = metrics.height;
-
-    final effectiveConfig = widget.controller?.config ?? widget.config;
 
     final type = _controller.session?.type;
     final isTextLike = type == VKeyboardType.standard ||
@@ -236,9 +281,8 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
         !isDesktopLayout;
     final hasBottomBar =
         showHideButton || shouldShowGlobe || showClipboardButton;
-    final bottomInset = hasBottomBar
-        ? math.max(mq.padding.bottom, 36.0)
-        : mq.padding.bottom;
+    final bottomInset =
+        hasBottomBar ? math.max(mq.padding.bottom, 36.0) : mq.padding.bottom;
     final fullHeight = _lastHeight + bottomInset;
 
     return _VKeyboardScopeMarker(
@@ -306,16 +350,44 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                 maxWidth: metrics.maxWidth,
                                 bottomSafeArea: bottomInset,
                               )
-                            : KeyboardView(
-                                controller: _controller,
-                                theme: theme,
-                                metrics: metrics,
-                                rows: rows ?? const [],
-                                bottomSafeArea: bottomInset,
-                                showHideKeyboardButton: showHideButton,
-                                showGlobeKey: shouldShowGlobe,
-                                showClipboardButton: showClipboardButton,
-                              ),
+                            : (isDesktopLayout &&
+                                    effectiveConfig.desktopFormFactor != null)
+                                ? SizedBox(
+                                    height: metrics.height + bottomInset,
+                                    // The scope usually sits above the
+                                    // Navigator (MaterialApp.builder), so
+                                    // provide the Material text defaults
+                                    // DesktopFullKeyboard relies on.
+                                    child: Material(
+                                      type: MaterialType.transparency,
+                                      child: DesktopFullKeyboard(
+                                        controller: _controller,
+                                        layoutType:
+                                            effectiveConfig.desktopFormFactor!,
+                                        themeData: ThemeData
+                                                    .estimateBrightnessForColor(
+                                                        theme
+                                                            .backgroundColor) ==
+                                                Brightness.light
+                                            ? DesktopKeyboardThemeData.light()
+                                            : DesktopKeyboardThemeData.dark(),
+                                        showHeader: false,
+                                        showPlatformToggle: false,
+                                        maxKeyboardHeightRatio:
+                                            _fullKeyboardHeightRatio,
+                                      ),
+                                    ),
+                                  )
+                                : KeyboardView(
+                                    controller: _controller,
+                                    theme: theme,
+                                    metrics: metrics,
+                                    rows: rows ?? const [],
+                                    bottomSafeArea: bottomInset,
+                                    showHideKeyboardButton: showHideButton,
+                                    showGlobeKey: shouldShowGlobe,
+                                    showClipboardButton: showClipboardButton,
+                                  ),
                   ),
                 ),
               ),
