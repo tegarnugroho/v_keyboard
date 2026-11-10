@@ -678,4 +678,248 @@ void main() {
       focusNode.dispose();
     });
   });
+
+  group('Desktop Multi-Language & CJK IME Support', () {
+    test('all 15 built-in locales preserve exact 15u/16u row flex parity', () {
+      final localeIds = [for (final meta in VKeyboardLayouts.all) meta.id];
+      expect(localeIds.length, greaterThanOrEqualTo(15));
+
+      for (final os in DesktopKeyboardPlatform.values) {
+        for (final id in localeIds) {
+          for (final row in DesktopFullLayoutData.layout60Rows(
+            platform: os,
+            layoutId: id,
+          )) {
+            final sum = row.fold<double>(0.0, (s, k) => s + k.flex);
+            expect(sum, closeTo(15.0, 0.001), reason: '60% $os $id');
+          }
+          for (final row in DesktopFullLayoutData.layout65Rows(
+            platform: os,
+            layoutId: id,
+          )) {
+            final sum = row.fold<double>(0.0, (s, k) => s + k.flex);
+            expect(sum, closeTo(16.0, 0.001), reason: '65% $os $id');
+          }
+          for (final row in DesktopFullLayoutData.layout75Rows(
+            platform: os,
+            layoutId: id,
+          )) {
+            final sum = row.fold<double>(0.0, (s, k) => s + k.flex);
+            expect(sum, closeTo(16.0, 0.001), reason: '75% $os $id');
+          }
+          for (final row in DesktopFullLayoutData.layout98MainRows(
+            platform: os,
+            layoutId: id,
+          )) {
+            final sum = row.fold<double>(0.0, (s, k) => s + k.flex);
+            expect(sum, closeTo(15.0, 0.001), reason: '98% $os $id');
+          }
+        }
+      }
+    });
+
+    testWidgets(
+        'header locale picker & spacebar long-press switch locales standalone',
+        (tester) async {
+      tester.view.physicalSize = const Size(1440, 900);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final typed = <String>[];
+      final layoutEvents = <String>[];
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: DesktopFullKeyboard(
+              onLayoutChanged: layoutEvents.add,
+              onKeyPressed: typed.add,
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Starts on English (US)
+      expect(find.text('English (US)'), findsOneWidget);
+      expect(find.text('SPACEBAR'), findsOneWidget);
+
+      // Tap header locale picker chip and choose 日本語 (ja_JP)
+      await tester.tap(find.byKey(const ValueKey('dk_locale_picker')));
+      await tester.pumpAndSettle();
+      expect(find.text('Desktop Input Language'), findsOneWidget);
+      expect(find.text('Pinyin IME'), findsOneWidget);
+      expect(find.text('Kana IME'), findsOneWidget);
+
+      await tester.tap(find.byKey(const ValueKey('dk_locale_opt_ja_JP')));
+      await tester.pumpAndSettle();
+
+      expect(layoutEvents, ['ja_JP']);
+      // Active language displayed in header & on Spacebar
+      expect(find.text('日本語'), findsNWidgets(2));
+      expect(find.text('た'), findsOneWidget);
+      await tester.tap(find.text('た'));
+      expect(typed.last, 'た');
+
+      // Long-press Spacebar also opens locale picker
+      await tester.longPress(
+        find.byKey(const ValueKey('dk_layout100_spacebar')),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('dk_locale_opt_ru_RU')));
+      await tester.pumpAndSettle();
+
+      expect(layoutEvents.last, 'ru_RU');
+      expect(find.text('й'), findsOneWidget);
+
+      // Shift uppercases Russian letter & outputs uppercase Cyrillic
+      await tester.tap(find.byKey(const ValueKey('dk_layout100_shift_left')));
+      await tester.pump();
+      expect(find.text('Й'), findsOneWidget);
+      await tester.tap(find.text('Й'));
+      await tester.pump();
+      expect(typed.last, 'Й');
+
+      // Verify German QWERTZ + AltGr Euro support standalone
+      await tester.tap(find.byKey(const ValueKey('dk_locale_picker')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('dk_locale_opt_de_DE')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('dk_layout100_alt_gr')));
+      await tester.pump();
+      await tester.tap(find.text('e'));
+      await tester.pump();
+      expect(typed.last, '€');
+    });
+
+    testWidgets(
+        'renders non-Latin scripts cleanly even at compact 480x800 viewport',
+        (tester) async {
+      tester.view.physicalSize = const Size(480, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: DesktopFullKeyboard(
+              layoutType: KeyboardLayoutType.layout60,
+              layoutId: 'th_TH',
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Compact header displays short badge 'TH' to prevent overflow
+      expect(find.text('TH'), findsOneWidget);
+      expect(find.text('ภาษาไทย'), findsOneWidget); // Spacebar
+      expect(find.text('ๆ'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets(
+        'connected VTextField composes zh_CN Pinyin with CandidateBar & ko_KR Hangul',
+        (tester) async {
+      tester.view.physicalSize = const Size(1440, 900);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final textController = TextEditingController();
+      final focusNode = FocusNode();
+      final vkController = VKeyboardController(
+        config: const VKeyboardConfig(persistLayoutSelection: false),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: VKeyboardScope(
+            controller: vkController,
+            renderKeyboard: false,
+            child: Scaffold(
+              body: Column(
+                children: [
+                  Expanded(
+                    child: VTextField(
+                      controller: textController,
+                      focusNode: focusNode,
+                      keyboardType: VKeyboardType.desktop,
+                      autofocus: true,
+                    ),
+                  ),
+                  const DesktopFullKeyboard(),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Switch to Chinese Pinyin via Desktop locale picker pill
+      await tester.tap(find.byKey(const ValueKey('dk_locale_picker')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('dk_locale_opt_zh_CN')));
+      await tester.pumpAndSettle();
+
+      expect(vkController.currentLayoutId, 'zh_CN');
+
+      // Type "ni" -> CandidateBar renders composing badge & "你"
+      await tester.tap(find.text('n'));
+      await tester.pump();
+      await tester.tap(find.text('i'));
+      await tester.pumpAndSettle();
+
+      expect(vkController.composingText, 'ni');
+      expect(find.byType(CandidateBar), findsOneWidget);
+      expect(find.text('ni'), findsOneWidget);
+      final candidateFinder = find.descendant(
+        of: find.byType(CandidateBar),
+        matching: find.textContaining('你'),
+      );
+      expect(candidateFinder, findsWidgets);
+
+      // Select '你' candidate -> committed to VTextField & CandidateBar disappears
+      await tester.tap(candidateFinder.first);
+      await tester.pumpAndSettle();
+      expect(textController.text, '你');
+      expect(vkController.composingText, isEmpty);
+
+      // Switch to Japanese JIS Kana and verify CandidateBar & commit
+      textController.clear();
+      vkController.setLayout('ja_JP');
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('さ'));
+      await tester.pumpAndSettle();
+      expect(vkController.composingText, 'さ');
+      expect(find.byType(CandidateBar), findsOneWidget);
+      final jaCandidate = find.descendant(
+        of: find.byType(CandidateBar),
+        matching: find.byType(InkWell),
+      );
+      expect(jaCandidate, findsWidgets);
+      await tester.tap(jaCandidate.first);
+      await tester.pumpAndSettle();
+      expect(textController.text, isNotEmpty);
+
+      // Switch to Korean 2-Bulsik and compose '한' (ㅎ + ㅏ + ㄴ)
+      textController.clear();
+      vkController.setLayout('ko_KR');
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('ㅎ'));
+      await tester.pump();
+      await tester.tap(find.text('ㅏ'));
+      await tester.pump();
+      await tester.tap(find.text('ㄴ'));
+      await tester.pump();
+      expect(textController.text, '한');
+      expect(tester.takeException(), isNull);
+
+      vkController.dispose();
+      textController.dispose();
+      focusNode.dispose();
+    });
+  });
 }

@@ -206,6 +206,7 @@ class VirtualKeyButton extends StatefulWidget {
     this.horizontalMargin = 2.0,
     this.verticalMargin = 2.0,
     this.enableRepeat = true,
+    this.onLongPress,
   });
 
   final KeyModel model;
@@ -220,6 +221,11 @@ class VirtualKeyButton extends StatefulWidget {
   final double horizontalMargin;
   final double verticalMargin;
   final bool enableRepeat;
+
+  /// Optional callback invoked when the user long-presses this key
+  /// (used for Spacebar language switching). When provided, key-repeat on
+  /// hold is disabled for this key so extra characters aren't inserted.
+  final VoidCallback? onLongPress;
 
   @override
   State<VirtualKeyButton> createState() => _VirtualKeyButtonState();
@@ -251,7 +257,9 @@ class _VirtualKeyButtonState extends State<VirtualKeyButton> {
   void _handleTapDown(TapDownDetails _) {
     if (_model.isSpacer) return;
     _pressed.value = true;
-    if (widget.enableRepeat && _model.repeatable) {
+    if (widget.enableRepeat &&
+        _model.repeatable &&
+        widget.onLongPress == null) {
       _delayTimer = Timer(const Duration(milliseconds: 420), () {
         _repeatTimer = Timer.periodic(const Duration(milliseconds: 55), (_) {
           widget.onTap(_model);
@@ -349,6 +357,13 @@ class _VirtualKeyButtonState extends State<VirtualKeyButton> {
               onTapUp: _handleTapUp,
               onTapCancel: _handleTapCancel,
               onTap: () => widget.onTap(_model),
+              onLongPress: widget.onLongPress == null
+                  ? null
+                  : () {
+                      _pressed.value = false;
+                      _cancelRepeat();
+                      widget.onLongPress?.call();
+                    },
               child: ValueListenableBuilder<bool>(
                 valueListenable: _pressed,
                 builder: (context, pressed, child) {
@@ -464,7 +479,10 @@ class _VirtualKeyButtonState extends State<VirtualKeyButton> {
                 _model.label,
                 style: TextStyle(
                   fontSize: (specialFont * 0.86).clamp(9.0, 13.0),
-                  letterSpacing: 1.6,
+                  letterSpacing:
+                      _model.label == 'SPACEBAR' || _model.label == 'space'
+                          ? 1.6
+                          : 0.4,
                   fontWeight: FontWeight.w500,
                   color: theme.secondaryTextColor,
                 ),

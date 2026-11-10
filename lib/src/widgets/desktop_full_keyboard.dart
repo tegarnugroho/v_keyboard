@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' hide ModifierKey;
 
 import '../controller/v_keyboard_controller.dart';
+import '../layouts/v_keyboard_layouts.dart';
 import '../models/desktop_key_model.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
 import '../scope/v_keyboard_scope.dart';
+import '../theme/v_keyboard_theme.dart';
+import 'candidate_bar.dart';
+import 'layout_picker_dialog.dart';
 import 'virtual_key_button.dart';
 
 /// A full-featured, edge-to-edge responsive Desktop On-Screen Keyboard widget
@@ -22,8 +26,13 @@ class DesktopFullKeyboard extends StatefulWidget {
     super.key,
     this.layoutType = KeyboardLayoutType.layout100,
     this.platform = DesktopKeyboardPlatform.windows,
+    this.layoutId,
+    this.availableLayouts,
     this.showPlatformToggle = true,
+    this.showLocaleSelector = true,
+    this.showCandidateBar = true,
     this.onPlatformChanged,
+    this.onLayoutChanged,
     this.themeData,
     this.showNumpad = true,
     this.showFunctionRow = true,
@@ -56,6 +65,34 @@ class DesktopFullKeyboard extends StatefulWidget {
 
   /// Invoked when the user switches the platform preset via the header toggle.
   final ValueChanged<DesktopKeyboardPlatform>? onPlatformChanged;
+
+  /// Active language/keyboard layout ID (e.g. `'en_US'`, `'zh_CN'`, `'ja_JP'`,
+  /// `'ko_KR'`, `'ru_RU'`, `'th_TH'`, `'el_GR'`, `'de_DE'`).
+  ///
+  /// When omitted, tracks the attached [VKeyboardController.currentLayoutId] or
+  /// defaults to `'en_US'`. Users can also switch languages live via the
+  /// taskbar-style `🌐` locale pill in the header or by long-pressing Spacebar.
+  final String? layoutId;
+
+  /// Optional list of layout IDs shown in the desktop locale selector menu.
+  ///
+  /// When omitted, uses the attached [VKeyboardController]'s `enabledLayouts`
+  /// when more than one layout is configured, or all registered built-in
+  /// layouts in [VKeyboardLayouts.all].
+  final List<String>? availableLayouts;
+
+  /// Whether to render the taskbar/menubar-style `🌐 <Language> ▾` switcher
+  /// chip inside the status header bar and enable Spacebar long-press locale
+  /// switching. Defaults to `true`.
+  final bool showLocaleSelector;
+
+  /// Whether to automatically show the IME [CandidateBar] strip above the key
+  /// grid during CJK composition (`zh_CN` Pinyin, `zh_TW` Zhuyin, `ja_JP` Kana)
+  /// when bound to a [VKeyboardController]. Defaults to `true`.
+  final bool showCandidateBar;
+
+  /// Invoked whenever the active desktop keyboard layout changes.
+  final ValueChanged<String>? onLayoutChanged;
 
   /// Visual theme data for background, keycaps, borders, and active LEDs.
   /// Defaults to [DesktopKeyboardThemeData.dark()].
@@ -121,8 +158,11 @@ class DesktopFullKeyboard extends StatefulWidget {
 }
 
 class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
+  VKeyboardController? _boundController;
   late bool _showNumpad = widget.showNumpad;
   late DesktopKeyboardPlatform _platform = widget.platform;
+  late String _layoutId =
+      widget.layoutId ?? widget.controller?.currentLayoutId ?? 'en_US';
   bool _isShiftActive = false;
   late bool _isCapsLockActive = widget.initialCapsLock;
   late bool _isNumLockActive = widget.initialNumLock;
@@ -136,10 +176,14 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
   @override
   void initState() {
     super.initState();
-    widget.controller?.modifiers.addListener(_syncFromController);
-    if (widget.controller != null) {
-      _syncFromController();
-    }
+    _bindController(widget.controller);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final inherited = VKeyboardScope.maybeOf(context)?.controller;
+    _bindController(widget.controller ?? inherited);
   }
 
   @override
@@ -152,32 +196,381 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       _platform = widget.platform;
     }
     if (widget.controller != oldWidget.controller) {
-      oldWidget.controller?.modifiers.removeListener(_syncFromController);
-      widget.controller?.modifiers.addListener(_syncFromController);
-      if (widget.controller != null) {
-        _syncFromController();
+      final inherited = VKeyboardScope.maybeOf(context)?.controller;
+      _bindController(widget.controller ?? inherited);
+    }
+    if (widget.layoutId != null && widget.layoutId != oldWidget.layoutId) {
+      _layoutId = widget.layoutId!;
+      if (_boundController != null &&
+          _boundController!.currentLayoutId != widget.layoutId) {
+        _boundController!.setLayout(widget.layoutId!);
       }
     }
   }
 
   @override
   void dispose() {
-    widget.controller?.modifiers.removeListener(_syncFromController);
+    _boundController?.removeListener(_syncFromController);
     super.dispose();
   }
 
+  void _bindController(VKeyboardController? next) {
+    if (identical(_boundController, next)) return;
+    _boundController?.removeListener(_syncFromController);
+    _boundController = next;
+    if (next != null) {
+      next.addListener(_syncFromController);
+      _applyControllerState(next);
+      if (widget.layoutId != null && next.currentLayoutId != widget.layoutId) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted && _boundController == next) {
+            next.setLayout(widget.layoutId!);
+          }
+        });
+      }
+    }
+  }
+
+  void _applyControllerState(VKeyboardController c) {
+    _isShiftActive = c.modifiers.shift;
+    _isCapsLockActive = c.modifiers.capsLock;
+    _isScrollLockActive = c.modifiers.scrollLock;
+    _isCtrlActive = c.modifiers.control;
+    _isAltActive = c.modifiers.alt;
+    _isAltGrActive = c.modifiers.altGr;
+    _isWinActive = c.modifiers.meta;
+    if (widget.layoutId == null) {
+      _layoutId = c.currentLayoutId;
+    }
+  }
+
   void _syncFromController() {
-    final m = widget.controller?.modifiers;
-    if (m == null || !mounted) return;
+    final c = _boundController;
+    if (c == null || !mounted) return;
+    final prevLayout = _layoutId;
+    final nextLayout = c.currentLayoutId;
     setState(() {
-      _isShiftActive = m.shift;
-      _isCapsLockActive = m.capsLock;
-      _isScrollLockActive = m.scrollLock;
-      _isCtrlActive = m.control;
-      _isAltActive = m.alt;
-      _isAltGrActive = m.altGr;
-      _isWinActive = m.meta;
+      _isShiftActive = c.modifiers.shift;
+      _isCapsLockActive = c.modifiers.capsLock;
+      _isScrollLockActive = c.modifiers.scrollLock;
+      _isCtrlActive = c.modifiers.control;
+      _isAltActive = c.modifiers.alt;
+      _isAltGrActive = c.modifiers.altGr;
+      _isWinActive = c.modifiers.meta;
+      _layoutId = nextLayout;
     });
+    if (prevLayout != nextLayout) {
+      widget.onLayoutChanged?.call(nextLayout);
+    }
+  }
+
+  List<String> get _resolvedAvailableLayouts {
+    if (widget.availableLayouts != null &&
+        widget.availableLayouts!.isNotEmpty) {
+      return widget.availableLayouts!;
+    }
+    final ctrl = _boundController;
+    if (ctrl != null && ctrl.config.enabledLayouts.length > 1) {
+      return ctrl.config.enabledLayouts;
+    }
+    return VKeyboardLayouts.all.map((m) => m.id).toList(growable: false);
+  }
+
+  void _selectLocale(String id) {
+    final ctrl = _boundController;
+    if (ctrl != null) {
+      if (ctrl.currentLayoutId != id) {
+        ctrl.setLayout(id);
+      } else if (_layoutId != id) {
+        setState(() => _layoutId = id);
+        widget.onLayoutChanged?.call(id);
+      }
+      return;
+    }
+    if (_layoutId == id) return;
+    setState(() => _layoutId = id);
+    widget.onLayoutChanged?.call(id);
+  }
+
+  String? _desktopImeHint(String id) {
+    return switch (id) {
+      'zh_CN' => 'Pinyin IME',
+      'zh_TW' => 'Zhuyin IME',
+      'ja_JP' => 'Kana IME',
+      'ko_KR' => '2-Bulsik Hangul',
+      'vi_VN' => 'Telex',
+      'th_TH' => 'Kedmanee',
+      'ru_RU' => 'JCUKEN',
+      'el_GR' => 'Greek',
+      'de_DE' => 'QWERTZ',
+      'fr_FR' => 'AZERTY',
+      _ => null,
+    };
+  }
+
+  VKeyboardTheme _toVKeyboardTheme(DesktopKeyboardThemeData t) {
+    final isDark = t.backgroundColor.computeLuminance() < 0.5;
+    return VKeyboardTheme(
+      backgroundColor: t.backgroundColor,
+      keyColor: t.keyColor,
+      pressedKeyColor: t.pressedKeyColor,
+      specialKeyColor: t.specialKeyColor,
+      disabledKeyColor: t.keyColor.withValues(alpha: 0.45),
+      textStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: t.textColor,
+      ),
+      iconColor: t.textColor,
+      subLabelStyle: TextStyle(
+        fontSize: 10,
+        color: t.secondaryTextColor,
+      ),
+      accentColor: t.ledActiveColor,
+      activeKeyColor: isDark ? t.activeKeyColor : t.accentKeyColor,
+      activeForegroundColor: Colors.white,
+    );
+  }
+
+  Future<void> _openLocalePicker(DesktopKeyboardThemeData theme) async {
+    final ctrl = _boundController;
+    final layouts = _resolvedAvailableLayouts;
+    if (layouts.isEmpty) return;
+
+    if (widget.availableLayouts == null &&
+        ctrl != null &&
+        ctrl.config.enabledLayouts.length > 1 &&
+        VKeyboardScope.maybeOf(context)?.controller == ctrl) {
+      await showVKeyboardLayoutPicker(
+        context,
+        controller: ctrl,
+        theme: _toVKeyboardTheme(theme),
+      );
+      return;
+    }
+
+    await _showDesktopLocaleDialog(context, theme, layouts);
+  }
+
+  Future<void> _showDesktopLocaleDialog(
+    BuildContext context,
+    DesktopKeyboardThemeData theme,
+    List<String> layouts,
+  ) async {
+    final tapGroup = VKeyboardScope.maybeOf(context)?.tapGroup;
+    final selected = await showDialog<String>(
+      context: context,
+      barrierColor: Colors.black54,
+      builder: (ctx) {
+        final screenW = MediaQuery.of(ctx).size.width;
+        final isTwoColumn = screenW >= 640;
+
+        Widget buildLocaleTile(String id) {
+          final isSelected = id == _layoutId;
+          final name = VKeyboardLayouts.getDisplayName(id);
+          final code = VKeyboardLayouts.getShortLabel(id);
+          final hint = _desktopImeHint(id);
+
+          return InkWell(
+            key: ValueKey('dk_locale_opt_$id'),
+            onTap: () => Navigator.of(ctx).pop(id),
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              decoration: BoxDecoration(
+                color: isSelected ? theme.activeKeyColor : Colors.transparent,
+                borderRadius: BorderRadius.circular(8),
+                border: isSelected
+                    ? Border.all(
+                        color: theme.activeBorderColor.withValues(alpha: 0.7),
+                      )
+                    : Border.all(
+                        color: theme.keyBorderColor.withValues(alpha: 0.45),
+                      ),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    constraints: const BoxConstraints(minWidth: 34),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: theme.specialKeyColor,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: theme.keyBorderColor),
+                    ),
+                    child: Text(
+                      code,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: theme.headerTextColor,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 9),
+                  Expanded(
+                    child: Text(
+                      name,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight:
+                            isSelected ? FontWeight.w600 : FontWeight.w400,
+                        color: isSelected
+                            ? theme.activeTextColor
+                            : theme.textColor,
+                      ),
+                    ),
+                  ),
+                  if (hint != null) ...[
+                    const SizedBox(width: 5),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.ledActiveColor.withValues(alpha: 0.14),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        hint,
+                        style: TextStyle(
+                          fontSize: 9.5,
+                          fontWeight: FontWeight.w600,
+                          color: theme.ledActiveColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                  if (isSelected) ...[
+                    const SizedBox(width: 6),
+                    Icon(
+                      Icons.check_circle_rounded,
+                      size: 16,
+                      color: theme.ledActiveColor,
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          );
+        }
+
+        Widget dialog = Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: isTwoColumn ? 620 : 400,
+              maxHeight: 520,
+            ),
+            child: Material(
+              color: theme.backgroundColor,
+              elevation: 16,
+              borderRadius: BorderRadius.circular(14),
+              clipBehavior: Clip.antiAlias,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: theme.keyBorderColor, width: 1),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 14, 12, 12),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.language_rounded,
+                            size: 18,
+                            color: theme.ledActiveColor,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              'Desktop Input Language',
+                              style: TextStyle(
+                                fontSize: 14.5,
+                                fontWeight: FontWeight.w600,
+                                color: theme.headerTextColor,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => Navigator.of(ctx).pop(),
+                            icon: Icon(
+                              Icons.close_rounded,
+                              size: 18,
+                              color: theme.headerSubtitleColor,
+                            ),
+                            visualDensity: VisualDensity.compact,
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(
+                              minWidth: 28,
+                              minHeight: 28,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: theme.keyBorderColor,
+                    ),
+                    Flexible(
+                      child: isTwoColumn
+                          ? GridView.builder(
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(10),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisExtent: 44,
+                                crossAxisSpacing: 8,
+                                mainAxisSpacing: 6,
+                              ),
+                              itemCount: layouts.length,
+                              itemBuilder: (_, index) =>
+                                  buildLocaleTile(layouts[index]),
+                            )
+                          : ListView.separated(
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(8),
+                              itemCount: layouts.length,
+                              separatorBuilder: (_, __) =>
+                                  const SizedBox(height: 4),
+                              itemBuilder: (_, index) =>
+                                  buildLocaleTile(layouts[index]),
+                            ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+        if (tapGroup != null) {
+          dialog = TapRegion(groupId: tapGroup, child: dialog);
+        }
+        return dialog;
+      },
+    );
+
+    if (selected != null && mounted) {
+      _selectLocale(selected);
+    }
+  }
+
+  String _resolveSpaceLabel() {
+    final banner = _boundController?.spaceBarBanner;
+    if (banner != null && banner.isNotEmpty) return banner;
+    if (_layoutId != 'en_US') {
+      return VKeyboardLayouts.getDisplayName(_layoutId);
+    }
+    return _platform == DesktopKeyboardPlatform.macos ? 'space' : 'SPACEBAR';
   }
 
   bool get _hasShortcutModifier =>
@@ -203,7 +596,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
 
   void _handleKeyTap(KeyModel key) {
     final action = key.action;
-    final controller = widget.controller;
+    final controller = _boundController;
 
     // 1. Handle Modifier & Lock State Keys.
     if (key.type == KeyType.modifier || key.type == KeyType.lock) {
@@ -313,10 +706,18 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
 
     // 6. Printable characters (Alphanumeric, Dual-Legend symbols, Numpad active digits/ops).
     if (key.type == KeyType.character) {
-      final output = key.resolveOutput(
-        shifted: _isShiftActive,
-        capsLock: _isCapsLockActive,
-      );
+      String? altGrOutput;
+      if (_isAltGrActive &&
+          !_isCtrlActive &&
+          !_isWinActive &&
+          key.value != null) {
+        altGrOutput = VKeyboardLayouts.getAltGr(_layoutId)[key.value];
+      }
+      final output = altGrOutput ??
+          key.resolveOutput(
+            shifted: _isShiftActive,
+            capsLock: _isCapsLockActive,
+          );
       if (output != null) {
         widget.onKeyPressed?.call(output);
         if (controller != null) {
@@ -346,7 +747,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
   }
 
   void _toggleStateKey(KeyModel key) {
-    final controller = widget.controller;
+    final controller = _boundController;
     if (key.action == VirtualKeyAction.numLock) {
       setState(() => _isNumLockActive = !_isNumLockActive);
       controller?.modifiers.toggleLock(LockKey.numLock);
@@ -395,8 +796,8 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
   }
 
   void _clearMomentaryModifiers() {
-    if (widget.controller != null) {
-      widget.controller!.modifiers.clearMomentary();
+    if (_boundController != null) {
+      _boundController!.modifiers.clearMomentary();
     }
     if (_isShiftActive ||
         _isCtrlActive ||
@@ -486,6 +887,16 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               : (effectiveGridWidth * 0.011).clamp(6.0, 20.0);
           final hPadding = (effectiveGridWidth * 0.008).clamp(6.0, 16.0);
 
+          final controller = _boundController;
+          final hasImeCandidates = widget.showCandidateBar &&
+              controller != null &&
+              (controller.composingText.isNotEmpty ||
+                  controller.candidates.isNotEmpty);
+          const candidateBarHeight = 38.0;
+          final candidateSectionHeight =
+              hasImeCandidates ? candidateBarHeight + 6.0 : 0.0;
+          final spaceLabel = _resolveSpaceLabel();
+
           final ratioCap = (screenH * widget.maxKeyboardHeightRatio)
               .clamp(190.0, screenH * 0.65);
           final maxAllowedH = constraints.hasBoundedHeight
@@ -500,6 +911,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           final vPadding = (idealRowHeight * 0.24).clamp(6.0, 12.0);
           final idealTotalH = headerHeight +
               (widget.showHeader ? 6.0 : 0.0) +
+              candidateSectionHeight +
               rowCount * idealRowHeight +
               vPadding * 2 +
               dismissHeight;
@@ -510,10 +922,11 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               .toDouble();
 
           final actualGridHeight = math.max(
-            100.0,
+            64.0,
             totalHeight -
                 headerHeight -
                 (widget.showHeader ? 6.0 : 0.0) -
+                candidateSectionHeight -
                 vPadding * 2 -
                 dismissHeight,
           );
@@ -561,9 +974,17 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
                         child: _buildHeaderBar(
                           theme: theme,
                           availW: effectiveGridWidth,
-                          canShowNumpad: canShowNumpad,
+                          canShowNumpad: canShowNav && canShowNumpad,
                           effectiveShowNumpad: effectiveShowNumpad,
                         ),
+                      ),
+                      const SizedBox(height: 6),
+                    ],
+                    if (hasImeCandidates) ...[
+                      CandidateBar(
+                        controller: controller,
+                        theme: _toVKeyboardTheme(theme),
+                        height: candidateBarHeight,
                       ),
                       const SizedBox(height: 6),
                     ],
@@ -577,6 +998,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
                         effectiveShowNumpad: effectiveShowNumpad,
                         includeFnRow: includeFnRow,
                         rowCount: rowCount,
+                        spaceLabel: spaceLabel,
                       ),
                     ),
                     if (widget.onDismiss != null)
@@ -630,23 +1052,27 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required bool effectiveShowNumpad,
     required bool includeFnRow,
     required int rowCount,
+    required String spaceLabel,
   }) {
     return switch (widget.layoutType) {
       KeyboardLayoutType.layout60 => _buildLayout60(
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
+          spaceLabel: spaceLabel,
         ),
       KeyboardLayoutType.layout65 => _buildLayout65(
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
+          spaceLabel: spaceLabel,
         ),
       KeyboardLayoutType.layout75 => _buildLayout75(
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
           includeFnRow: includeFnRow,
+          spaceLabel: spaceLabel,
         ),
       KeyboardLayoutType.layout87TKL => _buildLayout87TKL(
           theme: theme,
@@ -655,6 +1081,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           clusterGap: clusterGap,
           canShowNav: canShowNav,
           includeFnRow: includeFnRow,
+          spaceLabel: spaceLabel,
         ),
       KeyboardLayoutType.layout98 => _buildLayout98(
           theme: theme,
@@ -663,6 +1090,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           effectiveShowNumpad: effectiveShowNumpad,
           includeFnRow: includeFnRow,
           rowCount: rowCount,
+          spaceLabel: spaceLabel,
         ),
       KeyboardLayoutType.layout100 => _buildLayout100(
           theme: theme,
@@ -673,6 +1101,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           effectiveShowNumpad: effectiveShowNumpad,
           includeFnRow: includeFnRow,
           rowCount: rowCount,
+          spaceLabel: spaceLabel,
         ),
     };
   }
@@ -682,9 +1111,14 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required DesktopKeyboardThemeData theme,
     required double baseFontSize,
     required double keyMargin,
+    required String spaceLabel,
   }) {
     return _buildUnifiedRows(
-      DesktopFullLayoutData.layout60Rows(platform: _platform),
+      DesktopFullLayoutData.layout60Rows(
+        platform: _platform,
+        layoutId: _layoutId,
+        spaceLabel: spaceLabel,
+      ),
       theme: theme,
       baseFontSize: baseFontSize,
       keyMargin: keyMargin,
@@ -696,9 +1130,14 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required DesktopKeyboardThemeData theme,
     required double baseFontSize,
     required double keyMargin,
+    required String spaceLabel,
   }) {
     return _buildUnifiedRows(
-      DesktopFullLayoutData.layout65Rows(platform: _platform),
+      DesktopFullLayoutData.layout65Rows(
+        platform: _platform,
+        layoutId: _layoutId,
+        spaceLabel: spaceLabel,
+      ),
       theme: theme,
       baseFontSize: baseFontSize,
       keyMargin: keyMargin,
@@ -711,11 +1150,14 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required double baseFontSize,
     required double keyMargin,
     required bool includeFnRow,
+    required String spaceLabel,
   }) {
     return _buildUnifiedRows(
       DesktopFullLayoutData.layout75Rows(
         platform: _platform,
         includeFunctionRow: includeFnRow,
+        layoutId: _layoutId,
+        spaceLabel: spaceLabel,
       ),
       theme: theme,
       baseFontSize: baseFontSize,
@@ -731,6 +1173,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required double clusterGap,
     required bool canShowNav,
     required bool includeFnRow,
+    required String spaceLabel,
   }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -742,6 +1185,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
             baseFontSize: baseFontSize,
             keyMargin: keyMargin,
             includeFnRow: includeFnRow,
+            spaceLabel: spaceLabel,
           ),
         ),
         if (canShowNav) ...[
@@ -768,6 +1212,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required bool effectiveShowNumpad,
     required bool includeFnRow,
     required int rowCount,
+    required String spaceLabel,
   }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -778,6 +1223,8 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
             DesktopFullLayoutData.layout98MainRows(
               platform: _platform,
               includeFunctionRow: includeFnRow,
+              layoutId: _layoutId,
+              spaceLabel: spaceLabel,
             ),
             theme: theme,
             baseFontSize: baseFontSize,
@@ -808,6 +1255,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required bool effectiveShowNumpad,
     required bool includeFnRow,
     required int rowCount,
+    required String spaceLabel,
   }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -819,6 +1267,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
             baseFontSize: baseFontSize,
             keyMargin: keyMargin,
             includeFnRow: includeFnRow,
+            spaceLabel: spaceLabel,
           ),
         ),
         if (canShowNav) ...[
@@ -855,7 +1304,8 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required bool canShowNumpad,
     required bool effectiveShowNumpad,
   }) {
-    final showSubtitle = availW >= 920;
+    final showSubtitle = availW >= 1040;
+    final showFullLocaleName = availW >= 740;
     final showPlatformBar = widget.showPlatformToggle && availW >= 620;
     final showNumpadToggle = widget.layoutType.hasNumpad && canShowNumpad;
     final showFnLed = _isFnActive || widget.layoutType.hasFnLayer;
@@ -868,17 +1318,18 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           color: theme.navigationIconColor,
         ),
         const SizedBox(width: 8),
-        Flexible(
+        Expanded(
           child: Row(
-            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Desktop ${widget.layoutType.label}',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: theme.headerTextColor,
+              Flexible(
+                child: Text(
+                  'Desktop ${widget.layoutType.label}',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: theme.headerTextColor,
+                  ),
                 ),
               ),
               if (showSubtitle) ...[
@@ -907,6 +1358,55 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           ),
         ),
         const SizedBox(width: 8),
+        if (widget.showLocaleSelector) ...[
+          InkWell(
+            key: const ValueKey('dk_locale_picker'),
+            onTap: () => _openLocalePicker(theme),
+            borderRadius: BorderRadius.circular(6),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
+              decoration: BoxDecoration(
+                color: theme.specialKeyColor,
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(
+                  color: _layoutId != 'en_US'
+                      ? theme.activeBorderColor.withValues(alpha: 0.7)
+                      : theme.keyBorderColor,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.language_rounded,
+                    size: 13,
+                    color: _layoutId != 'en_US'
+                        ? theme.ledActiveColor
+                        : theme.navigationIconColor,
+                  ),
+                  const SizedBox(width: 5),
+                  Text(
+                    showFullLocaleName
+                        ? VKeyboardLayouts.getDisplayName(_layoutId)
+                        : VKeyboardLayouts.getShortLabel(_layoutId),
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: theme.headerTextColor,
+                    ),
+                  ),
+                  const SizedBox(width: 2),
+                  Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    size: 14,
+                    color: theme.headerSubtitleColor,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
         if (showPlatformBar) ...[
           Container(
             padding: const EdgeInsets.all(2),
@@ -1069,6 +1569,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required double baseFontSize,
     required double keyMargin,
   }) {
+    final isSpace = model.type == KeyType.space && widget.showLocaleSelector;
     return VirtualKeyButton(
       key: ValueKey('dk_${widget.layoutType.name}_${model.id}'),
       model: model,
@@ -1082,6 +1583,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
       horizontalMargin: keyMargin,
       verticalMargin: keyMargin,
       onTap: _handleKeyTap,
+      onLongPress: isSpace ? () => _openLocalePicker(theme) : null,
     );
   }
 
@@ -1133,6 +1635,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
     required double baseFontSize,
     required double keyMargin,
     required bool includeFnRow,
+    required String spaceLabel,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1145,31 +1648,46 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
             keyMargin: keyMargin,
           ),
         _buildRow(
-          DesktopFullLayoutData.numberRow(platform: _platform),
+          DesktopFullLayoutData.numberRow(
+            platform: _platform,
+            layoutId: _layoutId,
+          ),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
         _buildRow(
-          DesktopFullLayoutData.topAlphaRow(platform: _platform),
+          DesktopFullLayoutData.topAlphaRow(
+            platform: _platform,
+            layoutId: _layoutId,
+          ),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
         _buildRow(
-          DesktopFullLayoutData.homeAlphaRow(platform: _platform),
+          DesktopFullLayoutData.homeAlphaRow(
+            platform: _platform,
+            layoutId: _layoutId,
+          ),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
         _buildRow(
-          DesktopFullLayoutData.bottomAlphaRow(platform: _platform),
+          DesktopFullLayoutData.bottomAlphaRow(
+            platform: _platform,
+            layoutId: _layoutId,
+          ),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,
         ),
         _buildRow(
-          DesktopFullLayoutData.bottomControlRow(platform: _platform),
+          DesktopFullLayoutData.bottomControlRow(
+            platform: _platform,
+            spaceLabel: spaceLabel,
+          ),
           theme: theme,
           baseFontSize: baseFontSize,
           keyMargin: keyMargin,

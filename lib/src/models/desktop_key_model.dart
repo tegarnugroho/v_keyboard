@@ -362,12 +362,16 @@ class KeyModel {
   bool get hasFnMapping =>
       fnAction != null || fnNavIntent != null || fnLogicalKey != null;
 
-  /// Whether this key is a single ASCII letter (`a`–`z`).
+  /// Whether this key is a single cased letter (`a`–`z`, Cyrillic `й`–`я`,
+  /// Greek `α`–`ω`, German `ä`/`ö`/`ü`, etc.) whose visual case toggles cleanly
+  /// under Shift and Caps Lock.
   bool get isLetter {
     final v = value;
     if (v == null || v.length != 1) return false;
-    final code = v.codeUnitAt(0);
-    return (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+    final upper = v.toUpperCase();
+    if (upper.length != 1) return false;
+    if (upper == v.toLowerCase()) return false;
+    return shiftValue == null || shiftValue == upper;
   }
 
   /// Whether this key displays two stacked legends (top shifted/glyph symbol, bottom base label).
@@ -384,7 +388,7 @@ class KeyModel {
     if (type != KeyType.character || value == null) return null;
     if (isLetter) {
       final upper = shifted ^ capsLock;
-      return upper ? value!.toUpperCase() : value!.toLowerCase();
+      return upper ? (shiftValue ?? value!.toUpperCase()) : value!;
     }
     return shifted ? (shiftValue ?? value) : value;
   }
@@ -393,7 +397,7 @@ class KeyModel {
   String resolveDisplayLabel({required bool shifted, required bool capsLock}) {
     if (isLetter && value != null) {
       final upper = shifted ^ capsLock;
-      return upper ? value!.toUpperCase() : value!.toLowerCase();
+      return upper ? (shiftValue ?? value!.toUpperCase()) : value!;
     }
     return label;
   }
@@ -641,11 +645,15 @@ class DesktopFullLayoutData {
     );
   }
 
-  static KeyModel _spaceKey(DesktopKeyboardPlatform platform, {required double flex}) {
+  static KeyModel _spaceKey(
+    DesktopKeyboardPlatform platform, {
+    required double flex,
+    String? spaceLabel,
+  }) {
     final isMac = platform == DesktopKeyboardPlatform.macos;
     return KeyModel(
       id: 'spacebar',
-      label: isMac ? '' : 'SPACEBAR',
+      label: spaceLabel ?? (isMac ? '' : 'SPACEBAR'),
       value: ' ',
       shiftValue: ' ',
       type: KeyType.space,
@@ -673,9 +681,98 @@ class DesktopFullLayoutData {
 
   static List<KeyModel> numberRow({
     DesktopKeyboardPlatform platform = DesktopKeyboardPlatform.windows,
+    String layoutId = 'en_US',
     bool includeFnLayer = false,
   }) {
     final isMac = platform == DesktopKeyboardPlatform.macos;
+
+    // Localized overrides for non-US number rows preserving exact 13u + 2u flex.
+    if (layoutId == 'th_TH') {
+      const pairs = [
+        ('_', '%', 'grave'),
+        ('ๅ', '+', 'digit_1'),
+        ('/', '๑', 'digit_2'),
+        ('-', '๒', 'digit_3'),
+        ('ภ', '๓', 'digit_4'),
+        ('ถ', '๔', 'digit_5'),
+        ('ุ', 'ู', 'digit_6'),
+        ('ึ', '฿', 'digit_7'),
+        ('ค', '๕', 'digit_8'),
+        ('ต', '๖', 'digit_9'),
+        ('จ', '๗', 'digit_0'),
+        ('ข', '๘', 'minus'),
+        ('ช', '๙', 'equal'),
+      ];
+      return [
+        KeyModel.char(
+          pairs[0].$1,
+          shift: pairs[0].$2,
+          id: pairs[0].$3,
+          fnLabel: includeFnLayer ? (isMac ? 'esc' : 'Esc') : null,
+          fnAction: includeFnLayer ? VirtualKeyAction.escape : null,
+          fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.escape : null,
+          fnShortcutKey: includeFnLayer ? 'Esc' : null,
+        ),
+        for (var i = 1; i <= 12; i++)
+          KeyModel.char(
+            pairs[i].$1,
+            shift: pairs[i].$2,
+            id: pairs[i].$3,
+            fnLabel: includeFnLayer ? 'F$i' : null,
+            fnAction: includeFnLayer ? _fKey(i).action : null,
+            fnLogicalKey: includeFnLayer ? _fKey(i).logicalKey : null,
+            fnShortcutKey: includeFnLayer ? 'F$i' : null,
+          ),
+        _backspaceKey(platform, includeFnLayer: includeFnLayer),
+      ];
+    }
+
+    // Zhuyin top number row gives direct access to final symbols `ㄤ`, `ㄥ`, `ㄦ`
+    // and tone marks on Shift (`ˊ`, `ˇ`, `ˋ`, `˙`).
+    if (layoutId == 'zh_TW') {
+      const pairs = [
+        ('ㄦ', '~', 'grave'),
+        ('1', '!', 'digit_1'),
+        ('2', '@', 'digit_2'),
+        ('3', 'ˇ', 'digit_3'),
+        ('4', 'ˋ', 'digit_4'),
+        ('5', '%', 'digit_5'),
+        ('6', 'ˊ', 'digit_6'),
+        ('7', '˙', 'digit_7'),
+        ('8', '*', 'digit_8'),
+        ('9', '(', 'digit_9'),
+        ('0', ')', 'digit_0'),
+        ('ㄤ', '_', 'minus'),
+        ('ㄥ', '+', 'equal'),
+      ];
+      return [
+        KeyModel.char(
+          pairs[0].$1,
+          shift: pairs[0].$2,
+          id: pairs[0].$3,
+          fnLabel: includeFnLayer ? (isMac ? 'esc' : 'Esc') : null,
+          fnAction: includeFnLayer ? VirtualKeyAction.escape : null,
+          fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.escape : null,
+          fnShortcutKey: includeFnLayer ? 'Esc' : null,
+        ),
+        for (var i = 1; i <= 12; i++)
+          KeyModel.char(
+            pairs[i].$1,
+            shift: pairs[i].$2,
+            id: pairs[i].$3,
+            fnLabel: includeFnLayer ? 'F$i' : null,
+            fnAction: includeFnLayer ? _fKey(i).action : null,
+            fnLogicalKey: includeFnLayer ? _fKey(i).logicalKey : null,
+            fnShortcutKey: includeFnLayer ? 'F$i' : null,
+          ),
+        _backspaceKey(platform, includeFnLayer: includeFnLayer),
+      ];
+    }
+
+    final digit3Shift = layoutId == 'en_GB' ? '£' : '#';
+    final minusChar = layoutId == 'ja_JP' ? 'ー' : '-';
+    final equalShift = layoutId == 'ja_JP' ? '¥' : '+';
+
     return [
       KeyModel.char(
         '`',
@@ -691,12 +788,12 @@ class DesktopFullLayoutData {
           fnAction: includeFnLayer ? VirtualKeyAction.f1 : null,
           fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f1 : null,
           fnShortcutKey: includeFnLayer ? 'F1' : null),
-      KeyModel.char('2', shift: '@', id: 'digit_2',
+      KeyModel.char('2', shift: layoutId == 'en_GB' ? '"' : '@', id: 'digit_2',
           fnLabel: includeFnLayer ? 'F2' : null,
           fnAction: includeFnLayer ? VirtualKeyAction.f2 : null,
           fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f2 : null,
           fnShortcutKey: includeFnLayer ? 'F2' : null),
-      KeyModel.char('3', shift: '#', id: 'digit_3',
+      KeyModel.char('3', shift: digit3Shift, id: 'digit_3',
           fnLabel: includeFnLayer ? 'F3' : null,
           fnAction: includeFnLayer ? VirtualKeyAction.f3 : null,
           fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f3 : null,
@@ -736,12 +833,12 @@ class DesktopFullLayoutData {
           fnAction: includeFnLayer ? VirtualKeyAction.f10 : null,
           fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f10 : null,
           fnShortcutKey: includeFnLayer ? 'F10' : null),
-      KeyModel.char('-', shift: '_', id: 'minus',
+      KeyModel.char(minusChar, shift: '_', id: 'minus',
           fnLabel: includeFnLayer ? 'F11' : null,
           fnAction: includeFnLayer ? VirtualKeyAction.f11 : null,
           fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f11 : null,
           fnShortcutKey: includeFnLayer ? 'F11' : null),
-      KeyModel.char('=', shift: '+', id: 'equal',
+      KeyModel.char('=', shift: equalShift, id: 'equal',
           fnLabel: includeFnLayer ? 'F12' : null,
           fnAction: includeFnLayer ? VirtualKeyAction.f12 : null,
           fnLogicalKey: includeFnLayer ? LogicalKeyboardKey.f12 : null,
@@ -752,9 +849,14 @@ class DesktopFullLayoutData {
 
   static List<KeyModel> topAlphaRow({
     DesktopKeyboardPlatform platform = DesktopKeyboardPlatform.windows,
+    String layoutId = 'en_US',
     bool includeFnArrows = false,
-  }) =>
-      [
+  }) {
+    if (layoutId == 'en_US' ||
+        layoutId == 'en_GB' ||
+        layoutId == 'zh_CN' ||
+        layoutId == 'vi_VN') {
+      return [
         _tabKey(platform),
         KeyModel.char('q'),
         KeyModel.char(
@@ -795,12 +897,104 @@ class DesktopFullLayoutData {
         KeyModel.char(']', shift: '}', id: 'bracket_right'),
         KeyModel.char(r'\', shift: '|', id: 'backslash', flex: 1.5),
       ];
+    }
+
+    if (layoutId == 'ko_KR') {
+      return [
+        _tabKey(platform),
+        KeyModel.char('ㅂ', shift: 'ㅃ', id: 'ko_0'),
+        KeyModel.char('ㅈ', shift: 'ㅉ', id: 'ko_1',
+            fnLabel: includeFnArrows ? '▲' : null,
+            fnIcon: includeFnArrows ? Icons.keyboard_arrow_up_rounded : null,
+            fnAction: includeFnArrows ? VirtualKeyAction.arrowUp : null,
+            fnNavIntent: includeFnArrows ? NavIntent.up : null),
+        KeyModel.char('ㄷ', shift: 'ㄸ', id: 'ko_2'),
+        KeyModel.char('ㄱ', shift: 'ㄲ', id: 'ko_3'),
+        KeyModel.char('ㅅ', shift: 'ㅆ', id: 'ko_4'),
+        KeyModel.char('ㅛ', id: 'ko_5'),
+        KeyModel.char('ㅕ', id: 'ko_6'),
+        KeyModel.char('ㅑ', id: 'ko_7'),
+        KeyModel.char('ㅐ', shift: 'ㅒ', id: 'ko_8'),
+        KeyModel.char('ㅔ', shift: 'ㅖ', id: 'ko_9'),
+        KeyModel.char('[', shift: '{', id: 'bracket_left'),
+        KeyModel.char(']', shift: '}', id: 'bracket_right'),
+        KeyModel.char(r'\', shift: '|', id: 'backslash', flex: 1.5),
+      ];
+    }
+
+    if (layoutId == 'th_TH') {
+      const specs = [
+        ('ๆ', '๐'),
+        ('ไ', '"'),
+        ('ำ', 'ฎ'),
+        ('พ', 'ฑ'),
+        ('ะ', 'ธ'),
+        ('ั', 'ํ'),
+        ('ี', '๊'),
+        ('ร', 'ณ'),
+        ('น', 'ฯ'),
+        ('ย', 'ญ'),
+        ('บ', 'ฐ'),
+        ('ล', 'ฅ'),
+        ('ฃ', '|'),
+      ];
+      return [
+        _tabKey(platform),
+        for (var i = 0; i < 12; i++)
+          KeyModel.char(specs[i].$1, shift: specs[i].$2, id: 'top_$i'),
+        KeyModel.char(specs[12].$1,
+            shift: specs[12].$2, id: 'top_12', flex: 1.5),
+      ];
+    }
+
+    final (List<String> keys, String? lastShift) = switch (layoutId) {
+      'de_DE' => (['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'ü', '+', '#'], "'"),
+      'fr_FR' => (['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '^', r'$', '*'], 'µ'),
+      'es_ES' => (['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', r'\', '+', 'ç'], null),
+      'nordic' => (['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'å', '¨', "'"], '*'),
+      'tr_TR' => (['q', 'w', 'e', 'r', 't', 'y', 'u', 'ı', 'o', 'p', 'ğ', 'ü', ','], ';'),
+      'ru_RU' => (['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', r'\'], '/'),
+      'el_GR' => ([';', 'ς', 'ε', 'ρ', 'τ', 'υ', 'θ', 'ι', 'ο', 'π', '[', ']', r'\'], '|'),
+      'ja_JP' => (['た', 'て', 'い', 'す', 'か', 'ん', 'な', 'に', 'ら', 'せ', '゛', '゜', 'む'], '「'),
+      'zh_TW' => (['ㄅ', 'ㄆ', 'ㄇ', 'ㄈ', 'ㄉ', 'ㄊ', 'ㄋ', 'ㄌ', 'ㄍ', 'ㄎ', 'ㄏ', 'ㄐ', 'ㄑ'], null),
+      _ => (['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', r'\'], '|'),
+    };
+
+    return [
+      _tabKey(platform),
+      for (var i = 0; i < 12; i++)
+        KeyModel.char(
+          keys[i],
+          id: 'top_$i',
+          shift: layoutId == 'el_GR' && i == 0
+              ? ':'
+              : (layoutId == 'ja_JP' && keys[i] == 'い' ? 'ぃ' : null),
+          fnLabel: includeFnArrows && i == 1 ? '▲' : null,
+          fnIcon: includeFnArrows && i == 1
+              ? Icons.keyboard_arrow_up_rounded
+              : null,
+          fnAction: includeFnArrows && i == 1 ? VirtualKeyAction.arrowUp : null,
+          fnNavIntent: includeFnArrows && i == 1 ? NavIntent.up : null,
+        ),
+      KeyModel.char(
+        keys[12],
+        shift: lastShift,
+        id: 'top_12',
+        flex: 1.5,
+      ),
+    ];
+  }
 
   static List<KeyModel> homeAlphaRow({
     DesktopKeyboardPlatform platform = DesktopKeyboardPlatform.windows,
+    String layoutId = 'en_US',
     bool includeFnArrows = false,
-  }) =>
-      [
+  }) {
+    if (layoutId == 'en_US' ||
+        layoutId == 'en_GB' ||
+        layoutId == 'zh_CN' ||
+        layoutId == 'vi_VN') {
+      return [
         _capsKey(platform),
         KeyModel.char(
           'a',
@@ -842,23 +1036,152 @@ class DesktopFullLayoutData {
         KeyModel.char("'", shift: '"', id: 'quote'),
         _enterKey(platform),
       ];
+    }
+
+    if (layoutId == 'th_TH') {
+      const specs = [
+        ('ฟ', 'ฤ'),
+        ('ห', 'ฆ'),
+        ('ก', 'ฏ'),
+        ('ด', 'โ'),
+        ('เ', 'ฌ'),
+        ('้', '็'),
+        ('่', '๋'),
+        ('า', 'ษ'),
+        ('ส', 'ศ'),
+        ('ว', 'ซ'),
+        ('ง', '.'),
+      ];
+      return [
+        _capsKey(platform),
+        for (var i = 0; i < 11; i++)
+          KeyModel.char(specs[i].$1, shift: specs[i].$2, id: 'home_$i'),
+        _enterKey(platform),
+      ];
+    }
+
+    final List<String> keys = switch (layoutId) {
+      'de_DE' => ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö', 'ä'],
+      'fr_FR' => ['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'ù'],
+      'es_ES' => ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ', '{'],
+      'nordic' => ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö', 'ä'],
+      'tr_TR' => ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ş', 'i'],
+      'ru_RU' => ['ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э'],
+      'el_GR' => ['α', 'σ', 'δ', 'φ', 'γ', 'η', 'ξ', 'κ', 'λ', '´', "'"],
+      'ko_KR' => ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', ';', "'"],
+      'ja_JP' => ['ち', 'と', 'し', 'は', 'き', 'く', 'ま', 'の', 'り', 'れ', 'け'],
+      'zh_TW' => ['ㄒ', 'ㄓ', 'ㄔ', 'ㄕ', 'ㄖ', 'ㄗ', 'ㄘ', 'ㄙ', 'ㄧ', 'ㄨ', 'ㄩ'],
+      _ => ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'"],
+    };
+
+    return [
+      _capsKey(platform),
+      for (var i = 0; i < 11; i++)
+        KeyModel.char(
+          keys[i],
+          id: 'home_$i',
+          shift: layoutId == 'tr_TR' && keys[i] == 'i'
+              ? 'İ'
+              : (keys[i] == ';' ? ':' : (keys[i] == "'" ? '"' : null)),
+          fnLabel: includeFnArrows && i == 0
+              ? '◀'
+              : (includeFnArrows && i == 1
+                  ? '▼'
+                  : (includeFnArrows && i == 2 ? '▶' : null)),
+          fnIcon: includeFnArrows && i == 0
+              ? Icons.keyboard_arrow_left_rounded
+              : (includeFnArrows && i == 1
+                  ? Icons.keyboard_arrow_down_rounded
+                  : (includeFnArrows && i == 2
+                      ? Icons.keyboard_arrow_right_rounded
+                      : null)),
+          fnAction: includeFnArrows && i == 0
+              ? VirtualKeyAction.arrowLeft
+              : (includeFnArrows && i == 1
+                  ? VirtualKeyAction.arrowDown
+                  : (includeFnArrows && i == 2
+                      ? VirtualKeyAction.arrowRight
+                      : null)),
+          fnNavIntent: includeFnArrows && i == 0
+              ? NavIntent.left
+              : (includeFnArrows && i == 1
+                  ? NavIntent.down
+                  : (includeFnArrows && i == 2 ? NavIntent.right : null)),
+        ),
+      _enterKey(platform),
+    ];
+  }
+
+  /// Resolves the 10 character/punctuation keys inside the Shift row (exact 10.0u).
+  static List<KeyModel> _localizedBottomKeys(String layoutId) {
+    if (layoutId == 'zh_CN') {
+      return [
+        for (final c in const ['z', 'x', 'c', 'v', 'b', 'n', 'm'])
+          KeyModel.char(c),
+        KeyModel.char('，', shift: '<', id: 'comma'),
+        KeyModel.char('。', shift: '>', id: 'period'),
+        KeyModel.char('/', shift: '?', id: 'slash'),
+      ];
+    }
+
+    if (layoutId == 'th_TH') {
+      const specs = [
+        ('ผ', '('),
+        ('ป', ')'),
+        ('แ', 'ฉ'),
+        ('อ', 'ฮ'),
+        ('ิ', 'ฺ'),
+        ('ื', '์'),
+        ('ท', '?'),
+        ('ม', 'ฒ'),
+        ('ใ', 'ฬ'),
+        ('ฝ', 'ฦ'),
+      ];
+      return [
+        for (var i = 0; i < 10; i++)
+          KeyModel.char(specs[i].$1, shift: specs[i].$2, id: 'bot_$i'),
+      ];
+    }
+
+    final (List<String> keys, List<String?> shifts) = switch (layoutId) {
+      'de_DE' => (['y', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-'], [null, null, null, null, null, null, null, ';', ':', '_']),
+      'fr_FR' => (['w', 'x', 'c', 'v', 'b', 'n', ',', ';', ':', '!'], [null, null, null, null, null, null, '?', '.', '/', '§']),
+      'es_ES' || 'nordic' => (['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-'], [null, null, null, null, null, null, null, ';', ':', '_']),
+      'tr_TR' => (['z', 'x', 'c', 'v', 'b', 'n', 'm', 'ö', 'ç', '.'], [null, null, null, null, null, null, null, 'Ö', 'Ç', ':']),
+      'ru_RU' => (['я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.'], ['Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',']),
+      'ko_KR' => (['ㅋ', 'ㅌ', 'ㅊ', 'ㅍ', 'ㅠ', 'ㅜ', 'ㅡ', ',', '.', '/'], [null, null, null, null, null, null, null, '<', '>', '?']),
+      'ja_JP' => (['つ', 'さ', 'そ', 'ひ', 'こ', 'み', 'も', 'ね', 'る', 'め'], ['っ', null, null, null, null, null, null, '、', '。', 'ろ']),
+      'zh_TW' => (['ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ'], [null, null, null, null, null, null, null, null, null, null]),
+      'el_GR' => (['ζ', 'χ', 'ψ', 'ω', 'β', 'ν', 'μ', ',', '.', '/'], ['Ζ', 'Χ', 'Ψ', 'Ω', 'Β', 'Ν', 'Μ', '<', '>', '?']),
+      _ => (['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'], [null, null, null, null, null, null, null, '<', '>', '?']),
+    };
+
+    return [
+      for (var i = 0; i < 10; i++)
+        KeyModel.char(
+          keys[i],
+          shift: shifts[i],
+          id: i == 7
+              ? 'comma'
+              : (i == 8 ? 'period' : (i == 9 ? 'slash' : null)),
+        ),
+    ];
+  }
 
   static List<KeyModel> bottomAlphaRow({
     DesktopKeyboardPlatform platform = DesktopKeyboardPlatform.windows,
+    String layoutId = 'en_US',
   }) =>
       [
         _shiftKey(platform, isLeft: true, flex: 2.25),
-        for (final c in const ['z', 'x', 'c', 'v', 'b', 'n', 'm'])
-          KeyModel.char(c),
-        KeyModel.char(',', shift: '<', id: 'comma'),
-        KeyModel.char('.', shift: '>', id: 'period'),
-        KeyModel.char('/', shift: '?', id: 'slash'),
+        ..._localizedBottomKeys(layoutId),
         _shiftKey(platform, isLeft: false, flex: 2.75),
       ];
 
   /// Bottom control row (15.0u total) tailored for either Windows or macOS modifier conventions.
   static List<KeyModel> bottomControlRow({
     DesktopKeyboardPlatform platform = DesktopKeyboardPlatform.windows,
+    String? spaceLabel,
   }) {
     if (platform == DesktopKeyboardPlatform.macos) {
       return [
@@ -897,7 +1220,7 @@ class DesktopFullLayoutData {
           modifierKey: ModifierKey.meta,
           flex: 1.45,
         ),
-        _spaceKey(platform, flex: 5.85),
+        _spaceKey(platform, flex: 5.85, spaceLabel: spaceLabel),
         const KeyModel(
           id: 'cmd_right',
           label: 'command',
@@ -928,8 +1251,8 @@ class DesktopFullLayoutData {
       ];
     }
 
-    return const [
-      KeyModel(
+    return [
+      const KeyModel(
         id: 'ctrl_left',
         label: 'Ctrl',
         type: KeyType.modifier,
@@ -937,7 +1260,7 @@ class DesktopFullLayoutData {
         modifierKey: ModifierKey.control,
         flex: 1.25,
       ),
-      KeyModel(
+      const KeyModel(
         id: 'win_super',
         label: 'Win',
         type: KeyType.modifier,
@@ -946,7 +1269,7 @@ class DesktopFullLayoutData {
         icon: Icons.window_rounded,
         flex: 1.2,
       ),
-      KeyModel(
+      const KeyModel(
         id: 'alt_left',
         label: 'Alt',
         type: KeyType.modifier,
@@ -954,18 +1277,8 @@ class DesktopFullLayoutData {
         modifierKey: ModifierKey.alt,
         flex: 1.2,
       ),
-      KeyModel(
-        id: 'spacebar',
-        label: 'SPACEBAR',
-        value: ' ',
-        shiftValue: ' ',
-        type: KeyType.space,
-        action: VirtualKeyAction.space,
-        repeatable: true,
-        flex: 6.1,
-        shortcutKey: 'Space',
-      ),
-      KeyModel(
+      _spaceKey(platform, flex: 6.1, spaceLabel: spaceLabel),
+      const KeyModel(
         id: 'alt_gr',
         label: 'AltGr',
         type: KeyType.modifier,
@@ -973,14 +1286,14 @@ class DesktopFullLayoutData {
         modifierKey: ModifierKey.altGr,
         flex: 1.35,
       ),
-      KeyModel(
+      const KeyModel(
         id: 'fn_key',
         label: 'Fn',
         type: KeyType.modifier,
         action: VirtualKeyAction.fn,
         flex: 1.15,
       ),
-      KeyModel(
+      const KeyModel(
         id: 'menu_key',
         label: 'Menu',
         type: KeyType.action,
@@ -989,7 +1302,7 @@ class DesktopFullLayoutData {
         icon: Icons.menu_rounded,
         flex: 1.15,
       ),
-      KeyModel(
+      const KeyModel(
         id: 'ctrl_right',
         label: 'Ctrl',
         type: KeyType.modifier,
@@ -1328,19 +1641,30 @@ class DesktopFullLayoutData {
   /// supporting `Esc`, `F1`–`F12`, `Del`, navigation, and directional arrows.
   static List<List<KeyModel>> layout60Rows({
     DesktopKeyboardPlatform platform = DesktopKeyboardPlatform.windows,
+    String layoutId = 'en_US',
+    String? spaceLabel,
   }) =>
       [
-        numberRow(platform: platform, includeFnLayer: true),
-        topAlphaRow(platform: platform, includeFnArrows: true),
-        homeAlphaRow(platform: platform, includeFnArrows: true),
-        bottomAlphaRow(platform: platform),
-        bottomControlRow(platform: platform),
+        numberRow(platform: platform, includeFnLayer: true, layoutId: layoutId),
+        topAlphaRow(
+          platform: platform,
+          includeFnArrows: true,
+          layoutId: layoutId,
+        ),
+        homeAlphaRow(
+          platform: platform,
+          includeFnArrows: true,
+          layoutId: layoutId,
+        ),
+        bottomAlphaRow(platform: platform, layoutId: layoutId),
+        bottomControlRow(platform: platform, spaceLabel: spaceLabel),
       ];
 
   /// Bottom modifier row + arrows for 16u presets (`layout65`, `layout75`).
   static List<KeyModel> _compact16ControlWithArrowsRow(
-    DesktopKeyboardPlatform platform,
-  ) {
+    DesktopKeyboardPlatform platform, {
+    String? spaceLabel,
+  }) {
     if (platform == DesktopKeyboardPlatform.macos) {
       return [
         const KeyModel(
@@ -1378,7 +1702,7 @@ class DesktopFullLayoutData {
           modifierKey: ModifierKey.meta,
           flex: 1.35,
         ),
-        _spaceKey(platform, flex: 6.05),
+        _spaceKey(platform, flex: 6.05, spaceLabel: spaceLabel),
         const KeyModel(
           id: 'cmd_right',
           label: 'cmd',
@@ -1403,8 +1727,8 @@ class DesktopFullLayoutData {
       ];
     }
 
-    return const [
-      KeyModel(
+    return [
+      const KeyModel(
         id: 'ctrl_left',
         label: 'Ctrl',
         type: KeyType.modifier,
@@ -1412,7 +1736,7 @@ class DesktopFullLayoutData {
         modifierKey: ModifierKey.control,
         flex: 1.25,
       ),
-      KeyModel(
+      const KeyModel(
         id: 'win_super',
         label: 'Win',
         type: KeyType.modifier,
@@ -1421,7 +1745,7 @@ class DesktopFullLayoutData {
         icon: Icons.window_rounded,
         flex: 1.25,
       ),
-      KeyModel(
+      const KeyModel(
         id: 'alt_left',
         label: 'Alt',
         type: KeyType.modifier,
@@ -1429,18 +1753,8 @@ class DesktopFullLayoutData {
         modifierKey: ModifierKey.alt,
         flex: 1.25,
       ),
-      KeyModel(
-        id: 'spacebar',
-        label: 'SPACEBAR',
-        value: ' ',
-        shiftValue: ' ',
-        type: KeyType.space,
-        action: VirtualKeyAction.space,
-        repeatable: true,
-        flex: 6.25,
-        shortcutKey: 'Space',
-      ),
-      KeyModel(
+      _spaceKey(platform, flex: 6.25, spaceLabel: spaceLabel),
+      const KeyModel(
         id: 'alt_gr',
         label: 'AltGr',
         type: KeyType.modifier,
@@ -1448,14 +1762,14 @@ class DesktopFullLayoutData {
         modifierKey: ModifierKey.altGr,
         flex: 1.0,
       ),
-      KeyModel(
+      const KeyModel(
         id: 'fn_key',
         label: 'Fn',
         type: KeyType.modifier,
         action: VirtualKeyAction.fn,
         flex: 1.0,
       ),
-      KeyModel(
+      const KeyModel(
         id: 'ctrl_right',
         label: 'Ctrl',
         type: KeyType.modifier,
@@ -1473,23 +1787,28 @@ class DesktopFullLayoutData {
   /// directional arrows and a 1-column right navigation rail (`Del`, `PgUp`, `PgDn`, `Home`).
   static List<List<KeyModel>> layout65Rows({
     DesktopKeyboardPlatform platform = DesktopKeyboardPlatform.windows,
+    String layoutId = 'en_US',
+    String? spaceLabel,
   }) =>
       [
-        [...numberRow(platform: platform, includeFnLayer: true), _delKeyFor(platform)],
-        [...topAlphaRow(platform: platform), _pgUpKey],
-        [...homeAlphaRow(platform: platform), _pgDnKey],
+        [
+          ...numberRow(
+            platform: platform,
+            includeFnLayer: true,
+            layoutId: layoutId,
+          ),
+          _delKeyFor(platform),
+        ],
+        [...topAlphaRow(platform: platform, layoutId: layoutId), _pgUpKey],
+        [...homeAlphaRow(platform: platform, layoutId: layoutId), _pgDnKey],
         [
           _shiftKey(platform, isLeft: true, flex: 2.25),
-          for (final c in const ['z', 'x', 'c', 'v', 'b', 'n', 'm'])
-            KeyModel.char(c),
-          KeyModel.char(',', shift: '<', id: 'comma'),
-          KeyModel.char('.', shift: '>', id: 'period'),
-          KeyModel.char('/', shift: '?', id: 'slash'),
+          ..._localizedBottomKeys(layoutId),
           _shiftKey(platform, isLeft: false, flex: 1.75),
           _arrowUpKey,
           _homeKey,
         ],
-        _compact16ControlWithArrowsRow(platform),
+        _compact16ControlWithArrowsRow(platform, spaceLabel: spaceLabel),
       ];
 
   /// **75% Compact Layout (16.0u, 6 rows)**: Keeps top F-row, hides Numpad,
@@ -1498,6 +1817,8 @@ class DesktopFullLayoutData {
   static List<List<KeyModel>> layout75Rows({
     DesktopKeyboardPlatform platform = DesktopKeyboardPlatform.windows,
     bool includeFunctionRow = true,
+    String layoutId = 'en_US',
+    String? spaceLabel,
   }) {
     final isMac = platform == DesktopKeyboardPlatform.macos;
     return [
@@ -1524,21 +1845,17 @@ class DesktopFullLayoutData {
           ),
           _delKeyFor(platform),
         ],
-      [...numberRow(platform: platform), _homeKey],
-      [...topAlphaRow(platform: platform), _pgUpKey],
-      [...homeAlphaRow(platform: platform), _pgDnKey],
+      [...numberRow(platform: platform, layoutId: layoutId), _homeKey],
+      [...topAlphaRow(platform: platform, layoutId: layoutId), _pgUpKey],
+      [...homeAlphaRow(platform: platform, layoutId: layoutId), _pgDnKey],
       [
         _shiftKey(platform, isLeft: true, flex: 2.25),
-        for (final c in const ['z', 'x', 'c', 'v', 'b', 'n', 'm'])
-          KeyModel.char(c),
-        KeyModel.char(',', shift: '<', id: 'comma'),
-        KeyModel.char('.', shift: '>', id: 'period'),
-        KeyModel.char('/', shift: '?', id: 'slash'),
+        ..._localizedBottomKeys(layoutId),
         _shiftKey(platform, isLeft: false, flex: 1.75),
         _arrowUpKey,
         _endKey,
       ],
-      _compact16ControlWithArrowsRow(platform),
+      _compact16ControlWithArrowsRow(platform, spaceLabel: spaceLabel),
     ];
   }
 
@@ -1547,6 +1864,8 @@ class DesktopFullLayoutData {
   static List<List<KeyModel>> layout98MainRows({
     DesktopKeyboardPlatform platform = DesktopKeyboardPlatform.windows,
     bool includeFunctionRow = true,
+    String layoutId = 'en_US',
+    String? spaceLabel,
   }) {
     final isMac = platform == DesktopKeyboardPlatform.macos;
     return [
@@ -1572,16 +1891,12 @@ class DesktopFullLayoutData {
             flex: 1.0,
           ),
         ],
-      numberRow(platform: platform),
-      topAlphaRow(platform: platform),
-      homeAlphaRow(platform: platform),
+      numberRow(platform: platform, layoutId: layoutId),
+      topAlphaRow(platform: platform, layoutId: layoutId),
+      homeAlphaRow(platform: platform, layoutId: layoutId),
       [
         _shiftKey(platform, isLeft: true, flex: 1.75),
-        for (final c in const ['z', 'x', 'c', 'v', 'b', 'n', 'm'])
-          KeyModel.char(c),
-        KeyModel.char(',', shift: '<', id: 'comma'),
-        KeyModel.char('.', shift: '>', id: 'period'),
-        KeyModel.char('/', shift: '?', id: 'slash'),
+        ..._localizedBottomKeys(layoutId),
         _shiftKey(platform, isLeft: false, flex: 1.25),
         _arrowUpKey,
         _pgDnKey,
@@ -1623,7 +1938,7 @@ class DesktopFullLayoutData {
             modifierKey: ModifierKey.meta,
             flex: 1.25,
           ),
-          _spaceKey(platform, flex: 5.55),
+          _spaceKey(platform, flex: 5.55, spaceLabel: spaceLabel),
           const KeyModel(
             id: 'cmd_right',
             label: 'cmd',
@@ -1647,8 +1962,8 @@ class DesktopFullLayoutData {
           _arrowRightKey,
         ]
       else
-        const [
-          KeyModel(
+        [
+          const KeyModel(
             id: 'ctrl_left',
             label: 'Ctrl',
             type: KeyType.modifier,
@@ -1656,7 +1971,7 @@ class DesktopFullLayoutData {
             modifierKey: ModifierKey.control,
             flex: 1.25,
           ),
-          KeyModel(
+          const KeyModel(
             id: 'win_super',
             label: 'Win',
             type: KeyType.modifier,
@@ -1665,7 +1980,7 @@ class DesktopFullLayoutData {
             icon: Icons.window_rounded,
             flex: 1.0,
           ),
-          KeyModel(
+          const KeyModel(
             id: 'alt_left',
             label: 'Alt',
             type: KeyType.modifier,
@@ -1673,18 +1988,8 @@ class DesktopFullLayoutData {
             modifierKey: ModifierKey.alt,
             flex: 1.0,
           ),
-          KeyModel(
-            id: 'spacebar',
-            label: 'SPACEBAR',
-            value: ' ',
-            shiftValue: ' ',
-            type: KeyType.space,
-            action: VirtualKeyAction.space,
-            repeatable: true,
-            flex: 5.75,
-            shortcutKey: 'Space',
-          ),
-          KeyModel(
+          _spaceKey(platform, flex: 5.75, spaceLabel: spaceLabel),
+          const KeyModel(
             id: 'alt_gr',
             label: 'AltGr',
             type: KeyType.modifier,
@@ -1692,14 +1997,14 @@ class DesktopFullLayoutData {
             modifierKey: ModifierKey.altGr,
             flex: 1.0,
           ),
-          KeyModel(
+          const KeyModel(
             id: 'fn_key',
             label: 'Fn',
             type: KeyType.modifier,
             action: VirtualKeyAction.fn,
             flex: 1.0,
           ),
-          KeyModel(
+          const KeyModel(
             id: 'ctrl_right',
             label: 'Ctrl',
             type: KeyType.modifier,

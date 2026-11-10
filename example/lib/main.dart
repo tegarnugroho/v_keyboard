@@ -203,6 +203,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   bool _desktopIsFullWidth = true;
   KeyboardLayoutType _desktopLayoutType = KeyboardLayoutType.layout100;
   DesktopKeyboardPlatform _desktopPlatform = DesktopKeyboardPlatform.windows;
+  String? _desktopFallbackLayoutId;
 
   // Custom layout definition (Math & Scientific symbols example)
   static final KeyboardLayout _customLayout = KeyboardLayout(
@@ -320,6 +321,11 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
         setState(() {
           _currentTab = _ActiveTab.desktop;
           _selectedType = VKeyboardType.desktop;
+        });
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted && _currentTab == _ActiveTab.desktop) {
+            _desktopFocusNode.requestFocus();
+          }
         });
         break;
     }
@@ -778,6 +784,11 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                           _selectedType = VKeyboardType.standard;
                         } else if (tab == _ActiveTab.desktop) {
                           _selectedType = VKeyboardType.desktop;
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            if (mounted && _currentTab == _ActiveTab.desktop) {
+                              _desktopFocusNode.requestFocus();
+                            }
+                          });
                         }
                       });
                     },
@@ -1914,9 +1925,22 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   Widget _buildDesktopTab(bool isDark) {
     final scope = VKeyboardScope.maybeOf(context);
     final controller = scope?.controller;
+    final activeLayoutId =
+        controller?.currentLayoutId ?? _desktopFallbackLayoutId ?? 'en_US';
     final desktopTheme = isDark
         ? DesktopKeyboardThemeData.dark(accentColor: widget.accentColor.color)
         : DesktopKeyboardThemeData.light(accentColor: widget.accentColor.color);
+
+    void selectDesktopLocale(String id) {
+      if (controller != null) {
+        controller.setLayout(id);
+      } else {
+        setState(() => _desktopFallbackLayoutId = id);
+      }
+      _desktopFocusNode.requestFocus();
+      setState(() =>
+          _desktopLastEvent = 'Language: ${VKeyboardLayouts.getDisplayName(id)}');
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1996,6 +2020,30 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                       label: Text(os.label),
                       selected: _desktopPlatform == os,
                       onSelected: (_) => setState(() => _desktopPlatform = os),
+                    ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Language:',
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.white70 : Colors.black87,
+                    ),
+                  ),
+                  for (final id in const [
+                    'en_US',
+                    'zh_CN',
+                    'zh_TW',
+                    'ja_JP',
+                    'ko_KR',
+                    'ru_RU',
+                    'th_TH',
+                    'vi_VN',
+                  ])
+                    ChoiceChip(
+                      label: Text(VKeyboardLayouts.getDisplayName(id)),
+                      selected: activeLayoutId == id,
+                      onSelected: (_) => selectDesktopLocale(id),
                     ),
                 ],
               ),
@@ -2142,7 +2190,15 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
         DesktopFullKeyboard(
           layoutType: _desktopLayoutType,
           platform: _desktopPlatform,
+          layoutId: controller == null ? activeLayoutId : null,
           onPlatformChanged: (os) => setState(() => _desktopPlatform = os),
+          onLayoutChanged: (id) {
+            setState(() {
+              if (controller == null) _desktopFallbackLayoutId = id;
+              _desktopLastEvent =
+                  'Language: ${VKeyboardLayouts.getDisplayName(id)}';
+            });
+          },
           isFullWidth: _desktopIsFullWidth,
           controller: controller,
           themeData: desktopTheme,
