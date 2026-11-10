@@ -14,6 +14,7 @@ import '../theme/v_keyboard_theme.dart';
 import '../widgets/clipboard_history_panel.dart';
 import '../widgets/emoji_panel.dart';
 import '../widgets/keyboard_view.dart';
+import '../widgets/layout_picker_dialog.dart';
 
 /// Root of the virtual keyboard system. Wrap your app (or any subtree
 /// containing [VTextField]s) in one of these.
@@ -316,6 +317,43 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                 showClipboardButton: showClipboardButton,
                               ),
                   ),
+                ),
+              ),
+            ),
+
+          // Layout picker, drawn here rather than pushed as a route so it
+          // needs no Navigator and the active field keeps focus. Shares the
+          // keyboard's tap group so taps on it don't dismiss the keyboard.
+          if (_controller.isLayoutPickerOpen)
+            Positioned.fill(
+              child: TapRegion(
+                groupId: _tapGroup,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: _controller.closeLayoutPicker,
+                        child: const ColoredBox(color: Colors.black54),
+                      ),
+                    ),
+                    Center(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: math.min(380, mq.size.width - 32),
+                          maxHeight: math.min(420, mq.size.height - 32),
+                        ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: VKeyboardLayoutPickerPanel(
+                            controller: _controller,
+                            theme: theme,
+                            onSelected: _controller.closeLayoutPicker,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

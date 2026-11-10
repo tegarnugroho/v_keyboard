@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_v_keyboard/flutter_v_keyboard.dart';
@@ -355,6 +356,92 @@ void main() {
 
       expect(controller.currentLayoutId, 'de_DE');
       await tester.pump(const Duration(seconds: 2));
+    });
+
+    testWidgets(
+        'mouse hold on space bar opens picker when scope is in MaterialApp.builder (no Navigator above)',
+        (tester) async {
+      final controller = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLayouts: ['de_DE', 'en_US'],
+          persistLayoutSelection: false,
+        ),
+      );
+      final textController = TextEditingController();
+      final focusNode = FocusNode();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          builder: (context, child) =>
+              VKeyboardScope(controller: controller, child: child!),
+          home: Scaffold(
+            body: VTextField(
+              controller: textController,
+              focusNode: focusNode,
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(VTextField));
+      await tester.pumpAndSettle();
+
+      final spaceFinder = find.byWidgetPredicate(
+          (w) => w is VirtualKey && w.data.kind == KeyKind.space);
+      final gesture = await tester.startGesture(
+        tester.getCenter(spaceFinder),
+        kind: PointerDeviceKind.mouse,
+      );
+      await tester.pump(kLongPressTimeout + const Duration(milliseconds: 100));
+      await gesture.up();
+      await tester.pumpAndSettle();
+
+      expect(tester.takeException(), isNull);
+      expect(controller.isLayoutPickerOpen, isTrue);
+      expect(find.text('Select keyboard layout'), findsOneWidget);
+      // The field keeps focus, so the keyboard stays up behind the picker.
+      expect(focusNode.hasFocus, isTrue);
+
+      await tester.tap(find.textContaining('English'));
+      await tester.pumpAndSettle();
+
+      expect(controller.currentLayoutId, 'en_US');
+      expect(controller.isLayoutPickerOpen, isFalse);
+      expect(find.text('Select keyboard layout'), findsNothing);
+      expect(focusNode.hasFocus, isTrue);
+      await tester.pump(const Duration(seconds: 2));
+    });
+
+    testWidgets('tapping the picker backdrop closes it without switching',
+        (tester) async {
+      final controller = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLayouts: ['de_DE', 'en_US'],
+          persistLayoutSelection: false,
+        ),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          builder: (context, child) =>
+              VKeyboardScope(controller: controller, child: child!),
+          home: Scaffold(body: VTextField(controller: TextEditingController())),
+        ),
+      );
+
+      await tester.tap(find.byType(VTextField));
+      await tester.pumpAndSettle();
+
+      final result = controller.openLayoutPicker();
+      await tester.pumpAndSettle();
+      expect(find.text('Select keyboard layout'), findsOneWidget);
+
+      await tester.tapAt(const Offset(5, 5));
+      await tester.pumpAndSettle();
+
+      expect(await result, isNull);
+      expect(controller.isLayoutPickerOpen, isFalse);
+      expect(controller.currentLayoutId, 'de_DE');
     });
 
     testWidgets('tapping space bar normally inserts space character and does not open picker',

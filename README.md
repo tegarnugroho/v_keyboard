@@ -68,7 +68,7 @@ Production-ready clipboard history integrated directly into the virtual keyboard
 - **Kana Voicing Mark Engine**: Algorithmic dakuten (`゛`) and handakuten (`゜`) sound composer for Japanese typing (`か` + `゛` = `が`, `は` + `゜` = `ぱ`).
 - **Vietnamese Telex Engine**: Algorithmic Telex syllable composer (`aa` $\rightarrow$ `â`, `aw` $\rightarrow$ `ă`, `ee` $\rightarrow$ `ê`, `oo` $\rightarrow$ `ô`, `ow` $\rightarrow$ `ơ`, `uw`/`w` $\rightarrow$ `ư`, `uow` $\rightarrow$ `ươ`, `dd` $\rightarrow$ `đ`), tone marks (`s, f, r, x, j, z`), modern orthographic tone placement, and backspace decomposition.
 - **Smart Latin Auto-Fallback**: Automatically switches non-Latin layouts (Korean, Japanese, Thai, Taiwan Zhuyin, Russian, Greek) to standard Latin QWERTY when typing into `Email`, `URL`, and `Password` fields, while keeping IME engines and diacritic composers suppressed in sensitive fields.
-- **Runtime Layout Switching**: Hold (long-press) the space bar to open the layout picker dialog / bottom sheet, with space bar active layout preview and persistent selection.
+- **Runtime Layout Switching**: Hold (long-press) the space bar, with touch or mouse, to open the layout picker. The picker is drawn by `VKeyboardScope` itself, so it works without a `Navigator` (e.g. in `MaterialApp.builder`) and the keyboard stays open. Includes a space bar preview of the active layout and persistent selection.
 - **Accented Characters**: Long-press letter callouts with customizable alternates.
 - **Specialized**: Number, decimal, phone, PIN, password, email, and URL layouts.
 - **Symbols**: Multi-page switching (`123`, `#+=`) with sticky shift, double-tap caps lock, and locale-specific currency keys (`€`, `£`, `₺`, `₽`, `₩`, `¥`, `฿`, `₫`).
@@ -107,7 +107,7 @@ Or add it manually under dependencies:
 
 ```yaml
 dependencies:
-  flutter_v_keyboard: ^0.3.0
+  flutter_v_keyboard: ^0.3.1
 ```
 
 ---
@@ -230,7 +230,7 @@ VKeyboardScope(
 
 ### Space Bar & Layout Switcher
 
-- **Hold Space Bar**: Holding (long-pressing) the space bar opens a layout picker (bottom sheet on mobile, dialog on desktop/tablet) to select any enabled layout.
+- **Hold Space Bar**: Holding (long-pressing) the space bar, with touch or mouse, opens a layout picker over the keyboard to select any enabled layout. It is rendered by `VKeyboardScope` (no route), so it needs no `Navigator`, keeps focus on the active field, and taps on it never dismiss the keyboard. Tap the backdrop to close it without switching.
 - **Space Bar Active Preview**: When multiple layouts are enabled, the space bar subtly displays the active language name (e.g. `English (US)`, `Deutsch`, `Русский`), matching modern keyboard UX.
 - **Switch Banner**: Briefly flashes the new layout name on the space bar (~1.5s) upon switching.
 - **Optional Globe Key**: Can be enabled via `showGlobeKey: true` if a dedicated bottom-bar button is desired.
@@ -259,8 +259,10 @@ controller.onLayoutChanged.listen((id) {
   debugPrint('New layout: $id');
 });
 
-// Open layout picker manually
-showVKeyboardLayoutPicker(context, controller);
+// Open the layout picker manually (rendered by VKeyboardScope).
+// Completes with the selected layout id, or null if dismissed.
+final picked = await controller.openLayoutPicker();
+// controller.isLayoutPickerOpen / controller.closeLayoutPicker()
 ```
 
 ### Custom Layout Registration

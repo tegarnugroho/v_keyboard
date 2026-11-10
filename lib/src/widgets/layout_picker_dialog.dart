@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../controller/v_keyboard_controller.dart';
 import '../layouts/v_keyboard_layouts.dart';
+import '../scope/v_keyboard_scope.dart';
 import '../theme/v_keyboard_theme.dart';
 
-/// Displays a modal bottom sheet or dialog to select from the enabled keyboard layouts.
+/// Shows a picker to select from the enabled keyboard layouts.
+///
+/// When [context] is below the [VKeyboardScope] that owns [controller], the
+/// picker is rendered by the scope itself via
+/// [VKeyboardController.openLayoutPicker]. That works even when the scope is
+/// placed in `MaterialApp.builder` (above the `Navigator`) and keeps focus on
+/// the active field so the keyboard stays open. Otherwise it falls back to a
+/// modal bottom sheet / dialog, which requires a `Navigator`.
 Future<String?> showVKeyboardLayoutPicker(
   BuildContext context, {
   required VKeyboardController controller,
@@ -13,16 +21,76 @@ Future<String?> showVKeyboardLayoutPicker(
   final enabledLayouts = controller.config.enabledLayouts;
   if (enabledLayouts.isEmpty) return Future.value(null);
 
+  if (VKeyboardScope.maybeOf(context)?.controller == controller) {
+    return controller.openLayoutPicker();
+  }
+
   final mq = MediaQuery.of(context);
   final isNarrow = mq.size.width < 600;
 
-  Widget buildContent(BuildContext ctx) {
+  void select(BuildContext ctx, String id) {
+    controller.setLayout(id);
+    Navigator.of(ctx).pop(id);
+  }
+
+  if (isNarrow) {
+    return showModalBottomSheet<String>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (ctx) => VKeyboardLayoutPickerPanel(
+        controller: controller,
+        theme: theme,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        onSelected: (id) => select(ctx, id),
+      ),
+    );
+  } else {
+    return showDialog<String>(
+      context: context,
+      barrierColor: Colors.black54,
+      builder: (ctx) => Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 380, maxHeight: 420),
+          child: Material(
+            color: Colors.transparent,
+            child: VKeyboardLayoutPickerPanel(
+              controller: controller,
+              theme: theme,
+              onSelected: (id) => select(ctx, id),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The list of enabled layouts shown by [showVKeyboardLayoutPicker].
+class VKeyboardLayoutPickerPanel extends StatelessWidget {
+  const VKeyboardLayoutPickerPanel({
+    super.key,
+    required this.controller,
+    required this.theme,
+    required this.onSelected,
+    this.borderRadius,
+  });
+
+  final VKeyboardController controller;
+  final VKeyboardTheme theme;
+  final ValueChanged<String> onSelected;
+
+  /// Panel corner radius. Defaults to the theme's key radius.
+  final BorderRadius? borderRadius;
+
+  @override
+  Widget build(BuildContext context) {
+    final enabledLayouts = controller.config.enabledLayouts;
     return Container(
       decoration: BoxDecoration(
         color: theme.backgroundColor,
-        borderRadius: isNarrow
-            ? const BorderRadius.vertical(top: Radius.circular(16))
-            : (theme.borderRadius is BorderRadius
+        borderRadius: borderRadius ??
+            (theme.borderRadius is BorderRadius
                 ? theme.borderRadius as BorderRadius
                 : BorderRadius.circular(16)),
       ),
@@ -58,7 +126,7 @@ Future<String?> showVKeyboardLayoutPicker(
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: enabledLayouts.length,
-              itemBuilder: (context, index) {
+              itemBuilder: (_, index) {
                 final id = enabledLayouts[index];
                 final displayName = VKeyboardLayouts.getDisplayName(id);
                 final shortLabel = VKeyboardLayouts.getShortLabel(id);
@@ -80,9 +148,7 @@ Future<String?> showVKeyboardLayoutPicker(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: isSelected
-                            ? theme.accentColor
-                            : theme.keyColor,
+                        color: isSelected ? theme.accentColor : theme.keyColor,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: FittedBox(
@@ -118,39 +184,13 @@ Future<String?> showVKeyboardLayoutPicker(
                             size: 20,
                           )
                         : null,
-                    onTap: () {
-                      controller.setLayout(id);
-                      Navigator.of(ctx).pop(id);
-                    },
+                    onTap: () => onSelected(id),
                   ),
                 );
               },
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  if (isNarrow) {
-    return showModalBottomSheet<String>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: buildContent,
-    );
-  } else {
-    return showDialog<String>(
-      context: context,
-      barrierColor: Colors.black54,
-      builder: (ctx) => Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 380, maxHeight: 420),
-          child: Material(
-            color: Colors.transparent,
-            child: buildContent(ctx),
-          ),
-        ),
       ),
     );
   }

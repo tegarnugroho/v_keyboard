@@ -79,6 +79,42 @@ class VKeyboardController extends ChangeNotifier {
   String? _spaceBarBanner;
   Timer? _spaceBarTimer;
 
+  Completer<String?>? _layoutPickerCompleter;
+
+  /// Whether the layout picker panel is currently open.
+  ///
+  /// The picker is rendered by [VKeyboardScope] next to the keyboard (not as
+  /// a route), so it works without a `Navigator` above the scope and doesn't
+  /// steal focus from the active field.
+  bool get isLayoutPickerOpen => _layoutPickerCompleter != null;
+
+  /// Opens the layout picker. Completes with the selected layout id, or
+  /// `null` if the picker was dismissed without a selection.
+  Future<String?> openLayoutPicker() {
+    if (_isDisposed) return Future.value(null);
+    if (config.enabledLayouts.isEmpty) return Future.value(null);
+    final completer = _layoutPickerCompleter ??= Completer<String?>();
+    notifyListeners();
+    return completer.future;
+  }
+
+  /// Closes the layout picker, switching to [layoutId] when given.
+  void closeLayoutPicker([String? layoutId]) {
+    if (_isDisposed) return;
+    final completer = _layoutPickerCompleter;
+    if (completer == null) return;
+    _layoutPickerCompleter = null;
+    if (layoutId != null) setLayout(layoutId);
+    completer.complete(layoutId);
+    notifyListeners();
+  }
+
+  void _closeLayoutPickerSilently() {
+    final completer = _layoutPickerCompleter;
+    _layoutPickerCompleter = null;
+    completer?.complete(null);
+  }
+
   /// Updates the default configuration when the parent scope's config changes.
   void updateConfig(VKeyboardConfig newConfig) {
     _defaultConfig = newConfig;
@@ -211,6 +247,7 @@ class VKeyboardController extends ChangeNotifier {
   @override
   void dispose() {
     _isDisposed = true;
+    _closeLayoutPickerSilently();
     _spaceBarTimer?.cancel();
     _layoutChangeController.close();
     modifiers.removeListener(notifyListeners);
@@ -344,6 +381,7 @@ class VKeyboardController extends ChangeNotifier {
     _session = null;
     _targetSession = null;
     _visible = false;
+    _closeLayoutPickerSilently();
     modifiers.reset(notify: false);
     notifyListeners();
   }
@@ -354,6 +392,7 @@ class VKeyboardController extends ChangeNotifier {
     _visible = false;
     _session = null;
     _targetSession = null;
+    _closeLayoutPickerSilently();
     _clearComposingInternal();
     modifiers.reset(notify: false);
     notifyListeners();

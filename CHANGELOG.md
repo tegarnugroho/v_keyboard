@@ -1,3 +1,14 @@
+## 0.3.1
+
+- **Fix: layout picker did nothing when `VKeyboardScope` sits in `MaterialApp.builder`**:
+  - Holding the space bar (or the globe key) called `showDialog` / `showModalBottomSheet` from inside the keyboard. With the recommended `MaterialApp.builder` setup the scope is above the `Navigator`, so the call threw and no picker appeared (with touch and mouse alike).
+  - The picker is now rendered by `VKeyboardScope` itself, above the keyboard. It needs no `Navigator`, keeps focus on the active field (so the keyboard stays open), and shares the keyboard's tap region, so tapping it never dismisses the keyboard. Tapping the backdrop closes it without switching.
+  - The picker closes automatically when the keyboard hides or the controller is disposed.
+- **New API**:
+  - `VKeyboardController.openLayoutPicker()` returns a `Future<String?>` with the selected layout id (`null` if dismissed). `closeLayoutPicker([layoutId])` closes it, and `isLayoutPickerOpen` reports its state.
+  - `VKeyboardLayoutPickerPanel`: the layout list widget, exposed for custom picker UIs.
+- `showVKeyboardLayoutPicker` uses the in-scope picker when called below the owning `VKeyboardScope` and falls back to a dialog / bottom sheet otherwise.
+
 ## 0.3.0
 
 - **Multi-Language Keyboard Layouts**:
