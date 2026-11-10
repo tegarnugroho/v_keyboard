@@ -23,6 +23,7 @@ import '../engine/telex_composer.dart';
 import '../engine/text_input_engine.dart';
 import '../engine/zhuyin_ime_engine.dart';
 import '../layouts/layout_selection_storage.dart';
+import '../models/keyboard_type.dart';
 import '../layouts/v_keyboard_layouts.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
@@ -142,6 +143,14 @@ class VKeyboardController extends ChangeNotifier {
   /// The active [ImeEngine] for the current layout, if IME candidate handling is enabled.
   ImeEngine? get activeImeEngine {
     if (!config.enableImeCandidates) return null;
+    final sess = session;
+    if (sess != null &&
+        (sess.type == VKeyboardType.password ||
+            sess.type == VKeyboardType.pin ||
+            sess.type == VKeyboardType.email ||
+            sess.type == VKeyboardType.url)) {
+      return null;
+    }
     return _imeEngines[_currentLayoutId];
   }
 
@@ -586,7 +595,13 @@ class VKeyboardController extends ChangeNotifier {
       notifyListeners();
     }
 
-    if (_currentLayoutId == 'ko_KR' &&
+    final isRawAsciiField = session.type == VKeyboardType.password ||
+        session.type == VKeyboardType.pin ||
+        session.type == VKeyboardType.email ||
+        session.type == VKeyboardType.url;
+
+    if (!isRawAsciiField &&
+        _currentLayoutId == 'ko_KR' &&
         (HangulComposer.isChoseong(text) ||
             HangulComposer.isJungseong(text) ||
             HangulComposer.isHangulSyllable(text))) {
@@ -605,7 +620,9 @@ class VKeyboardController extends ChangeNotifier {
         session.value = newValue;
         session.onChanged?.call(newValue.text);
       }
-    } else if (_currentLayoutId == 'ja_JP' && KanaComposer.isVoicingMark(text)) {
+    } else if (!isRawAsciiField &&
+        _currentLayoutId == 'ja_JP' &&
+        KanaComposer.isVoicingMark(text)) {
       if (session.readOnly || !session.enabled) return;
       final oldValue = session.value;
       var newValue = KanaComposer.compose(
@@ -621,7 +638,9 @@ class VKeyboardController extends ChangeNotifier {
         session.value = newValue;
         session.onChanged?.call(newValue.text);
       }
-    } else if (_currentLayoutId == 'vi_VN' && TelexComposer.isTelexKey(text)) {
+    } else if (!isRawAsciiField &&
+        _currentLayoutId == 'vi_VN' &&
+        TelexComposer.isTelexKey(text)) {
       if (session.readOnly || !session.enabled) return;
       final oldValue = session.value;
       var newValue = TelexComposer.compose(
@@ -673,9 +692,15 @@ class VKeyboardController extends ChangeNotifier {
 
   void _handleBackspace(KeyboardSession session) {
     if (session.readOnly || !session.enabled) return;
+    final isRawAsciiField = session.type == VKeyboardType.password ||
+        session.type == VKeyboardType.pin ||
+        session.type == VKeyboardType.email ||
+        session.type == VKeyboardType.url;
+
     if (modifiers.control) {
       session.value = _deleteWordBackward(session.value);
-    } else if (_currentLayoutId == 'ko_KR' &&
+    } else if (!isRawAsciiField &&
+        _currentLayoutId == 'ko_KR' &&
         session.value.selection.isCollapsed) {
       final offset = session.value.selection.baseOffset;
       if (offset > 0 &&
@@ -684,7 +709,8 @@ class VKeyboardController extends ChangeNotifier {
       } else {
         session.value = TextInputEngine.deleteBackward(session.value);
       }
-    } else if (_currentLayoutId == 'ja_JP' &&
+    } else if (!isRawAsciiField &&
+        _currentLayoutId == 'ja_JP' &&
         session.value.selection.isCollapsed) {
       final offset = session.value.selection.baseOffset;
       if (offset > 0 &&
@@ -693,7 +719,8 @@ class VKeyboardController extends ChangeNotifier {
       } else {
         session.value = TextInputEngine.deleteBackward(session.value);
       }
-    } else if (_currentLayoutId == 'vi_VN' &&
+    } else if (!isRawAsciiField &&
+        _currentLayoutId == 'vi_VN' &&
         session.value.selection.isCollapsed) {
       final offset = session.value.selection.baseOffset;
       if (offset > 0 &&

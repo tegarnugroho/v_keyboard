@@ -1,5 +1,6 @@
 import '../models/keyboard_layout.dart';
 import '../models/keyboard_type.dart';
+import '../models/v_keyboard_locale.dart';
 import 'builtin_layouts.dart';
 import 'locales/layout_de_de.dart';
 import 'locales/layout_el_gr.dart';
@@ -26,6 +27,7 @@ class VKeyboardLayoutMetadata {
     required this.layout,
     this.builder,
     this.altGrMap = const {},
+    this.isLatin = true,
   });
 
   /// Layout identifier (e.g. 'en_US', 'de_DE').
@@ -45,6 +47,12 @@ class VKeyboardLayoutMetadata {
 
   /// Optional AltGr character remapping table for desktop keyboards.
   final Map<String, String> altGrMap;
+
+  /// Whether this layout uses the Latin alphabet.
+  ///
+  /// Non-Latin layouts automatically fall back to a Latin layout for
+  /// [VKeyboardType.email], [VKeyboardType.url], and [VKeyboardType.password].
+  final bool isLatin;
 }
 
 /// Global registry for virtual keyboard layouts.
@@ -195,6 +203,7 @@ class VKeyboardLayouts {
         id: 'ru_RU',
         displayName: 'Русский',
         shortLabel: 'RU',
+        isLatin: false,
         layout: LayoutRuRu.build(),
         builder: ({VKeyboardType type = VKeyboardType.standard}) =>
             LayoutRuRu.build(type: type),
@@ -211,6 +220,7 @@ class VKeyboardLayouts {
         id: 'el_GR',
         displayName: 'Ελληνικά',
         shortLabel: 'EL',
+        isLatin: false,
         layout: LayoutElGr.build(),
         builder: ({VKeyboardType type = VKeyboardType.standard}) =>
             LayoutElGr.build(type: type),
@@ -226,6 +236,7 @@ class VKeyboardLayouts {
         id: 'ko_KR',
         displayName: '한국어',
         shortLabel: 'KO',
+        isLatin: false,
         layout: LayoutKoKr.build(),
         builder: ({VKeyboardType type = VKeyboardType.standard}) =>
             LayoutKoKr.build(type: type),
@@ -238,6 +249,7 @@ class VKeyboardLayouts {
         id: 'ja_JP',
         displayName: '日本語',
         shortLabel: 'JP',
+        isLatin: false,
         layout: LayoutJaJp.build(),
         builder: ({VKeyboardType type = VKeyboardType.standard}) =>
             LayoutJaJp.build(type: type),
@@ -268,6 +280,7 @@ class VKeyboardLayouts {
         id: 'zh_TW',
         displayName: '繁體中文',
         shortLabel: 'TW',
+        isLatin: false,
         layout: LayoutZhTw.build(),
         builder: ({VKeyboardType type = VKeyboardType.standard}) =>
             LayoutZhTw.build(type: type),
@@ -280,6 +293,7 @@ class VKeyboardLayouts {
         id: 'th_TH',
         displayName: 'ภาษาไทย',
         shortLabel: 'TH',
+        isLatin: false,
         layout: LayoutThTh.build(),
         builder: ({VKeyboardType type = VKeyboardType.standard}) =>
             LayoutThTh.build(type: type),
@@ -311,6 +325,7 @@ class VKeyboardLayouts {
     String? shortLabel,
     KeyboardLayout Function({VKeyboardType type})? builder,
     Map<String, String>? altGr,
+    bool isLatin = true,
   }) {
     _ensureInitialized();
     final meta = VKeyboardLayoutMetadata(
@@ -321,6 +336,7 @@ class VKeyboardLayouts {
       layout: layout,
       builder: builder,
       altGrMap: altGr ?? const {},
+      isLatin: isLatin,
     );
     _registry[layout.id] = meta;
   }
@@ -364,6 +380,17 @@ class VKeyboardLayouts {
   static Map<String, String> getAltGr(String id) {
     _ensureInitialized();
     return _registry[id]?.altGrMap ?? const {};
+  }
+
+  /// Returns whether the layout with [id] uses the Latin alphabet.
+  ///
+  /// Non-Latin layouts automatically fallback to a Latin layout for
+  /// [VKeyboardType.email], [VKeyboardType.url], and [VKeyboardType.password].
+  static bool isLatin(String id) {
+    _ensureInitialized();
+    final meta = _registry[id];
+    if (meta != null) return meta.isLatin;
+    return VKeyboardLocale.isLatinId(id);
   }
 
   /// All registered layout identifiers.

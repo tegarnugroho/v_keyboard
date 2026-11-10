@@ -686,4 +686,143 @@ void main() {
       expect(textController.text, '');
     });
   });
+
+  group('Latin Fallback for Email, URL, and Password', () {
+    test('isLatin distinguishes Latin vs non-Latin script locales accurately', () {
+      expect(VKeyboardLocale.enUS.isLatin, isTrue);
+      expect(VKeyboardLocale.enGB.isLatin, isTrue);
+      expect(VKeyboardLocale.deDE.isLatin, isTrue);
+      expect(VKeyboardLocale.frFR.isLatin, isTrue);
+      expect(VKeyboardLocale.esES.isLatin, isTrue);
+      expect(VKeyboardLocale.nordic.isLatin, isTrue);
+      expect(VKeyboardLocale.trTR.isLatin, isTrue);
+      expect(VKeyboardLocale.zhCN.isLatin, isTrue);
+      expect(VKeyboardLocale.viVN.isLatin, isTrue);
+
+      expect(VKeyboardLocale.koKR.isLatin, isFalse);
+      expect(VKeyboardLocale.jaJP.isLatin, isFalse);
+      expect(VKeyboardLocale.zhTW.isLatin, isFalse);
+      expect(VKeyboardLocale.thTH.isLatin, isFalse);
+      expect(VKeyboardLocale.ruRU.isLatin, isFalse);
+      expect(VKeyboardLocale.elGR.isLatin, isFalse);
+
+      expect(VKeyboardLayouts.isLatin('ko_KR'), isFalse);
+      expect(VKeyboardLayouts.isLatin('ja_JP'), isFalse);
+      expect(VKeyboardLayouts.isLatin('zh_TW'), isFalse);
+      expect(VKeyboardLayouts.isLatin('th_TH'), isFalse);
+      expect(VKeyboardLayouts.isLatin('ru_RU'), isFalse);
+      expect(VKeyboardLayouts.isLatin('el_GR'), isFalse);
+      expect(VKeyboardLayouts.isLatin('de_DE'), isTrue);
+      expect(VKeyboardLayouts.isLatin('en_US'), isTrue);
+    });
+
+    test('non-Latin locales automatically fallback to Latin QWERTY for Email, URL, and Password', () {
+      // Korean (ko_KR) fallback
+      final koEmail = BuiltinLayouts.resolve(VKeyboardType.email, layoutId: 'ko_KR');
+      expect(koEmail.rowsFor('abc')[0].map((k) => k.text).join(), 'qwertyuiop');
+      expect(koEmail.rowsFor('abc')[3].any((k) => k.text == '@'), isTrue);
+
+      final koUrl = BuiltinLayouts.resolve(VKeyboardType.url, layoutId: 'ko_KR');
+      expect(koUrl.rowsFor('abc')[0].map((k) => k.text).join(), 'qwertyuiop');
+      expect(koUrl.rowsFor('abc')[3].any((k) => k.text == '.com'), isTrue);
+
+      final koPassword = BuiltinLayouts.resolve(VKeyboardType.password, layoutId: 'ko_KR');
+      expect(koPassword.rowsFor('abc')[0].map((k) => k.text).join(), 'qwertyuiop');
+
+      // Thai (th_TH) fallback
+      final thEmail = BuiltinLayouts.resolve(VKeyboardType.email, layoutId: 'th_TH');
+      expect(thEmail.rowsFor('abc')[0].map((k) => k.text).join(), 'qwertyuiop');
+
+      // Japanese (ja_JP) fallback
+      final jaPassword = BuiltinLayouts.resolve(VKeyboardType.password, layoutId: 'ja_JP');
+      expect(jaPassword.rowsFor('abc')[0].map((k) => k.text).join(), 'qwertyuiop');
+
+      // Russian (ru_RU) fallback
+      final ruUrl = BuiltinLayouts.resolve(VKeyboardType.url, layoutId: 'ru_RU');
+      expect(ruUrl.rowsFor('abc')[0].map((k) => k.text).join(), 'qwertyuiop');
+    });
+
+    test('Latin locales preserve their native alphabet for Email, URL, and Password', () {
+      // German (de_DE) has QWERTZ and retains it
+      final deEmail = BuiltinLayouts.resolve(VKeyboardType.email, layoutId: 'de_DE');
+      expect(deEmail.rowsFor('abc')[0].map((k) => k.text).join(), 'qwertzuiopü');
+      expect(deEmail.rowsFor('abc')[3].any((k) => k.text == '@'), isTrue);
+
+      // French (fr_FR) has AZERTY and retains it
+      final frUrl = BuiltinLayouts.resolve(VKeyboardType.url, layoutId: 'fr_FR');
+      expect(frUrl.rowsFor('abc')[0].map((k) => k.text).join(), 'azertyuiop');
+    });
+
+    test('email session with Korean active layout types standard Latin email address cleanly', () {
+      final textController = TextEditingController();
+      final focusNode = FocusNode();
+      final keyboardController = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLocales: [VKeyboardLocale.enUS, VKeyboardLocale.koKR],
+          defaultLocale: VKeyboardLocale.koKR,
+          autoShiftFirstLetter: false,
+        ),
+      );
+
+      final session = KeyboardSession(
+        id: 'test_email_field',
+        editingController: textController,
+        focusNode: focusNode,
+        type: VKeyboardType.email,
+        textInputAction: TextInputAction.done,
+        config: keyboardController.config,
+        contextRef: () => null,
+      );
+
+      keyboardController.attach(session);
+      keyboardController.setLayout('ko_KR');
+
+      // Resolved layout should be Latin QWERTY
+      final layout = session.getLayout('ko_KR');
+      expect(layout.rowsFor('abc')[0].map((k) => k.text).join(), 'qwertyuiop');
+
+      // Type email chars: 'user@test.com'
+      for (final char in 'user@test.com'.split('')) {
+        keyboardController.handleKey(KeyData.char(char));
+      }
+      expect(textController.text, 'user@test.com');
+
+      keyboardController.dispose();
+      textController.dispose();
+      focusNode.dispose();
+    });
+
+    test('password session with Vietnamese active layout types raw characters without Telex diacritics', () {
+      final textController = TextEditingController();
+      final focusNode = FocusNode();
+      final keyboardController = VKeyboardController(
+        config: const VKeyboardConfig(
+          enabledLocales: [VKeyboardLocale.enUS, VKeyboardLocale.viVN],
+          defaultLocale: VKeyboardLocale.viVN,
+        ),
+      );
+
+      final session = KeyboardSession(
+        id: 'test_password_field',
+        editingController: textController,
+        focusNode: focusNode,
+        type: VKeyboardType.password,
+        textInputAction: TextInputAction.done,
+        config: keyboardController.config,
+        contextRef: () => null,
+      );
+
+      keyboardController.attach(session);
+      keyboardController.setLayout('vi_VN');
+
+      // In password fields, autoShift is false, and typing 'aa' must NOT produce 'â'
+      keyboardController.handleKey(KeyData.char('a'));
+      keyboardController.handleKey(KeyData.char('a'));
+      expect(textController.text, 'aa');
+
+      keyboardController.dispose();
+      textController.dispose();
+      focusNode.dispose();
+    });
+  });
 }

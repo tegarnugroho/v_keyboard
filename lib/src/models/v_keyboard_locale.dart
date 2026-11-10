@@ -67,4 +67,20 @@ enum VKeyboardLocale {
     }
     return null;
   }
+
+  /// Whether this locale uses the Latin alphabet.
+  ///
+  /// Non-Latin locales (e.g. Korean Hangul, Japanese Kana, Chinese Bopomofo,
+  /// Thai, Russian Cyrillic, Greek) automatically fall back to a Latin layout
+  /// for fields requiring ASCII/Latin characters such as email, URL, and password.
+  bool get isLatin => switch (this) {
+        ruRU || elGR || koKR || jaJP || zhTW || thTH => false,
+        _ => true,
+      };
+
+  /// Returns whether [id] corresponds to a Latin-alphabet locale.
+  static bool isLatinId(String id) {
+    final loc = fromId(id);
+    return loc?.isLatin ?? true;
+  }
 }

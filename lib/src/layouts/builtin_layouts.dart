@@ -41,7 +41,17 @@ class BuiltinLayouts {
       return _pin(action: numericAction);
     }
 
-    if (layoutId != 'en_US') {
+    // Fields that require ASCII/Latin alphanumeric characters (email, URL, password).
+    // If the active layout is a non-Latin script (e.g. Korean Hangul, Japanese Kana,
+    // Thai, Bopomofo, Cyrillic, Greek), automatically fallback to the standard
+    // Latin QWERTY layout matching the requested input type.
+    final requiresLatin = type == VKeyboardType.email ||
+        type == VKeyboardType.url ||
+        type == VKeyboardType.password;
+
+    final isLayoutLatin = VKeyboardLayouts.isLatin(layoutId);
+
+    if (layoutId != 'en_US' && (!requiresLatin || isLayoutLatin)) {
       final loc = VKeyboardLayouts.getLayout(layoutId, type: type);
       if (loc != null) return loc;
     }

@@ -6,6 +6,7 @@ import '../controller/v_keyboard_controller.dart';
 import '../layouts/v_keyboard_layouts.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
+import '../models/keyboard_type.dart';
 import '../scope/v_keyboard_scope.dart';
 import '../theme/v_keyboard_theme.dart';
 import 'layout_picker_dialog.dart';
@@ -401,11 +402,18 @@ class _VirtualKeyState extends State<VirtualKey> {
 
     if (_data.kind == KeyKind.space) {
       final banner = _controller.spaceBarBanner;
+      final sessionType = _controller.session?.type;
+      final isNonLatinFallback = (sessionType == VKeyboardType.email ||
+              sessionType == VKeyboardType.url ||
+              sessionType == VKeyboardType.password) &&
+          !VKeyboardLayouts.isLatin(_controller.currentLayoutId);
       final showActiveName = _controller.config.enabledLayouts.length >= 2;
       final spaceText = banner ??
-          (showActiveName
-              ? VKeyboardLayouts.getDisplayName(_controller.currentLayoutId)
-              : (_data.label ?? ''));
+          (isNonLatinFallback
+              ? 'English'
+              : (showActiveName
+                  ? VKeyboardLayouts.getDisplayName(_controller.currentLayoutId)
+                  : (_data.label ?? '')));
       if (spaceText.isNotEmpty) {
         return Text(
           spaceText,
