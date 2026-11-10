@@ -977,7 +977,10 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               : ratioCap;
 
           final unitWidth = (effectiveGridWidth - hPadding * 2) / totalUnits;
-          final idealRowHeight = (unitWidth * 0.85).clamp(32.0, 54.0);
+          final heightUnits = !includeFnRow ? 15 : totalUnits;
+          final idealUnitWidth =
+              (effectiveGridWidth - hPadding * 2) / heightUnits;
+          final idealRowHeight = (idealUnitWidth * 0.85).clamp(32.0, 54.0);
           final headerHeight =
               widget.showHeader ? (idealRowHeight * 0.72).clamp(26.0, 36.0) : 0.0;
           final vPadding = (idealRowHeight * 0.24).clamp(6.0, 12.0);

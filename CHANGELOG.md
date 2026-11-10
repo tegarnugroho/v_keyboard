@@ -1,3 +1,9 @@
+## 0.3.4
+
+- **Consistent Keyboard Height Across Layouts (`KeyboardMetrics.desktopBaselineHeight`)**:
+  - Unified height calculation on tablet and desktop viewports across all non-F-row layouts (`Standard`, `Email`, `URL`, `Password`, `Multiline`, `Number`, `Decimal`, `Phone`, `PIN`, and 5-row desktop presets `layout60`/`layout65`) so dialogs and forms never shift vertically when switching field types.
+  - Preserved extra proportional height for expert 6-row layouts displaying the Function row (`layout75`, `layout87TKL`, `layout98`, `layout100`) and utility panels (`ClipboardHistoryPanel`).
+
 ## 0.3.3
 
 - **Unified Dark Theme Across Desktop & Mobile Layouts**:

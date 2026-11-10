@@ -205,15 +205,24 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     };
     final rowCount = formFactor.hasFunctionRow ? 6 : 5;
     final hPadding = (width * 0.008).clamp(6.0, 16.0);
-    final unitWidth = (width - hPadding * 2) / totalUnits;
-    final rowHeight = (unitWidth * 0.85).clamp(32.0, 54.0);
-    final vPadding = (rowHeight * 0.24).clamp(6.0, 12.0);
-    final verticalOuterPadding = vPadding + (hasBottomBar ? 0.0 : vPadding);
-    final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
-    final cap =
-        (screenH * _fullKeyboardHeightRatio).clamp(190.0, screenH * 0.65);
-    final height =
-        math.min(rowCount * rowHeight + verticalOuterPadding, cap).toDouble();
+    final double height;
+    if (!formFactor.hasFunctionRow) {
+      height = KeyboardMetrics.desktopBaselineHeight(
+        mq,
+        hasBottomBar: hasBottomBar,
+        maxHeightRatio: _fullKeyboardHeightRatio,
+      );
+    } else {
+      final unitWidth = (width - hPadding * 2) / totalUnits;
+      final rowHeight = (unitWidth * 0.85).clamp(32.0, 54.0);
+      final vPadding = (rowHeight * 0.24).clamp(6.0, 12.0);
+      final verticalOuterPadding = vPadding + (hasBottomBar ? 0.0 : vPadding);
+      final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
+      final cap =
+          (screenH * _fullKeyboardHeightRatio).clamp(190.0, screenH * 0.65);
+      height =
+          math.min(rowCount * rowHeight + verticalOuterPadding, cap).toDouble();
+    }
     return KeyboardMetrics(
       height: height,
       maxWidth: width,

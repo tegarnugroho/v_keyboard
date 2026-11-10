@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
@@ -62,11 +64,27 @@ class KeyboardMetrics {
         maxH = 380;
     }
 
-    // Scale the height by the number of rows relative to a 5-row baseline so
-    // compact layouts (numeric) aren't unnecessarily tall.
-    final rowScale = (rows / 5).clamp(0.55, 1.15);
-    final height =
-        (size.height * fraction * rowScale).clamp(minH * rowScale, maxH);
+    // Scale the height by the number of rows relative to a 5-row baseline on
+    // phones. On tablet and desktop viewports, all non-F-row layouts (`rows <= 5`:
+    // Standard, Number, Email, PIN, etc.) share the canonical 5-row desktop
+    // baseline height so switching between field types never shifts UI height.
+    final double height;
+    final useUnifiedDesktopHeight =
+        formFactor != DeviceFormFactor.phone || (kIsWeb && size.width >= 768);
+    if (useUnifiedDesktopHeight) {
+      final baseline = desktopBaselineHeight(mq, hasBottomBar: true);
+      if (rows <= 5) {
+        height = baseline;
+      } else {
+        final extraRowScale = (rows / 5).clamp(1.0, 1.25);
+        height = (baseline * extraRowScale)
+            .clamp(baseline, math.min(maxH, size.height * 0.50))
+            .toDouble();
+      }
+    } else {
+      final rowScale = (rows / 5).clamp(0.55, 1.15);
+      height = (size.height * fraction * rowScale).clamp(minH * rowScale, maxH);
+    }
 
     // Compact layouts (numeric/pin/phone) keep a narrow, centred block so the
     // keys don't stretch huge on wide tablet/desktop windows.
@@ -89,6 +107,25 @@ class KeyboardMetrics {
       formFactor: formFactor,
       isLandscape: isLandscape,
     );
+  }
+
+  /// Canonical content height (excluding bottom utility bar / safe area)
+  /// shared by non-F-row [DesktopFullKeyboard] presets (`layout60`, `layout65`)
+  /// and standard/numeric [KeyboardView] layouts on tablet and desktop targets.
+  static double desktopBaselineHeight(
+    MediaQueryData mq, {
+    bool hasBottomBar = true,
+    double maxHeightRatio = 0.44,
+  }) {
+    final width = mq.size.width;
+    final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
+    final hPadding = (width * 0.008).clamp(6.0, 16.0);
+    final unitWidth = (width - hPadding * 2) / 15;
+    final rowHeight = (unitWidth * 0.85).clamp(32.0, 54.0);
+    final vPadding = (rowHeight * 0.24).clamp(6.0, 12.0);
+    final verticalOuterPadding = vPadding + (hasBottomBar ? 0.0 : vPadding);
+    final cap = (screenH * maxHeightRatio).clamp(190.0, screenH * 0.65);
+    return math.min(5 * rowHeight + verticalOuterPadding, cap).toDouble();
   }
 
   static DeviceFormFactor _formFactor(double shortestSide) {
