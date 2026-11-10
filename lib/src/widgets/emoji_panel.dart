@@ -49,8 +49,15 @@ class _EmojiPanelState extends State<EmojiPanel> {
 
     return Material(
       color: theme.backgroundColor,
-      child: SizedBox(
+      child: Container(
         height: widget.height + widget.bottomSafeArea,
+        foregroundDecoration: theme.containerBorderColor != null
+            ? BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: theme.containerBorderColor!, width: 1),
+                ),
+              )
+            : null,
         child: Column(
           children: [
             // Emoji grid.
@@ -219,7 +226,12 @@ class _EmojiPanelState extends State<EmojiPanel> {
         widget.theme.borderRadius.resolve(Directionality.maybeOf(context));
     return Material(
       color: widget.theme.specialKeyColor,
-      borderRadius: radius,
+      shape: RoundedRectangleBorder(
+        borderRadius: radius,
+        side: widget.theme.keyBorderColor != null
+            ? BorderSide(color: widget.theme.keyBorderColor!, width: 1)
+            : BorderSide.none,
+      ),
       child: InkWell(
         borderRadius: radius,
         onTap: onTap,

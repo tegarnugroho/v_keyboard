@@ -14,6 +14,10 @@
   - Added a taskbar/menubar-style `🌐` locale picker pill (`showLocaleSelector`, `availableLayouts`, `layoutId`, `onLayoutChanged`) with a 2-column desktop selector modal and IME hints, plus active locale Spacebar labels and Spacebar long-press language switching.
   - Integrated automatic `CandidateBar` rendering (`showCandidateBar`) for `zh_CN` (Pinyin), `zh_TW` (Zhuyin), and `ja_JP` (Kana) composition alongside `ko_KR` Hangul and `vi_VN` Telex when connected to `VKeyboardController` / `VTextField`.
 
+- **Unified Dark Theme Across Desktop & Mobile Layouts**:
+  - Updated `VKeyboardTheme.dark()` (and dark presets via `VKeyboardTheme.fromTheme`) to share the same deep-slate palette as `DesktopFullKeyboard` (`#13151B` background, `#21242D` character keycaps, `#1A1D26` special/modifier keycaps, `#2B3140` key borders, `#1E2330` top hairline border, `#353C4E` pressed highlight, and accent-tinted Enter/Action keys via `enterKeyColor`).
+  - Added optional `keyBorderColor`, `containerBorderColor`, `hoverKeyColor`, and `enterKeyColor` tokens to `VKeyboardTheme` for `VirtualKey`, `KeyboardView`, `EmojiPanel`, `ClipboardHistoryPanel`, and `VKeyboardLayoutPickerPanel`.
+
 ## 0.3.1
 
 - **Fix: layout picker did nothing when `VKeyboardScope` sits in `MaterialApp.builder`**:

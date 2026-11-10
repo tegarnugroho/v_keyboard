@@ -384,13 +384,8 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                         controller: _controller,
                                         layoutType:
                                             effectiveConfig.desktopFormFactor!,
-                                        themeData: ThemeData
-                                                    .estimateBrightnessForColor(
-                                                        theme
-                                                            .backgroundColor) ==
-                                                Brightness.light
-                                            ? DesktopKeyboardThemeData.light()
-                                            : DesktopKeyboardThemeData.dark(),
+                                        themeData: DesktopKeyboardThemeData
+                                            .fromVKeyboardTheme(theme),
                                         showHeader: false,
                                         showPlatformToggle: false,
                                         showHideKeyboardButton: showHideButton,

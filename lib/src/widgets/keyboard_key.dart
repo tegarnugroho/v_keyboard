@@ -338,6 +338,8 @@ class _VirtualKeyState extends State<VirtualKey> {
                   return ValueListenableBuilder<bool>(
                     valueListenable: _hovered,
                     builder: (context, hovered, _) {
+                      final isEnterOrAction = _data.kind == KeyKind.enter ||
+                          _data.kind == KeyKind.action;
                       Color color = pressed
                           ? (engaged
                               ? Color.alphaBlend(
@@ -346,17 +348,51 @@ class _VirtualKeyState extends State<VirtualKey> {
                               : theme.pressedKeyColor)
                           : baseColor;
                       if (!pressed && hovered && enabled) {
-                        color = Color.alphaBlend(
-                            theme.accentColor.withValues(alpha: 0.12), color);
+                        color = (!engaged &&
+                                    !isEnterOrAction &&
+                                    theme.hoverKeyColor != null)
+                            ? theme.hoverKeyColor!
+                            : Color.alphaBlend(
+                                theme.accentColor.withValues(alpha: 0.12),
+                                color,
+                              );
+                      }
+                      final resolvedRadius = theme.borderRadius is BorderRadius
+                          ? theme.borderRadius as BorderRadius
+                          : BorderRadius.circular(8);
+                      final BorderSide borderSide;
+                      if (engaged) {
+                        borderSide = BorderSide(
+                          color: theme.activeKeyColor,
+                          width: 1.2,
+                        );
+                      } else if (isEnterOrAction && theme.enterKeyColor != null) {
+                        borderSide = BorderSide(
+                          color: theme.accentColor.withValues(alpha: 0.75),
+                          width: 1.0,
+                        );
+                      } else if (hovered && enabled && theme.keyBorderColor != null) {
+                        borderSide = BorderSide(
+                          color: theme.accentColor.withValues(alpha: 0.55),
+                          width: 1.0,
+                        );
+                      } else if (theme.keyBorderColor != null) {
+                        borderSide = BorderSide(
+                          color: theme.keyBorderColor!,
+                          width: 1.0,
+                        );
+                      } else {
+                        borderSide = BorderSide.none;
                       }
                       return RepaintBoundary(
                         child: Material(
                           color: color,
                           elevation: theme.elevation,
                           shadowColor: theme.shadowColor,
-                          borderRadius: theme.borderRadius is BorderRadius
-                              ? theme.borderRadius as BorderRadius
-                              : BorderRadius.circular(8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: resolvedRadius,
+                            side: borderSide,
+                          ),
                           child: keyCard(child),
                         ),
                       );
@@ -375,6 +411,9 @@ class _VirtualKeyState extends State<VirtualKey> {
   Color _baseColor(VKeyboardTheme theme) {
     return switch (_data.kind) {
       KeyKind.character || KeyKind.space => theme.keyColor,
+      KeyKind.enter ||
+      KeyKind.action =>
+        theme.enterKeyColor ?? theme.specialKeyColor,
       KeyKind.function => theme.functionKeyColor,
       KeyKind.modifier ||
       KeyKind.lock ||

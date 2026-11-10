@@ -155,7 +155,15 @@ class KeyboardView extends StatelessWidget {
 
     return Material(
       color: theme.backgroundColor,
-      child: SafeArea(
+      child: Container(
+        foregroundDecoration: theme.containerBorderColor != null
+            ? BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: theme.containerBorderColor!, width: 1),
+                ),
+              )
+            : null,
+        child: SafeArea(
         top: false,
         bottom: false,
         child: Center(
@@ -190,6 +198,7 @@ class KeyboardView extends StatelessWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }

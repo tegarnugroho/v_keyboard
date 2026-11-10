@@ -22,6 +22,10 @@ class VKeyboardTheme {
     Color? modifierKeyColor,
     Color? activeKeyColor,
     Color? activeForegroundColor,
+    this.keyBorderColor,
+    this.containerBorderColor,
+    this.hoverKeyColor,
+    this.enterKeyColor,
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.elevation = 0,
     this.shadowColor = const Color(0x33000000),
@@ -102,6 +106,10 @@ class VKeyboardTheme {
   bool get isDark => backgroundColor.computeLuminance() < 0.5;
 
   final Color disabledKeyColor;
+  final Color? keyBorderColor;
+  final Color? containerBorderColor;
+  final Color? hoverKeyColor;
+  final Color? enterKeyColor;
   final TextStyle textStyle;
   final TextStyle subLabelStyle;
   final Color iconColor;
@@ -123,6 +131,10 @@ class VKeyboardTheme {
     Color? activeKeyColor,
     Color? activeForegroundColor,
     Color? disabledKeyColor,
+    Color? keyBorderColor,
+    Color? containerBorderColor,
+    Color? hoverKeyColor,
+    Color? enterKeyColor,
     TextStyle? textStyle,
     TextStyle? subLabelStyle,
     Color? iconColor,
@@ -145,6 +157,10 @@ class VKeyboardTheme {
       activeForegroundColor:
           activeForegroundColor ?? this.activeForegroundColor,
       disabledKeyColor: disabledKeyColor ?? this.disabledKeyColor,
+      keyBorderColor: keyBorderColor ?? this.keyBorderColor,
+      containerBorderColor: containerBorderColor ?? this.containerBorderColor,
+      hoverKeyColor: hoverKeyColor ?? this.hoverKeyColor,
+      enterKeyColor: enterKeyColor ?? this.enterKeyColor,
       textStyle: textStyle ?? this.textStyle,
       subLabelStyle: subLabelStyle ?? this.subLabelStyle,
       iconColor: iconColor ?? this.iconColor,
@@ -181,11 +197,13 @@ class VKeyboardTheme {
 
     return VKeyboardTheme(
       backgroundColor:
-          isDark ? const Color(0xFF1C1C20) : const Color(0xFFD1D5DB),
-      keyColor: isDark ? const Color(0xFF3A3A40) : Colors.white,
-      pressedKeyColor: accentColor.withValues(alpha: 0.25),
+          isDark ? const Color(0xFF13151B) : const Color(0xFFD1D5DB),
+      keyColor: isDark ? const Color(0xFF21242D) : Colors.white,
+      pressedKeyColor: isDark
+          ? const Color(0xFF353C4E)
+          : accentColor.withValues(alpha: 0.25),
       specialKeyColor:
-          isDark ? const Color(0xFF2A2A30) : const Color(0xFFADB3BD),
+          isDark ? const Color(0xFF1A1D26) : const Color(0xFFADB3BD),
       disabledKeyColor: surfaceColor.withValues(alpha: 0.12),
       accentColor: accentColor,
       activeKeyColor: accentColor,
@@ -193,9 +211,21 @@ class VKeyboardTheme {
           ? const Color(0xFF1F2937)
           : Colors.white,
       functionKeyColor:
-          isDark ? const Color(0xFF26262B) : const Color(0xFFBCC1CB),
+          isDark ? const Color(0xFF1A1D26) : const Color(0xFFBCC1CB),
       modifierKeyColor:
-          isDark ? const Color(0xFF2A2A30) : const Color(0xFFADB3BD),
+          isDark ? const Color(0xFF1A1D26) : const Color(0xFFADB3BD),
+      keyBorderColor: isDark ? const Color(0xFF2B3140) : null,
+      containerBorderColor: isDark ? const Color(0xFF1E2330) : null,
+      hoverKeyColor: isDark ? const Color(0xFF2B303E) : null,
+      enterKeyColor: isDark
+          ? Color.alphaBlend(
+              accentColor.withValues(alpha: 0.35),
+              const Color(0xFF13151B),
+            )
+          : null,
+      borderRadius: isDark
+          ? const BorderRadius.all(Radius.circular(6))
+          : const BorderRadius.all(Radius.circular(8)),
       iconColor: surfaceColor,
       textStyle: TextStyle(
         fontSize: 22,
@@ -206,12 +236,15 @@ class VKeyboardTheme {
       ),
       subLabelStyle: TextStyle(
         fontSize: 10,
-        color: surfaceColor.withValues(alpha: 0.6),
+        color: isDark
+            ? const Color(0xFF94A3B8)
+            : surfaceColor.withValues(alpha: 0.6),
         fontWeight: FontWeight.w500,
         fontFamily: fontFamily,
         fontFamilyFallback: defaultFontFamilyFallback,
       ),
-      elevation: 1,
+      elevation: isDark ? 0 : 1,
+      shadowColor: isDark ? const Color(0x40000000) : const Color(0x33000000),
     );
   }
 }

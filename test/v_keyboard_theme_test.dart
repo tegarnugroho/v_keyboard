@@ -17,12 +17,19 @@ void main() {
       expect(theme.iconColor, const Color(0xFF1F2937));
     });
 
-    test('dark preset exposes stable built-in defaults', () {
+    test('dark preset exposes unified desktop slate dark defaults', () {
       final theme = VKeyboardTheme.dark();
 
-      expect(theme.backgroundColor, const Color(0xFF1C1C20));
-      expect(theme.keyColor, const Color(0xFF3A3A40));
-      expect(theme.specialKeyColor, const Color(0xFF2A2A30));
+      expect(theme.backgroundColor, const Color(0xFF13151B));
+      expect(theme.keyColor, const Color(0xFF21242D));
+      expect(theme.specialKeyColor, const Color(0xFF1A1D26));
+      expect(theme.functionKeyColor, const Color(0xFF1A1D26));
+      expect(theme.modifierKeyColor, const Color(0xFF1A1D26));
+      expect(theme.keyBorderColor, const Color(0xFF2B3140));
+      expect(theme.containerBorderColor, const Color(0xFF1E2330));
+      expect(theme.hoverKeyColor, const Color(0xFF2B303E));
+      expect(theme.pressedKeyColor, const Color(0xFF353C4E));
+      expect(theme.enterKeyColor, isNotNull);
       expect(theme.accentColor, Colors.indigo);
       expect(theme.activeKeyColor, Colors.indigo);
       expect(theme.activeForegroundColor, Colors.white);
@@ -103,6 +110,57 @@ void main() {
       controller.dispose();
       textController.dispose();
       focusNode.dispose();
+    });
+
+    testWidgets(
+        'dark character and enter keys render matching desktop borders & accent fill',
+        (tester) async {
+      final theme = VKeyboardTheme.dark();
+      final controller = VKeyboardController();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: Row(
+                children: [
+                  VirtualKey(
+                    data: KeyData.char('1'),
+                    controller: controller,
+                    theme: theme,
+                    height: 48,
+                  ),
+                  VirtualKey(
+                    data: KeyData.enter(),
+                    controller: controller,
+                    theme: theme,
+                    height: 48,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      final materials =
+          tester.widgetList<Material>(find.descendant(
+        of: find.byType(VirtualKey),
+        matching: find.byType(Material),
+      )).toList();
+      expect(materials.length, 2);
+
+      // Digit keycap uses #21242D background + #2B3140 1px border
+      expect(materials[0].color, const Color(0xFF21242D));
+      final charShape = materials[0].shape! as RoundedRectangleBorder;
+      expect(charShape.side.color, const Color(0xFF2B3140));
+
+      // Enter key uses tinted accent enterKeyColor + accent border
+      expect(materials[1].color, theme.enterKeyColor);
+      final enterShape = materials[1].shape! as RoundedRectangleBorder;
+      expect(enterShape.side.color, theme.accentColor.withValues(alpha: 0.75));
+
+      controller.dispose();
     });
   });
 }

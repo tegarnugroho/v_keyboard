@@ -93,6 +93,9 @@ class VKeyboardLayoutPickerPanel extends StatelessWidget {
             (theme.borderRadius is BorderRadius
                 ? theme.borderRadius as BorderRadius
                 : BorderRadius.circular(16)),
+        border: theme.keyBorderColor != null
+            ? Border.all(color: theme.keyBorderColor!, width: 1)
+            : null,
       ),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       child: Column(
