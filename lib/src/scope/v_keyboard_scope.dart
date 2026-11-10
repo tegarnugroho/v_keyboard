@@ -205,15 +205,6 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     VKeyboardConfig? config,
   }) {
     final width = mq.size.width;
-    final totalUnits = switch (formFactor) {
-      KeyboardLayoutType.layout60 => 15,
-      KeyboardLayoutType.layout65 || KeyboardLayoutType.layout75 => 16,
-      KeyboardLayoutType.layout87TKL => width >= 540 ? 18 : 15,
-      KeyboardLayoutType.layout98 => width >= 720 ? 19 : 15,
-      KeyboardLayoutType.layout100 =>
-        15 + (width >= 540 ? 3 : 0) + (width >= 720 ? 4 : 0),
-    };
-    final rowCount = formFactor.hasFunctionRow ? 6 : 5;
     final hPadding = (width * 0.008).clamp(6.0, 16.0);
     final double height;
     if (config?.keyboardHeight != null) {

@@ -109,9 +109,9 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('num_field')));
       await tester.pumpAndSettle();
 
-      final numKb = tester.renderObject<RenderBox>(find.byType(KeyboardView));
-      expect(numKb.size.width, closeTo(480.0, 1.0));
-      expect(numKb.size.height, greaterThan(400.0));
+      final kbView = tester.widget<KeyboardView>(find.byType(KeyboardView));
+      expect(kbView.metrics.maxWidth, 480.0);
+      expect(kbView.metrics.height, greaterThan(400.0));
 
       textCtrl.dispose();
       numCtrl.dispose();
@@ -149,9 +149,9 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('num_custom')));
       await tester.pumpAndSettle();
 
-      final numKb = tester.renderObject<RenderBox>(find.byType(KeyboardView));
-      expect(numKb.size.width, closeTo(560.0, 1.0));
-      expect(numKb.size.height, closeTo(480.0, 1.0));
+      final kbView = tester.widget<KeyboardView>(find.byType(KeyboardView));
+      expect(kbView.metrics.maxWidth, 560.0);
+      expect(kbView.metrics.height, closeTo(480.0, 1.0));
 
       numCtrl.dispose();
     });

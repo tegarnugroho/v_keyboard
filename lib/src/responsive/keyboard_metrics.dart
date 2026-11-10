@@ -84,7 +84,9 @@ class KeyboardMetrics {
     final useUnifiedDesktopHeight =
         formFactor != DeviceFormFactor.phone || (kIsWeb && size.width >= 768);
     if (config?.keyboardHeight != null) {
-      height = config!.keyboardHeight!.clamp(minH, maxH);
+      final min = config?.minKeyboardHeight ?? 180.0;
+      final max = config?.maxKeyboardHeight ?? double.infinity;
+      height = config!.keyboardHeight!.clamp(min, max);
     } else if (useUnifiedDesktopHeight) {
       final baseline = desktopBaselineHeight(
         mq,
@@ -108,11 +110,13 @@ class KeyboardMetrics {
     // Compact layouts (numeric/pin/phone) keep a focused, touch-friendly block.
     // On desktop / wide monitors (e.g. 27" POS touch terminals), default to a
     // comfortable 480px width so cashiers can easily hit number keys without strain.
-    final defaultCompactWidth = switch (formFactor) {
-      DeviceFormFactor.phone => 360.0,
-      DeviceFormFactor.tablet => 420.0,
-      DeviceFormFactor.desktop => (size.width >= 1200) ? 480.0 : 400.0,
-    };
+    final defaultCompactWidth = (size.width >= 1200)
+        ? 480.0
+        : switch (formFactor) {
+            DeviceFormFactor.phone => 360.0,
+            DeviceFormFactor.tablet => 420.0,
+            DeviceFormFactor.desktop => 480.0,
+          };
     final compactWidth = config?.numericPadMaxWidth ?? defaultCompactWidth;
 
     final defaultMaxWidth = switch (formFactor) {
