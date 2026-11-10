@@ -230,7 +230,11 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
 
     final showHideButton =
         effectiveConfig.showHideKeyboardButton && !isDesktopLayout;
-    final hasBottomBar = showHideButton || shouldShowGlobe;
+    final showClipboardButton = effectiveConfig.enableClipboardHistory &&
+        effectiveConfig.showClipboardButton &&
+        !isDesktopLayout;
+    final hasBottomBar =
+        showHideButton || shouldShowGlobe || showClipboardButton;
     final bottomInset = hasBottomBar
         ? math.max(mq.padding.bottom, 36.0)
         : mq.padding.bottom;
@@ -309,6 +313,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                 bottomSafeArea: bottomInset,
                                 showHideKeyboardButton: showHideButton,
                                 showGlobeKey: shouldShowGlobe,
+                                showClipboardButton: showClipboardButton,
                               ),
                   ),
                 ),

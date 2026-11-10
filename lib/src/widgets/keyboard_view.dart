@@ -31,6 +31,9 @@ class KeyboardView extends StatelessWidget {
     this.globeIcon,
     this.onGlobeTap,
     this.onGlobeLongPress,
+    this.showClipboardButton,
+    this.clipboardIcon,
+    this.onClipboardTap,
   });
 
   final VKeyboardController controller;
@@ -64,6 +67,18 @@ class KeyboardView extends StatelessWidget {
 
   /// Optional callback invoked when the globe switcher is long-pressed.
   final VoidCallback? onGlobeLongPress;
+
+  /// Whether to display the clipboard history button on the far right of the bottom bar.
+  /// When null, defaults to showing when [VKeyboardConfig.enableClipboardHistory] and
+  /// [VKeyboardConfig.showClipboardButton] are true on non-desktop layouts.
+  final bool? showClipboardButton;
+
+  /// Optional icon to use for the clipboard button. Defaults to [Icons.content_paste_rounded].
+  final IconData? clipboardIcon;
+
+  /// Optional custom callback invoked when the clipboard button is tapped.
+  /// Defaults to [VKeyboardController.openClipboardHistory].
+  final VoidCallback? onClipboardTap;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +142,13 @@ class KeyboardView extends StatelessWidget {
             metrics.formFactor != DeviceFormFactor.desktop &&
             isEligibleType);
 
-    final hasBottomBar = shouldShowHide || shouldShowGlobe;
+    final shouldShowClipboard = showClipboardButton ??
+        (controller.config.enableClipboardHistory &&
+            controller.config.showClipboardButton &&
+            metrics.formFactor != DeviceFormFactor.desktop);
+
+    final hasBottomBar =
+        shouldShowHide || shouldShowGlobe || shouldShowClipboard;
     final effectiveBottomBarHeight = hasBottomBar
         ? math.max(bottomSafeArea, 36.0)
         : bottomSafeArea;
@@ -161,6 +182,7 @@ class KeyboardView extends StatelessWidget {
                     effectiveBottomBarHeight,
                     showHide: shouldShowHide,
                     showGlobe: shouldShowGlobe,
+                    showClipboard: shouldShowClipboard,
                   )
                 else if (effectiveBottomBarHeight > 0)
                   SizedBox(height: effectiveBottomBarHeight),
@@ -177,6 +199,7 @@ class KeyboardView extends StatelessWidget {
     double height, {
     required bool showHide,
     required bool showGlobe,
+    required bool showClipboard,
   }) {
     final hasOverlay = Overlay.maybeOf(context) != null;
     return Container(
@@ -184,73 +207,103 @@ class KeyboardView extends StatelessWidget {
       padding: EdgeInsets.symmetric(
         horizontal: metrics.horizontalPadding + 4,
       ),
-      alignment: Alignment.centerLeft,
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (showHide)
-            Semantics(
-              button: true,
-              label: 'Close keyboard',
-              child: Tooltip(
-                message: hasOverlay ? 'Close keyboard' : '',
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkResponse(
-                    onTap: onHide ?? controller.hide,
-                    radius: 20,
-                    highlightColor: theme.keyColor.withValues(alpha: 0.5),
-                    splashColor: theme.accentColor.withValues(alpha: 0.2),
-                    child: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Icon(
-                        hideIcon ?? Icons.keyboard_arrow_down_rounded,
-                        size: 24,
-                        color: theme.iconColor.withValues(alpha: 0.8),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (showHide)
+                Semantics(
+                  button: true,
+                  label: 'Close keyboard',
+                  child: Tooltip(
+                    message: hasOverlay ? 'Close keyboard' : '',
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkResponse(
+                        onTap: onHide ?? controller.hide,
+                        radius: 20,
+                        highlightColor: theme.keyColor.withValues(alpha: 0.5),
+                        splashColor: theme.accentColor.withValues(alpha: 0.2),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Icon(
+                            hideIcon ?? Icons.keyboard_arrow_down_rounded,
+                            size: 24,
+                            color: theme.iconColor.withValues(alpha: 0.8),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
-          if (showHide && showGlobe) const SizedBox(width: 4),
-          if (showGlobe)
+              if (showHide && showGlobe) const SizedBox(width: 4),
+              if (showGlobe)
+                Semantics(
+                  button: true,
+                  label: 'Switch keyboard language',
+                  child: Tooltip(
+                    message: hasOverlay ? 'Switch keyboard language' : '',
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkResponse(
+                        onTap: onGlobeTap ??
+                            () {
+                              if (controller.config.openPickerOnTap) {
+                                showVKeyboardLayoutPicker(
+                                  context,
+                                  controller: controller,
+                                  theme: theme,
+                                );
+                              } else {
+                                controller.nextLayout();
+                              }
+                            },
+                        onLongPress: onGlobeLongPress ??
+                            () {
+                              showVKeyboardLayoutPicker(
+                                context,
+                                controller: controller,
+                                theme: theme,
+                              );
+                            },
+                        radius: 20,
+                        highlightColor: theme.keyColor.withValues(alpha: 0.5),
+                        splashColor: theme.accentColor.withValues(alpha: 0.2),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Icon(
+                            globeIcon ?? Icons.language,
+                            size: 24,
+                            color: theme.iconColor.withValues(alpha: 0.8),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          if (showClipboard)
             Semantics(
               button: true,
-              label: 'Switch keyboard language',
+              label: 'Clipboard History',
               child: Tooltip(
-                message: hasOverlay ? 'Switch keyboard language' : '',
+                message: hasOverlay ? 'Clipboard History' : '',
                 child: Material(
                   color: Colors.transparent,
                   child: InkResponse(
-                    onTap: onGlobeTap ??
-                        () {
-                          if (controller.config.openPickerOnTap) {
-                            showVKeyboardLayoutPicker(
-                              context,
-                              controller: controller,
-                              theme: theme,
-                            );
-                          } else {
-                            controller.nextLayout();
-                          }
-                        },
-                    onLongPress: onGlobeLongPress ??
-                        () {
-                          showVKeyboardLayoutPicker(
-                            context,
-                            controller: controller,
-                            theme: theme,
-                          );
-                        },
+                    key: const ValueKey('vkeyboard_bottom_bar_clipboard'),
+                    onTap: onClipboardTap ?? controller.openClipboardHistory,
                     radius: 20,
                     highlightColor: theme.keyColor.withValues(alpha: 0.5),
                     splashColor: theme.accentColor.withValues(alpha: 0.2),
                     child: Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: Icon(
-                        globeIcon ?? Icons.language,
-                        size: 24,
+                        clipboardIcon ?? Icons.content_paste_rounded,
+                        size: 22,
                         color: theme.iconColor.withValues(alpha: 0.8),
                       ),
                     ),

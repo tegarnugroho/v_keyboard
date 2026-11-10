@@ -76,11 +76,10 @@ class LayoutEsEs {
                 icon: Icons.sentiment_satisfied_alt_rounded,
                 flex: 1.1,
               ),
-            KeyData.clipboardHistory(flex: 1.1),
             KeyData.space(
               flex: (type == VKeyboardType.standard || type == VKeyboardType.multiline)
-                  ? 4
-                  : 4.5,
+                  ? 5.1
+                  : 5.6,
             ),
             KeyData.symbol('.', flex: 1),
             KeyData.enter(flex: 1.8),

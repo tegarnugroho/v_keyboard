@@ -30,37 +30,33 @@ class LocaleLayoutHelper {
       case VKeyboardType.email:
         return [
           KeyData.switchTo('123', label: '123', flex: 1.4),
-          KeyData.clipboardHistory(flex: 1.0),
           KeyData.symbol('@', flex: 1.2),
-          KeyData.space(flex: 3.6),
+          KeyData.space(flex: 4.6),
           KeyData.symbol('.', flex: 1.0),
           KeyData.enter(flex: 1.8),
         ];
       case VKeyboardType.url:
         return [
           KeyData.switchTo('123', label: '123', flex: 1.4),
-          KeyData.clipboardHistory(flex: 1.0),
           KeyData.symbol('/', flex: 1.0),
           KeyData.symbol('.', flex: 1.0),
-          KeyData.space(flex: 2.3),
+          KeyData.space(flex: 3.3),
           KeyData.symbol('.com', label: '.com', flex: 1.6),
           KeyData.enter(flex: 1.7),
         ];
       case VKeyboardType.multiline:
         return [
           KeyData.switchTo('123', label: '123', flex: 1.4),
-          KeyData.clipboardHistory(flex: 1.0),
           KeyData.symbol(',', flex: 1.0),
-          KeyData.space(flex: 3.8),
+          KeyData.space(flex: 4.8),
           KeyData.symbol('.', flex: 1.0),
           KeyData.enter(label: '⏎', flex: 1.8),
         ];
       case VKeyboardType.text:
         return [
           KeyData.switchTo('123', label: '123', flex: 1.4),
-          KeyData.clipboardHistory(flex: 1.0),
           KeyData.symbol(',', flex: 1.0),
-          KeyData.space(flex: 3.8),
+          KeyData.space(flex: 4.8),
           KeyData.symbol('.', flex: 1.0),
           KeyData.enter(flex: 1.8),
         ];
@@ -74,9 +70,8 @@ class LocaleLayoutHelper {
               icon: Icons.sentiment_satisfied_alt_rounded,
               flex: 1.0,
             ),
-          KeyData.clipboardHistory(flex: 1.0),
           KeyData.symbol(',', flex: 0.9),
-          KeyData.space(flex: 3.2),
+          KeyData.space(flex: 4.2),
           KeyData.symbol('.', flex: 0.9),
           KeyData.enter(flex: 1.7),
         ];
@@ -108,8 +103,7 @@ class LocaleLayoutHelper {
             icon: Icons.sentiment_satisfied_alt_rounded,
             flex: 1.1,
           ),
-        KeyData.clipboardHistory(flex: 1.1),
-        KeyData.space(flex: includeEmoji ? 4 : 4.5),
+        KeyData.space(flex: includeEmoji ? 5.1 : 5.6),
         KeyData.symbol('.', flex: 1),
         KeyData.enter(flex: 1.8),
       ],
@@ -141,8 +135,7 @@ class LocaleLayoutHelper {
             icon: Icons.sentiment_satisfied_alt_rounded,
             flex: 1.1,
           ),
-        KeyData.clipboardHistory(flex: 1.1),
-        KeyData.space(flex: includeEmoji ? 4 : 4.5),
+        KeyData.space(flex: includeEmoji ? 5.1 : 5.6),
         KeyData.symbol('.', flex: 1),
         KeyData.enter(flex: 1.8),
       ],

@@ -26,9 +26,11 @@ Finder _switchKey(String label) => find.byWidgetPredicate((w) =>
     w.data.label == label);
 
 Finder _clipKey() => find.byWidgetPredicate((w) =>
-    w is VirtualKey &&
-    (w.data.clip == ClipboardIntent.history ||
-        w.data.switchTarget == 'clipboard'));
+    (w is VirtualKey &&
+        (w.data.clip == ClipboardIntent.history ||
+            w.data.switchTarget == 'clipboard')) ||
+    (w is InkResponse &&
+        w.key == const ValueKey('vkeyboard_bottom_bar_clipboard')));
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -646,17 +648,9 @@ void main() {
       focus.requestFocus();
       await tester.pumpAndSettle();
 
-      // Switch to 123 layout
-      await tester.tap(_switchKey('123'));
-      await tester.pumpAndSettle();
-
-      // Find clipboard key
-      final clipKeyFinder = _clipKey();
-      expect(clipKeyFinder, findsOneWidget);
-
-      final VirtualKey vk = tester.widget(clipKeyFinder);
-      expect(vk.data.icon, isNotNull);
-      expect(vk.data.label, isNull);
+      // Find clipboard icon in bottom bar
+      final clipIconFinder = find.byIcon(Icons.content_paste_rounded);
+      expect(clipIconFinder, findsOneWidget);
 
       // Verify semantics label
       expect(find.bySemanticsLabel('Clipboard History'), findsOneWidget);

@@ -30,6 +30,7 @@ class VKeyboardConfig {
     this.maxClipboardHistoryItems = 50,
     this.syncSystemClipboard = true,
     this.showHideKeyboardButton = true,
+    this.showClipboardButton = true,
     List<String>? enabledLayouts,
     this.enabledLocales,
     String? defaultLayout,
@@ -108,6 +109,10 @@ class VKeyboardConfig {
   /// Google Keyboard / Gboard) to dismiss/close the keyboard.
   final bool showHideKeyboardButton;
 
+  /// Whether to show a clipboard button on the far right of the bottom bar
+  /// aligned with the dismiss button on mobile layouts.
+  final bool showClipboardButton;
+
   /// Hide the keyboard when a `done`/`go`/`send` action fires.
   final bool hideOnDone;
 
@@ -185,6 +190,7 @@ class VKeyboardConfig {
     int? maxClipboardHistoryItems,
     bool? syncSystemClipboard,
     bool? showHideKeyboardButton,
+    bool? showClipboardButton,
     List<String>? enabledLayouts,
     List<VKeyboardLocale>? enabledLocales,
     String? defaultLayout,
@@ -225,6 +231,8 @@ class VKeyboardConfig {
       syncSystemClipboard: syncSystemClipboard ?? this.syncSystemClipboard,
       showHideKeyboardButton:
           showHideKeyboardButton ?? this.showHideKeyboardButton,
+      showClipboardButton:
+          showClipboardButton ?? this.showClipboardButton,
       enabledLayouts: enabledLayouts ?? _enabledLayouts,
       enabledLocales: enabledLocales ?? this.enabledLocales,
       defaultLayout: defaultLayout ?? _defaultLayout,
