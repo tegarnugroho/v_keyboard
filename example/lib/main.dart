@@ -198,17 +198,21 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
   // Desktop tab controller
   final TextEditingController _desktopController = TextEditingController();
 
-  // Custom layout definition (Greek alphabet)
-  static final KeyboardLayout _greekLayout = KeyboardLayout(
-    id: 'greek',
+  // Custom layout definition (Math & Scientific symbols example)
+  static final KeyboardLayout _customLayout = KeyboardLayout(
+    id: 'math_custom',
     initialPage: 'main',
     pages: {
       'main': [
-        'αβγδεζηθ'.split('').map((c) => KeyData.char(c)).toList(),
-        'ικλμνξοπ'.split('').map((c) => KeyData.char(c)).toList(),
+        ['π', 'θ', 'λ', 'μ', 'σ', 'ω', 'Δ', 'Ω', '²', '³']
+            .map((c) => KeyData.char(c))
+            .toList(),
+        ['√', '∛', '±', '≠', '≈', '≤', '≥', '∞', '÷', '×']
+            .map((c) => KeyData.char(c))
+            .toList(),
         [
           KeyData.shift(flex: 1.5),
-          ...'ρστυφχψ'.split('').map((c) => KeyData.char(c)),
+          ...'+−=%/()'.split('').map((c) => KeyData.char(c)),
           KeyData.backspace(flex: 1.5),
         ],
         [
@@ -221,7 +225,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
         '1234567890'.split('').map((c) => KeyData.char(c)).toList(),
         '+-*/=()[]{}'.split('').map((c) => KeyData.char(c)).toList(),
         [
-          KeyData.switchTo('main', label: 'αβγ', flex: 2),
+          KeyData.switchTo('main', label: 'Math', flex: 2),
           KeyData.space(),
           KeyData.backspace(flex: 1.5),
         ],
@@ -302,7 +306,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
         break;
       case 2: // Custom Layouts
         _onSelectKeyboardType(VKeyboardType.custom);
-        _playgroundController.text = 'αβγδε';
+        _playgroundController.text = 'f(x) = π * r²';
         _playgroundFocusNode.requestFocus();
         break;
       case 3: // Desktop Support
@@ -918,7 +922,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
             focusNode: _playgroundFocusNode,
             keyboardType: _selectedType,
             customLayout:
-                _selectedType == VKeyboardType.custom ? _greekLayout : null,
+                _selectedType == VKeyboardType.custom ? _customLayout : null,
             autofocus: true,
             style: const TextStyle(fontSize: 15),
             decoration: InputDecoration(
@@ -1247,7 +1251,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
                           value: VKeyboardType.password,
                           child: Text('Password')),
                       DropdownMenuItem(
-                          value: VKeyboardType.custom, child: Text('Greek')),
+                          value: VKeyboardType.custom, child: Text('Custom')),
                       DropdownMenuItem(
                           value: VKeyboardType.desktop, child: Text('Desktop')),
                     ],
@@ -1380,7 +1384,7 @@ class _ShowcasePlaygroundPageState extends State<ShowcasePlaygroundPage> {
     // Resolve rows based on selected type/layout and active layout ID
     final layout = BuiltinLayouts.resolve(
       _selectedType,
-      custom: _selectedType == VKeyboardType.custom ? _greekLayout : null,
+      custom: _selectedType == VKeyboardType.custom ? _customLayout : null,
       layoutId: controller.currentLayoutId,
     );
     final page = (controller.currentPage.isNotEmpty &&
