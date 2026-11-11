@@ -37,6 +37,23 @@ class KeyboardMetrics {
   final DeviceFormFactor formFactor;
   final bool isLandscape;
 
+  KeyboardMetrics copyWith({
+    double? height,
+    double? maxWidth,
+    double? horizontalPadding,
+    double? rowSpacing,
+    DeviceFormFactor? formFactor,
+    bool? isLandscape,
+  }) =>
+      KeyboardMetrics(
+        height: height ?? this.height,
+        maxWidth: maxWidth ?? this.maxWidth,
+        horizontalPadding: horizontalPadding ?? this.horizontalPadding,
+        rowSpacing: rowSpacing ?? this.rowSpacing,
+        formFactor: formFactor ?? this.formFactor,
+        isLandscape: isLandscape ?? this.isLandscape,
+      );
+
   /// Computes metrics from [mq]. [rows] is the number of key rows in the
   /// current layout so key height stays sensible across layouts.
   ///
@@ -65,9 +82,9 @@ class KeyboardMetrics {
         minH = config?.minKeyboardHeight ?? 180;
         maxH = config?.maxKeyboardHeight ?? (isLandscape ? 320 : 380);
       case DeviceFormFactor.tablet:
-        fraction = config?.keyboardHeightFactor ?? (isLandscape ? 0.40 : 0.32);
-        minH = config?.minKeyboardHeight ?? 240;
-        maxH = config?.maxKeyboardHeight ?? (isLandscape ? 420 : 460);
+        fraction = config?.keyboardHeightFactor ?? (isLandscape ? 0.35 : 0.30);
+        minH = config?.minKeyboardHeight ?? 200;
+        maxH = config?.maxKeyboardHeight ?? (isLandscape ? 340 : 380);
       case DeviceFormFactor.desktop:
         fraction = config?.keyboardHeightFactor ?? (isLandscape ? 0.38 : 0.34);
         minH = config?.minKeyboardHeight ?? 220;
@@ -88,18 +105,22 @@ class KeyboardMetrics {
       final max = config?.maxKeyboardHeight ?? double.infinity;
       height = config!.keyboardHeight!.clamp(min, max);
     } else if (useUnifiedDesktopHeight) {
+      final isLargeDisplay = size.height >= 900;
+      final defaultMaxRatio =
+          isLargeDisplay ? 0.44 : (isLandscape ? 0.38 : 0.32);
       final baseline = desktopBaselineHeight(
         mq,
         hasBottomBar: true,
-        maxHeightRatio: config?.keyboardHeightFactor ?? 0.44,
+        maxHeightRatio: config?.keyboardHeightFactor ?? defaultMaxRatio,
         config: config,
       );
       if (rows <= 5) {
         height = baseline;
       } else {
         final extraRowScale = (rows / 5).clamp(1.0, 1.25);
+        final ratioCap = size.height * (isLargeDisplay ? 0.55 : 0.48);
         height = (baseline * extraRowScale)
-            .clamp(baseline, math.min(maxH, size.height * 0.55))
+            .clamp(baseline, math.min(maxH, ratioCap))
             .toDouble();
       }
     } else {
@@ -155,34 +176,45 @@ class KeyboardMetrics {
     }
     final width = mq.size.width;
     final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
+    final isLandscape = mq.size.width >= mq.size.height;
+    final isLargeDisplay = screenH >= 900;
+
     final hPadding = (width * 0.008).clamp(6.0, 16.0);
     final unitWidth = (width - hPadding * 2) / 15;
 
-    // On desktop screens (e.g. 24", 27", 32" monitors at 1080p, 1440p, or 4K),
+    // On large desktop monitors (e.g. 24", 27", 32" monitors at 1080p, 1440p, or 4K),
     // scale the ceiling dynamically with the screen height up to 92.0 so keys
     // have comfortable proportions rather than being squished into thin ribbons.
-    final maxRowCeiling = (screenH >= 900)
+    // On tablets (< 900p, e.g. 10.1" / 11" Android tablets & iPads), keep row
+    // height compact (up to 48.0 in landscape) so the keyboard occupies ~32%-36%
+    // of the screen instead of covering half the display.
+    final maxRowCeiling = isLargeDisplay
         ? math.min(92.0, screenH * 0.085)
-        : 64.0;
+        : (isLandscape ? 48.0 : 54.0);
     final rowHeight = config?.keyHeight ??
         (unitWidth * 0.85).clamp(32.0, maxRowCeiling);
     final vPadding = (rowHeight * 0.24).clamp(6.0, 14.0);
     final verticalOuterPadding = vPadding + (hasBottomBar ? 0.0 : vPadding);
-    final ratio = config?.keyboardHeightFactor ?? maxHeightRatio;
-    final cap = (screenH * ratio).clamp(190.0, screenH * 0.65);
+
+    final defaultRatio =
+        isLargeDisplay ? maxHeightRatio : (isLandscape ? 0.38 : 0.32);
+    final ratio = config?.keyboardHeightFactor ?? defaultRatio;
+    final cap = (screenH * ratio)
+        .clamp(180.0, screenH * (isLargeDisplay ? 0.65 : 0.44));
     final computed = 5 * rowHeight + verticalOuterPadding;
-    final minH = config?.minKeyboardHeight ?? 190.0;
+    final minH = config?.minKeyboardHeight ?? 180.0;
     final maxH = config?.maxKeyboardHeight ?? cap;
     return computed.clamp(minH, maxH).toDouble();
   }
 
   static DeviceFormFactor _formFactor(double shortestSide) {
-    if (_isDesktopPlatform) return DeviceFormFactor.desktop;
+    if (isDesktopPlatform) return DeviceFormFactor.desktop;
     if (shortestSide >= 600) return DeviceFormFactor.tablet;
     return DeviceFormFactor.phone;
   }
 
-  static bool get _isDesktopPlatform {
+  /// Whether the host operating system platform is a desktop OS (Windows, macOS, Linux).
+  static bool get isDesktopPlatform {
     if (kIsWeb) return false;
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:

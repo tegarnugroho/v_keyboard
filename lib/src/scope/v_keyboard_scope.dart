@@ -194,7 +194,10 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     );
   }
 
-  static const double _fullKeyboardHeightRatio = 0.44;
+  static double _defaultFullKeyboardHeightRatio(MediaQueryData mq) {
+    if (mq.size.height >= 900) return 0.44;
+    return mq.size.width >= mq.size.height ? 0.34 : 0.30;
+  }
 
   /// Height of a headerless, full-width [DesktopFullKeyboard] — mirrors its
   /// own sizing so the simulated viewInsets match what it paints.
@@ -207,6 +210,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     final width = mq.size.width;
     final hPadding = (width * 0.008).clamp(6.0, 16.0);
     final double height;
+    final defaultRatio = _defaultFullKeyboardHeightRatio(mq);
     if (config?.keyboardHeight != null) {
       height = config!.keyboardHeight!;
     } else if (!formFactor.hasFunctionRow) {
@@ -214,7 +218,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
         mq,
         hasBottomBar: hasBottomBar,
         maxHeightRatio:
-            config?.keyboardHeightFactor ?? _fullKeyboardHeightRatio,
+            config?.keyboardHeightFactor ?? defaultRatio,
         config: config,
       );
     } else {
@@ -222,13 +226,13 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
         mq,
         hasBottomBar: hasBottomBar,
         maxHeightRatio:
-            config?.keyboardHeightFactor ?? _fullKeyboardHeightRatio,
+            config?.keyboardHeightFactor ?? defaultRatio,
         config: config,
       );
       // F-row layouts have 6 rows (Fn row + 5 alpha rows). Scaling by (6 / 5)
       // preserves consistent row heights while accommodating the extra row.
       final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
-      final ratio = config?.keyboardHeightFactor ?? 0.55;
+      final ratio = config?.keyboardHeightFactor ?? (screenH >= 900 ? 0.55 : 0.42);
       final cap = (screenH * ratio).clamp(baseline, screenH * 0.65);
       final scaled = baseline * (6.0 / 5.0);
       final minH = config?.minKeyboardHeight ?? baseline;
@@ -296,13 +300,21 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
           type == VKeyboardType.decimal ||
           type == VKeyboardType.pin ||
           type == VKeyboardType.phone;
-      metrics = isClipboard
+      final resolvedMetrics = isClipboard
           ? KeyboardMetrics.resolve(mq,
               rows: 6, compact: false, config: effectiveConfig)
           : (rows != null
               ? KeyboardMetrics.resolve(mq,
                   rows: rows.length, compact: compact, config: effectiveConfig)
               : null);
+      if (resolvedMetrics != null && isClipboard) {
+        final minClipboardH = math.min(280.0, mq.size.height * 0.55);
+        metrics = resolvedMetrics.height < minClipboardH
+            ? resolvedMetrics.copyWith(height: minClipboardH)
+            : resolvedMetrics;
+      } else {
+        metrics = resolvedMetrics;
+      }
     }
     if (metrics != null) _lastHeight = metrics.height;
 
@@ -422,7 +434,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                         onDismiss: _controller.hide,
                                         maxKeyboardHeightRatio:
                                             effectiveConfig.keyboardHeightFactor ??
-                                                _fullKeyboardHeightRatio,
+                                                _defaultFullKeyboardHeightRatio(mq),
                                         maxWidth: effectiveConfig.maxKeyboardWidth,
                                         height: effectiveConfig.keyboardHeight,
                                         keyHeight: effectiveConfig.keyHeight,

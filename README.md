@@ -108,7 +108,7 @@ Or add it manually under dependencies:
 
 ```yaml
 dependencies:
-  flutter_v_keyboard: ^0.3.5
+  flutter_v_keyboard: ^0.3.6
 ```
 
 ---

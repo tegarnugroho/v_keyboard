@@ -27,6 +27,18 @@ void main() {
       expect(metrics1440.height, greaterThan(450.0));
     });
 
+    test('Default tablet scaling on 10-inch landscape tablet is compact and does not occupy half the screen', () {
+      // 1280x800 typical 10-inch Android tablet or iPad in landscape
+      const mqTablet = MediaQueryData(
+        size: Size(1280, 800),
+      );
+      final metrics = KeyboardMetrics.resolve(mqTablet, rows: 5);
+      // On tablet in landscape, keyboard height should be around 250px-290px
+      // (approx. 32%-36% of screen height) instead of covering 50% (400px).
+      expect(metrics.height, lessThan(300.0));
+      expect(metrics.height, greaterThan(220.0));
+    });
+
     test('Explicit VKeyboardConfig.keyboardHeight overrides dynamic calculations', () {
       const mq = MediaQueryData(size: Size(1920, 1080));
       const config = VKeyboardConfig(keyboardHeight: 460.0);

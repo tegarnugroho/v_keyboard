@@ -910,6 +910,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
         builder: (context, constraints) {
           final mq = MediaQuery.of(context);
           final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
+          final screenW = mq.size.width;
           final availW = constraints.maxWidth.isFinite
               ? constraints.maxWidth
               : mq.size.width;
@@ -978,12 +979,15 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               ? math.max(widget.bottomSafeArea, 36.0)
               : widget.bottomSafeArea;
 
+          final isLandscape = screenW >= screenH;
+          final isLargeDisplay = screenH >= 900;
+          final defaultRatio =
+              isLargeDisplay ? 0.44 : (isLandscape ? 0.38 : 0.32);
           final effectiveRatio = (widget.maxKeyboardHeightRatio != 0.38)
               ? widget.maxKeyboardHeightRatio
-              : (controller?.config.keyboardHeightFactor ??
-                  widget.maxKeyboardHeightRatio);
+              : (controller?.config.keyboardHeightFactor ?? defaultRatio);
           final ratioCap = (screenH * effectiveRatio)
-                  .clamp(190.0, screenH * 0.65) +
+                  .clamp(180.0, screenH * (isLargeDisplay ? 0.65 : 0.44)) +
               (widget.bottomSafeArea > 0 ? widget.bottomSafeArea : 0.0);
           final maxAllowedH = constraints.hasBoundedHeight
               ? math.min(constraints.maxHeight, ratioCap)
@@ -996,9 +1000,12 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
 
           // On large desktop monitors (e.g. 24", 27", 32" screens), dynamically
           // allow row heights up to 92.0 so keys remain comfortable for touch.
-          final maxRowCeiling = (screenH >= 900)
+          // On tablets (< 900p, e.g. 10.1" / 11" Android tablets & iPads), keep row
+          // height compact (up to 48.0 in landscape) so the keyboard occupies ~32%-36%
+          // of the screen instead of covering half the display.
+          final maxRowCeiling = isLargeDisplay
               ? math.min(92.0, screenH * 0.085)
-              : 64.0;
+              : (isLandscape ? 48.0 : 54.0);
           final preferredKeyH =
               widget.keyHeight ?? controller?.config.keyHeight;
           final idealRowHeight = preferredKeyH ??

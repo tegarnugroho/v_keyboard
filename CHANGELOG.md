@@ -1,3 +1,17 @@
+## 0.3.6
+
+- **Adaptive Tablet Landscape vs Large Desktop Scaling**:
+  - Differentiated viewport scaling between large desktop monitors ($\ge 900$px height, e.g. 24", 27", 32" POS / kiosk / desktop displays at 1080p, 1440p, 4K) and tablets / compact viewports ($< 900$px height, e.g. 10.1" / 11" Android tablets and iPads at 1280x800, 1024x768).
+  - In `KeyboardMetrics.desktopBaselineHeight`, `KeyboardMetrics.resolve`, and `DesktopFullKeyboard`: tuned row height ceiling in tablet landscape to `48.0px` (`maxRowCeiling`) and height factor to `~0.33`–`0.36`, preventing the keyboard from expanding to 50%+ of the screen and obscuring input forms/dialogs on tablet devices.
+  - Retained comfortable, spacious proportions on 27" monitors and large desktop screens (~400px–480px, ~40%–44% of viewport).
+- **Clipboard History Panel & Scope Sizing Safety**:
+  - Added an adaptive minimum height floor (`math.min(280.0, mq.size.height * 0.55)`) for `ClipboardHistoryPanel` in `VKeyboardScope` to ensure header, search bar, filter chips, item cards, and bottom navigation bar remain fully visible and unobstructed on all display sizes.
+  - Added `copyWith` convenience method on `KeyboardMetrics`.
+- **Example App Polish**:
+  - Added smooth animated sidebar expand and collapse transitions (`AnimatedContainer` with 240ms `Curves.easeInOutCubic`).
+  - Added Dark Mode toggle button directly to the top window header when the sidebar is collapsed.
+  - Pinned form factor, OS, and language selector chips in the Desktop Keyboard tab above the scrollable area to prevent header clipping.
+
 ## 0.3.5
 
 - **Large & High-Resolution Display Scaling (24", 27", 32" POS / Kiosk / Desktop Monitors)**:
