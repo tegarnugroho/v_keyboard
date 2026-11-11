@@ -1,3 +1,10 @@
+## 0.3.7
+
+- **MacBook & Laptop Viewport Sizing Fix (`KeyboardMetrics.isLargeDesktopDisplay`)**:
+  - Updated large-display detection in `KeyboardMetrics.isLargeDesktopDisplay` to require `width >= 1800 && height >= 960` (24"+ Full HD, 27" 2K/QHD, Ultrawide, and 4K monitors) instead of checking `height >= 900` alone, preventing MacBook Air / MacBook Pro screens (e.g. `1470x956`, `1440x900`, `1512x982`, `1710x1107`) from entering large-monitor scaling and covering ~46% of the display.
+  - Added smooth landscape row-ceiling scaling (`(screenH * 0.056).clamp(46.0, 62.0)`) in `KeyboardMetrics.desktopMaxRowCeiling` and `KeyboardMetrics.defaultFullKeyboardHeightRatio`, keeping MacBook & tablet keyboards compact (~32%–35% of screen height) while preserving comfortable sizing on 27" 2K (`~510px` total, ~35.4%) and 1080p monitors.
+  - Consolidated `DesktopFullKeyboard` and `VKeyboardScope` onto the shared `KeyboardMetrics` sizing helpers so scope `viewInsets`, `DesktopFullKeyboard`, `KeyboardView`, and F-row ratio caps stay consistent.
+
 ## 0.3.6
 
 - **Adaptive Tablet Landscape vs Large Desktop Scaling**:

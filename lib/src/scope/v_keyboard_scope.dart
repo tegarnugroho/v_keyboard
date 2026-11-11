@@ -174,9 +174,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     double contentWidth, {
     VKeyboardConfig? config,
   }) {
-    final maxRowCeiling = (mq.size.height >= 900)
-        ? math.min(92.0, mq.size.height * 0.085)
-        : 64.0;
+    final maxRowCeiling = KeyboardMetrics.desktopMaxRowCeiling(mq.size);
     final rowHeight = config?.keyHeight ??
         (contentWidth / 24).clamp(34.0, maxRowCeiling);
     const rowSpacing = 6.0;
@@ -194,11 +192,6 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     );
   }
 
-  static double _defaultFullKeyboardHeightRatio(MediaQueryData mq) {
-    if (mq.size.height >= 900) return 0.44;
-    return mq.size.width >= mq.size.height ? 0.34 : 0.30;
-  }
-
   /// Height of a headerless, full-width [DesktopFullKeyboard] — mirrors its
   /// own sizing so the simulated viewInsets match what it paints.
   KeyboardMetrics _fullKeyboardMetrics(
@@ -210,7 +203,7 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
     final width = mq.size.width;
     final hPadding = (width * 0.008).clamp(6.0, 16.0);
     final double height;
-    final defaultRatio = _defaultFullKeyboardHeightRatio(mq);
+    final defaultRatio = KeyboardMetrics.defaultFullKeyboardHeightRatio(mq.size);
     if (config?.keyboardHeight != null) {
       height = config!.keyboardHeight!;
     } else if (!formFactor.hasFunctionRow) {
@@ -232,7 +225,11 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
       // F-row layouts have 6 rows (Fn row + 5 alpha rows). Scaling by (6 / 5)
       // preserves consistent row heights while accommodating the extra row.
       final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
-      final ratio = config?.keyboardHeightFactor ?? (screenH >= 900 ? 0.55 : 0.42);
+      final ratio = config?.keyboardHeightFactor ??
+          KeyboardMetrics.defaultFullKeyboardHeightRatio(
+            mq.size,
+            hasFunctionRow: true,
+          );
       final cap = (screenH * ratio).clamp(baseline, screenH * 0.65);
       final scaled = baseline * (6.0 / 5.0);
       final minH = config?.minKeyboardHeight ?? baseline;
@@ -434,7 +431,13 @@ class _VKeyboardScopeState extends State<VKeyboardScope>
                                         onDismiss: _controller.hide,
                                         maxKeyboardHeightRatio:
                                             effectiveConfig.keyboardHeightFactor ??
-                                                _defaultFullKeyboardHeightRatio(mq),
+                                                KeyboardMetrics
+                                                    .defaultFullKeyboardHeightRatio(
+                                                  mq.size,
+                                                  hasFunctionRow: effectiveConfig
+                                                      .desktopFormFactor!
+                                                      .hasFunctionRow,
+                                                ),
                                         maxWidth: effectiveConfig.maxKeyboardWidth,
                                         height: effectiveConfig.keyboardHeight,
                                         keyHeight: effectiveConfig.keyHeight,

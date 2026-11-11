@@ -33,10 +33,26 @@ void main() {
         size: Size(1280, 800),
       );
       final metrics = KeyboardMetrics.resolve(mqTablet, rows: 5);
-      // On tablet in landscape, keyboard height should be around 250px-290px
-      // (approx. 32%-36% of screen height) instead of covering 50% (400px).
+      // On tablet in landscape, keyboard height should be around 240px-290px
+      // (approx. 30%-36% of screen height) instead of covering 50% (400px).
       expect(metrics.height, lessThan(300.0));
       expect(metrics.height, greaterThan(220.0));
+    });
+
+    test('MacBook / laptop displays (e.g. 1470x956 MacBook Air) stay compact (~33% total height) instead of taking half the screen', () {
+      for (final size in const [
+        Size(1440, 900),
+        Size(1470, 923),
+        Size(1470, 956),
+        Size(1512, 982),
+        Size(1710, 1107),
+      ]) {
+        final mq = MediaQueryData(size: size);
+        final metrics = KeyboardMetrics.resolve(mq, rows: 5);
+        expect(metrics.height, lessThan(size.height * 0.35),
+            reason: '5-row height at $size should stay compact');
+        expect(metrics.height, greaterThan(240.0));
+      }
     });
 
     test('Explicit VKeyboardConfig.keyboardHeight overrides dynamic calculations', () {
@@ -165,6 +181,76 @@ void main() {
       expect(kbView.metrics.maxWidth, 560.0);
       expect(kbView.metrics.height, closeTo(480.0, 1.0));
 
+      numCtrl.dispose();
+    });
+
+    testWidgets('VKeyboardScope on 1470x956 MacBook Air keeps DesktopFullKeyboard compact (~33% height) while 2560x1440 remains spacious', (tester) async {
+      tester.view.physicalSize = const Size(1470, 956);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final deskCtrl = TextEditingController();
+      final numCtrl = TextEditingController();
+
+      Future<void> pumpForViewport() async {
+        await tester.pumpWidget(
+          MaterialApp(
+            builder: (context, child) => VKeyboardScope(
+              config: const VKeyboardConfig(
+                desktopFormFactor: KeyboardLayoutType.layout60,
+                persistLayoutSelection: false,
+                enableClipboardHistory: false,
+                syncSystemClipboard: false,
+              ),
+              child: child!,
+            ),
+            home: Scaffold(
+              body: Column(
+                children: [
+                  VTextField(
+                    key: const ValueKey('mac_desk'),
+                    controller: deskCtrl,
+                    keyboardType: VKeyboardType.desktop,
+                  ),
+                  VTextField(
+                    key: const ValueKey('mac_num'),
+                    controller: numCtrl,
+                    keyboardType: VKeyboardType.number,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+
+      await pumpForViewport();
+      await tester.tap(find.byKey(const ValueKey('mac_desk')));
+      await tester.pumpAndSettle();
+
+      final macKb =
+          tester.renderObject<RenderBox>(find.byType(DesktopFullKeyboard));
+      // Previously ~442px (46.2% of 956px); now ~316px (~33.1% including 36px bottom bar).
+      expect(macKb.size.height, lessThan(340.0));
+      expect(macKb.size.height, greaterThan(290.0));
+
+      await tester.tap(find.byKey(const ValueKey('mac_num')));
+      await tester.pumpAndSettle();
+      final macNum = tester.renderObject<RenderBox>(find.byType(KeyboardView));
+      expect(macNum.size.height, closeTo(macKb.size.height, 0.5));
+
+      // Verify 27-inch 2K (2560x1440) remains unchanged and comfortable (~510px total = 35.4%).
+      tester.view.physicalSize = const Size(2560, 1440);
+      await pumpForViewport();
+      await tester.tap(find.byKey(const ValueKey('mac_desk')));
+      await tester.pumpAndSettle();
+
+      final qhdKb =
+          tester.renderObject<RenderBox>(find.byType(DesktopFullKeyboard));
+      expect(qhdKb.size.height, greaterThan(490.0));
+      expect(qhdKb.size.height, lessThan(530.0));
+
+      deskCtrl.dispose();
       numCtrl.dispose();
     });
   });

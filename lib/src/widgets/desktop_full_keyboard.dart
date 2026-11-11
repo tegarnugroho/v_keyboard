@@ -8,6 +8,7 @@ import '../layouts/v_keyboard_layouts.dart';
 import '../models/desktop_key_model.dart';
 import '../models/key_data.dart';
 import '../models/key_intents.dart';
+import '../responsive/keyboard_metrics.dart';
 import '../scope/v_keyboard_scope.dart';
 import '../theme/v_keyboard_theme.dart';
 import 'candidate_bar.dart';
@@ -910,7 +911,6 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
         builder: (context, constraints) {
           final mq = MediaQuery.of(context);
           final screenH = mq.size.height > 0 ? mq.size.height : 900.0;
-          final screenW = mq.size.width;
           final availW = constraints.maxWidth.isFinite
               ? constraints.maxWidth
               : mq.size.width;
@@ -979,10 +979,11 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
               ? math.max(widget.bottomSafeArea, 36.0)
               : widget.bottomSafeArea;
 
-          final isLandscape = screenW >= screenH;
-          final isLargeDisplay = screenH >= 900;
-          final defaultRatio =
-              isLargeDisplay ? 0.44 : (isLandscape ? 0.38 : 0.32);
+          final isLargeDisplay = KeyboardMetrics.isLargeDesktopDisplay(mq.size);
+          final defaultRatio = KeyboardMetrics.defaultFullKeyboardHeightRatio(
+            mq.size,
+            hasFunctionRow: includeFnRow,
+          );
           final effectiveRatio = (widget.maxKeyboardHeightRatio != 0.38)
               ? widget.maxKeyboardHeightRatio
               : (controller?.config.keyboardHeightFactor ?? defaultRatio);
@@ -998,14 +999,7 @@ class _DesktopFullKeyboardState extends State<DesktopFullKeyboard> {
           final idealUnitWidth =
               (effectiveGridWidth - hPadding * 2) / heightUnits;
 
-          // On large desktop monitors (e.g. 24", 27", 32" screens), dynamically
-          // allow row heights up to 92.0 so keys remain comfortable for touch.
-          // On tablets (< 900p, e.g. 10.1" / 11" Android tablets & iPads), keep row
-          // height compact (up to 48.0 in landscape) so the keyboard occupies ~32%-36%
-          // of the screen instead of covering half the display.
-          final maxRowCeiling = isLargeDisplay
-              ? math.min(92.0, screenH * 0.085)
-              : (isLandscape ? 48.0 : 54.0);
+          final maxRowCeiling = KeyboardMetrics.desktopMaxRowCeiling(mq.size);
           final preferredKeyH =
               widget.keyHeight ?? controller?.config.keyHeight;
           final idealRowHeight = preferredKeyH ??
